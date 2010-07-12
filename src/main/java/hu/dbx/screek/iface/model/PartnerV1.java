@@ -1,6 +1,8 @@
 package hu.dbx.screek.iface.model;
 
 import hu.dbx.screek.model.Address;
+import hu.dbx.screek.model.TypeOfClosingBM;
+import hu.dbx.screek.model.TypeOfInitialBM;
 
 import java.util.Date;
 
@@ -10,7 +12,8 @@ public class PartnerV1 {
 	private String genderCode;
 	private Address address;
 	private Integer drivingLicenseSince;
-	private String closingBonusMalus;
+	private TypeOfClosingBM closingBonusMalus;
+	private TypeOfInitialBM initialBonusMalus;
 	
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
@@ -44,12 +47,20 @@ public class PartnerV1 {
 		this.drivingLicenseSince = drivingLicenseSince;
 	}
 	
-	public void setClosingBonusMalus(String closingBonusMalus) {
+	public void setClosingBonusMalus(TypeOfClosingBM closingBonusMalus) {
 		this.closingBonusMalus = closingBonusMalus;
 	}
 	
-	public String getClosingBonusMalus() {
+	public TypeOfClosingBM getClosingBonusMalus() {
 		return closingBonusMalus;
+	}
+
+	public void setInitialBonusMalus(TypeOfInitialBM initialBonusMalus) {
+		this.initialBonusMalus = initialBonusMalus;
+	}
+
+	public TypeOfInitialBM getInitialBonusMalus() {
+		return initialBonusMalus;
 	}
 	
 }

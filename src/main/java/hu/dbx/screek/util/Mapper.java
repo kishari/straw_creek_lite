@@ -14,6 +14,7 @@ public class Mapper {
 		
 		q.setStartDate(tariffQuoteV1.getStartDate());
 		q.setStartYear(tariffQuoteV1.getStartYear());
+		q.setInsuranceDuration(tariffQuoteV1.getDuration());
 		
 		q.setPartner(mapIn(tariffQuoteV1.getPartner()));
 		q.setVehicle(mapIn(tariffQuoteV1.getVehicle()));
@@ -29,6 +30,7 @@ public class Mapper {
 		p.setDrivingLicenseSince(partnerV1.getDrivingLicenseSince());
 		p.setGenderCode(partnerV1.getGenderCode());
 		p.setClosingBonusMalus(partnerV1.getClosingBonusMalus());
+		p.setInitialBonusMalus(partnerV1.getInitialBonusMalus());
 		
 		return p;
 	}
@@ -37,7 +39,7 @@ public class Mapper {
 		Vehicle v = new Vehicle();
 	
 		v.setCubicCapacity(vehicleV1.getCubicCapacity());
-		v.setDateOfPurchaseOrOperation(vehicleV1.getDateOfPurchaseOrOperation());
+		v.setDateOfPurchase(vehicleV1.getDateOfPurchase());
 		v.setFirstPutIntoTraffic(vehicleV1.getFirstPutIntoTraffic());
 		v.setMakeCode(vehicleV1.getMakeCode());
 		v.setMaximumAllowedWeigth(vehicleV1.getMaximumAllowedWeigth());
@@ -59,6 +61,7 @@ public class Mapper {
 		
 		q.setStartDate(quote.getStartDate());
 		q.setStartYear(quote.getStartYear());
+		q.setDuration(quote.getInsuranceDuration());
 		
 		q.setPartner(mapOut(quote.getPartner()));
 		q.setVehicle(mapOut(quote.getVehicle()));
@@ -75,6 +78,7 @@ public class Mapper {
 		p.setDrivingLicenseSince(partner.getDrivingLicenseSince());
 		p.setGenderCode(partner.getGenderCode());
 		p.setClosingBonusMalus(partner.getClosingBonusMalus());
+		p.setInitialBonusMalus(partner.getInitialBonusMalus());
 		
 		return p;
 	}
@@ -83,7 +87,7 @@ public class Mapper {
 		VehicleV1 v = new VehicleV1();
 		
 		v.setCubicCapacity(vehicle.getCubicCapacity());
-		v.setDateOfPurchaseOrOperation(vehicle.getDateOfPurchaseOrOperation());
+		v.setDateOfPurchase(vehicle.getDateOfPurchase());
 		v.setFirstPutIntoTraffic(vehicle.getFirstPutIntoTraffic());
 		v.setMakeCode(vehicle.getMakeCode());
 		v.setMaximumAllowedWeigth(vehicle.getMaximumAllowedWeigth());

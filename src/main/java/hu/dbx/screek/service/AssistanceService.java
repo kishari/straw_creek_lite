@@ -33,11 +33,11 @@ public class AssistanceService implements ApplicationContextAware {
 	private ApplicationContext applicationContext = null;
 
 	@WebMethod
-	public TariffQuoteV1 tariff(@WebParam(name="quote")TariffQuoteV1 quote) {
+	public TariffQuoteV1 tariff(@WebParam(name="insurance")TariffQuoteV1 insurance) {
 		logger.info("tariff started.");
 		try {
 			Context context = new Context("tariff", "1");
-			Quote q = Mapper.mapIn(quote);
+			Quote q = Mapper.mapIn(insurance);
 //			q = getDroolsHelper().compute(q, context);
 			TariffQuoteV1 resp = Mapper.mapOut(q);
 			logger.info("tariff finished.");

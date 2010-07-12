@@ -28,7 +28,7 @@ public class VehicleV1 {
 	private Date firstPutIntoTraffic;
 	
 	//Tulajdonszerzés dátuma
-	private Date dateOfPurchaseOrOperation;
+	private Date dateOfPurchase;
 	
 	//Üzemeltetés jellege
 	private String useOfVehicleCode;
@@ -97,12 +97,12 @@ public class VehicleV1 {
 		this.firstPutIntoTraffic = firstPutIntoTraffic;
 	}
 
-	public Date getDateOfPurchaseOrOperation() {
-		return dateOfPurchaseOrOperation;
+	public Date getDateOfPurchase() {
+		return dateOfPurchase;
 	}
 
-	public void setDateOfPurchaseOrOperation(Date dateOfPurchaseOrOperation) {
-		this.dateOfPurchaseOrOperation = dateOfPurchaseOrOperation;
+	public void setDateOfPurchase(Date dateOfPurchase) {
+		this.dateOfPurchase = dateOfPurchase;
 	}
 
 	public String getUseOfVehicleCode() {

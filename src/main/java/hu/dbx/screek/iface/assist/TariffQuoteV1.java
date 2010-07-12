@@ -1,6 +1,7 @@
 package hu.dbx.screek.iface.assist;
 
 import hu.dbx.screek.iface.model.*;
+import hu.dbx.screek.model.TypeOfDuration;
 
 import java.util.Date;
 
@@ -8,6 +9,7 @@ public class TariffQuoteV1 {
 	
 	private Integer startYear;
 	private Date startDate;
+	private TypeOfDuration insuranceDuration;
 	private PartnerV1 partner;
 	private VehicleV1 vehicle;
 	
@@ -42,6 +44,14 @@ public class TariffQuoteV1 {
 	
 	public void setVehicle(VehicleV1 vehicle) {
 		this.vehicle = vehicle;
+	}
+
+	public void setDuration(TypeOfDuration duration) {
+		this.insuranceDuration = duration;
+	}
+
+	public TypeOfDuration getDuration() {
+		return insuranceDuration;
 	}
 
 }

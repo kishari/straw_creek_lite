@@ -4,9 +4,10 @@ import java.util.Date;
 
 public class Quote {
 
-	private Partner partner;
 	private Integer startYear;
 	private Date startDate;
+	private TypeOfDuration insuranceDuration;
+	private Partner partner;
 	private Vehicle vehicle;
 
 	public void setPartner(Partner partner) {
@@ -39,6 +40,14 @@ public class Quote {
 
 	public void setVehicle(Vehicle vehicle) {
 		this.vehicle = vehicle;
+	}
+
+	public TypeOfDuration getInsuranceDuration() {
+		return insuranceDuration;
+	}
+
+	public void setInsuranceDuration(TypeOfDuration insuranceDuration) {
+		this.insuranceDuration = insuranceDuration;
 	}
 	
 	

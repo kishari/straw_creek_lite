@@ -12,7 +12,7 @@ public class Vehicle {
 	private Double maximumAllowedWeigth;
 	private Double maximumNettoPower;
 	private Date firstPutIntoTraffic;
-	private Date dateOfPurchaseOrOperation;
+	private Date dateOfPurchase;
 	private String useOfVehicleCode;
 
 	public String getTypeCode() {
@@ -79,12 +79,12 @@ public class Vehicle {
 		this.firstPutIntoTraffic = firstPutIntoTraffic;
 	}
 
-	public Date getDateOfPurchaseOrOperation() {
-		return dateOfPurchaseOrOperation;
+	public Date getDateOfPurchase() {
+		return dateOfPurchase;
 	}
 
-	public void setDateOfPurchaseOrOperation(Date dateOfPurchaseOrOperation) {
-		this.dateOfPurchaseOrOperation = dateOfPurchaseOrOperation;
+	public void setDateOfPurchase(Date dateOfPurchase) {
+		this.dateOfPurchase = dateOfPurchase;
 	}
 
 	public String getUseOfVehicleCode() {

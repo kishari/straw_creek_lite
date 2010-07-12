@@ -9,7 +9,8 @@ public class Partner {
 	private String genderCode;
 	private Address address;
 	private Integer drivingLicenseSince;
-	private String closingBonusMalus;
+	private TypeOfClosingBM closingBonusMalus;
+	private TypeOfInitialBM initialBonusMalus;
 
 	public void setQuote(Quote quote) {
 		this.quote = quote;
@@ -51,12 +52,20 @@ public class Partner {
 		this.drivingLicenseSince = drivingLicenseSince;
 	}
 
-	public void setClosingBonusMalus(String closingBonusMalus) {
+	public void setClosingBonusMalus(TypeOfClosingBM closingBonusMalus) {
 		this.closingBonusMalus = closingBonusMalus;
 	}
 
-	public String getClosingBonusMalus() {
+	public TypeOfClosingBM getClosingBonusMalus() {
 		return closingBonusMalus;
+	}
+
+	public void setInitialBonusMalus(TypeOfInitialBM initialBonusMalus) {
+		this.initialBonusMalus = initialBonusMalus;
+	}
+
+	public TypeOfInitialBM getInitialBonusMalus() {
+		return initialBonusMalus;
 	}
 	
 
