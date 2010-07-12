@@ -1,0 +1,7 @@
+*.log
+.classpath
+.project
+*.class
+.settings/**
+bin/**
+web/WEB-INF/classes/log4j.properties
