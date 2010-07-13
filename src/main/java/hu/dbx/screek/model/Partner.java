@@ -11,6 +11,7 @@ public class Partner {
 	private Integer drivingLicenseSince;
 	private TypeOfFinalBonusMalus finalBM;
 	private TypeOfInitialBonusMalus initialBM;
+	private Integer age;
 
 	public void setQuote(Quote quote) {
 		this.quote = quote;
@@ -66,6 +67,14 @@ public class Partner {
 
 	public void setInitialBM(TypeOfInitialBonusMalus initialBM) {
 		this.initialBM = initialBM;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Integer getAge() {
+		return age;
 	}
 
 }

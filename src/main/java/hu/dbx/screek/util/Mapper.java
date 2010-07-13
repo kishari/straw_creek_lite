@@ -15,12 +15,15 @@ public class Mapper {
 		q.setStartDate(tariffQuoteV1.getStartDate());
 		q.setStartYear(tariffQuoteV1.getStartYear());
 		q.setInsuranceDuration(tariffQuoteV1.getDuration());
+		
 		q.setTakeOutWithCasco(tariffQuoteV1.isTakeOutWithCasco());
 		q.setChildPreference(tariffQuoteV1.isChildPreference());
 		q.setMkbPartner(tariffQuoteV1.isMkbPartner());
-		q.setEmailGranted(tariffQuoteV1.isEmailGranted());
 		q.setOnline(tariffQuoteV1.isOnline());
+		q.setEmailGranted(tariffQuoteV1.isEmailGranted());
 		q.setExtraDamageExemption(tariffQuoteV1.isExtraDamageExemption());
+		q.setGroupedCollection(tariffQuoteV1.isGroupedCollection());
+		
 		q.setPaymentFrequencyCode(tariffQuoteV1.getPaymentFrequencyCode());
 		
 		q.setPartner(mapIn(tariffQuoteV1.getPartner()));
@@ -69,12 +72,15 @@ public class Mapper {
 		q.setStartDate(quote.getStartDate());
 		q.setStartYear(quote.getStartYear());
 		q.setDuration(quote.getInsuranceDuration());
+		
 		q.setTakeOutWithCasco(quote.isTakeOutWithCasco());
 		q.setChildPreference(quote.isChildPreference());
 		q.setMkbPartner(quote.isMkbPartner());
-		q.setEmailGranted(quote.isEmailGranted());
 		q.setOnline(quote.isOnline());
+		q.setEmailGranted(quote.isEmailGranted());
 		q.setExtraDamageExemption(quote.isExtraDamageExemption());
+		q.setGroupedCollection(quote.isGroupedCollection());
+		
 		q.setPaymentFrequencyCode(quote.getPaymentFrequencyCode());
 
 		

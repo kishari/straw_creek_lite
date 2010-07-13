@@ -9,14 +9,15 @@ public class Quote {
 	private TypeOfDuration insuranceDuration;
 	private Partner partner;
 	private Vehicle vehicle;
-	private String paymentFrequencyCode;
-	private boolean extraDamageExemption;
+	private TypeOfPaymentFrequency paymentFrequencyCode;
 	
 	private boolean takeOutWithCasco;
 	private boolean childPreference;
 	private boolean mkbPartner;
 	private boolean online;
 	private boolean emailGranted;
+	private boolean extraDamageExemption;
+	private boolean groupedCollection;
 
 	public void setPartner(Partner partner) {
 		this.partner = partner;
@@ -98,11 +99,11 @@ public class Quote {
 		this.emailGranted = emailGranted;
 	}
 
-	public String getPaymentFrequencyCode() {
+	public TypeOfPaymentFrequency getPaymentFrequencyCode() {
 		return paymentFrequencyCode;
 	}
 
-	public void setPaymentFrequencyCode(String paymentFrequencyCode) {
+	public void setPaymentFrequencyCode(TypeOfPaymentFrequency paymentFrequencyCode) {
 		this.paymentFrequencyCode = paymentFrequencyCode;
 	}
 
@@ -112,6 +113,14 @@ public class Quote {
 
 	public void setExtraDamageExemption(boolean extraDamageExemption) {
 		this.extraDamageExemption = extraDamageExemption;
+	}
+
+	public void setGroupedCollection(boolean groupedCollection) {
+		this.groupedCollection = groupedCollection;
+	}
+
+	public boolean isGroupedCollection() {
+		return groupedCollection;
 	}
 	
 	

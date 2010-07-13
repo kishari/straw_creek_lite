@@ -14,6 +14,7 @@ public class Vehicle {
 	private Date firstPutIntoTraffic;
 	private Date dateOfPurchase;
 	private String useOfVehicleCode;
+	private Integer age;
 
 	public String getTypeCode() {
 		return typeCode;
@@ -93,6 +94,14 @@ public class Vehicle {
 
 	public void setUseOfVehicleCode(String useOfVehicleCode) {
 		this.useOfVehicleCode = useOfVehicleCode;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Integer getAge() {
+		return age;
 	}
 
 }

@@ -2,6 +2,7 @@ package hu.dbx.screek.iface.assist;
 
 import hu.dbx.screek.iface.model.*;
 import hu.dbx.screek.model.TypeOfDuration;
+import hu.dbx.screek.model.TypeOfPaymentFrequency;
 
 import java.util.Date;
 
@@ -12,8 +13,7 @@ public class TariffQuoteV1 {
 	private TypeOfDuration insuranceDuration;
 	private PartnerV1 partner;
 	private VehicleV1 vehicle;
-	private String paymentFrequencyCode;
-	private boolean extraDamageExemption;
+	private TypeOfPaymentFrequency paymentFrequencyCode;
 	
 	//módosító paraméterek
 	private boolean takeOutWithCasco;
@@ -21,6 +21,8 @@ public class TariffQuoteV1 {
 	private boolean mkbPartner;
 	private boolean online;
 	private boolean emailGranted;
+	private boolean extraDamageExemption;
+	private boolean groupedCollection;
 	
 	
 	public Integer getStartYear() {
@@ -111,11 +113,11 @@ public class TariffQuoteV1 {
 		this.emailGranted = emailGranted;
 	}
 
-	public String getPaymentFrequencyCode() {
+	public TypeOfPaymentFrequency getPaymentFrequencyCode() {
 		return paymentFrequencyCode;
 	}
 
-	public void setPaymentFrequencyCode(String paymentFrequencyCode) {
+	public void setPaymentFrequencyCode(TypeOfPaymentFrequency paymentFrequencyCode) {
 		this.paymentFrequencyCode = paymentFrequencyCode;
 	}
 
@@ -125,6 +127,14 @@ public class TariffQuoteV1 {
 
 	public void setExtraDamageExemption(boolean extraDamageExemption) {
 		this.extraDamageExemption = extraDamageExemption;
+	}
+
+	public void setGroupedCollection(boolean groupedCollection) {
+		this.groupedCollection = groupedCollection;
+	}
+
+	public boolean isGroupedCollection() {
+		return groupedCollection;
 	}
 
 	
