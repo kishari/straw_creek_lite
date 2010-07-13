@@ -15,6 +15,13 @@ public class Mapper {
 		q.setStartDate(tariffQuoteV1.getStartDate());
 		q.setStartYear(tariffQuoteV1.getStartYear());
 		q.setInsuranceDuration(tariffQuoteV1.getDuration());
+		q.setTakeOutWithCasco(tariffQuoteV1.isTakeOutWithCasco());
+		q.setChildPreference(tariffQuoteV1.isChildPreference());
+		q.setMkbPartner(tariffQuoteV1.isMkbPartner());
+		q.setEmailGranted(tariffQuoteV1.isEmailGranted());
+		q.setOnline(tariffQuoteV1.isOnline());
+		q.setExtraDamageExemption(tariffQuoteV1.isExtraDamageExemption());
+		q.setPaymentFrequencyCode(tariffQuoteV1.getPaymentFrequencyCode());
 		
 		q.setPartner(mapIn(tariffQuoteV1.getPartner()));
 		q.setVehicle(mapIn(tariffQuoteV1.getVehicle()));
@@ -29,8 +36,8 @@ public class Mapper {
 		p.setAddress(partnerV1.getAddress());
 		p.setDrivingLicenseSince(partnerV1.getDrivingLicenseSince());
 		p.setGenderCode(partnerV1.getGenderCode());
-		p.setClosingBonusMalus(partnerV1.getClosingBonusMalus());
-		p.setInitialBonusMalus(partnerV1.getInitialBonusMalus());
+		p.setFinalBM(partnerV1.getFinalBM());
+		p.setInitialBM(partnerV1.getInitialBM());
 		
 		return p;
 	}
@@ -62,6 +69,14 @@ public class Mapper {
 		q.setStartDate(quote.getStartDate());
 		q.setStartYear(quote.getStartYear());
 		q.setDuration(quote.getInsuranceDuration());
+		q.setTakeOutWithCasco(quote.isTakeOutWithCasco());
+		q.setChildPreference(quote.isChildPreference());
+		q.setMkbPartner(quote.isMkbPartner());
+		q.setEmailGranted(quote.isEmailGranted());
+		q.setOnline(quote.isOnline());
+		q.setExtraDamageExemption(quote.isExtraDamageExemption());
+		q.setPaymentFrequencyCode(quote.getPaymentFrequencyCode());
+
 		
 		q.setPartner(mapOut(quote.getPartner()));
 		q.setVehicle(mapOut(quote.getVehicle()));
@@ -77,8 +92,8 @@ public class Mapper {
 		p.setAddress(partner.getAddress());
 		p.setDrivingLicenseSince(partner.getDrivingLicenseSince());
 		p.setGenderCode(partner.getGenderCode());
-		p.setClosingBonusMalus(partner.getClosingBonusMalus());
-		p.setInitialBonusMalus(partner.getInitialBonusMalus());
+		p.setFinalBM(partner.getFinalBM());
+		p.setInitialBM(partner.getInitialBM());
 		
 		return p;
 	}

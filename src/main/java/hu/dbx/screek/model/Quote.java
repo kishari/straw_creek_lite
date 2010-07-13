@@ -9,6 +9,14 @@ public class Quote {
 	private TypeOfDuration insuranceDuration;
 	private Partner partner;
 	private Vehicle vehicle;
+	private String paymentFrequencyCode;
+	private boolean extraDamageExemption;
+	
+	private boolean takeOutWithCasco;
+	private boolean childPreference;
+	private boolean mkbPartner;
+	private boolean online;
+	private boolean emailGranted;
 
 	public void setPartner(Partner partner) {
 		this.partner = partner;
@@ -49,6 +57,63 @@ public class Quote {
 	public void setInsuranceDuration(TypeOfDuration insuranceDuration) {
 		this.insuranceDuration = insuranceDuration;
 	}
+
+	public boolean isTakeOutWithCasco() {
+		return takeOutWithCasco;
+	}
+
+	public void setTakeOutWithCasco(boolean takeOutWithCasco) {
+		this.takeOutWithCasco = takeOutWithCasco;
+	}
+
+	public boolean isChildPreference() {
+		return childPreference;
+	}
+
+	public void setChildPreference(boolean childPreference) {
+		this.childPreference = childPreference;
+	}
+
+	public boolean isMkbPartner() {
+		return mkbPartner;
+	}
+
+	public void setMkbPartner(boolean mkbPartner) {
+		this.mkbPartner = mkbPartner;
+	}
+
+	public boolean isOnline() {
+		return online;
+	}
+
+	public void setOnline(boolean online) {
+		this.online = online;
+	}
+
+	public boolean isEmailGranted() {
+		return emailGranted;
+	}
+
+	public void setEmailGranted(boolean emailGranted) {
+		this.emailGranted = emailGranted;
+	}
+
+	public String getPaymentFrequencyCode() {
+		return paymentFrequencyCode;
+	}
+
+	public void setPaymentFrequencyCode(String paymentFrequencyCode) {
+		this.paymentFrequencyCode = paymentFrequencyCode;
+	}
+
+	public boolean isExtraDamageExemption() {
+		return extraDamageExemption;
+	}
+
+	public void setExtraDamageExemption(boolean extraDamageExemption) {
+		this.extraDamageExemption = extraDamageExemption;
+	}
+	
 	
 	
 }

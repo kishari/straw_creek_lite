@@ -33,7 +33,7 @@ public class AssistanceService implements ApplicationContextAware {
 	private ApplicationContext applicationContext = null;
 
 	@WebMethod
-	public TariffQuoteV1 tariff(@WebParam(name="insurance")TariffQuoteV1 insurance) {
+	public TariffQuoteV1 tariff(@WebParam(name="quote")TariffQuoteV1 insurance) {
 		logger.info("tariff started.");
 		try {
 			Context context = new Context("tariff", "1");

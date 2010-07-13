@@ -1,10 +1,12 @@
 package hu.dbx.screek.iface.model;
 
 import hu.dbx.screek.model.Address;
-import hu.dbx.screek.model.TypeOfClosingBM;
-import hu.dbx.screek.model.TypeOfInitialBM;
+import hu.dbx.screek.model.TypeOfFinalBonusMalus;
+import hu.dbx.screek.model.TypeOfInitialBonusMalus;
 
 import java.util.Date;
+
+import javax.xml.bind.annotation.XmlElement;
 
 public class PartnerV1 {
 
@@ -12,8 +14,8 @@ public class PartnerV1 {
 	private String genderCode;
 	private Address address;
 	private Integer drivingLicenseSince;
-	private TypeOfClosingBM closingBonusMalus;
-	private TypeOfInitialBM initialBonusMalus;
+	private TypeOfFinalBonusMalus finalBM;
+	private TypeOfInitialBonusMalus initialBM;
 	
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
@@ -46,21 +48,24 @@ public class PartnerV1 {
 	public void setDrivingLicenseSince(Integer drivingLicenseSince) {
 		this.drivingLicenseSince = drivingLicenseSince;
 	}
-	
-	public void setClosingBonusMalus(TypeOfClosingBM closingBonusMalus) {
-		this.closingBonusMalus = closingBonusMalus;
-	}
-	
-	public TypeOfClosingBM getClosingBonusMalus() {
-		return closingBonusMalus;
+
+	@XmlElement(name = "finalBonusMalus")
+	public TypeOfFinalBonusMalus getFinalBM() {
+		return finalBM;
 	}
 
-	public void setInitialBonusMalus(TypeOfInitialBM initialBonusMalus) {
-		this.initialBonusMalus = initialBonusMalus;
+	public void setFinalBM(TypeOfFinalBonusMalus finalBM) {
+		this.finalBM = finalBM;
 	}
 
-	public TypeOfInitialBM getInitialBonusMalus() {
-		return initialBonusMalus;
+	@XmlElement(name = "initialBonusMalus")
+	public TypeOfInitialBonusMalus getInitialBM() {
+		return initialBM;
 	}
+
+	public void setInitialBM(TypeOfInitialBonusMalus initialBM) {
+		this.initialBM = initialBM;
+	}
+
 	
 }
