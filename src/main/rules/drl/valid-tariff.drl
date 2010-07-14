@@ -1,0 +1,15 @@
+package UtasTariffRules
+
+#list any import classes here.
+import hu.dbx.screek.model.facts.*;
+import hu.dbx.screek.model.*;
+
+rule "Testszabaly"
+	when
+		$m : MakeDef( make == "ALFA_ROMEO")
+		$q : Quote( )
+		
+	then
+		System.out.println("Elsültem az Alfára!");
+end
+

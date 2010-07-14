@@ -38,7 +38,7 @@ public class AssistanceService implements ApplicationContextAware {
 		try {
 			Context context = new Context("tariff", "1");
 			Quote q = Mapper.mapIn(insurance);
-//			q = getDroolsHelper().compute(q, context);
+			q = getDroolsHelper().compute(q, context);
 			TariffQuoteV1 resp = Mapper.mapOut(q);
 			logger.debug("tariff finished.");
 			
