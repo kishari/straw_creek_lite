@@ -3,7 +3,9 @@ package hu.dbx.screek.model.facts;
 public class PowerModFactorDef extends BaseDef {
 	
 	private String makeCode;
-	private Double[] modfactors = new Double[11];
+	private Integer minPower;
+	private Integer maxPower;
+	private Double value;
 	
 	public String getMakeCode() {
 		return makeCode;
@@ -13,12 +15,28 @@ public class PowerModFactorDef extends BaseDef {
 		this.makeCode = makeCode;
 	}
 
-	public Double[] getModfactors() {
-		return modfactors;
+	public Integer getMinPower() {
+		return minPower;
 	}
 
-	public void setModfactors(Double[] modfactors) {
-		this.modfactors = modfactors;
+	public void setMinPower(Integer minPower) {
+		this.minPower = minPower;
+	}
+
+	public Integer getMaxPower() {
+		return maxPower;
+	}
+
+	public void setMaxPower(Integer maxPower) {
+		this.maxPower = maxPower;
+	}
+
+	public Double getValue() {
+		return value;
+	}
+
+	public void setValue(Double value) {
+		this.value = value;
 	}
 
 }

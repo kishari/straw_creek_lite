@@ -4,7 +4,7 @@ public class MakeDef extends BaseDef {
 	private String make;
 	private String makeCode;
 	
-	
+
 	public String getMake() {
 		return make;
 	}
@@ -16,9 +16,11 @@ public class MakeDef extends BaseDef {
 	public String getMakeCode() {
 		return makeCode;
 	}
-	
+
 	public void setMakeCode(String makeCode) {
 		this.makeCode = makeCode;
 	}
+	
+
 	
 }

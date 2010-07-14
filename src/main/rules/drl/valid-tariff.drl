@@ -7,9 +7,10 @@ import hu.dbx.screek.model.*;
 rule "Testszabaly"
 	when
 		$m : MakeDef( make == "ALFA_ROMEO")
+		$p : PowerModFactorDef( makeCode == "84")
 		$q : Quote( )
 		
 	then
-		System.out.println("Elsültem az Alfára!");
+		System.out.println($p.getValue());
 end
 

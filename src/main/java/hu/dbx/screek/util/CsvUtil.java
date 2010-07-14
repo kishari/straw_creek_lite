@@ -54,7 +54,7 @@ public class CsvUtil {
 				setValue(null);
 			}
 			else {
-				setValue(Double.parseDouble(text));
+				setValue(Double.parseDouble(text));				
 			}
 		}		
 	}
