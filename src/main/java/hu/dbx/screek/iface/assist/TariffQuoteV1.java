@@ -2,7 +2,6 @@ package hu.dbx.screek.iface.assist;
 
 import hu.dbx.screek.iface.model.*;
 import hu.dbx.screek.model.TypeOfDuration;
-import hu.dbx.screek.model.TypeOfPaymentFrequency;
 
 import java.util.Date;
 
@@ -13,7 +12,7 @@ public class TariffQuoteV1 {
 	private TypeOfDuration insuranceDuration;
 	private PartnerV1 partner;
 	private VehicleV1 vehicle;
-	private TypeOfPaymentFrequency paymentFrequencyCode;
+	private String paymentFrequencyCode;
 	
 	//módosító paraméterek
 	private boolean takeOutWithCasco;
@@ -113,11 +112,11 @@ public class TariffQuoteV1 {
 		this.emailGranted = emailGranted;
 	}
 
-	public TypeOfPaymentFrequency getPaymentFrequencyCode() {
+	public String getPaymentFrequencyCode() {
 		return paymentFrequencyCode;
 	}
 
-	public void setPaymentFrequencyCode(TypeOfPaymentFrequency paymentFrequencyCode) {
+	public void setPaymentFrequencyCode(String paymentFrequencyCode) {
 		this.paymentFrequencyCode = paymentFrequencyCode;
 	}
 

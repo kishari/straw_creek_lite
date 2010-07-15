@@ -9,7 +9,7 @@ public class Quote {
 	private TypeOfDuration insuranceDuration;
 	private Partner partner;
 	private Vehicle vehicle;
-	private TypeOfPaymentFrequency paymentFrequencyCode;
+	private String paymentFrequencyCode;
 	
 	private boolean takeOutWithCasco;
 	private boolean childPreference;
@@ -99,11 +99,11 @@ public class Quote {
 		this.emailGranted = emailGranted;
 	}
 
-	public TypeOfPaymentFrequency getPaymentFrequencyCode() {
+	public String getPaymentFrequencyCode() {
 		return paymentFrequencyCode;
 	}
 
-	public void setPaymentFrequencyCode(TypeOfPaymentFrequency paymentFrequencyCode) {
+	public void setPaymentFrequencyCode(String paymentFrequencyCode) {
 		this.paymentFrequencyCode = paymentFrequencyCode;
 	}
 
