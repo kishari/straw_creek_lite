@@ -1,7 +1,6 @@
 package hu.dbx.screek.util;
 
-import hu.dbx.screek.model.facts.MakeDef;
-import hu.dbx.screek.model.facts.PowerModFactorDef;
+import hu.dbx.screek.model.facts.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -34,7 +33,9 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 	
 	private void addFacts(StatefulKnowledgeSession sess) throws Exception {
 		addFacts(sess, MakeDef.class, new String[] {"make", "makeCode", "validFrom", "validTo"}, getReaderFor("MakeDef"));
-		addFacts(sess, PowerModFactorDef.class, new String[] {"makeCode", "minPower", "maxPower", "value", "validFrom", "validTo"}, getReaderFor("GenPowerModFactorDef"));
+		addFacts(sess, PowerModFactorDef.class, new String[] {"makeCode", "powerMin", "powerMax", "value", "validFrom", "validTo"}, getReaderFor("PowerModFactorDef"));
+		addFacts(sess, CubicCapacityModFactorDef.class, new String[] {"capacityMin", "capacityMax", "value", "validFrom", "validTo"}, getReaderFor("CubicCapacityModFactorDef"));
+		addFacts(sess, DrivingLicenseModFactorDef.class, new String[] {"sinceMin", "sinceMax", "value", "validFrom", "validTo"}, getReaderFor("DrivingLicenseModFactorDef"));
 	}
 
 	private void addFacts(StatefulKnowledgeSession sess, Class clazz, String[] columnNames, Reader in){

@@ -16,22 +16,22 @@ public class GenerateCSV {
 	
 	private List<String[]> l;
 	
-	private List<Helper> generateHelpers(String[] row) {
-		List<Helper> helpers = new ArrayList<Helper>();
+	private List<RowObject> generateRows(String[] row) {
+		List<RowObject> rowObjects = new ArrayList<RowObject>();
 		
 		for (int col = 1; col < row.length - 2; col++) {
-			Helper h = new Helper();
+			RowObject r = new RowObject();
 			
-			h.setMakeCode(row[0]);			
-			h.setMinKW(l.get(0)[col].split("_")[1]);
-			h.setMaxKW(l.get(0)[col].split("_")[2]);
-			h.setValue(row[col]);			
-			h.setValidFrom(row[row.length - 2]);			
-			h.setValidTo(row[row.length - 1]);
+			r.setMakeCode(row[0]);			
+			r.setMinKW(l.get(0)[col].split("_")[1]);
+			r.setMaxKW(l.get(0)[col].split("_")[2]);
+			r.setValue(row[col]);			
+			r.setValidFrom(row[row.length - 2]);			
+			r.setValidTo(row[row.length - 1]);
 			
-			helpers.add(h);
+			rowObjects.add(r);
 		}
-		return helpers;
+		return rowObjects;
 	}
 	
 	private void buildNewCSV(String path, String fileName) throws IOException {
@@ -43,9 +43,9 @@ public class GenerateCSV {
 		
 		for (int row = 1; row < l.size(); row++) {
 				
-				List<Helper> helpers = generateHelpers(l.get(row));
+				List<RowObject> rowObjects = generateRows(l.get(row));
 				
-				for (Helper h : helpers) {
+				for (RowObject h : rowObjects) {
 					writer.write("\"" + h.getMakeCode() + "\";\"" + h.getMinKW() + "\";\"" + h.getMaxKW() + "\";\"" + h.getValue() + 
 							"\";\"" + h.getValidFrom() + "\";\"" + h.getValidTo() + "\"\n");
 				}
@@ -63,8 +63,8 @@ public class GenerateCSV {
 		GenerateCSV gen = new GenerateCSV();
 		try {
 			
-			gen.parse("/home/csaba/src/straw_creek/src/main/rules/csv/PowerModFactorDef.csv");
-			gen.buildNewCSV("/home/csaba/src/straw_creek/src/main/rules/csv/", "GenPowerModFactorDef.csv");
+			gen.parse("/home/csaba/src/straw_creek/data/PowerModFactorTable.csv");
+			gen.buildNewCSV("/home/csaba/src/straw_creek/src/main/rules/csv/", "PowerModFactorDef.csv");
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -73,7 +73,7 @@ public class GenerateCSV {
 		}		
 	}
 	
-	private class Helper {
+	private class RowObject {
 		
 		private String makeCode;
 		private String minKW;

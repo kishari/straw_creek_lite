@@ -7,10 +7,14 @@ import hu.dbx.screek.model.*;
 rule "Testszabaly"
 	when
 		$m : MakeDef( make == "ALFA_ROMEO")
-		$p : PowerModFactorDef( makeCode == "84")
+		$c : CubicCapacityModFactorDef( capacityMin == 2001)
+		$d : DrivingLicenseModFactorDef()
 		$q : Quote( )
 		
 	then
-		System.out.println($p.getValue());
+		System.out.println($c.getValue());
+		System.out.println($c.getValidFrom());
+		System.out.println($d.getValue());
+		System.out.println($d.getValidFrom());
 end
 

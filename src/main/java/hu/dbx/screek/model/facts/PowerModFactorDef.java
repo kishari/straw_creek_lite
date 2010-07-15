@@ -3,8 +3,8 @@ package hu.dbx.screek.model.facts;
 public class PowerModFactorDef extends BaseDef {
 	
 	private String makeCode;
-	private Integer minPower;
-	private Integer maxPower;
+	private Integer powerMin;
+	private Integer powerMax;
 	private Double value;
 	
 	public String getMakeCode() {
@@ -15,20 +15,20 @@ public class PowerModFactorDef extends BaseDef {
 		this.makeCode = makeCode;
 	}
 
-	public Integer getMinPower() {
-		return minPower;
+	public Integer getPowerMin() {
+		return powerMin;
 	}
 
-	public void setMinPower(Integer minPower) {
-		this.minPower = minPower;
+	public void setPowerMin(Integer powerMin) {
+		this.powerMin = powerMin;
 	}
 
-	public Integer getMaxPower() {
-		return maxPower;
+	public Integer getPowerMax() {
+		return powerMax;
 	}
 
-	public void setMaxPower(Integer maxPower) {
-		this.maxPower = maxPower;
+	public void setPowerMax(Integer powerMax) {
+		this.powerMax = powerMax;
 	}
 
 	public Double getValue() {
