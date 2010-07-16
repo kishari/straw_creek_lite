@@ -34,13 +34,13 @@ public class AssistanceService implements ApplicationContextAware {
 
 	@WebMethod
 	public TariffQuoteV1 tariff(@WebParam(name="quote")TariffQuoteV1 insurance) {
-	//	logger.debug("tariff started.");
+		logger.debug("tariff started.");
 		try {
 			Context context = new Context("tariff", "1");
 			Quote q = Mapper.mapIn(insurance);
 			q = getDroolsHelper().compute(q, context);
 			TariffQuoteV1 resp = Mapper.mapOut(q);
-	//		logger.debug("tariff finished.");
+			logger.debug("tariff finished.");
 			
 			return resp;
 		} catch (NoSuchElementException e) {
