@@ -5,6 +5,9 @@ import hu.dbx.screek.model.TypeOfDuration;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlElement;
+
+
 public class TariffQuoteV1 {
 	
 	private Integer startYear;
@@ -22,6 +25,9 @@ public class TariffQuoteV1 {
 	private boolean emailGranted;
 	private boolean extraDamageExemption;
 	private boolean groupedCollection;
+	
+	private MessageListV1 messages = new MessageListV1();
+	private ModFactorListV1 modfactors = new ModFactorListV1();
 	
 	
 	public Integer getStartYear() {
@@ -135,6 +141,28 @@ public class TariffQuoteV1 {
 	public boolean isGroupedCollection() {
 		return groupedCollection;
 	}
+	
+	public void addMessage(MessageV1 message) {
+		this.messages.getMessages().add(message);
+	}
+	
+	@XmlElement(name = "messages")
+	public MessageListV1 getMessages() {
+		return messages;
+	}
 
+	public void setMessages(MessageListV1 messages) {
+		this.messages = messages;
+	}
+
+	public ModFactorListV1 getModfactors() {
+		return modfactors;
+	}
+
+	public void setModfactors(ModFactorListV1 modfactors) {
+		this.modfactors = modfactors;
+	}
+
+	
 	
 }

@@ -1,0 +1,58 @@
+<project name="screek" basedir="." default="deploy">
+	<dirname property="screek.basedir" file="${ant.file.screek}"/>
+	<property file="${screek.basedir}/build.properties"/>
+	<property name="web" value="${screek.basedir}/web"/>
+	<property name="resources" value="${screek.basedir}/resources"/>
+	<property name="web.web-inf" value="${web}/WEB-INF"/>
+	<property name="web.web-inf.classes" value="${web.web-inf}/classes"/>
+	<property name="web.web-inf.lib" value="${web.web-inf}/lib"/>
+	<property name="src" value="${screek.basedir}/src/main/java"/>
+	<property name="target" value="${screek.basedir}/target"/>
+	<property name="target.dist" value="${target}/dist"/>
+	<property name="autodeploy-dir" value="${glassfish.home}/glassfish/domains/${glassfish.domain}/autodeploy" />
+	
+	<property name="screek.warname" value="screek.war"/>
+	<property name="screek.earname" value="screek.ear"/>
+	<property name="screek.earfile" value="${target.dist}/${screek.earname}"/>
+	<property name="screek.warfile" value="${target.dist}/${screek.warname}"/>
+	<property name="verbose" value="false"/>
+
+	<path id="classpath">
+		<fileset dir="${web.web-inf.lib}" includes="*.jar" />
+	</path>
+
+	<target name="clean">
+		<tstamp />
+		<delete dir="${target}" />
+		<delete dir="${web.web-inf.classes}" />
+	</target>
+
+	<target name="init">
+		<tstamp />
+		<mkdir dir="${web.web-inf.classes}" />
+		<mkdir dir="${target}" />
+		<mkdir dir="${target.dist}" />
+	</target>
+
+	<target name="compile" depends="init" description="compile the source ">
+		<javac destdir="${web.web-inf.classes}" debug="true" verbose="${verbose}" classpathref="classpath">
+			<!--<compilerarg value="-Xlint"/>-->
+			<src path="${src}" />
+		</javac>
+	</target>
+
+	<target name="war" description="create war file" depends="compile">
+		<copy todir="${web.web-inf.classes}">
+		    <fileset dir="${src}">
+		      <exclude name="**/*.java"/>
+		    </fileset>
+		  </copy>
+		<jar destfile="${screek.warfile}" duplicate="preserve">
+			<fileset dir="${web}" />
+		</jar>
+	</target>
+	
+	<target name="deploy" depends="war">
+			<copy file="${screek.warfile}" todir="${autodeploy-dir}" />
+	</target>
+</project>

@@ -1,0 +1,153 @@
+package MTPLTariffRules
+
+import hu.dbx.screek.model.*;
+import hu.dbx.screek.model.State.States;
+import hu.dbx.screek.model.facts.*;
+
+rule "workflow setState(VALID-TARIFF-START)"
+	agenda-group "workflow"
+	auto-focus true
+	when
+		exists ( State( state == States.WF_START ) )
+		
+	then
+		insert ( new State( States.VALID_TARIFF_START ) );
+		
+end
+
+//tariff validálás lefutott. Hibák keresése indul.
+rule "valid-tariff ended"
+	agenda-group "workflow"
+	
+	when
+		$s : State( state == States.WF_START )
+		$a : Context( action == "tariff" )
+		exists ( State( state == States.VALID_TARIFF_END ) )
+		
+	then
+		modify( $s ) { setState( States.WF_CHECK_VALID ) };
+		
+end
+
+/*	Hibák keresése. Van hibaüzenet! */
+rule "hibak keresese"
+	agenda-group "workflow"
+	when
+		$s : State(state == States.WF_CHECK_VALID)
+		$q : Quote()
+		$m : Message()
+		exists ( MessageDef( code == $m.code, severity == Message.ERROR ) )
+		
+	then			
+		modify( $s ) { setState( States.WF_CLEANUP ) };
+		insert( new State( States.CLEANUP_START ) );
+
+end
+
+/*	Hibák keresése, nincs hiba! Kalkuláció indulhat.
+	(-10 salience azért kell, hogy mindenképp a hibakereső szabály után fusson le.)
+	Ha a hibakereső elsül, akkor átállítja a WF állapotát cleanup-ra, és akkor ez deaktíválja ezt a szabályt. */
+rule "validalas utan nem volt hiba"
+	agenda-group "workflow"
+	salience -10
+	when
+		$s : State( state == States.WF_CHECK_VALID )
+		
+	then
+		insert( new State( States.CALCULATE_START ) );
+
+end
+
+/*	Kalkulációs szabályok lefutottak. Indulhat a session takarítása. */
+rule "calculate szabalyok lefutottak"
+	agenda-group "workflow"
+	
+	when
+		$s : State( state == States.WF_CHECK_VALID )
+		exists( State( state == States.CALCULATE_END ) )
+		
+	then
+		modify( $s ) { setState( States.WF_CLEANUP ) };
+		insert( new State( States.CLEANUP_START ) );
+		
+end
+
+/* A kérést kiszolgáló műveletek sikeresen befejeződtek.	*/
+rule "workflow vege"
+	agenda-group "workflow"
+	when
+		$s : State( state == States.WF_CLEANUP )
+		$c: State( state == States.CLEANUP_END )
+		
+	then
+		modify( $s ) { setState( States.WF_END ) };
+		retract( $c );
+		
+end
+
+rule "valid-tariff csoport aktivalasa"
+	agenda-group "valid-tariff"
+	auto-focus true
+	
+	when
+		exists( State( state == States.VALID_TARIFF_START ) and
+			    State( state == States.WF_START ) )	 
+	then
+
+end
+
+rule "valid-tariff csoport utolso szabalya"
+	agenda-group "valid-tariff"
+	salience -100
+	when
+		$s : State( state == States.VALID_TARIFF_START )
+		
+	then
+		insert( new State( States.VALID_TARIFF_END ) );
+		
+end
+
+rule "calculate csoport aktivalasa"
+	agenda-group "calculate"
+	auto-focus true
+	
+	when
+		exists( State( state == States.CALCULATE_START ) and
+			    State( state == States.WF_CHECK_VALID ) )
+	then
+
+end
+
+rule "calculate csoport utolso szabaly"
+	agenda-group "calculate"
+	salience -100
+	
+	when
+		$s : State( state == States.CALCULATE_START )
+	then
+		insert( new State(States.CALCULATE_END ) );
+end
+
+rule "cleanup csoport aktivalasa"
+	agenda-group "cleanup"
+	auto-focus true
+	when
+		exists( State( state == States.WF_CLEANUP ) and
+			    State( state == States.CLEANUP_START ) )
+		
+	then
+
+end
+
+rule "cleanup csoport utolso szabaly"
+	agenda-group "cleanup"
+	salience -100
+	
+	when
+		$s: State( state == States.CLEANUP_START )
+		
+	then
+		insert( new State( States.CLEANUP_END ) );
+		retract( $s );
+
+end

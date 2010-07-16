@@ -2,8 +2,12 @@ package hu.dbx.screek.model;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 public class Vehicle {
 	
+	private Quote quote;
 	private String typeCode;
 	private String makeCode;
 	private Integer seatingCapacity;
@@ -15,6 +19,9 @@ public class Vehicle {
 	private Date dateOfPurchase;
 	private String useOfVehicleCode;
 	private Integer age;
+	
+	private ModFactorList modfactors = new ModFactorList();
+	
 
 	public String getTypeCode() {
 		return typeCode;
@@ -104,4 +111,26 @@ public class Vehicle {
 		return age;
 	}
 
+	@XmlTransient
+	public Quote getQuote() {
+		return quote;
+	}
+
+	public void setQuote(Quote quote) {
+		this.quote = quote;
+	}
+
+	@XmlElement(name = "modfactors")
+	public ModFactorList getModfactors() {
+		return modfactors;
+	}
+
+	public void setModfactors(ModFactorList modfactors) {
+		this.modfactors = modfactors;
+	}
+	
+	public void addModFactor(ModFactor mf){
+		this.modfactors.getModfactors().add(mf);
+	}
+	
 }

@@ -2,19 +2,11 @@ package hu.dbx.screek.model.facts;
 
 public class PartnerAgeModFactorDef extends BaseDef {
 
-	private Integer areaCode;
+	private Integer tariffCode;
 	private Integer ageMin;
 	private Integer ageMax;
 	private Double value;
 	
-	
-	public Integer getAreaCode() {
-		return areaCode;
-	}
-	
-	public void setAreaCode(Integer areaCode) {
-		this.areaCode = areaCode;
-	}
 	
 	public Integer getAgeMin() {
 		return ageMin;
@@ -38,6 +30,14 @@ public class PartnerAgeModFactorDef extends BaseDef {
 	
 	public void setValue(Double value) {
 		this.value = value;
+	}
+
+	public void setTariffCode(Integer tariffCode) {
+		this.tariffCode = tariffCode;
+	}
+
+	public Integer getTariffCode() {
+		return tariffCode;
 	}
 	
 	

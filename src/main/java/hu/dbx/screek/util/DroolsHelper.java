@@ -3,6 +3,9 @@ package hu.dbx.screek.util;
 import hu.dbx.screek.model.Context;
 import hu.dbx.screek.model.Partner;
 import hu.dbx.screek.model.Quote;
+import hu.dbx.screek.model.State;
+import hu.dbx.screek.model.Vehicle;
+import hu.dbx.screek.model.State.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,10 +29,15 @@ public class DroolsHelper {
 		Collection facts = new ArrayList();
 		facts.add(quote);
 		facts.add(context);
+		facts.add(new State(States.WF_START));
 		
 		Partner p = quote.getPartner();
 		p.setQuote(quote);
 		facts.add(p);
+		
+		Vehicle v = quote.getVehicle();
+		v.setQuote(quote);
+		facts.add(v);
 		
 		
 		Collection<FactHandle> factHandles = insertFacts(facts, ksession);

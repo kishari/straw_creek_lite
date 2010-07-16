@@ -2,6 +2,8 @@ package hu.dbx.screek.iface.model;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlElement;
+
 public class VehicleV1 {
 	//Típus
 	private String typeCode;
@@ -32,6 +34,9 @@ public class VehicleV1 {
 	
 	//Üzemeltetés jellege
 	private String useOfVehicleCode;
+	
+	private ModFactorListV1 modfactors = new ModFactorListV1();
+	
 
 	public String getTypeCode() {
 		return typeCode;
@@ -111,6 +116,15 @@ public class VehicleV1 {
 
 	public void setUseOfVehicleCode(String useOfVehicleCode) {
 		this.useOfVehicleCode = useOfVehicleCode;
+	}
+	
+	@XmlElement(name = "modfactors")
+	public ModFactorListV1 getModfactors() {
+		return modfactors;
+	}
+
+	public void setModfactors(ModFactorListV1 modfactors) {
+		this.modfactors = modfactors;
 	}
 	
 }

@@ -1,0 +1,44 @@
+package MTPLTariffRules
+
+import hu.dbx.screek.model.*;
+import hu.dbx.screek.model.State.States;
+import hu.dbx.screek.model.facts.*;
+
+rule "ModFactorok eltavolitas a sessionbol"
+	agenda-group "cleanup"
+	
+	when
+		$mf : ModFactor()
+		
+	then
+		retract($mf);
+end
+
+rule "State-ek eltavolitas a sessionbol"
+	agenda-group "cleanup"
+	
+	when
+		$s : State( state != States.WF_CLEANUP &&
+					state != States.CLEANUP_START &&
+					state != States.CLEANUP_END)
+		
+	then
+		retract($s);
+end
+
+rule "Message-ek eltavolitas a sessionbol"
+	agenda-group "cleanup"
+	
+	when
+		$q : Quote()
+		$m : Message()
+		$md : MessageDef(code == $m.code)
+		
+	then
+		$m.setSeverity($md.getSeverity());
+		$m.setDescription($md.getDescription());
+		$q.addMessage($m);
+
+		retract($m);
+end
+

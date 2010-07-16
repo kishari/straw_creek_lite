@@ -2,6 +2,8 @@ package hu.dbx.screek.model;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlElement;
+
 public class Quote {
 
 	private Integer startYear;
@@ -18,6 +20,9 @@ public class Quote {
 	private boolean emailGranted;
 	private boolean extraDamageExemption;
 	private boolean groupedCollection;
+	
+	private MessageList messages = new MessageList();
+	private ModFactorList modfactors = new ModFactorList();
 
 	public void setPartner(Partner partner) {
 		this.partner = partner;
@@ -123,6 +128,31 @@ public class Quote {
 		return groupedCollection;
 	}
 	
+	@XmlElement(name = "messages")
+	public MessageList getMessages() {
+		return messages;
+	}
+
+	public void setMessages(MessageList messages) {
+		this.messages = messages;
+	}
+	
+	public void addMessage(Message message) {
+		this.messages.getMessages().add(message);
+	}
+	
+	@XmlElement(name = "modfactors")
+	public ModFactorList getModfactors() {
+		return modfactors;
+	}
+
+	public void setModfactors(ModFactorList modfactors) {
+		this.modfactors = modfactors;
+	}
+	
+	public void addModFactor(ModFactor mf) {
+		this.modfactors.getModfactors().add(mf);
+	}
 	
 	
 }

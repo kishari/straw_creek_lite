@@ -17,6 +17,8 @@ public class PartnerV1 {
 	private TypeOfFinalBonusMalus finalBM;
 	private TypeOfInitialBonusMalus initialBM;
 	
+	private ModFactorListV1 modfactors = new ModFactorListV1();
+	
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
@@ -66,6 +68,14 @@ public class PartnerV1 {
 	public void setInitialBM(TypeOfInitialBonusMalus initialBM) {
 		this.initialBM = initialBM;
 	}
+	
+	@XmlElement(name = "modfactors")
+	public ModFactorListV1 getModfactors() {
+		return modfactors;
+	}
 
+	public void setModfactors(ModFactorListV1 modfactors) {
+		this.modfactors = modfactors;
+	}
 	
 }

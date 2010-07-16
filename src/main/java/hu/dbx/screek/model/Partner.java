@@ -2,6 +2,9 @@ package hu.dbx.screek.model;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 public class Partner {
 
 	private Quote quote;
@@ -11,14 +14,17 @@ public class Partner {
 	private Integer drivingLicenseSince;
 	private TypeOfFinalBonusMalus finalBM;
 	private TypeOfInitialBonusMalus initialBM;
-	private Integer age;
+	
+	private ModFactorList modfactors = new ModFactorList();
 
-	public void setQuote(Quote quote) {
-		this.quote = quote;
-	}
-
+	
+	@XmlTransient
 	public Quote getQuote() {
 		return quote;
+	}
+	
+	public void setQuote(Quote quote) {
+		this.quote = quote;
 	}
 
 	public Date getDateOfBirth() {
@@ -69,12 +75,17 @@ public class Partner {
 		this.initialBM = initialBM;
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
+	@XmlElement(name = "modfactors")
+	public ModFactorList getModfactors() {
+		return modfactors;
 	}
 
-	public Integer getAge() {
-		return age;
+	public void setModfactors(ModFactorList modfactors) {
+		this.modfactors = modfactors;
 	}
-
+	
+	public void addModFactor(ModFactor mf){
+		this.modfactors.getModfactors().add(mf);
+	}
+	
 }

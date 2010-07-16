@@ -31,7 +31,10 @@
           
 	    <constructor-arg>
 	    	<list>
+	    		<value>${knowledgeBasePath}/drl/workflow.drl</value>
 	    		<value>${knowledgeBasePath}/drl/valid-tariff.drl</value>
+	    		<value>${knowledgeBasePath}/drl/calculate.drl</value>
+	    		<value>${knowledgeBasePath}/drl/cleanup.drl</value>
 	    	</list>
 	    </constructor-arg>
     </bean>

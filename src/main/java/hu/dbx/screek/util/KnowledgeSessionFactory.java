@@ -5,6 +5,7 @@ import hu.dbx.screek.model.facts.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.pool.BasePoolableObjectFactory;
@@ -37,15 +38,31 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 		addFacts(sess, CubicCapacityModFactorDef.class, new String[] {"capacityMin", "capacityMax", "value", "validFrom", "validTo"}, getReaderFor("CubicCapacityModFactorDef"));
 		addFacts(sess, DrivingLicenseModFactorDef.class, new String[] {"sinceMin", "sinceMax", "value", "validFrom", "validTo"}, getReaderFor("DrivingLicenseModFactorDef"));
 		addFacts(sess, LegalModFactorDef.class, new String[] {"areaCode", "value", "validFrom", "validTo"}, getReaderFor("LegalModFactorDef"));
-		addFacts(sess, PartnerAgeModFactorDef.class, new String[] {"areaCode", "ageMin", "ageMax", "value", "validFrom", "validTo"}, getReaderFor("PartnerAgeModFactorDef"));
+		addFacts(sess, PartnerAgeModFactorDef.class, new String[] {"tariffCode", "ageMin", "ageMax", "value", "validFrom", "validTo"}, getReaderFor("PartnerAgeModFactorDef"));
 		addFacts(sess, VehicleAgeModFactorDef.class, new String[] {"ageMin", "ageMax", "value", "validFrom", "validTo"}, getReaderFor("VehicleAgeModFactorDef"));
 		addFacts(sess, BonusMalusModFactorDef.class, new String[] {"bmCode", "value", "validFrom", "validTo"}, getReaderFor("BonusMalusModFactorDef"));
 		addFacts(sess, PaymentFreqModFactorDef.class, new String[] {"frequency", "value", "validFrom", "validTo"}, getReaderFor("PaymentFreqModFactorDef"));
+		addFacts(sess, AreaDef.class, new String[] {"postCode", "tariffCode", "validFrom", "validTo"}, getReaderFor("AreaDef"));
+		addFacts(sess, MessageDef.class, new String[] {"code", "severity", "description"}, getReaderFor("MessageDef"));
 	}
 
 	private void addFacts(StatefulKnowledgeSession sess, Class clazz, String[] columnNames, Reader in){
 		List l = CsvUtil.populateBeansFromCsv(clazz, columnNames, in);
-		for (Object o : l){
+		
+/*		if (clazz.getName().equals(AreaDef.class.getName())) {			
+			List<AreaDef> areaDefs = buildAreaDefs(l);
+			
+			for (AreaDef def : areaDefs) {
+				sess.insert(def);
+			}
+		} 
+		else {
+			for (Object o : l){
+				sess.insert(o);
+			}
+		}
+*/		
+		for (Object o : l) {
 			sess.insert(o);
 		}
 	}
@@ -68,5 +85,40 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 	
 	private Reader getReaderFor(String fact) throws FileNotFoundException{
 		return new FileReader(String.format("%s/%s.csv", this.getCsvPath(), fact));
+	}
+	
+	private List<AreaDef> buildAreaDefs(List<Object> l) {
+		
+		List<Integer> areaCodes = new ArrayList<Integer>();
+		List<AreaDef> areaDefs = new ArrayList<AreaDef>();
+		List<AreaDef> temp = new ArrayList<AreaDef>();
+		
+		for (Object o : l){
+			if (!areaCodes.contains(((AreaDef)o).getTariffCode())) {
+				areaCodes.add(((AreaDef)o).getTariffCode());
+			}
+		}
+					
+		for (Integer c : areaCodes) {
+			AreaDef def = new AreaDef();
+			def.setTariffCode(c);
+			areaDefs.add(def);				
+		}
+		
+		temp.addAll(areaDefs);
+		
+		for (Object o : l){
+			int index = 0;
+			for (AreaDef def : areaDefs) {
+				if (def.getTariffCode() == ((AreaDef)o).getTariffCode()) {
+					temp.get(index).getPostCodes().add(((AreaDef)o).getPostCode());
+				}
+				index++;
+			}
+		}
+		areaDefs.clear();
+		areaDefs.addAll(temp);
+		
+		return areaDefs;
 	}
 }

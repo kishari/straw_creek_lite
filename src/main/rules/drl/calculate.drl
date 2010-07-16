@@ -1,0 +1,48 @@
+package MTPLTariffRules
+
+#list any import classes here.
+import hu.dbx.screek.model.facts.*;
+import hu.dbx.screek.model.*;
+import java.util.Date;
+import org.joda.time.DateTime;
+import java.util.ArrayList;
+
+function int yearsBetween(Date s, int startYear) {
+	DateTime s1 = new DateTime(s);
+	return (startYear - s1.getYear());  
+}
+
+rule "area and partner age modfactor"
+	agenda-group "calculate"
+	when
+		$q : Quote()
+		$p : Partner( $pCode : address.postCode )
+		$a : AreaDef( postCode == $pCode )
+		$mf: PartnerAgeModFactorDef( tariffCode == $a.tariffCode )
+		eval ( $a.isValid( $q.getStartDate() ) &&
+		 	   $mf.isValid( $q.getStartDate() ) &&
+		 	   $mf.getAgeMin() <= yearsBetween($p.getDateOfBirth(), $q.getStartYear()) &&
+		 	   $mf.getAgeMax() >= yearsBetween($p.getDateOfBirth(), $q.getStartYear()) )
+				
+	then
+//		System.out.println("area and partner age modfactor: " + $a.getTariffCode() + " " +  $mf.getValue());
+		insert(new ModFactor("AREA-AGE-MULTIPLIER", $mf.getValue(), $p));
+end
+
+rule "Egyeni szorzok"
+	agenda-group "calculate"
+	salience -10
+	
+    when
+        $q : Quote()
+        $p : Partner( quote == $q )
+        $modfactors : ArrayList()
+                   		from collect( ModFactor( partner == $p ) )
+
+    then
+    	for (Object mf : $modfactors){
+    		$p.addModFactor((ModFactor) mf);
+    	}
+end
+
+

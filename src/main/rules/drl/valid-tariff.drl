@@ -1,18 +1,16 @@
-package UtasTariffRules
+package MTPLTariffRules
 
 #list any import classes here.
 import hu.dbx.screek.model.facts.*;
 import hu.dbx.screek.model.*;
 
-rule "Testszabaly"
+rule "validate postcode"
+    agenda-group "valid-tariff"
 	when
-		$m : MakeDef( make == "ALFA_ROMEO")
-		$d : PaymentFreqModFactorDef( )
-		$q : Quote( )
+		$p : Partner( $pCode : address.postCode )
+		not(exists AreaDef( postCode == $pCode ) )
 		
 	then
-		System.out.println($d.getFrequency());
-		System.out.println($d.getValue());
-		System.out.println($d.getValidFrom());
+		insert( Message.create("1") );
+		
 end
-

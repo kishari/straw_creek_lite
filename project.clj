@@ -8,7 +8,8 @@
   				 [joda-time/joda-time "1.6"]
 				 [org.drools/drools-api "5.0.1"]
   				 [org.drools/drools-compiler "5.0.1"]
-  				 [javax/javaee-api "6.0"]]
+  				 [javax/j2ee-ibm "1.4.1"]
+				 [xerces/xercesImpl "2.7.1"]]
   :omit-default-repositories true
   :repositories {"dbx-maven-repository" "http://maven.dbx.hu/"})
 
