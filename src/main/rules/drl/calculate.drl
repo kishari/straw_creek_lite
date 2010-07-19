@@ -12,12 +12,50 @@ function int yearsBetween(Date s, int startYear) {
 	return (startYear - s1.getYear());  
 }
 
+rule "szemelygepjarmu alaptarifa beallitas"
+	agenda-group "calculate"
+	when
+		$q : Quote()
+		$v : Vehicle( typeCode != "MOTORKEREKPAR" &&
+					  typeCode != "AUTOBUSZ")
+		$b : BaseTariffDef( vehicleType == $v.typeCode )
+						
+	then
+		$q.getResult().setBaseTariff( $b.getValue() );
+end
+
+rule "motorkerekpar alaptarifa beallitas"
+	agenda-group "calculate"
+	when
+		$q : Quote()
+		$v : Vehicle( typeCode == "MOTORKEREKPAR")
+		$m : MotorBikeCCModFactorDef( capacityMin <= $v.cubicCapacity &&
+									  capacityMax >= $v.cubicCapacity)
+		$b : BaseTariffDef( vehicleType == $v.typeCode )
+						
+	then
+		$q.getResult().setBaseTariff( (int)Math.round($b.getValue() * $m.getValue() ) );
+end
+
+rule "autobusz alaptarifa beallitas"
+	agenda-group "calculate"
+	when
+		$q : Quote()
+		$v : Vehicle( typeCode == "AUTOBUSZ")
+		$m : AutoBusModFactorDef( seatingCapacityMin <= $v.seatingCapacity &&
+								  seatingCapacityMax >= $v.seatingCapacity)
+		$b : BaseTariffDef( vehicleType == $v.typeCode )
+						
+	then
+		$q.getResult().setBaseTariff( (int)Math.round($b.getValue() * $m.getValue() ) );
+end
+
 rule "area and partner age modfactor"
 	agenda-group "calculate"
 	when
 		$q : Quote()
-		$p : Partner( $pCode : address.postCode )
-		$a : AreaDef( postCode == $pCode )
+		$p : Partner()
+		$a : AreaDef( postCode == $p.postCode )
 		$mf: PartnerAgeModFactorDef( tariffCode == $a.tariffCode )
 		eval ( $a.isValid( $q.getStartDate() ) &&
 		 	   $mf.isValid( $q.getStartDate() ) &&
@@ -25,13 +63,12 @@ rule "area and partner age modfactor"
 		 	   $mf.getAgeMax() >= yearsBetween($p.getDateOfBirth(), $q.getStartYear()) )
 				
 	then
-//		System.out.println("area and partner age modfactor: " + $a.getTariffCode() + " " +  $mf.getValue());
 		insert(new ModFactor("AREA-AGE-MULTIPLIER", $mf.getValue(), $p));
 end
 
 rule "Egyeni szorzok"
 	agenda-group "calculate"
-	salience -10
+	salience -30
 	
     when
         $q : Quote()

@@ -9,6 +9,7 @@ import hu.dbx.screek.iface.model.MessageV1;
 import hu.dbx.screek.iface.model.ModFactorListV1;
 import hu.dbx.screek.iface.model.ModFactorV1;
 import hu.dbx.screek.iface.model.PartnerV1;
+import hu.dbx.screek.iface.model.ResultV1;
 import hu.dbx.screek.iface.model.VehicleV1;
 import hu.dbx.screek.model.Message;
 import hu.dbx.screek.model.MessageList;
@@ -16,6 +17,7 @@ import hu.dbx.screek.model.ModFactor;
 import hu.dbx.screek.model.ModFactorList;
 import hu.dbx.screek.model.Partner;
 import hu.dbx.screek.model.Quote;
+import hu.dbx.screek.model.Result;
 import hu.dbx.screek.model.Vehicle;
 
 public class Mapper {
@@ -25,7 +27,7 @@ public class Mapper {
 		
 		q.setStartDate(tariffQuoteV1.getStartDate());
 		q.setStartYear(tariffQuoteV1.getStartYear());
-		q.setInsuranceDuration(tariffQuoteV1.getDuration());
+		q.setDurationType(tariffQuoteV1.getDurationType());
 		
 		q.setTakeOutWithCasco(tariffQuoteV1.isTakeOutWithCasco());
 		q.setChildPreference(tariffQuoteV1.isChildPreference());
@@ -33,9 +35,9 @@ public class Mapper {
 		q.setOnline(tariffQuoteV1.isOnline());
 		q.setEmailGranted(tariffQuoteV1.isEmailGranted());
 		q.setExtraDamageExemption(tariffQuoteV1.isExtraDamageExemption());
-		q.setGroupedCollection(tariffQuoteV1.isGroupedCollection());
+		q.setPaymentMethod(tariffQuoteV1.getPaymentMethod());
 		
-		q.setPaymentFrequencyCode(tariffQuoteV1.getPaymentFrequencyCode());
+		q.setPaymentFrequency(tariffQuoteV1.getPaymentFrequency());
 		
 		q.setPartner(mapIn(tariffQuoteV1.getPartner()));
 		q.setVehicle(mapIn(tariffQuoteV1.getVehicle()));
@@ -46,11 +48,11 @@ public class Mapper {
 		return q;
 	}
 	
-	public static Partner mapIn(PartnerV1 partnerV1) {		
+	private static Partner mapIn(PartnerV1 partnerV1) {		
 		Partner p = new Partner();
 		
 		p.setDateOfBirth(partnerV1.getDateOfBirth());
-		p.setAddress(partnerV1.getAddress());
+		p.setPostCode(partnerV1.getPostCode());
 		p.setDrivingLicenseSince(partnerV1.getDrivingLicenseSince());
 		p.setGenderCode(partnerV1.getGenderCode());
 		p.setFinalBM(partnerV1.getFinalBM());
@@ -60,14 +62,14 @@ public class Mapper {
 		return p;
 	}
 	
-	public static Vehicle mapIn(VehicleV1 vehicleV1) {
+	private static Vehicle mapIn(VehicleV1 vehicleV1) {
 		Vehicle v = new Vehicle();
 	
 		v.setCubicCapacity(vehicleV1.getCubicCapacity());
 		v.setDateOfPurchase(vehicleV1.getDateOfPurchase());
-		v.setFirstPutIntoTraffic(vehicleV1.getFirstPutIntoTraffic());
-		v.setMakeCode(vehicleV1.getMakeCode());
-		v.setMaximumAllowedWeigth(vehicleV1.getMaximumAllowedWeigth());
+		v.setDateOfFirstPutIntoTraffic(vehicleV1.getDateOfFirstPutIntoTraffic());
+		v.setMake(vehicleV1.getMake());
+		v.setMaximumAllowedWeight(vehicleV1.getMaximumAllowedWeight());
 		v.setMaximumNettoPower(vehicleV1.getMaximumNettoPower());
 		v.setOwnWeight(vehicleV1.getOwnWeight());
 		v.setSeatingCapacity(vehicleV1.getSeatingCapacity());
@@ -145,7 +147,8 @@ public class Mapper {
 		
 		q.setStartDate(quote.getStartDate());
 		q.setStartYear(quote.getStartYear());
-		q.setDuration(quote.getInsuranceDuration());
+		q.setDurationType(quote.getDurationType());
+		q.setPaymentMethod(quote.getPaymentMethod());
 		
 		q.setTakeOutWithCasco(quote.isTakeOutWithCasco());
 		q.setChildPreference(quote.isChildPreference());
@@ -153,9 +156,9 @@ public class Mapper {
 		q.setOnline(quote.isOnline());
 		q.setEmailGranted(quote.isEmailGranted());
 		q.setExtraDamageExemption(quote.isExtraDamageExemption());
-		q.setGroupedCollection(quote.isGroupedCollection());
+		q.setResult(mapOut(quote.getResult()));
 		
-		q.setPaymentFrequencyCode(quote.getPaymentFrequencyCode());
+		q.setPaymentFrequency(quote.getPaymentFrequency());
 
 		
 		q.setPartner(mapOut(quote.getPartner()));
@@ -166,12 +169,12 @@ public class Mapper {
 		return q;
 		
 	}
-	
-	public static PartnerV1 mapOut(Partner partner) {
+
+	private static PartnerV1 mapOut(Partner partner) {
 		PartnerV1 p = new PartnerV1();
 		
 		p.setDateOfBirth(partner.getDateOfBirth());
-		p.setAddress(partner.getAddress());
+		p.setPostCode(partner.getPostCode());
 		p.setDrivingLicenseSince(partner.getDrivingLicenseSince());
 		p.setGenderCode(partner.getGenderCode());
 		p.setFinalBM(partner.getFinalBM());
@@ -182,14 +185,14 @@ public class Mapper {
 		return p;
 	}
 	
-	public static VehicleV1 mapOut(Vehicle vehicle) {
+	private static VehicleV1 mapOut(Vehicle vehicle) {
 		VehicleV1 v = new VehicleV1();
 		
 		v.setCubicCapacity(vehicle.getCubicCapacity());
 		v.setDateOfPurchase(vehicle.getDateOfPurchase());
-		v.setFirstPutIntoTraffic(vehicle.getFirstPutIntoTraffic());
-		v.setMakeCode(vehicle.getMakeCode());
-		v.setMaximumAllowedWeigth(vehicle.getMaximumAllowedWeigth());
+		v.setDateOfFirstPutIntoTraffic(vehicle.getDateOfFirstPutIntoTraffic());
+		v.setMake(vehicle.getMake());
+		v.setMaximumAllowedWeight(vehicle.getMaximumAllowedWeight());
 		v.setMaximumNettoPower(vehicle.getMaximumNettoPower());
 		v.setOwnWeight(vehicle.getOwnWeight());
 		v.setSeatingCapacity(vehicle.getSeatingCapacity());
@@ -244,6 +247,19 @@ public class Mapper {
 		modfactorV1.setValue(modfactor.getValue());
 		
 		return modfactorV1;
+	}
+	
+	private static ResultV1 mapOut(Result result) {		
+		if (result != null) {
+			ResultV1 resultv1 = new ResultV1();
+			
+			resultv1.setBaseTariff(result.getBaseTariff());
+			resultv1.setPremium(result.getPremium());
+			
+			return resultv1;
+		}
+		else 
+			return null;
 	}
 
 }

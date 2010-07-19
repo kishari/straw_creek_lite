@@ -48,17 +48,16 @@
   <xs:complexType name="tariffQuoteV1">
     <xs:sequence>
       <xs:element name="childPreference" type="xs:boolean"/>
-      <xs:element name="duration" type="tns:typeOfDuration" minOccurs="0"/>
+      <xs:element name="durationType" type="xs:string" minOccurs="0"/>
       <xs:element name="emailGranted" type="xs:boolean"/>
       <xs:element name="extraDamageExemption" type="xs:boolean"/>
-      <xs:element name="groupedCollection" type="xs:boolean"/>
-      <xs:element name="insuranceDuration" type="tns:typeOfDuration" minOccurs="0"/>
       <xs:element name="messages" type="tns:messageListV1" minOccurs="0"/>
       <xs:element name="mkbPartner" type="xs:boolean"/>
       <xs:element name="modfactors" type="tns:modFactorListV1" minOccurs="0"/>
       <xs:element name="online" type="xs:boolean"/>
       <xs:element name="partner" type="tns:partnerV1" minOccurs="0"/>
-      <xs:element name="paymentFrequencyCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="paymentFrequency" type="xs:string" minOccurs="0"/>
+      <xs:element name="paymentMethod" type="xs:string" minOccurs="0"/>
       <xs:element name="startDate" type="xs:dateTime" minOccurs="0"/>
       <xs:element name="startYear" type="xs:int" minOccurs="0"/>
       <xs:element name="takeOutWithCasco" type="xs:boolean"/>
@@ -91,27 +90,22 @@
   </xs:complexType>
   <xs:complexType name="partnerV1">
     <xs:sequence>
-      <xs:element name="address" type="tns:address" minOccurs="0"/>
       <xs:element name="dateOfBirth" type="xs:dateTime" minOccurs="0"/>
       <xs:element name="drivingLicenseSince" type="xs:int" minOccurs="0"/>
       <xs:element name="finalBonusMalus" type="tns:typeOfFinalBonusMalus" minOccurs="0"/>
       <xs:element name="genderCode" type="xs:string" minOccurs="0"/>
       <xs:element name="initialBonusMalus" type="tns:typeOfInitialBonusMalus" minOccurs="0"/>
       <xs:element name="modfactors" type="tns:modFactorListV1" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="address">
-    <xs:sequence>
       <xs:element name="postCode" type="xs:int" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="vehicleV1">
     <xs:sequence>
       <xs:element name="cubicCapacity" type="xs:double" minOccurs="0"/>
+      <xs:element name="dateOfFirstPutIntoTraffic" type="xs:dateTime" minOccurs="0"/>
       <xs:element name="dateOfPurchase" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="firstPutIntoTraffic" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="makeCode" type="xs:string" minOccurs="0"/>
-      <xs:element name="maximumAllowedWeigth" type="xs:double" minOccurs="0"/>
+      <xs:element name="make" type="xs:string" minOccurs="0"/>
+      <xs:element name="maximumAllowedWeight" type="xs:double" minOccurs="0"/>
       <xs:element name="maximumNettoPower" type="xs:double" minOccurs="0"/>
       <xs:element name="modfactors" type="tns:modFactorListV1" minOccurs="0"/>
       <xs:element name="ownWeight" type="xs:double" minOccurs="0"/>
@@ -125,12 +119,6 @@
       <xs:element name="return" type="tns:tariffQuoteV1" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:simpleType name="typeOfDuration">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="DEFINITE"/>
-      <xs:enumeration value="INDEFINITE"/>
-    </xs:restriction>
-  </xs:simpleType>
   <xs:simpleType name="typeOfFinalBonusMalus">
     <xs:restriction base="xs:string">
       <xs:enumeration value="A00"/>
@@ -212,57 +200,33 @@
          </quote>
       </ser:tariff>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 4"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
-         <!--Optional:-->
          <quote>
-            <!--Optional:-->
-            <modfactors>
-               <!--Zero or more repetitions:-->
-               <modfactor>
-                  <!--Optional:-->
-                  <code>testMFQ</code>
-                  <!--Optional:-->
-                  <value>0.98</value>
-               </modfactor>
-            </modfactors>
-            <!--Optional:-->
+            <durationType>HATAROZATLAN</durationType>
+            <emailGranted>true</emailGranted>
             <partner>
-               <!--Optional:-->
-               <address>
-                  <!--Optional:-->
-                  <postCode>2651</postCode>
-               </address>
-               <!--Optional:-->
+		<postCode>2626</postCode>
                <dateOfBirth>1986-02-05T00:00:00</dateOfBirth>
-               <!--Optional:-->
-               <modfactors>
-                  <!--Zero or more repetitions:-->
-                  <modfactor>
-                     <!--Optional:-->
-                     <code>TestMFP</code>
-                     <!--Optional:-->
-                     <value>2.0</value>
-                  </modfactor>
-               </modfactors>
+	       <genderCode>NO</genderCode>
             </partner>
-            <!--Optional:-->
-            <startDate>2010-02-06T00:00:00</startDate>
-            <!--Optional:-->
+            <paymentFrequency>EVES</paymentFrequency>
+            <paymentMethod>CSOPORTOS_BESZEDES</paymentMethod>
+            <startDate>2010-01-01T00:00:00</startDate>
             <startYear>2010</startYear>
-            <!--Optional:-->
             <vehicle>
-               <modfactors>
-                  <!--Zero or more repetitions:-->
-                  <modfactor>
-                     <!--Optional:-->
-                     <code>TestMFV</code>
-                     <!--Optional:-->
-                     <value>9.0</value>
-                  </modfactor>
-               </modfactors>
+               <cubicCapacity>1001</cubicCapacity>
+               <dateOfFirstPutIntoTraffic>1992-02-05T00:00:00</dateOfFirstPutIntoTraffic>
+               <dateOfPurchase>2000-02-05T00:00:00</dateOfPurchase>
+               <make>RR</make>
+               <maximumAllowedWeight>?</maximumAllowedWeight>
+               <maximumNettoPower>?</maximumNettoPower>
+               <ownWeight>?</ownWeight>
+               <seatingCapacity>50</seatingCapacity>
+               <typeCode>AUTOBUSZ</typeCode>
+               <useOfVehicleCode></useOfVehicleCode>
             </vehicle>
          </quote>
       </ser:tariff>

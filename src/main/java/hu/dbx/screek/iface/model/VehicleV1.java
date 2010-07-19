@@ -9,7 +9,7 @@ public class VehicleV1 {
 	private String typeCode;
 	
 	//Gyártmány
-	private String makeCode;
+	private String make;
 	
 	//Szállítható személyek száma
 	private Integer seatingCapacity;
@@ -21,13 +21,13 @@ public class VehicleV1 {
 	private Double ownWeight;
 	
 	//Maximálisan megengedett össztömeg
-	private Double maximumAllowedWeigth;
+	private Double maximumAllowedWeight;
 	
 	//Teljesítmény
 	private Double maximumNettoPower;
 	
 	//Első forgalomba helyezés dátuma
-	private Date firstPutIntoTraffic;
+	private Date dateOfFirstPutIntoTraffic;
 	
 	//Tulajdonszerzés dátuma
 	private Date dateOfPurchase;
@@ -46,12 +46,12 @@ public class VehicleV1 {
 		this.typeCode = typeCode;
 	}
 
-	public String getMakeCode() {
-		return makeCode;
+	public String getMake() {
+		return make;
 	}
 
-	public void setMakeCode(String makeCode) {
-		this.makeCode = makeCode;
+	public void setMake(String make) {
+		this.make = make;
 	}
 
 	public Integer getSeatingCapacity() {
@@ -78,12 +78,12 @@ public class VehicleV1 {
 		this.ownWeight = ownWeight;
 	}
 
-	public Double getMaximumAllowedWeigth() {
-		return maximumAllowedWeigth;
+	public Double getMaximumAllowedWeight() {
+		return maximumAllowedWeight;
 	}
 
-	public void setMaximumAllowedWeigth(Double maximumAllowedWeigth) {
-		this.maximumAllowedWeigth = maximumAllowedWeigth;
+	public void setMaximumAllowedWeight(Double maximumAllowedWeight) {
+		this.maximumAllowedWeight = maximumAllowedWeight;
 	}
 
 	public Double getMaximumNettoPower() {
@@ -94,12 +94,12 @@ public class VehicleV1 {
 		this.maximumNettoPower = maximumNettoPower;
 	}
 
-	public Date getFirstPutIntoTraffic() {
-		return firstPutIntoTraffic;
+	public Date getDateOfFirstPutIntoTraffic() {
+		return dateOfFirstPutIntoTraffic;
 	}
 
-	public void setFirstPutIntoTraffic(Date firstPutIntoTraffic) {
-		this.firstPutIntoTraffic = firstPutIntoTraffic;
+	public void setDateOfFirstPutIntoTraffic(Date dateOfFirstPutIntoTraffic) {
+		this.dateOfFirstPutIntoTraffic = dateOfFirstPutIntoTraffic;
 	}
 
 	public Date getDateOfPurchase() {

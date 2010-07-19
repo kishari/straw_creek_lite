@@ -3,14 +3,188 @@ package MTPLTariffRules
 #list any import classes here.
 import hu.dbx.screek.model.facts.*;
 import hu.dbx.screek.model.*;
+import org.joda.time.DateTime;
+
+function boolean isNull(String s) {
+	return ("".equals(s) || s == null);
+}
+
+function boolean firstDateIsBiggerOrEqualsThanSecondDate(DateTime q, DateTime v) {
+	return ( q.isAfter(v) || q.isEqual(v) );
+}
+
+rule "setting groupedCollection flag"
+    agenda-group "valid-tariff"
+	when
+		$p : PaymentMethodDef( paymentMethod == "CSOPORTOS_BESZEDES")
+		$q : Quote( paymentMethod == $p.paymentMethod )
+		
+	then
+		$q.setGroupedCollection( true );		
+end
+
+
+rule "validate postcode (isNull)"
+    agenda-group "valid-tariff"
+	when
+		$p : Partner( postCode == null )
+				
+	then
+		insert( Message.create("2") );		
+end
 
 rule "validate postcode"
     agenda-group "valid-tariff"
 	when
-		$p : Partner( $pCode : address.postCode )
-		not(exists AreaDef( postCode == $pCode ) )
+		$p : Partner( postCode != null )
+		not(exists AreaDef( postCode == $p.postCode ) )
 		
 	then
-		insert( Message.create("1") );
+		insert( Message.create("1", $p.getPostCode().toString() ) );		
+end
+
+
+rule "validate vehicle typecode (isNull)"
+    agenda-group "valid-tariff"
+	when
+		$v : Vehicle( eval ( isNull(typeCode) ) )
+		
+	then
+		insert( Message.create("4") );		
+end
+
+
+rule "validate vehicle typecode"
+    agenda-group "valid-tariff"
+	when
+		$v : Vehicle( eval ( !isNull(typeCode) ) )
+		not(exists VehicleTypeDef( typeCode == $v.typeCode ) )
+		
+	then
+		insert( Message.create("3", $v.getTypeCode() ) );		
+end
+
+
+rule "validate vehicle make"
+    agenda-group "valid-tariff"
+	when
+		$v : Vehicle( eval ( !isNull(make) ) )
+		not(exists MakeDef( make == $v.make ) )
+		
+	then
+		insert( Message.create("9", $v.getMake() ) );		
+end
+
+rule "validate vehicle make (isNull)"
+    agenda-group "valid-tariff"
+	when
+		$v : Vehicle( eval( isNull(make) ))
+		
+	then
+		insert( Message.create("10") );		
+end
+
+
+rule "validate insurance duration (isNull)"
+    agenda-group "valid-tariff"
+	when
+		$q : Quote( eval ( isNull( durationType ) ) )
+		
+	then
+		insert( Message.create("12") );		
+end
+
+rule "validate insurance duration"
+    agenda-group "valid-tariff"
+	when
+		$q : Quote( eval ( !isNull( durationType ) ) )
+		not(exists DurationDef( durationType == $q.durationType ) )
+		
+	then
+		insert( Message.create("11", $q.getDurationType() ) );		
+end
+
+rule "validate payment method (isNull)"
+    agenda-group "valid-tariff"
+	when
+		$q : Quote( eval( isNull( paymentMethod ) ) )
+	then
+		insert( Message.create("6") );		
+end
+
+rule "validate payment method"
+    agenda-group "valid-tariff"
+	when
+		$q : Quote( eval( !isNull( paymentMethod ) ) )
+		not(exists PaymentMethodDef( paymentMethod == $q.paymentMethod ) )
+			
+	then
+		insert( Message.create("5", $q.getPaymentMethod() ) );		
+end
+
+rule "validate payment frequency (isNull)"
+    agenda-group "valid-tariff"
+	when
+		$q : Quote( eval( isNull( paymentFrequency ) ) )
+	then
+		insert( Message.create("8") );		
+end
+
+rule "validate payment frequency"
+    agenda-group "valid-tariff"
+	when
+		$q : Quote( eval( !isNull( paymentFrequency ) ) )
+		not(exists PaymentFreqDef( frequencyCode == $q.paymentFrequency ) )
+			
+	then
+		insert( Message.create("7", $q.getPaymentFrequency() ) );
+end
+
+rule "validate genderCode (isNull)"
+    agenda-group "valid-tariff"
+	when
+		$p : Partner( eval( isNull( genderCode ) ) )
+	then
+		insert( Message.create("14") );		
+end
+
+rule "validate genderCode"
+    agenda-group "valid-tariff"
+	when
+		$p : Partner( eval( !isNull( genderCode ) ) )
+		not(exists GenderDef( genderCode == $p.genderCode ) )
+			
+	then
+		insert( Message.create("13", $p.getGenderCode() ) );
+end
+
+
+rule "validate SZEMELYGEPJARMU discounts (startDate >= 2010 jan 1 and insuranceDuration = HATAROZATLAN)"
+    agenda-group "valid-tariff"
+    salience -10
+	when
+		$q : Quote( takeOutWithCasco == true ||
+					childPreference == true ||
+					mkbPartner == true ||
+					online == true ||
+					emailGranted == true ||
+					extraDamageExemption == true ||
+					groupedCollection == true )
+		$v : Vehicle()
+		$d : DurationDef( durationType == "HATAROZATLAN" )
+		exists VehicleTypeDef( typeCode == $v.typeCode && typeCode == "SZEMELYGEPJARMU" )
+		not (exists (Message( code == "11" || code == "12" ) ) )
+		eval ( !firstDateIsBiggerOrEqualsThanSecondDate(new DateTime($q.getStartDate()), new DateTime(2010, 1, 1, 0, 0, 0, 0) ) 
+			  || (!$d.getDurationType().equals( $q.getDurationType() ) ) )
+		
+	then
+		insert( Message.create("15", "2009-12-31" ) );
+		$q.setTakeOutWithCasco(false);
+		$q.setChildPreference(false);
+		$q.setMkbPartner(false);
+		$q.setOnline(false);
+		$q.setEmailGranted(false);
+		$q.setExtraDamageExemption(false);
+		$q.setGroupedCollection(false);
 		
 end

@@ -8,10 +8,11 @@ public class Quote {
 
 	private Integer startYear;
 	private Date startDate;
-	private TypeOfDuration insuranceDuration;
+	private String durationType;
 	private Partner partner;
 	private Vehicle vehicle;
-	private String paymentFrequencyCode;
+	private String paymentFrequency;
+	private String paymentMethod;
 	
 	private boolean takeOutWithCasco;
 	private boolean childPreference;
@@ -21,6 +22,7 @@ public class Quote {
 	private boolean extraDamageExemption;
 	private boolean groupedCollection;
 	
+	private Result result = new Result();
 	private MessageList messages = new MessageList();
 	private ModFactorList modfactors = new ModFactorList();
 
@@ -56,12 +58,20 @@ public class Quote {
 		this.vehicle = vehicle;
 	}
 
-	public TypeOfDuration getInsuranceDuration() {
-		return insuranceDuration;
+	public String getDurationType() {
+		return durationType;
 	}
 
-	public void setInsuranceDuration(TypeOfDuration insuranceDuration) {
-		this.insuranceDuration = insuranceDuration;
+	public void setDurationType(String durationType) {
+		this.durationType = durationType;
+	}
+	
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
+	public String getPaymentMethod() {
+		return paymentMethod;
 	}
 
 	public boolean isTakeOutWithCasco() {
@@ -104,12 +114,12 @@ public class Quote {
 		this.emailGranted = emailGranted;
 	}
 
-	public String getPaymentFrequencyCode() {
-		return paymentFrequencyCode;
+	public String getPaymentFrequency() {
+		return paymentFrequency;
 	}
 
-	public void setPaymentFrequencyCode(String paymentFrequencyCode) {
-		this.paymentFrequencyCode = paymentFrequencyCode;
+	public void setPaymentFrequency(String paymentFrequency) {
+		this.paymentFrequency = paymentFrequency;
 	}
 
 	public boolean isExtraDamageExemption() {
@@ -153,6 +163,13 @@ public class Quote {
 	public void addModFactor(ModFactor mf) {
 		this.modfactors.getModfactors().add(mf);
 	}
-	
+
+	public void setResult(Result result) {
+		this.result = result;
+	}
+
+	public Result getResult() {
+		return result;
+	}
 	
 }

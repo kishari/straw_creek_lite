@@ -1,6 +1,5 @@
 package hu.dbx.screek.iface.model;
 
-import hu.dbx.screek.model.Address;
 import hu.dbx.screek.model.TypeOfFinalBonusMalus;
 import hu.dbx.screek.model.TypeOfInitialBonusMalus;
 
@@ -12,7 +11,7 @@ public class PartnerV1 {
 
 	private Date dateOfBirth;
 	private String genderCode;
-	private Address address;
+	private Integer postCode;
 	private Integer drivingLicenseSince;
 	private TypeOfFinalBonusMalus finalBM;
 	private TypeOfInitialBonusMalus initialBM;
@@ -33,14 +32,6 @@ public class PartnerV1 {
 	
 	public void setGenderCode(String genderCode) {
 		this.genderCode = genderCode;
-	}
-	
-	public Address getAddress() {
-		return address;
-	}
-	
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 	
 	public Integer getDrivingLicenseSince() {
@@ -76,6 +67,14 @@ public class PartnerV1 {
 
 	public void setModfactors(ModFactorListV1 modfactors) {
 		this.modfactors = modfactors;
+	}
+
+	public void setPostCode(Integer postCode) {
+		this.postCode = postCode;
+	}
+
+	public Integer getPostCode() {
+		return postCode;
 	}
 	
 }

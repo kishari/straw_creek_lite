@@ -1,7 +1,6 @@
 package hu.dbx.screek.iface.assist;
 
 import hu.dbx.screek.iface.model.*;
-import hu.dbx.screek.model.TypeOfDuration;
 
 import java.util.Date;
 
@@ -12,10 +11,11 @@ public class TariffQuoteV1 {
 	
 	private Integer startYear;
 	private Date startDate;
-	private TypeOfDuration insuranceDuration;
+	private String durationType;
 	private PartnerV1 partner;
 	private VehicleV1 vehicle;
-	private String paymentFrequencyCode;
+	private String paymentFrequency;
+	private String paymentMethod;
 	
 	//módosító paraméterek
 	private boolean takeOutWithCasco;
@@ -24,8 +24,8 @@ public class TariffQuoteV1 {
 	private boolean online;
 	private boolean emailGranted;
 	private boolean extraDamageExemption;
-	private boolean groupedCollection;
 	
+	private ResultV1 result;
 	private MessageListV1 messages = new MessageListV1();
 	private ModFactorListV1 modfactors = new ModFactorListV1();
 	
@@ -62,20 +62,12 @@ public class TariffQuoteV1 {
 		this.vehicle = vehicle;
 	}
 
-	public void setDuration(TypeOfDuration duration) {
-		this.insuranceDuration = duration;
+	public String getDurationType() {
+		return durationType;
 	}
 
-	public TypeOfDuration getDuration() {
-		return insuranceDuration;
-	}
-
-	public TypeOfDuration getInsuranceDuration() {
-		return insuranceDuration;
-	}
-
-	public void setInsuranceDuration(TypeOfDuration insuranceDuration) {
-		this.insuranceDuration = insuranceDuration;
+	public void setDurationType(String durationType) {
+		this.durationType = durationType;
 	}
 
 	public boolean isTakeOutWithCasco() {
@@ -118,12 +110,12 @@ public class TariffQuoteV1 {
 		this.emailGranted = emailGranted;
 	}
 
-	public String getPaymentFrequencyCode() {
-		return paymentFrequencyCode;
+	public String getPaymentFrequency() {
+		return paymentFrequency;
 	}
 
-	public void setPaymentFrequencyCode(String paymentFrequencyCode) {
-		this.paymentFrequencyCode = paymentFrequencyCode;
+	public void setPaymentFrequency(String paymentFrequency) {
+		this.paymentFrequency = paymentFrequency;
 	}
 
 	public boolean isExtraDamageExemption() {
@@ -133,15 +125,15 @@ public class TariffQuoteV1 {
 	public void setExtraDamageExemption(boolean extraDamageExemption) {
 		this.extraDamageExemption = extraDamageExemption;
 	}
-
-	public void setGroupedCollection(boolean groupedCollection) {
-		this.groupedCollection = groupedCollection;
-	}
-
-	public boolean isGroupedCollection() {
-		return groupedCollection;
-	}
 	
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
 	public void addMessage(MessageV1 message) {
 		this.messages.getMessages().add(message);
 	}
@@ -161,6 +153,14 @@ public class TariffQuoteV1 {
 
 	public void setModfactors(ModFactorListV1 modfactors) {
 		this.modfactors = modfactors;
+	}
+
+	public void setResult(ResultV1 result) {
+		this.result = result;
+	}
+
+	public ResultV1 getResult() {
+		return result;
 	}
 
 	

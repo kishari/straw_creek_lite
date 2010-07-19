@@ -41,6 +41,7 @@ rule "hibak keresese"
 	then			
 		modify( $s ) { setState( States.WF_CLEANUP ) };
 		insert( new State( States.CLEANUP_START ) );
+		$q.setResult(null);
 
 end
 

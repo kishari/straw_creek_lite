@@ -10,7 +10,7 @@ public class Partner {
 	private Quote quote;
 	private Date dateOfBirth;
 	private String genderCode;
-	private Address address;
+	private Integer postCode;
 	private Integer drivingLicenseSince;
 	private TypeOfFinalBonusMalus finalBM;
 	private TypeOfInitialBonusMalus initialBM;
@@ -41,14 +41,6 @@ public class Partner {
 
 	public void setGenderCode(String genderCode) {
 		this.genderCode = genderCode;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	public Integer getDrivingLicenseSince() {
@@ -86,6 +78,14 @@ public class Partner {
 	
 	public void addModFactor(ModFactor mf){
 		this.modfactors.getModfactors().add(mf);
+	}
+
+	public void setPostCode(Integer postCode) {
+		this.postCode = postCode;
+	}
+
+	public Integer getPostCode() {
+		return postCode;
 	}
 	
 }

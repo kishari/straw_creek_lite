@@ -9,13 +9,13 @@ public class Vehicle {
 	
 	private Quote quote;
 	private String typeCode;
-	private String makeCode;
+	private String make;
 	private Integer seatingCapacity;
 	private Double cubicCapacity;
 	private Double ownWeight;
-	private Double maximumAllowedWeigth;
+	private Double maximumAllowedWeight;
 	private Double maximumNettoPower;
-	private Date firstPutIntoTraffic;
+	private Date dateOfFirstPutIntoTraffic;
 	private Date dateOfPurchase;
 	private String useOfVehicleCode;
 	private Integer age;
@@ -31,12 +31,12 @@ public class Vehicle {
 		this.typeCode = typeCode;
 	}
 
-	public String getMakeCode() {
-		return makeCode;
+	public String getMake() {
+		return make;
 	}
 
-	public void setMakeCode(String makeCode) {
-		this.makeCode = makeCode;
+	public void setMake(String make) {
+		this.make = make;
 	}
 
 	public Integer getSeatingCapacity() {
@@ -63,12 +63,12 @@ public class Vehicle {
 		this.ownWeight = ownWeight;
 	}
 
-	public Double getMaximumAllowedWeigth() {
-		return maximumAllowedWeigth;
+	public Double getMaximumAllowedWeight() {
+		return maximumAllowedWeight;
 	}
 
-	public void setMaximumAllowedWeigth(Double maximumAllowedWeigth) {
-		this.maximumAllowedWeigth = maximumAllowedWeigth;
+	public void setMaximumAllowedWeight(Double maximumAllowedWeight) {
+		this.maximumAllowedWeight = maximumAllowedWeight;
 	}
 
 	public Double getMaximumNettoPower() {
@@ -79,12 +79,12 @@ public class Vehicle {
 		this.maximumNettoPower = maximumNettoPower;
 	}
 
-	public Date getFirstPutIntoTraffic() {
-		return firstPutIntoTraffic;
+	public Date getDateOfFirstPutIntoTraffic() {
+		return dateOfFirstPutIntoTraffic;
 	}
 
-	public void setFirstPutIntoTraffic(Date firstPutIntoTraffic) {
-		this.firstPutIntoTraffic = firstPutIntoTraffic;
+	public void setDateOfFirstPutIntoTraffic(Date dateOfFirstPutIntoTraffic) {
+		this.dateOfFirstPutIntoTraffic = dateOfFirstPutIntoTraffic;
 	}
 
 	public Date getDateOfPurchase() {

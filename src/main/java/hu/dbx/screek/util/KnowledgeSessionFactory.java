@@ -36,13 +36,21 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 		addFacts(sess, MakeDef.class, new String[] {"make", "makeCode", "validFrom", "validTo"}, getReaderFor("MakeDef"));
 		addFacts(sess, PowerModFactorDef.class, new String[] {"makeCode", "powerMin", "powerMax", "value", "validFrom", "validTo"}, getReaderFor("PowerModFactorDef"));
 		addFacts(sess, CubicCapacityModFactorDef.class, new String[] {"capacityMin", "capacityMax", "value", "validFrom", "validTo"}, getReaderFor("CubicCapacityModFactorDef"));
+		addFacts(sess, MotorBikeCCModFactorDef.class, new String[] {"capacityMin", "capacityMax", "value", "validFrom", "validTo"}, getReaderFor("MotorBikeCCModFactorDef"));
 		addFacts(sess, DrivingLicenseModFactorDef.class, new String[] {"sinceMin", "sinceMax", "value", "validFrom", "validTo"}, getReaderFor("DrivingLicenseModFactorDef"));
 		addFacts(sess, LegalModFactorDef.class, new String[] {"areaCode", "value", "validFrom", "validTo"}, getReaderFor("LegalModFactorDef"));
 		addFacts(sess, PartnerAgeModFactorDef.class, new String[] {"tariffCode", "ageMin", "ageMax", "value", "validFrom", "validTo"}, getReaderFor("PartnerAgeModFactorDef"));
 		addFacts(sess, VehicleAgeModFactorDef.class, new String[] {"ageMin", "ageMax", "value", "validFrom", "validTo"}, getReaderFor("VehicleAgeModFactorDef"));
 		addFacts(sess, BonusMalusModFactorDef.class, new String[] {"bmCode", "value", "validFrom", "validTo"}, getReaderFor("BonusMalusModFactorDef"));
-		addFacts(sess, PaymentFreqModFactorDef.class, new String[] {"frequency", "value", "validFrom", "validTo"}, getReaderFor("PaymentFreqModFactorDef"));
+		addFacts(sess, PaymentFreqModFactorDef.class, new String[] {"frequencyCode", "value", "validFrom", "validTo"}, getReaderFor("PaymentFreqModFactorDef"));
+		addFacts(sess, AutoBusModFactorDef.class, new String[] {"seatingCapacityMin", "seatingCapacityMax", "value", "validFrom", "validTo"}, getReaderFor("AutoBusModFactorDef"));
+		addFacts(sess, PaymentFreqDef.class, new String[] {"frequencyCode", "validFrom", "validTo"}, getReaderFor("PaymentFreqDef"));
 		addFacts(sess, AreaDef.class, new String[] {"postCode", "tariffCode", "validFrom", "validTo"}, getReaderFor("AreaDef"));
+		addFacts(sess, VehicleTypeDef.class, new String[] {"typeCode", "validFrom", "validTo"}, getReaderFor("VehicleTypeDef"));
+		addFacts(sess, DurationDef.class, new String[] {"durationType", "validFrom", "validTo"}, getReaderFor("DurationDef"));
+		addFacts(sess, PaymentMethodDef.class, new String[] {"paymentMethod", "validFrom", "validTo"}, getReaderFor("PaymentMethodDef"));
+		addFacts(sess, GenderDef.class, new String[] {"genderCode", "validFrom", "validTo"}, getReaderFor("GenderDef"));
+		addFacts(sess, BaseTariffDef.class, new String[] {"vehicleType", "durationType", "value", "validFrom", "validTo"}, getReaderFor("BaseTariffDef"));
 		addFacts(sess, MessageDef.class, new String[] {"code", "severity", "description"}, getReaderFor("MessageDef"));
 	}
 
