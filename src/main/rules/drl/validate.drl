@@ -14,7 +14,7 @@ function boolean firstDateIsBiggerOrEqualsThanSecondDate(DateTime q, DateTime v)
 }
 
 rule "setting groupedCollection flag"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$p : PaymentMethodDef( paymentMethod == "CSOPORTOS_BESZEDES")
 		$q : Quote( paymentMethod == $p.paymentMethod )
@@ -25,7 +25,7 @@ end
 
 
 rule "validate postcode (isNull)"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$p : Partner( postCode == null )
 				
@@ -34,7 +34,7 @@ rule "validate postcode (isNull)"
 end
 
 rule "validate postcode"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$p : Partner( postCode != null )
 		not(exists AreaDef( postCode == $p.postCode ) )
@@ -45,7 +45,7 @@ end
 
 
 rule "validate vehicle typecode (isNull)"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$v : Vehicle( eval ( isNull(typeCode) ) )
 		
@@ -55,7 +55,7 @@ end
 
 
 rule "validate vehicle typecode"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$v : Vehicle( eval ( !isNull(typeCode) ) )
 		not(exists VehicleTypeDef( typeCode == $v.typeCode ) )
@@ -66,7 +66,7 @@ end
 
 
 rule "validate vehicle make"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$v : Vehicle( eval ( !isNull(make) ) )
 		not(exists MakeDef( make == $v.make ) )
@@ -76,7 +76,7 @@ rule "validate vehicle make"
 end
 
 rule "validate vehicle make (isNull)"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$v : Vehicle( eval( isNull(make) ))
 		
@@ -86,7 +86,7 @@ end
 
 
 rule "validate insurance duration (isNull)"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$q : Quote( eval ( isNull( durationType ) ) )
 		
@@ -95,7 +95,7 @@ rule "validate insurance duration (isNull)"
 end
 
 rule "validate insurance duration"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$q : Quote( eval ( !isNull( durationType ) ) )
 		not(exists DurationDef( durationType == $q.durationType ) )
@@ -105,7 +105,7 @@ rule "validate insurance duration"
 end
 
 rule "validate payment method (isNull)"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$q : Quote( eval( isNull( paymentMethod ) ) )
 	then
@@ -113,7 +113,7 @@ rule "validate payment method (isNull)"
 end
 
 rule "validate payment method"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$q : Quote( eval( !isNull( paymentMethod ) ) )
 		not(exists PaymentMethodDef( paymentMethod == $q.paymentMethod ) )
@@ -123,7 +123,7 @@ rule "validate payment method"
 end
 
 rule "validate payment frequency (isNull)"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$q : Quote( eval( isNull( paymentFrequency ) ) )
 	then
@@ -131,7 +131,7 @@ rule "validate payment frequency (isNull)"
 end
 
 rule "validate payment frequency"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$q : Quote( eval( !isNull( paymentFrequency ) ) )
 		not(exists PaymentFreqDef( frequencyCode == $q.paymentFrequency ) )
@@ -141,7 +141,7 @@ rule "validate payment frequency"
 end
 
 rule "validate genderCode (isNull)"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$p : Partner( eval( isNull( genderCode ) ) )
 	then
@@ -149,7 +149,7 @@ rule "validate genderCode (isNull)"
 end
 
 rule "validate genderCode"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
 	when
 		$p : Partner( eval( !isNull( genderCode ) ) )
 		not(exists GenderDef( genderCode == $p.genderCode ) )
@@ -160,7 +160,7 @@ end
 
 
 rule "validate SZEMELYGEPJARMU discounts (startDate >= 2010 jan 1 and insuranceDuration = HATAROZATLAN)"
-    agenda-group "valid-tariff"
+    agenda-group "validate"
     salience -10
 	when
 		$q : Quote( takeOutWithCasco == true ||

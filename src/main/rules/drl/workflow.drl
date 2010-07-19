@@ -87,7 +87,7 @@ rule "workflow vege"
 end
 
 rule "valid-tariff csoport aktivalasa"
-	agenda-group "valid-tariff"
+	agenda-group "validate"
 	auto-focus true
 	
 	when
@@ -97,8 +97,8 @@ rule "valid-tariff csoport aktivalasa"
 
 end
 
-rule "valid-tariff csoport utolso szabalya"
-	agenda-group "valid-tariff"
+rule "validate csoport utolso szabalya"
+	agenda-group "validate"
 	salience -100
 	when
 		$s : State( state == States.VALID_TARIFF_START )
