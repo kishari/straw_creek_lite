@@ -1,6 +1,8 @@
 package hu.dbx.screek.iface.assist;
 
 import hu.dbx.screek.iface.model.*;
+import hu.dbx.screek.model.TypeOfFinalBonusMalus;
+import hu.dbx.screek.model.TypeOfInitialBonusMalus;
 
 import java.util.Date;
 
@@ -15,6 +17,8 @@ public class TariffQuoteV1 {
 	private VehicleV1 vehicle;
 	private String paymentFrequency;
 	private String paymentMethod;
+	private TypeOfFinalBonusMalus finalBM;
+	private TypeOfInitialBonusMalus initialBM;
 	
 	//módosító paraméterek
 	private boolean takeOutWithCasco;
@@ -152,6 +156,24 @@ public class TariffQuoteV1 {
 
 	public ResultV1 getResult() {
 		return result;
+	}
+
+	public void setFinalBM(TypeOfFinalBonusMalus finalBM) {
+		this.finalBM = finalBM;
+	}
+
+	@XmlElement(name = "finalBonusMalus")
+	public TypeOfFinalBonusMalus getFinalBM() {
+		return finalBM;
+	}
+
+	public void setInitialBM(TypeOfInitialBonusMalus initialBM) {
+		this.initialBM = initialBM;
+	}
+
+	@XmlElement(name = "initialBonusMalus")
+	public TypeOfInitialBonusMalus getInitialBM() {
+		return initialBM;
 	}
 
 	

@@ -15,7 +15,7 @@ public class VehicleV1 {
 	private Integer seatingCapacity;
 	
 	//Hengerűrtartalom
-	private Double cubicCapacity;
+	private Integer cubicCapacity;
 	
 	//teherbírás
 	private Integer carryingCapacity;
@@ -27,7 +27,7 @@ public class VehicleV1 {
 	private Double maximumAllowedWeight;
 	
 	//Teljesítmény
-	private Double maximumNettoPower;
+	private Integer maximumNettoPower;
 	
 	//Első forgalomba helyezés dátuma
 	private Date dateOfFirstPutIntoTraffic;
@@ -65,11 +65,11 @@ public class VehicleV1 {
 		this.seatingCapacity = seatingCapacity;
 	}
 
-	public Double getCubicCapacity() {
+	public Integer getCubicCapacity() {
 		return cubicCapacity;
 	}
 
-	public void setCubicCapacity(Double cubicCapacity) {
+	public void setCubicCapacity(Integer cubicCapacity) {
 		this.cubicCapacity = cubicCapacity;
 	}
 
@@ -89,11 +89,11 @@ public class VehicleV1 {
 		this.maximumAllowedWeight = maximumAllowedWeight;
 	}
 
-	public Double getMaximumNettoPower() {
+	public Integer getMaximumNettoPower() {
 		return maximumNettoPower;
 	}
 
-	public void setMaximumNettoPower(Double maximumNettoPower) {
+	public void setMaximumNettoPower(Integer maximumNettoPower) {
 		this.maximumNettoPower = maximumNettoPower;
 	}
 

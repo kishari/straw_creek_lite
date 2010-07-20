@@ -13,8 +13,6 @@ public class PartnerV1 {
 	private String genderCode;
 	private Integer postCode;
 	private Integer yearOfDrivingLicense;
-	private TypeOfFinalBonusMalus finalBM;
-	private TypeOfInitialBonusMalus initialBM;
 	
 	private ModFactorListV1 modfactors = new ModFactorListV1();
 	
@@ -32,24 +30,6 @@ public class PartnerV1 {
 	
 	public void setGenderCode(String genderCode) {
 		this.genderCode = genderCode;
-	}
-	
-	@XmlElement(name = "finalBonusMalus")
-	public TypeOfFinalBonusMalus getFinalBM() {
-		return finalBM;
-	}
-
-	public void setFinalBM(TypeOfFinalBonusMalus finalBM) {
-		this.finalBM = finalBM;
-	}
-
-	@XmlElement(name = "initialBonusMalus")
-	public TypeOfInitialBonusMalus getInitialBM() {
-		return initialBM;
-	}
-
-	public void setInitialBM(TypeOfInitialBonusMalus initialBM) {
-		this.initialBM = initialBM;
 	}
 	
 	@XmlElement(name = "modfactors")

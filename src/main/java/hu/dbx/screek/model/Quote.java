@@ -20,6 +20,8 @@ public class Quote {
 	private boolean emailGranted;
 	private boolean extraDamageExemption;
 	private boolean groupedCollection;
+	private TypeOfFinalBonusMalus finalBM;
+	private TypeOfInitialBonusMalus initialBM;
 	
 	private Result result = new Result();
 	private MessageList messages = new MessageList();
@@ -161,6 +163,22 @@ public class Quote {
 
 	public Result getResult() {
 		return result;
+	}
+
+	public void setFinalBM(TypeOfFinalBonusMalus finalBM) {
+		this.finalBM = finalBM;
+	}
+
+	public TypeOfFinalBonusMalus getFinalBM() {
+		return finalBM;
+	}
+
+	public void setInitialBM(TypeOfInitialBonusMalus initialBM) {
+		this.initialBM = initialBM;
+	}
+
+	public TypeOfInitialBonusMalus getInitialBM() {
+		return initialBM;
 	}
 	
 }

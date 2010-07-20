@@ -7,6 +7,7 @@ public class ModFactor {
 	private String code;
 	private Double value;
 	
+	private boolean discount;
 	private Quote quote;
 	private Partner partner;
 	private Vehicle vehicle;
@@ -71,6 +72,14 @@ public class ModFactor {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public void setDiscount(boolean discount) {
+		this.discount = discount;
+	}
+
+	public boolean isDiscount() {
+		return discount;
 	}
 	
 	

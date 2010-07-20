@@ -35,6 +35,8 @@ public class Mapper {
 		q.setEmailGranted(tariffQuoteV1.isEmailGranted());
 		q.setExtraDamageExemption(tariffQuoteV1.isExtraDamageExemption());
 		q.setPaymentMethod(tariffQuoteV1.getPaymentMethod());
+		q.setFinalBM(tariffQuoteV1.getFinalBM());
+		q.setInitialBM(tariffQuoteV1.getInitialBM());
 		
 		q.setPaymentFrequency(tariffQuoteV1.getPaymentFrequency());
 		
@@ -54,8 +56,6 @@ public class Mapper {
 		p.setPostCode(partnerV1.getPostCode());
 		p.setYearOfDrivingLicense(partnerV1.getYearOfDrivingLicense());
 		p.setGenderCode(partnerV1.getGenderCode());
-		p.setFinalBM(partnerV1.getFinalBM());
-		p.setInitialBM(partnerV1.getInitialBM());
 		p.setModfactors(mapIn(partnerV1.getModfactors(), p));
 		
 		return p;
@@ -124,6 +124,7 @@ public class Mapper {
 		
 		modfactor.setCode(modfactorV1.getCode());
 		modfactor.setValue(modfactorV1.getValue());
+		modfactor.setDiscount(modfactorV1.isDiscount());
 		
 		if (owner instanceof Quote) {
 			modfactor.setQuote((Quote)owner);			
@@ -157,6 +158,9 @@ public class Mapper {
 		q.setExtraDamageExemption(quote.isExtraDamageExemption());
 		q.setResult(mapOut(quote.getResult()));
 		
+		q.setFinalBM(quote.getFinalBM());
+		q.setInitialBM(quote.getInitialBM());
+		
 		q.setPaymentFrequency(quote.getPaymentFrequency());
 
 		
@@ -176,8 +180,6 @@ public class Mapper {
 		p.setPostCode(partner.getPostCode());
 		p.setYearOfDrivingLicense(partner.getYearOfDrivingLicense());
 		p.setGenderCode(partner.getGenderCode());
-		p.setFinalBM(partner.getFinalBM());
-		p.setInitialBM(partner.getInitialBM());
 		
 		p.setModfactors(mapOut(partner.getModfactors()));
 		
@@ -245,6 +247,7 @@ public class Mapper {
 		
 		modfactorV1.setCode(modfactor.getCode());
 		modfactorV1.setValue(modfactor.getValue());
+		modfactorV1.setDiscount(modfactor.isDiscount());
 		
 		return modfactorV1;
 	}

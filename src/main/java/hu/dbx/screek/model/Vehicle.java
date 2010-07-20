@@ -11,11 +11,11 @@ public class Vehicle {
 	private String typeCode;
 	private String make;
 	private Integer seatingCapacity;
-	private Double cubicCapacity;
+	private Integer cubicCapacity;
 	private Integer carryingCapacity;
 	private Double ownWeight;
 	private Double maximumAllowedWeight;
-	private Double maximumNettoPower;
+	private Integer maximumNettoPower;
 	private Date dateOfFirstPutIntoTraffic;
 	private Date dateOfPurchase;
 	private String useOfVehicleCode;
@@ -48,11 +48,11 @@ public class Vehicle {
 		this.seatingCapacity = seatingCapacity;
 	}
 
-	public Double getCubicCapacity() {
+	public Integer getCubicCapacity() {
 		return cubicCapacity;
 	}
 
-	public void setCubicCapacity(Double cubicCapacity) {
+	public void setCubicCapacity(Integer cubicCapacity) {
 		this.cubicCapacity = cubicCapacity;
 	}
 
@@ -72,11 +72,11 @@ public class Vehicle {
 		this.maximumAllowedWeight = maximumAllowedWeight;
 	}
 
-	public Double getMaximumNettoPower() {
+	public Integer getMaximumNettoPower() {
 		return maximumNettoPower;
 	}
 
-	public void setMaximumNettoPower(Double maximumNettoPower) {
+	public void setMaximumNettoPower(Integer maximumNettoPower) {
 		this.maximumNettoPower = maximumNettoPower;
 	}
 

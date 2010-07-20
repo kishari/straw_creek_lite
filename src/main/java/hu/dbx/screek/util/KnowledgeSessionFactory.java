@@ -34,6 +34,7 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 	
 	private void addFacts(StatefulKnowledgeSession sess) throws Exception {
 		addFacts(sess, MakeDef.class, new String[] {"make", "makeCode", "validFrom", "validTo"}, getReaderFor("MakeDef"));
+		addFacts(sess, ModFactorDef.class, new String[] {"modfactorType", "value", "validFrom", "validTo"}, getReaderFor("ModFactorDef"));
 		addFacts(sess, PowerModFactorDef.class, new String[] {"makeCode", "powerMin", "powerMax", "value", "validFrom", "validTo"}, getReaderFor("PowerModFactorDef"));
 		addFacts(sess, CubicCapacityModFactorDef.class, new String[] {"capacityMin", "capacityMax", "value", "validFrom", "validTo"}, getReaderFor("CubicCapacityModFactorDef"));
 		addFacts(sess, DrivingLicenseModFactorDef.class, new String[] {"sinceMin", "sinceMax", "value", "validFrom", "validTo"}, getReaderFor("DrivingLicenseModFactorDef"));
@@ -46,6 +47,7 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 		addFacts(sess, AreaDef.class, new String[] {"postCode", "tariffCode", "validFrom", "validTo"}, getReaderFor("AreaDef"));
 		addFacts(sess, VehicleTypeDef.class, new String[] {"typeCode", "validFrom", "validTo"}, getReaderFor("VehicleTypeDef"));
 		addFacts(sess, DurationDef.class, new String[] {"durationType", "validFrom", "validTo"}, getReaderFor("DurationDef"));
+		addFacts(sess, UseOfVehicleDef.class, new String[] {"useOfVehicleCode", "validFrom", "validTo"}, getReaderFor("UseOfVehicleDef"));
 		addFacts(sess, PaymentMethodDef.class, new String[] {"paymentMethod", "validFrom", "validTo"}, getReaderFor("PaymentMethodDef"));
 		addFacts(sess, GenderDef.class, new String[] {"genderCode", "validFrom", "validTo"}, getReaderFor("GenderDef"));
 		addFacts(sess, BaseTariffDef.class, new String[] {"vehicleType", "durationType", "value", "validFrom", "validTo"}, getReaderFor("BaseTariffDef"));

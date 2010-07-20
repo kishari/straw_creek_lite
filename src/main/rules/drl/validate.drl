@@ -27,6 +27,8 @@ end
 rule "validate postcode (isNull)"
     agenda-group "validate"
 	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
 		$p : Partner( postCode == null )
 				
 	then
@@ -36,6 +38,8 @@ end
 rule "validate postcode"
     agenda-group "validate"
 	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
 		$p : Partner( postCode != null )
 		not(exists AreaDef( postCode == $p.postCode ) )
 		
@@ -68,7 +72,8 @@ end
 rule "validate vehicle make"
     agenda-group "validate"
 	when
-		$v : Vehicle( eval ( !isNull(make) ) )
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU"  && eval ( !isNull(make) ) )
 		not(exists MakeDef( make == $v.make ) )
 		
 	then
@@ -78,7 +83,8 @@ end
 rule "validate vehicle make (isNull)"
     agenda-group "validate"
 	when
-		$v : Vehicle( eval( isNull(make) ))
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" && eval( isNull(make) ))
 		
 	then
 		insert( Message.create("10") );		
@@ -125,7 +131,7 @@ end
 rule "validate payment frequency (isNull)"
     agenda-group "validate"
 	when
-		$q : Quote( eval( isNull( paymentFrequency ) ) )
+		$q : Quote( durationType == "HATAROZATLAN" && eval( isNull( paymentFrequency ) ) )
 	then
 		insert( Message.create("8") );		
 end
@@ -133,7 +139,7 @@ end
 rule "validate payment frequency"
     agenda-group "validate"
 	when
-		$q : Quote( eval( !isNull( paymentFrequency ) ) )
+		$q : Quote( durationType == "HATAROZATLAN" && eval( !isNull( paymentFrequency ) ) )
 		not(exists PaymentFreqDef( frequencyCode == $q.paymentFrequency ) )
 			
 	then
@@ -143,6 +149,8 @@ end
 rule "validate genderCode (isNull)"
     agenda-group "validate"
 	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" || typeCode == "TEHERGEPJARMU" )
 		$p : Partner( eval( isNull( genderCode ) ) )
 	then
 		insert( Message.create("14") );		
@@ -151,12 +159,72 @@ end
 rule "validate genderCode"
     agenda-group "validate"
 	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" || typeCode == "TEHERGEPJARMU" )
 		$p : Partner( eval( !isNull( genderCode ) ) )
 		not(exists GenderDef( genderCode == $p.genderCode ) )
 			
 	then
 		insert( Message.create("13", $p.getGenderCode() ) );
 end
+
+rule "validate useOfVehicle"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( eval( !isNull( useOfVehicleCode ) ) )
+		not(exists UseOfVehicleDef( useOfVehicleCode == $v.useOfVehicleCode ) )
+			
+	then
+		insert( Message.create("16", $v.getUseOfVehicleCode() ) );
+end
+
+rule "validate useOfVehicle (isNull)"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( eval( isNull( useOfVehicleCode ) ) )
+			
+	then
+		insert( Message.create("17") );
+end
+
+rule "validate power (isNull)"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" && 
+					  (maximumNettoPower == null || maximumNettoPower == 0) )
+			
+	then
+		$v.setMaximumNettoPower(null);
+		insert( Message.create("18") );
+end
+
+rule "validate cubicCapacity (isNull)"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( (typeCode == "SZEMELYGEPJARMU" || typeCode == "MOTORKEREKPAR") &&  
+					  (cubicCapacity == null || cubicCapacity == 0 ) )
+			
+	then
+		$v.setCubicCapacity(null);
+		insert( Message.create("19") );
+end
+
+rule "validate seatingCapacity (isNull)"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "AUTOBUSZ" && 
+					  (seatingCapacity == null || seatingCapacity == 0) )
+			
+	then
+		$v.setSeatingCapacity(null);
+		insert( Message.create("20") );
+end
+
 
 
 rule "validate SZEMELYGEPJARMU discounts (startDate >= 2010 jan 1 and insuranceDuration = HATAROZATLAN)"
@@ -172,10 +240,11 @@ rule "validate SZEMELYGEPJARMU discounts (startDate >= 2010 jan 1 and insuranceD
 					groupedCollection == true )
 		$v : Vehicle()
 		$d : DurationDef( durationType == "HATAROZATLAN" )
-		exists VehicleTypeDef( typeCode == $v.typeCode && typeCode == "SZEMELYGEPJARMU" )
-		not (exists (Message( code == "11" || code == "12" ) ) )
+		$vt: VehicleTypeDef( typeCode == "SZEMELYGEPJARMU" )
+		not (exists (Message( code == "3" || code == "4" || code == "11" || code == "12") ) )
 		eval ( !firstDateIsBiggerOrEqualsThanSecondDate(new DateTime($q.getStartDate()), new DateTime(2010, 1, 1, 0, 0, 0, 0) ) 
-			  || (!$d.getDurationType().equals( $q.getDurationType() ) ) )
+			  || (!$d.getDurationType().equals( $q.getDurationType() ) ) 
+			  || (!$vt.getTypeCode().equals($v.getTypeCode()) ) )
 		
 	then
 		insert( Message.create("15", "2009-12-31" ) );

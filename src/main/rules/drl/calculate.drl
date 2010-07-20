@@ -84,6 +84,7 @@ rule "teruleti besorolas-korcsoport szorzo (termeszetes szemely)"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )		
 		$p : Partner( genderCode != "JOGI_SZEMELY" )
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: PartnerAgeModFactorDef( tariffCode == $a.tariffCode )
@@ -100,6 +101,7 @@ rule "teruleti besorolas szorzo (jogi szemely)"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
 		$p : Partner( genderCode == "JOGI_SZEMELY")
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: LegalModFactorDef( tariffCode == $a.tariffCode )
@@ -114,7 +116,7 @@ rule "jarmu eletkora szorzo"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU")
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
 		$mf: VehicleAgeModFactorDef()
 		eval ( $mf.isValid( $q.getStartDate() ) &&
 			   $mf.getAgeMin() <= yearsBetween($v.getDateOfFirstPutIntoTraffic(), $q.getStartDate()) &&
@@ -137,6 +139,29 @@ rule "vezetoi engedely szorzo"
 				
 	then
 		insert(new ModFactor("DRIVING-LICENSE-MULTIPLIER", $mf.getValue(), $p));
+end
+
+rule "dijfizetes gyakorisaga szorzo"
+	agenda-group "calculate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$mf: PaymentFreqModFactorDef( frequencyCode == $q.paymentFrequency )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("PAYMENT-FREQUENCY-MULTIPLIER", $mf.getValue(), $q));
+end
+
+rule "uzemeltetes jellege potdij"
+	agenda-group "calculate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v: Vehicle( useOfVehicleCode != "NORMAL" )
+		$mf: ModFactorDef( modfactorType == "UZEMELTETES" )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("USE-OF-VEHICLE-SURCHARGE", $mf.getValue(), $v));
 end
 
 
@@ -188,6 +213,53 @@ rule "partner szorzok"
     	for (Object mf : $modfactors){
     		$p.addModFactor((ModFactor) mf);
     	}
+end
+
+rule "premium szamolasa"
+	agenda-group "calculate"
+	salience -50
+	when
+		$q : Quote()
+		$v : Vehicle()
+		$p : Partner()
+        $quotemf : Double()
+	        			from accumulate ( $mf : ModFactor( quote == $q, $val : value, discount == false ),
+	                          init(double m = 1.0;),
+	                          action(
+	                          	m *= $val;
+	                          ),
+	                          result(m) 
+	                        )
+        $partnermf : Double()
+	        			from accumulate ( $mf : ModFactor( partner == $p, $val : value, discount == false ),
+	                          init(double m = 1.0;),
+	                          action(
+	                          	m *= $val;
+	                          ),
+	                          result(m) 
+	                        )
+        $vehiclemf : Double()
+	        			from accumulate ( $mf : ModFactor( vehicle == $v, $val : value, discount == false ),
+	                          init(double m = 1.0;),
+	                          action(
+	                          	m *= $val;
+	                          ),
+	                          result(m) 
+	                        )    
+		$discounts : Double()
+	        			from accumulate ( $mf : ModFactor( $val : value, discount == true ),
+	                       	init(double m = 1.0;),
+	                       	action(
+	                       		m *= $val;
+	                       	),
+	                       	result(m) 
+	                   )       	 	                              	                                  	                                           		
+						
+	then
+		System.out.println("quote szorzó: " + $quotemf);
+		System.out.println("partner szorzó: " + $partnermf);
+		System.out.println("vehicle szorzó: " + $vehiclemf);
+		System.out.println("discounts szorzó: " + $discounts);
 end
 
 
