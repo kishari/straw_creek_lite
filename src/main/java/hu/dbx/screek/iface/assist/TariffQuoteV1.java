@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class TariffQuoteV1 {
 	
-	private Integer startYear;
 	private Date startDate;
 	private String durationType;
 	private PartnerV1 partner;
@@ -29,14 +28,6 @@ public class TariffQuoteV1 {
 	private MessageListV1 messages = new MessageListV1();
 	private ModFactorListV1 modfactors = new ModFactorListV1();
 	
-	
-	public Integer getStartYear() {
-		return startYear;
-	}
-	
-	public void setStartYear(Integer startYear) {
-		this.startYear = startYear;
-	}
 	
 	public Date getStartDate() {
 		return startDate;

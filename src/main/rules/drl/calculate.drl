@@ -1,69 +1,107 @@
 package MTPLTariffRules
 
-#list any import classes here.
 import hu.dbx.screek.model.facts.*;
 import hu.dbx.screek.model.*;
 import java.util.Date;
 import org.joda.time.DateTime;
 import java.util.ArrayList;
 
-function int yearsBetween(Date s, int startYear) {
-	DateTime s1 = new DateTime(s);
-	return (startYear - s1.getYear());  
+function int yearsBetween(Date s, Date e) {
+	return Math.abs(new DateTime(s).getYear() - new DateTime(e).getYear());  
 }
 
-rule "szemelygepjarmu alaptarifa beallitas"
+rule "alaptarifa beallitas"
 	agenda-group "calculate"
 	when
 		$q : Quote()
-		$v : Vehicle( typeCode != "MOTORKEREKPAR" &&
-					  typeCode != "AUTOBUSZ")
-		$b : BaseTariffDef( vehicleType == $v.typeCode )
+		$v : Vehicle()
+		$b : BaseTariffDef( durationType == $q.durationType &&
+							vehicleType == $v.typeCode &&
+							$v.typeCode != "AUTOBUSZ" && 
+							$v.typeCode != "MOTORKEREKPAR" && 
+						    $v.typeCode != "TEHERGEPJARMU" )
+		eval ( $b.isValid( $q.getStartDate() ) )
 						
 	then
 		$q.getResult().setBaseTariff( $b.getValue() );
 end
 
-rule "motorkerekpar alaptarifa beallitas"
+rule "alaptarifa beallitas (motorkerekpar)"
 	agenda-group "calculate"
 	when
 		$q : Quote()
 		$v : Vehicle( typeCode == "MOTORKEREKPAR")
-		$m : MotorBikeCCModFactorDef( capacityMin <= $v.cubicCapacity &&
-									  capacityMax >= $v.cubicCapacity)
-		$b : BaseTariffDef( vehicleType == $v.typeCode )
+		$b : MotorBikeBaseTariffDef( durationType == $q.durationType &&
+									 cubicCapacityMin <= $v.cubicCapacity &&
+									 cubicCapacityMax >= $v.cubicCapacity )
+		eval ( $b.isValid( $q.getStartDate() ) )
 						
 	then
-		$q.getResult().setBaseTariff( (int)Math.round($b.getValue() * $m.getValue() ) );
+		$q.getResult().setBaseTariff( $b.getValue() );
 end
 
-rule "autobusz alaptarifa beallitas"
+rule "alaptarifa beallitas (autobusz)"
 	agenda-group "calculate"
 	when
 		$q : Quote()
 		$v : Vehicle( typeCode == "AUTOBUSZ")
-		$m : AutoBusModFactorDef( seatingCapacityMin <= $v.seatingCapacity &&
-								  seatingCapacityMax >= $v.seatingCapacity)
-		$b : BaseTariffDef( vehicleType == $v.typeCode )
+		$b : AutoBusBaseTariffDef( durationType == $q.durationType &&
+								   seatingCapacityMin <= $v.seatingCapacity &&
+								   seatingCapacityMax >= $v.seatingCapacity )
+		eval ( $b.isValid( $q.getStartDate() ) )
 						
 	then
-		$q.getResult().setBaseTariff( (int)Math.round($b.getValue() * $m.getValue() ) );
+		$q.getResult().setBaseTariff( $b.getValue() );
 end
 
-rule "area and partner age modfactor"
+rule "alaptarifa beallitas (tehergepjarmu)"
 	agenda-group "calculate"
 	when
 		$q : Quote()
 		$p : Partner()
+		$v : Vehicle( typeCode == "TEHERGEPJARMU" )
+		$b : TruckBaseTariffDef( durationType == $q.durationType &&
+								 genderCode == $p.genderCode &&
+								 carryingCapacityMin <= $v.carryingCapacity &&
+								 carryingCapacityMax >= $v.carryingCapacity )
+		eval ( ( !"JOGI_SZEMELY".equals( $p.getGenderCode() ) &&
+		 	    $b.getPartnerAgeMin() <= yearsBetween( $p.getDateOfBirth(), $q.getStartDate() ) &&
+			    $b.getPartnerAgeMax() >= yearsBetween( $p.getDateOfBirth(), $q.getStartDate() ) ) ||
+			   ( "JOGI_SZEMELY".equals( $p.getGenderCode() ) ) )
+		eval ( $b.isValid( $q.getStartDate() ) )
+						
+	then
+		$q.getResult().setBaseTariff( $b.getValue() );
+end
+
+rule "teruleti besorolas-korcsoport modfactor (termeszetes szemely)"
+	agenda-group "calculate"
+	when
+		$q : Quote()
+		$p : Partner( genderCode != "JOGI_SZEMELY")
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: PartnerAgeModFactorDef( tariffCode == $a.tariffCode )
 		eval ( $a.isValid( $q.getStartDate() ) &&
 		 	   $mf.isValid( $q.getStartDate() ) &&
-		 	   $mf.getAgeMin() <= yearsBetween($p.getDateOfBirth(), $q.getStartYear()) &&
-		 	   $mf.getAgeMax() >= yearsBetween($p.getDateOfBirth(), $q.getStartYear()) )
+		 	   $mf.getAgeMin() <= yearsBetween($p.getDateOfBirth(), $q.getStartDate()) &&
+		 	   $mf.getAgeMax() >= yearsBetween($p.getDateOfBirth(), $q.getStartDate()) )
 				
 	then
 		insert(new ModFactor("AREA-AGE-MULTIPLIER", $mf.getValue(), $p));
+end
+
+rule "teruleti besorolas modfactor (jogi szemely)"
+	agenda-group "calculate"
+	when
+		$q : Quote()
+		$p : Partner( genderCode == "JOGI_SZEMELY")
+		$a : AreaDef( postCode == $p.postCode )
+		$mf: LegalModFactorDef( tariffCode == $a.tariffCode )
+		eval ( $a.isValid( $q.getStartDate() ) &&
+		 	   $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("AREA-MULTIPLIER", $mf.getValue(), $p));
 end
 
 rule "Egyeni szorzok"

@@ -12,6 +12,7 @@ public class Vehicle {
 	private String make;
 	private Integer seatingCapacity;
 	private Double cubicCapacity;
+	private Integer carryingCapacity;
 	private Double ownWeight;
 	private Double maximumAllowedWeight;
 	private Double maximumNettoPower;
@@ -131,6 +132,14 @@ public class Vehicle {
 	
 	public void addModFactor(ModFactor mf){
 		this.modfactors.getModfactors().add(mf);
+	}
+
+	public void setCarryingCapacity(Integer carryingCapacity) {
+		this.carryingCapacity = carryingCapacity;
+	}
+
+	public Integer getCarryingCapacity() {
+		return carryingCapacity;
 	}
 	
 }

@@ -58,8 +58,8 @@
       <xs:element name="partner" type="tns:partnerV1" minOccurs="0"/>
       <xs:element name="paymentFrequency" type="xs:string" minOccurs="0"/>
       <xs:element name="paymentMethod" type="xs:string" minOccurs="0"/>
+      <xs:element name="result" type="tns:resultV1" minOccurs="0"/>
       <xs:element name="startDate" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="startYear" type="xs:int" minOccurs="0"/>
       <xs:element name="takeOutWithCasco" type="xs:boolean"/>
       <xs:element name="vehicle" type="tns:vehicleV1" minOccurs="0"/>
     </xs:sequence>
@@ -99,8 +99,15 @@
       <xs:element name="postCode" type="xs:int" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="resultV1">
+    <xs:sequence>
+      <xs:element name="baseTariff" type="xs:int"/>
+      <xs:element name="premium" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="vehicleV1">
     <xs:sequence>
+      <xs:element name="carryingCapacity" type="xs:int" minOccurs="0"/>
       <xs:element name="cubicCapacity" type="xs:double" minOccurs="0"/>
       <xs:element name="dateOfFirstPutIntoTraffic" type="xs:dateTime" minOccurs="0"/>
       <xs:element name="dateOfPurchase" type="xs:dateTime" minOccurs="0"/>
@@ -210,23 +217,135 @@
             <partner>
 		<postCode>2626</postCode>
                <dateOfBirth>1986-02-05T00:00:00</dateOfBirth>
-	       <genderCode>NO</genderCode>
+	       <genderCode>JOGI_SZEMELY</genderCode>
             </partner>
             <paymentFrequency>EVES</paymentFrequency>
             <paymentMethod>CSOPORTOS_BESZEDES</paymentMethod>
             <startDate>2010-01-01T00:00:00</startDate>
             <startYear>2010</startYear>
             <vehicle>
-               <cubicCapacity>1001</cubicCapacity>
+               <cubicCapacity>50</cubicCapacity>
                <dateOfFirstPutIntoTraffic>1992-02-05T00:00:00</dateOfFirstPutIntoTraffic>
                <dateOfPurchase>2000-02-05T00:00:00</dateOfPurchase>
                <make>RR</make>
                <maximumAllowedWeight>?</maximumAllowedWeight>
                <maximumNettoPower>?</maximumNettoPower>
                <ownWeight>?</ownWeight>
-               <seatingCapacity>50</seatingCapacity>
-               <typeCode>AUTOBUSZ</typeCode>
+               <seatingCapacity>30</seatingCapacity>
+	       <carryingCapacity>1780</carryingCapacity>
+               <typeCode>TEHERGEPJARMU</typeCode>
                <useOfVehicleCode></useOfVehicleCode>
+            </vehicle>
+         </quote>
+      </ser:tariff>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 3"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:tariff>
+         <!--Optional:-->
+         <quote>
+            <childPreference>?</childPreference>
+            <!--Optional:-->
+            <durationType>?</durationType>
+            <emailGranted>?</emailGranted>
+            <extraDamageExemption>?</extraDamageExemption>
+            <!--Optional:-->
+            <messages>
+               <!--Zero or more repetitions:-->
+               <message>
+                  <!--Optional:-->
+                  <code>?</code>
+                  <!--Zero or more repetitions:-->
+                  <context>?</context>
+                  <!--Optional:-->
+                  <description>?</description>
+                  <severity>?</severity>
+               </message>
+            </messages>
+            <mkbPartner>?</mkbPartner>
+            <!--Optional:-->
+            <modfactors>
+               <!--Zero or more repetitions:-->
+               <modfactor>
+                  <!--Optional:-->
+                  <code>?</code>
+                  <!--Optional:-->
+                  <value>?</value>
+               </modfactor>
+            </modfactors>
+            <online>?</online>
+            <!--Optional:-->
+            <partner>
+               <!--Optional:-->
+               <dateOfBirth>?</dateOfBirth>
+               <!--Optional:-->
+               <drivingLicenseSince>?</drivingLicenseSince>
+               <!--Optional:-->
+               <finalBonusMalus>?</finalBonusMalus>
+               <!--Optional:-->
+               <genderCode>?</genderCode>
+               <!--Optional:-->
+               <initialBonusMalus>?</initialBonusMalus>
+               <!--Optional:-->
+               <modfactors>
+                  <!--Zero or more repetitions:-->
+                  <modfactor>
+                     <!--Optional:-->
+                     <code>?</code>
+                     <!--Optional:-->
+                     <value>?</value>
+                  </modfactor>
+               </modfactors>
+               <!--Optional:-->
+               <postCode>?</postCode>
+            </partner>
+            <!--Optional:-->
+            <paymentFrequency>?</paymentFrequency>
+            <!--Optional:-->
+            <paymentMethod>?</paymentMethod>
+            <!--Optional:-->
+            <result>
+               <baseTariff>?</baseTariff>
+               <premium>?</premium>
+            </result>
+            <!--Optional:-->
+            <startDate>?</startDate>
+            <takeOutWithCasco>?</takeOutWithCasco>
+            <!--Optional:-->
+            <vehicle>
+               <!--Optional:-->
+               <carryingCapacity>?</carryingCapacity>
+               <!--Optional:-->
+               <cubicCapacity>?</cubicCapacity>
+               <!--Optional:-->
+               <dateOfFirstPutIntoTraffic>?</dateOfFirstPutIntoTraffic>
+               <!--Optional:-->
+               <dateOfPurchase>?</dateOfPurchase>
+               <!--Optional:-->
+               <make>?</make>
+               <!--Optional:-->
+               <maximumAllowedWeight>?</maximumAllowedWeight>
+               <!--Optional:-->
+               <maximumNettoPower>?</maximumNettoPower>
+               <!--Optional:-->
+               <modfactors>
+                  <!--Zero or more repetitions:-->
+                  <modfactor>
+                     <!--Optional:-->
+                     <code>?</code>
+                     <!--Optional:-->
+                     <value>?</value>
+                  </modfactor>
+               </modfactors>
+               <!--Optional:-->
+               <ownWeight>?</ownWeight>
+               <!--Optional:-->
+               <seatingCapacity>?</seatingCapacity>
+               <!--Optional:-->
+               <typeCode>?</typeCode>
+               <!--Optional:-->
+               <useOfVehicleCode>?</useOfVehicleCode>
             </vehicle>
          </quote>
       </ser:tariff>

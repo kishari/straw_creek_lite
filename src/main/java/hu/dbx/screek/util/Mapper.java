@@ -26,7 +26,6 @@ public class Mapper {
 		Quote q = new Quote();
 		
 		q.setStartDate(tariffQuoteV1.getStartDate());
-		q.setStartYear(tariffQuoteV1.getStartYear());
 		q.setDurationType(tariffQuoteV1.getDurationType());
 		
 		q.setTakeOutWithCasco(tariffQuoteV1.isTakeOutWithCasco());
@@ -66,6 +65,7 @@ public class Mapper {
 		Vehicle v = new Vehicle();
 	
 		v.setCubicCapacity(vehicleV1.getCubicCapacity());
+		v.setCarryingCapacity(vehicleV1.getCarryingCapacity());
 		v.setDateOfPurchase(vehicleV1.getDateOfPurchase());
 		v.setDateOfFirstPutIntoTraffic(vehicleV1.getDateOfFirstPutIntoTraffic());
 		v.setMake(vehicleV1.getMake());
@@ -146,7 +146,6 @@ public class Mapper {
 		TariffQuoteV1 q = new TariffQuoteV1();
 		
 		q.setStartDate(quote.getStartDate());
-		q.setStartYear(quote.getStartYear());
 		q.setDurationType(quote.getDurationType());
 		q.setPaymentMethod(quote.getPaymentMethod());
 		
@@ -189,6 +188,7 @@ public class Mapper {
 		VehicleV1 v = new VehicleV1();
 		
 		v.setCubicCapacity(vehicle.getCubicCapacity());
+		v.setCarryingCapacity(vehicle.getCarryingCapacity());
 		v.setDateOfPurchase(vehicle.getDateOfPurchase());
 		v.setDateOfFirstPutIntoTraffic(vehicle.getDateOfFirstPutIntoTraffic());
 		v.setMake(vehicle.getMake());

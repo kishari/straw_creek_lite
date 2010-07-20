@@ -17,6 +17,9 @@ public class VehicleV1 {
 	//Hengerűrtartalom
 	private Double cubicCapacity;
 	
+	//teherbírás
+	private Integer carryingCapacity;
+	
 	//Saját tömeg
 	private Double ownWeight;
 	
@@ -125,6 +128,14 @@ public class VehicleV1 {
 
 	public void setModfactors(ModFactorListV1 modfactors) {
 		this.modfactors = modfactors;
+	}
+
+	public void setCarryingCapacity(Integer carryingCapacity) {
+		this.carryingCapacity = carryingCapacity;
+	}
+
+	public Integer getCarryingCapacity() {
+		return carryingCapacity;
 	}
 	
 }

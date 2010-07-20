@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class Quote {
 
-	private Integer startYear;
 	private Date startDate;
 	private String durationType;
 	private Partner partner;
@@ -32,14 +31,6 @@ public class Quote {
 
 	public Partner getPartner() {
 		return partner;
-	}
-
-	public Integer getStartYear() {
-		return startYear;
-	}
-
-	public void setStartYear(Integer startYear) {
-		this.startYear = startYear;
 	}
 
 	public Date getStartDate() {
