@@ -10,6 +10,9 @@ function int yearsBetween(Date s, Date e) {
 	return Math.abs(new DateTime(s).getYear() - new DateTime(e).getYear());  
 }
 
+/*****************************************************************************
+							  Alaptarifa beállítás 
+*****************************************************************************/
 rule "alaptarifa beallitas"
 	agenda-group "calculate"
 	when
@@ -74,11 +77,14 @@ rule "alaptarifa beallitas (tehergepjarmu)"
 		$q.getResult().setBaseTariff( $b.getValue() );
 end
 
-rule "teruleti besorolas-korcsoport modfactor (termeszetes szemely)"
+/*****************************************************************************
+				 Díjszámítási paraméterek beállítása 
+*****************************************************************************/
+rule "teruleti besorolas-korcsoport szorzo (termeszetes szemely)"
 	agenda-group "calculate"
 	when
-		$q : Quote()
-		$p : Partner( genderCode != "JOGI_SZEMELY")
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$p : Partner( genderCode != "JOGI_SZEMELY" )
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: PartnerAgeModFactorDef( tariffCode == $a.tariffCode )
 		eval ( $a.isValid( $q.getStartDate() ) &&
@@ -90,10 +96,10 @@ rule "teruleti besorolas-korcsoport modfactor (termeszetes szemely)"
 		insert(new ModFactor("AREA-AGE-MULTIPLIER", $mf.getValue(), $p));
 end
 
-rule "teruleti besorolas modfactor (jogi szemely)"
+rule "teruleti besorolas szorzo (jogi szemely)"
 	agenda-group "calculate"
 	when
-		$q : Quote()
+		$q : Quote( durationType == "HATAROZATLAN" )
 		$p : Partner( genderCode == "JOGI_SZEMELY")
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: LegalModFactorDef( tariffCode == $a.tariffCode )
@@ -104,7 +110,71 @@ rule "teruleti besorolas modfactor (jogi szemely)"
 		insert(new ModFactor("AREA-MULTIPLIER", $mf.getValue(), $p));
 end
 
-rule "Egyeni szorzok"
+rule "jarmu eletkora szorzo"
+	agenda-group "calculate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU")
+		$mf: VehicleAgeModFactorDef()
+		eval ( $mf.isValid( $q.getStartDate() ) &&
+			   $mf.getAgeMin() <= yearsBetween($v.getDateOfFirstPutIntoTraffic(), $q.getStartDate()) &&
+		 	   $mf.getAgeMax() >= yearsBetween($v.getDateOfFirstPutIntoTraffic(), $q.getStartDate()) )
+				
+	then
+		insert(new ModFactor("AGE-MULTIPLIER", $mf.getValue(), $v));
+end
+
+rule "vezetoi engedely szorzo"
+	agenda-group "calculate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU")
+		$p : Partner()
+		$mf: DrivingLicenseModFactorDef()
+		eval ( $mf.isValid( $q.getStartDate() ) &&
+			   $mf.getSinceMin() <= yearsBetween(new DateTime($p.getYearOfDrivingLicense(),1,1,0,0,0,0).toDate(), $q.getStartDate()) &&
+		 	   $mf.getSinceMax() >= yearsBetween(new DateTime($p.getYearOfDrivingLicense(),1,1,0,0,0,0).toDate(), $q.getStartDate()) )
+				
+	then
+		insert(new ModFactor("DRIVING-LICENSE-MULTIPLIER", $mf.getValue(), $p));
+end
+
+
+/*****************************************************************************
+							  Tarifálás 
+*****************************************************************************/
+rule "quote szorzok"
+	agenda-group "calculate"
+	salience -30
+	
+    when
+        $q : Quote()
+        $modfactors : ArrayList()
+                   		from collect( ModFactor( quote == $q ) )
+
+    then
+    	for (Object mf : $modfactors){
+    		$q.addModFactor((ModFactor) mf);
+    	}
+end
+
+rule "jarmu szorzok"
+	agenda-group "calculate"
+	salience -30
+	
+    when
+        $q : Quote()
+        $v : Vehicle( quote == $q )
+        $modfactors : ArrayList()
+                   		from collect( ModFactor( vehicle == $v ) )
+
+    then
+    	for (Object mf : $modfactors){
+    		$v.addModFactor((ModFactor) mf);
+    	}
+end
+
+rule "partner szorzok"
 	agenda-group "calculate"
 	salience -30
 	

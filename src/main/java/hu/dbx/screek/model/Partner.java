@@ -11,7 +11,7 @@ public class Partner {
 	private Date dateOfBirth;
 	private String genderCode;
 	private Integer postCode;
-	private Integer drivingLicenseSince;
+	private Integer yearOfDrivingLicense;
 	private TypeOfFinalBonusMalus finalBM;
 	private TypeOfInitialBonusMalus initialBM;
 	
@@ -41,14 +41,6 @@ public class Partner {
 
 	public void setGenderCode(String genderCode) {
 		this.genderCode = genderCode;
-	}
-
-	public Integer getDrivingLicenseSince() {
-		return drivingLicenseSince;
-	}
-
-	public void setDrivingLicenseSince(Integer drivingLicenseSince) {
-		this.drivingLicenseSince = drivingLicenseSince;
 	}
 
 	public TypeOfFinalBonusMalus getFinalBM() {
@@ -86,6 +78,14 @@ public class Partner {
 
 	public Integer getPostCode() {
 		return postCode;
+	}
+
+	public void setYearOfDrivingLicense(Integer yearOfDrivingLicense) {
+		this.yearOfDrivingLicense = yearOfDrivingLicense;
+	}
+
+	public Integer getYearOfDrivingLicense() {
+		return yearOfDrivingLicense;
 	}
 	
 }

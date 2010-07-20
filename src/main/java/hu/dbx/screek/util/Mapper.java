@@ -52,7 +52,7 @@ public class Mapper {
 		
 		p.setDateOfBirth(partnerV1.getDateOfBirth());
 		p.setPostCode(partnerV1.getPostCode());
-		p.setDrivingLicenseSince(partnerV1.getDrivingLicenseSince());
+		p.setYearOfDrivingLicense(partnerV1.getYearOfDrivingLicense());
 		p.setGenderCode(partnerV1.getGenderCode());
 		p.setFinalBM(partnerV1.getFinalBM());
 		p.setInitialBM(partnerV1.getInitialBM());
@@ -174,7 +174,7 @@ public class Mapper {
 		
 		p.setDateOfBirth(partner.getDateOfBirth());
 		p.setPostCode(partner.getPostCode());
-		p.setDrivingLicenseSince(partner.getDrivingLicenseSince());
+		p.setYearOfDrivingLicense(partner.getYearOfDrivingLicense());
 		p.setGenderCode(partner.getGenderCode());
 		p.setFinalBM(partner.getFinalBM());
 		p.setInitialBM(partner.getInitialBM());

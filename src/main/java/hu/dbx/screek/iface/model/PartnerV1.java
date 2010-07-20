@@ -12,7 +12,7 @@ public class PartnerV1 {
 	private Date dateOfBirth;
 	private String genderCode;
 	private Integer postCode;
-	private Integer drivingLicenseSince;
+	private Integer yearOfDrivingLicense;
 	private TypeOfFinalBonusMalus finalBM;
 	private TypeOfInitialBonusMalus initialBM;
 	
@@ -34,14 +34,6 @@ public class PartnerV1 {
 		this.genderCode = genderCode;
 	}
 	
-	public Integer getDrivingLicenseSince() {
-		return drivingLicenseSince;
-	}
-	
-	public void setDrivingLicenseSince(Integer drivingLicenseSince) {
-		this.drivingLicenseSince = drivingLicenseSince;
-	}
-
 	@XmlElement(name = "finalBonusMalus")
 	public TypeOfFinalBonusMalus getFinalBM() {
 		return finalBM;
@@ -75,6 +67,14 @@ public class PartnerV1 {
 
 	public Integer getPostCode() {
 		return postCode;
+	}
+
+	public void setYearOfDrivingLicense(Integer yearOfDrivingLicense) {
+		this.yearOfDrivingLicense = yearOfDrivingLicense;
+	}
+
+	public Integer getYearOfDrivingLicense() {
+		return yearOfDrivingLicense;
 	}
 	
 }
