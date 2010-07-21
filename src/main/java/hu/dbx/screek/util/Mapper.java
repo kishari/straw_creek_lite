@@ -124,7 +124,7 @@ public class Mapper {
 		
 		modfactor.setCode(modfactorV1.getCode());
 		modfactor.setValue(modfactorV1.getValue());
-		modfactor.setDiscount(modfactorV1.isDiscount());
+		modfactor.setType(modfactorV1.getType());
 		
 		if (owner instanceof Quote) {
 			modfactor.setQuote((Quote)owner);			
@@ -247,7 +247,7 @@ public class Mapper {
 		
 		modfactorV1.setCode(modfactor.getCode());
 		modfactorV1.setValue(modfactor.getValue());
-		modfactorV1.setDiscount(modfactor.isDiscount());
+		modfactorV1.setType(modfactor.getType());
 		
 		return modfactorV1;
 	}

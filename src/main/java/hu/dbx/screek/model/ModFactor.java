@@ -7,30 +7,66 @@ public class ModFactor {
 	private String code;
 	private Double value;
 	
-	private boolean discount;
+	//type = MULTIPLIER, DISCOUNT, SURCHARGE
+	private String type;
 	private Quote quote;
 	private Partner partner;
 	private Vehicle vehicle;
 	
+	private boolean discount;
+	private boolean surcharge;
 	
+	
+	public boolean isSurcharge() {
+		return surcharge;
+	}
+
+	public void setSurcharge(boolean surcharge) {
+		this.surcharge = surcharge;
+	}
+
 	public ModFactor() {}
 	
-	public ModFactor(String code, Double value, Quote quote) {
+	public ModFactor(String code, Double value, Quote quote, String type) {
 		this.code = code;
 		this.value = value;
 		this.quote = quote;
+		this.type = type;
+		
+		if ("SURCHARGE".equals(type)) {
+			this.surcharge = true;
+		}
+		else if ("DISCOUNT".equals(type)) {
+			this.discount = true;
+		}
 	}
 	
-	public ModFactor(String code, Double value, Partner partner) {
+	public ModFactor(String code, Double value, Partner partner, String type) {
 		this.code = code;
 		this.value = value;
 		this.partner = partner;
+		this.type = type;
+		
+		if ("SURCHARGE".equals(type)) {
+			this.surcharge = true;
+		}
+		else if ("DISCOUNT".equals(type)) {
+			this.discount = true;
+		}
 	}
 	
-	public ModFactor(String code, Double value, Vehicle vehicle) {
+	public ModFactor(String code, Double value, Vehicle vehicle, String type) {
 		this.code = code;
 		this.value = value;
 		this.vehicle = vehicle;
+		this.type = type;
+		
+		if ("SURCHARGE".equals(type)) {
+			this.surcharge = true;
+		}
+		else if ("DISCOUNT".equals(type)) {
+			this.discount = true;
+		}
 	}
 	
 	public void setValue(Double value) {
@@ -72,6 +108,14 @@ public class ModFactor {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 	public void setDiscount(boolean discount) {

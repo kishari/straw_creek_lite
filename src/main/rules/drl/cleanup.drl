@@ -4,6 +4,7 @@ import hu.dbx.screek.model.*;
 import hu.dbx.screek.model.State.States;
 import hu.dbx.screek.model.facts.*;
 
+
 rule "ModFactorok eltavolitas a sessionbol"
 	agenda-group "cleanup"
 	

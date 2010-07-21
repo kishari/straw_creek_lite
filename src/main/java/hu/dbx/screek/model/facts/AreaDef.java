@@ -4,8 +4,8 @@ public class AreaDef extends BaseDef {
 	
 	private Integer postCode;
 	
-	//tariffCode = 1, 2, 3 vagy 4, postCode-tól függően
-	private Integer tariffCode; 
+	//areaCode = 1, 2, 3 vagy 4, postCode-tól függően
+	private Integer areaCode; 
 	
 	
 	public Integer getPostCode() {
@@ -16,12 +16,12 @@ public class AreaDef extends BaseDef {
 		this.postCode = postCode;
 	}
 
-	public void setTariffCode(Integer tariffCode) {
-		this.tariffCode = tariffCode;
+	public void setAreaCode(Integer areaCode) {
+		this.areaCode = areaCode;
 	}
 
-	public Integer getTariffCode() {
-		return tariffCode;
+	public Integer getAreaCode() {
+		return areaCode;
 	}
 	
 }

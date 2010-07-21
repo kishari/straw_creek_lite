@@ -10,6 +10,18 @@ function int yearsBetween(Date s, Date e) {
 	return Math.abs(new DateTime(s).getYear() - new DateTime(e).getYear());  
 }
 
+function boolean isEquals(DateTime s, DateTime e) {
+	DateTime temp = s.withDate(s.getYear(), s.getMonthOfYear(), s.getDayOfMonth());
+
+	return temp.isEqual(e);
+}
+
+function boolean firstIsAfter(DateTime s, DateTime e) {
+	DateTime temp = s.withDate(s.getYear(), s.getMonthOfYear(), s.getDayOfMonth());
+	
+	return temp.isAfter(e);    
+}
+
 /*****************************************************************************
 							  Alaptarifa beállítás 
 *****************************************************************************/
@@ -87,14 +99,14 @@ rule "teruleti besorolas-korcsoport szorzo (termeszetes szemely)"
 		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )		
 		$p : Partner( genderCode != "JOGI_SZEMELY" )
 		$a : AreaDef( postCode == $p.postCode )
-		$mf: PartnerAgeModFactorDef( tariffCode == $a.tariffCode )
+		$mf: PartnerAgeModFactorDef( areaCode == $a.areaCode )
 		eval ( $a.isValid( $q.getStartDate() ) &&
 		 	   $mf.isValid( $q.getStartDate() ) &&
 		 	   $mf.getAgeMin() <= yearsBetween($p.getDateOfBirth(), $q.getStartDate()) &&
 		 	   $mf.getAgeMax() >= yearsBetween($p.getDateOfBirth(), $q.getStartDate()) )
 				
 	then
-		insert(new ModFactor("AREA-AGE-MULTIPLIER", $mf.getValue(), $p));
+		insert(new ModFactor("AREA-AGEGROUP", $mf.getValue(), $p, "MULTIPLIER"));
 end
 
 rule "teruleti besorolas szorzo (jogi szemely)"
@@ -104,15 +116,15 @@ rule "teruleti besorolas szorzo (jogi szemely)"
 		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
 		$p : Partner( genderCode == "JOGI_SZEMELY")
 		$a : AreaDef( postCode == $p.postCode )
-		$mf: LegalModFactorDef( tariffCode == $a.tariffCode )
+		$mf: LegalModFactorDef( areaCode == $a.areaCode )
 		eval ( $a.isValid( $q.getStartDate() ) &&
 		 	   $mf.isValid( $q.getStartDate() ) )
 				
 	then
-		insert(new ModFactor("AREA-MULTIPLIER", $mf.getValue(), $p));
+		insert(new ModFactor("AREA", $mf.getValue(), $p, "MULTIPLIER"));
 end
 
-rule "jarmu eletkora szorzo"
+rule "jarmu eletkor szorzo"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
@@ -123,7 +135,7 @@ rule "jarmu eletkora szorzo"
 		 	   $mf.getAgeMax() >= yearsBetween($v.getDateOfFirstPutIntoTraffic(), $q.getStartDate()) )
 				
 	then
-		insert(new ModFactor("AGE-MULTIPLIER", $mf.getValue(), $v));
+		insert(new ModFactor("VEHICLE-AGE", $mf.getValue(), $v, "MULTIPLIER"));
 end
 
 rule "vezetoi engedely szorzo"
@@ -138,7 +150,7 @@ rule "vezetoi engedely szorzo"
 		 	   $mf.getSinceMax() >= yearsBetween(new DateTime($p.getYearOfDrivingLicense(),1,1,0,0,0,0).toDate(), $q.getStartDate()) )
 				
 	then
-		insert(new ModFactor("DRIVING-LICENSE-MULTIPLIER", $mf.getValue(), $p));
+		insert(new ModFactor("DRIVING-LICENSE", $mf.getValue(), $p, "MULTIPLIER"));
 end
 
 rule "dijfizetes gyakorisaga szorzo"
@@ -149,10 +161,10 @@ rule "dijfizetes gyakorisaga szorzo"
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
-		insert(new ModFactor("PAYMENT-FREQUENCY-MULTIPLIER", $mf.getValue(), $q));
+		insert(new ModFactor("PAYMENT-FREQUENCY", $mf.getValue(), $q, "MULTIPLIER"));
 end
 
-rule "uzemeltetes jellege potdij"
+rule "uzemeltetesi jelleg potdij"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
@@ -161,7 +173,95 @@ rule "uzemeltetes jellege potdij"
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
-		insert(new ModFactor("USE-OF-VEHICLE-SURCHARGE", $mf.getValue(), $v));
+		insert(new ModFactor("USE-OF-VEHICLE", $mf.getValue(), $v, "SURCHARGE"));
+end
+
+rule "casco egyuttkotes kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( takeOutWithCasco == true )
+		$mf: ModFactorDef( modfactorType == "CASCO_EGYUTTKOTES" )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("TAKE-OUT-WITH-CASCO", $mf.getValue(), $q, "DISCOUNT"));
+end
+
+rule "banki lehivasos fizetes kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( groupedCollection == true )
+		$mf: ModFactorDef( modfactorType == "BANKI_CSOPORTOS_BESZEDES" )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("GROUPED-COLLECTION", $mf.getValue(), $q, "DISCOUNT"));
+end
+
+rule "online 8 kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( online == true && eval ( isEquals(new DateTime(startDate), new DateTime(2010, 1, 1, 0, 0, 0, 0) ) ) )
+		$mf: ModFactorDef( modfactorType == "ONLINE8" )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("ONLINE", $mf.getValue(), $q, "DISCOUNT"));
+end
+
+rule "online 4 kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( online == true && eval ( firstIsAfter(new DateTime(startDate), new DateTime(2010, 1, 1, 0, 0, 0, 0) ) ) )
+		$mf: ModFactorDef( modfactorType == "ONLINE4" )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("ONLINE", $mf.getValue(), $q, "DISCOUNT"));
+end
+
+rule "gyermek kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( childPreference == true )
+		$mf: ModFactorDef( modfactorType == "GYERMEK" )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("CHILD-PREFERENCE", $mf.getValue(), $q, "DISCOUNT"));
+end
+
+rule "mkb partner kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( mkbPartner == true )
+		$mf: ModFactorDef( modfactorType == "PARTNER" )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("MKB-PARTNER", $mf.getValue(), $q, "DISCOUNT"));
+end
+
+rule "email kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( emailGranted == true )
+		$mf: ModFactorDef( modfactorType == "EMAIL" )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("EMAIL", $mf.getValue(), $q, "DISCOUNT"));
+end
+
+rule "extra karmentessegi kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( extraDamageExemption == true )
+		$mf: ModFactorDef( modfactorType == "EXTRA_KARMENTESSEG" )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("EXTRA-DAMAGE-EXEMPTION", $mf.getValue(), $q, "DISCOUNT"));
 end
 
 
@@ -253,13 +353,22 @@ rule "premium szamolasa"
 	                       		m *= $val;
 	                       	),
 	                       	result(m) 
-	                   )       	 	                              	                                  	                                           		
+	                   )    
+	   	$surcharges : Double()
+	        			from accumulate ( $mf : ModFactor( $val : value, surcharge == true ),
+	                       	init(double m = 1.0;),
+	                       	action(
+	                       		m *= $val;
+	                       	),
+	                       	result(m) 
+	                   )     	 	                              	                                  	                                           		
 						
 	then
 		System.out.println("quote szorzó: " + $quotemf);
 		System.out.println("partner szorzó: " + $partnermf);
 		System.out.println("vehicle szorzó: " + $vehiclemf);
 		System.out.println("discounts szorzó: " + $discounts);
+		System.out.println("surcharges szorzó: " + $surcharges);
 end
 
 

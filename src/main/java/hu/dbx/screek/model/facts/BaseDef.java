@@ -25,8 +25,13 @@ public class BaseDef {
 	}
 	
 	public boolean isValid(Date startDate) {
-		setValid( firstDateIsBiggerOrEqualsThanSecondDate(startDate, this.validFrom) &&
-				  firstDateIsSmallerOrEqualsThanSecondDate(startDate, this.validTo) );
+		if (startDate != null) {
+			setValid( firstDateIsBiggerOrEqualsThanSecondDate(startDate, this.validFrom) &&
+					  firstDateIsSmallerOrEqualsThanSecondDate(startDate, this.validTo) );
+		}
+		else {
+			setValid(false);
+		}
 		return valid;
 	}
 	

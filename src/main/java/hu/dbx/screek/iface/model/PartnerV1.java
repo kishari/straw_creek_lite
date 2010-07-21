@@ -1,8 +1,5 @@
 package hu.dbx.screek.iface.model;
 
-import hu.dbx.screek.model.TypeOfFinalBonusMalus;
-import hu.dbx.screek.model.TypeOfInitialBonusMalus;
-
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;

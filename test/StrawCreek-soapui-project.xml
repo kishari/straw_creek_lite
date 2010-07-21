@@ -51,6 +51,8 @@
       <xs:element name="durationType" type="xs:string" minOccurs="0"/>
       <xs:element name="emailGranted" type="xs:boolean"/>
       <xs:element name="extraDamageExemption" type="xs:boolean"/>
+      <xs:element name="finalBonusMalus" type="tns:typeOfFinalBonusMalus" minOccurs="0"/>
+      <xs:element name="initialBonusMalus" type="tns:typeOfInitialBonusMalus" minOccurs="0"/>
       <xs:element name="messages" type="tns:messageListV1" minOccurs="0"/>
       <xs:element name="mkbPartner" type="xs:boolean"/>
       <xs:element name="modfactors" type="tns:modFactorListV1" minOccurs="0"/>
@@ -85,15 +87,14 @@
   <xs:complexType name="modFactorV1">
     <xs:sequence>
       <xs:element name="code" type="xs:string" minOccurs="0"/>
+      <xs:element name="discount" type="xs:boolean"/>
       <xs:element name="value" type="xs:double" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="partnerV1">
     <xs:sequence>
       <xs:element name="dateOfBirth" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="finalBonusMalus" type="tns:typeOfFinalBonusMalus" minOccurs="0"/>
       <xs:element name="genderCode" type="xs:string" minOccurs="0"/>
-      <xs:element name="initialBonusMalus" type="tns:typeOfInitialBonusMalus" minOccurs="0"/>
       <xs:element name="modfactors" type="tns:modFactorListV1" minOccurs="0"/>
       <xs:element name="postCode" type="xs:int" minOccurs="0"/>
       <xs:element name="yearOfDrivingLicense" type="xs:int" minOccurs="0"/>
@@ -107,13 +108,13 @@
   </xs:complexType>
   <xs:complexType name="vehicleV1">
     <xs:sequence>
-      <xs:element name="carryingCapacity" type="xs:int" minOccurs="0"/>
-      <xs:element name="cubicCapacity" type="xs:double" minOccurs="0"/>
+      <xs:element name="carryingCapacity" type="xs:int" nillable="true" minOccurs="0"/>
+      <xs:element name="cubicCapacity" type="xs:int" minOccurs="0"/>
       <xs:element name="dateOfFirstPutIntoTraffic" type="xs:dateTime" minOccurs="0"/>
       <xs:element name="dateOfPurchase" type="xs:dateTime" minOccurs="0"/>
       <xs:element name="make" type="xs:string" minOccurs="0"/>
       <xs:element name="maximumAllowedWeight" type="xs:double" minOccurs="0"/>
-      <xs:element name="maximumNettoPower" type="xs:double" minOccurs="0"/>
+      <xs:element name="maximumNettoPower" type="xs:int" minOccurs="0"/>
       <xs:element name="modfactors" type="tns:modFactorListV1" minOccurs="0"/>
       <xs:element name="ownWeight" type="xs:double" minOccurs="0"/>
       <xs:element name="seatingCapacity" type="xs:int" minOccurs="0"/>
@@ -214,26 +215,30 @@
          <quote>
             <durationType>HATAROZATLAN</durationType> 
             <emailGranted>true</emailGranted>
+            <takeOutWithCasco>true</takeOutWithCasco>
+	    <online>true</online>
+	    <childPreference>true</childPreference>
+	    <mkbPartner>true</mkbPartner>
             <partner>
 		<postCode>2626</postCode>
-               <dateOfBirth>1986-02-05T00:00:00</dateOfBirth>
+           	<dateOfBirth>1986-02-05</dateOfBirth>
 	       <genderCode>JOGI_SZEMELY</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>EVES</paymentFrequency>
+            <paymentFrequency>HAVI</paymentFrequency>
             <paymentMethod>CSOPORTOS_BESZEDES</paymentMethod>
-            <startDate>2010-01-01T00:00:00</startDate>
+            <startDate>2010-01-01</startDate>
             <vehicle>
-          <!--     <cubicCapacity></cubicCapacity> -->
-               <dateOfFirstPutIntoTraffic>2007-02-05T00:00:00</dateOfFirstPutIntoTraffic>
-               <dateOfPurchase>2000-02-05T00:00:00</dateOfPurchase>
+               <cubicCapacity>333</cubicCapacity>
+               <dateOfFirstPutIntoTraffic>2000-11-11</dateOfFirstPutIntoTraffic>
+               <dateOfPurchase>2000-02-04</dateOfPurchase>
                <make>RR</make>
                <maximumAllowedWeight>?</maximumAllowedWeight>
-               <maximumNettoPower></maximumNettoPower>
+               <maximumNettoPower>44</maximumNettoPower>
                <ownWeight>?</ownWeight>
                <seatingCapacity></seatingCapacity>
-	       <carryingCapacity>1780</carryingCapacity>
-               <typeCode>AUTOBUSZ</typeCode>
+	       <carryingCapacity>222</carryingCapacity>
+               <typeCode>SZEMELYGEPJARMU</typeCode>
                <useOfVehicleCode>TAXI</useOfVehicleCode>
             </vehicle>
          </quote>
@@ -250,6 +255,10 @@
             <durationType>?</durationType>
             <emailGranted>?</emailGranted>
             <extraDamageExemption>?</extraDamageExemption>
+            <!--Optional:-->
+            <finalBonusMalus>?</finalBonusMalus>
+            <!--Optional:-->
+            <initialBonusMalus>?</initialBonusMalus>
             <!--Optional:-->
             <messages>
                <!--Zero or more repetitions:-->
@@ -270,6 +279,7 @@
                <modfactor>
                   <!--Optional:-->
                   <code>?</code>
+                  <discount>?</discount>
                   <!--Optional:-->
                   <value>?</value>
                </modfactor>
@@ -280,17 +290,14 @@
                <!--Optional:-->
                <dateOfBirth>?</dateOfBirth>
                <!--Optional:-->
-               <finalBonusMalus>?</finalBonusMalus>
-               <!--Optional:-->
                <genderCode>?</genderCode>
-               <!--Optional:-->
-               <initialBonusMalus>?</initialBonusMalus>
                <!--Optional:-->
                <modfactors>
                   <!--Zero or more repetitions:-->
                   <modfactor>
                      <!--Optional:-->
                      <code>?</code>
+                     <discount>?</discount>
                      <!--Optional:-->
                      <value>?</value>
                   </modfactor>
@@ -334,6 +341,7 @@
                   <modfactor>
                      <!--Optional:-->
                      <code>?</code>
+                     <discount>?</discount>
                      <!--Optional:-->
                      <value>?</value>
                   </modfactor>

@@ -3,7 +3,7 @@ package hu.dbx.screek.iface.model;
 public class ModFactorV1 {
 	private String code;
 	private Double value;
-	private boolean discount;
+	private String type;
 	
 	public void setValue(Double value) {
 		this.value = value;
@@ -21,12 +21,12 @@ public class ModFactorV1 {
 		this.code = code;
 	}
 
-	public void setDiscount(boolean discount) {
-		this.discount = discount;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public boolean isDiscount() {
-		return discount;
+	public String getType() {
+		return type;
 	}
 	
 	

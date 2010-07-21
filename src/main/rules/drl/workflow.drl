@@ -94,7 +94,7 @@ rule "valid-tariff csoport aktivalasa"
 		exists( State( state == States.VALID_TARIFF_START ) and
 			    State( state == States.WF_START ) )	 
 	then
-
+	
 end
 
 rule "validate csoport utolso szabalya"

@@ -2,7 +2,7 @@ package hu.dbx.screek.model.facts;
 
 public class LegalModFactorDef extends BaseDef {
 
-	private Integer tariffCode;
+	private Integer areaCode;
 	private Double value;
 	
 	
@@ -14,12 +14,12 @@ public class LegalModFactorDef extends BaseDef {
 		this.value = value;
 	}
 
-	public void setTariffCode(Integer tariffCode) {
-		this.tariffCode = tariffCode;
+	public void setAreaCode(Integer areaCode) {
+		this.areaCode = areaCode;
 	}
 
-	public Integer getTariffCode() {
-		return tariffCode;
+	public Integer getAreaCode() {
+		return areaCode;
 	}
 	
 	
