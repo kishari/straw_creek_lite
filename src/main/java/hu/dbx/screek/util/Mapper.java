@@ -254,12 +254,15 @@ public class Mapper {
 	
 	private static ResultV1 mapOut(Result result) {		
 		if (result != null) {
-			ResultV1 resultv1 = new ResultV1();
+			ResultV1 resultV1 = new ResultV1();
 			
-			resultv1.setBaseTariff(result.getBaseTariff());
-			resultv1.setPremium(result.getPremium());
+			resultV1.setBaseTariff(result.getBaseTariff());
+			resultV1.setPremium(result.getPremium());
+			resultV1.setMultiplier(result.getMultiplier());
+			resultV1.setDiscountMultiplier(result.getDiscountMultiplier());
+			resultV1.setSurchargeMultiplier(result.getSurchargeMultiplier());
 			
-			return resultv1;
+			return resultV1;
 		}
 		else 
 			return null;

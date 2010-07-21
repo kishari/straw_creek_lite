@@ -5,6 +5,14 @@ import hu.dbx.screek.model.*;
 import java.util.Date;
 import org.joda.time.DateTime;
 import java.util.ArrayList;
+import java.math.BigDecimal;
+
+function double round(double val, int precision) {
+	BigDecimal temp = new BigDecimal(val).setScale(precision, BigDecimal.ROUND_HALF_UP);
+	Double doublePrice= new Double(temp.doubleValue());
+	
+	return temp.doubleValue();
+}
 
 function int yearsBetween(Date s, Date e) {
 	return Math.abs(new DateTime(s).getYear() - new DateTime(e).getYear());  
@@ -164,6 +172,30 @@ rule "dijfizetes gyakorisaga szorzo"
 		insert(new ModFactor("PAYMENT-FREQUENCY", $mf.getValue(), $q, "MULTIPLIER"));
 end
 
+rule "alaptarifa modositas a gyartmany-teljesitmeny-hengerurtartalom alapjan"
+	agenda-group "calculate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
+		$m : MakeDef( make == $v.make )
+		$p : PowerModFactorDef( makeCode == $m.makeCode )
+		$c : CubicCapacityModFactorDef( )
+		eval( $p.getPowerMin() <= $v.getMaximumNettoPower() &&
+			  $p.getPowerMax() >= $v.getMaximumNettoPower() &&
+			  $p.isValid( $q.getStartDate() ) )
+		eval( $c.getCapacityMin() <= $v.getCubicCapacity() &&
+			  $c.getCapacityMax() >= $v.getCubicCapacity() &&
+			  $c.isValid( $q.getStartDate() ) ) 
+				
+	then
+		int baseTariff = $q.getResult().getBaseTariff();
+		baseTariff = (int)Math.round(baseTariff * $p.getValue() * $c.getValue() );
+		$q.getResult().setBaseTariff( baseTariff );
+end
+
+/*****************************************************************************
+				 Kedvezmények, pótdíjak számolása 
+*****************************************************************************/
 rule "uzemeltetesi jelleg potdij"
 	agenda-group "calculate"
 	when
@@ -361,14 +393,30 @@ rule "premium szamolasa"
 	                       		m *= $val;
 	                       	),
 	                       	result(m) 
-	                   )     	 	                              	                                  	                                           		
-						
+	                   )     	 	                              	                                  	                                           					
 	then
+		int baseTariff = $q.getResult().getBaseTariff();
+		int precision = 5;
+		
+		if ( $discounts < 0.6 ) {			
+			insert( Message.create("26", String.valueOf( round( (1 - $discounts) * 100, precision ) ) ) );
+			$discounts = 0.6;
+		}
+		double mult = round($quotemf * $partnermf * $vehiclemf * $discounts * $surcharges, precision);
+		int premium = (int)Math.round(baseTariff * mult); 
+		$q.getResult().setPremium( premium );
+		$q.getResult().setMultiplier( round($quotemf * $partnermf * $vehiclemf, precision) );
+		$q.getResult().setDiscountMultiplier( round($discounts, precision) );
+		$q.getResult().setSurchargeMultiplier( round($surcharges, precision) );
+		
+		
 		System.out.println("quote szorzó: " + $quotemf);
 		System.out.println("partner szorzó: " + $partnermf);
 		System.out.println("vehicle szorzó: " + $vehiclemf);
+		System.out.println("összes szorzó: " + $vehiclemf*$partnermf*$quotemf);
 		System.out.println("discounts szorzó: " + $discounts);
 		System.out.println("surcharges szorzó: " + $surcharges);
+		System.out.println("normalizált szorzó: " + round($vehiclemf * $partnermf * $quotemf, precision));
 end
 
 
