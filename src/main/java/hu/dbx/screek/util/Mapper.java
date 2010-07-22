@@ -35,8 +35,7 @@ public class Mapper {
 		q.setEmailGranted(tariffQuoteV1.isEmailGranted());
 		q.setExtraDamageExemption(tariffQuoteV1.isExtraDamageExemption());
 		q.setPaymentMethod(tariffQuoteV1.getPaymentMethod());
-		q.setFinalBM(tariffQuoteV1.getFinalBM());
-		q.setInitialBM(tariffQuoteV1.getInitialBM());
+		q.setBonusMalus(tariffQuoteV1.getBonusMalus());
 		
 		q.setPaymentFrequency(tariffQuoteV1.getPaymentFrequency());
 		
@@ -158,8 +157,7 @@ public class Mapper {
 		q.setExtraDamageExemption(quote.isExtraDamageExemption());
 		q.setResult(mapOut(quote.getResult()));
 		
-		q.setFinalBM(quote.getFinalBM());
-		q.setInitialBM(quote.getInitialBM());
+		q.setBonusMalus(quote.getBonusMalus());
 		
 		q.setPaymentFrequency(quote.getPaymentFrequency());
 

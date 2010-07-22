@@ -40,9 +40,9 @@ rule "alaptarifa beallitas"
 		$v : Vehicle()
 		$b : BaseTariffDef( durationType == $q.durationType &&
 							vehicleType == $v.typeCode &&
-							$v.typeCode != "AUTOBUSZ" && 
-							$v.typeCode != "MOTORKEREKPAR" && 
-						    $v.typeCode != "TEHERGEPJARMU" )
+							$v.typeCode != 4 && 
+							$v.typeCode != 3 && 
+						    $v.typeCode != 2 )
 		eval ( $b.isValid( $q.getStartDate() ) )
 						
 	then
@@ -53,7 +53,7 @@ rule "alaptarifa beallitas (motorkerekpar)"
 	agenda-group "calculate"
 	when
 		$q : Quote()
-		$v : Vehicle( typeCode == "MOTORKEREKPAR")
+		$v : Vehicle( typeCode == 3 )
 		$b : MotorBikeBaseTariffDef( durationType == $q.durationType &&
 									 cubicCapacityMin <= $v.cubicCapacity &&
 									 cubicCapacityMax >= $v.cubicCapacity )
@@ -67,7 +67,7 @@ rule "alaptarifa beallitas (autobusz)"
 	agenda-group "calculate"
 	when
 		$q : Quote()
-		$v : Vehicle( typeCode == "AUTOBUSZ")
+		$v : Vehicle( typeCode == 4 )
 		$b : AutoBusBaseTariffDef( durationType == $q.durationType &&
 								   seatingCapacityMin <= $v.seatingCapacity &&
 								   seatingCapacityMax >= $v.seatingCapacity )
@@ -82,7 +82,7 @@ rule "alaptarifa beallitas (tehergepjarmu)"
 	when
 		$q : Quote()
 		$p : Partner()
-		$v : Vehicle( typeCode == "TEHERGEPJARMU" )
+		$v : Vehicle( typeCode == 2 )
 		$b : TruckBaseTariffDef( durationType == $q.durationType &&
 								 genderCode == $p.genderCode &&
 								 carryingCapacityMin <= $v.carryingCapacity &&
@@ -104,7 +104,7 @@ rule "alaptarifa modositas a gyartmany-teljesitmeny-hengerurtartalom alapjan"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
+		$v : Vehicle( typeCode == 1 )
 		$m : MakeDef( make == $v.make )
 		$p : PowerModFactorDef( makeCode == $m.makeCode )
 		$c : CubicCapacityModFactorDef( )
@@ -125,7 +125,7 @@ rule "teruleti besorolas-korcsoport szorzo (termeszetes szemely)"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )		
+		$v : Vehicle( typeCode == 1 )		
 		$p : Partner( genderCode != "JOGI_SZEMELY" )
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: PartnerAgeModFactorDef( areaCode == $a.areaCode )
@@ -142,7 +142,7 @@ rule "teruleti besorolas szorzo (jogi szemely)"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
+		$v : Vehicle( typeCode == 1 )
 		$p : Partner( genderCode == "JOGI_SZEMELY")
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: LegalModFactorDef( areaCode == $a.areaCode )
@@ -157,7 +157,7 @@ rule "jarmu eletkor szorzo"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
+		$v : Vehicle( typeCode == 1 )
 		$mf: VehicleAgeModFactorDef()
 		eval ( $mf.isValid( $q.getStartDate() ) &&
 			   $mf.getAgeMin() <= yearsBetween($v.getDateOfFirstPutIntoTraffic(), $q.getStartDate()) &&
@@ -171,7 +171,7 @@ rule "vezetoi engedely szorzo"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU")
+		$v : Vehicle( typeCode == 1)
 		$p : Partner()
 		$mf: DrivingLicenseModFactorDef()
 		eval ( $mf.isValid( $q.getStartDate() ) &&
@@ -201,7 +201,7 @@ rule "uzemeltetesi jelleg potdij"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
 		$v: Vehicle( operationalModality != "NORMAL" )
-		$mf: ModFactorDef( modfactorType == "UZEMELTETES" )
+		$mf: ModFactorDef( modfactorType == 9 )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
@@ -212,7 +212,7 @@ rule "casco egyuttkotes kedvezmeny"
 	agenda-group "calculate"
 	when
 		$q : Quote( takeOutWithCasco == true )
-		$mf: ModFactorDef( modfactorType == "CASCO_EGYUTTKOTES" )
+		$mf: ModFactorDef( modfactorType == 1 )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
@@ -223,7 +223,7 @@ rule "banki lehivasos fizetes kedvezmeny"
 	agenda-group "calculate"
 	when
 		$q : Quote( groupedCollection == true )
-		$mf: ModFactorDef( modfactorType == "BANKI_CSOPORTOS_BESZEDES" )
+		$mf: ModFactorDef( modfactorType == 2 )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
@@ -234,7 +234,7 @@ rule "online 8 kedvezmeny"
 	agenda-group "calculate"
 	when
 		$q : Quote( online == true && eval ( isEquals(new DateTime(startDate), new DateTime(2010, 1, 1, 0, 0, 0, 0) ) ) )
-		$mf: ModFactorDef( modfactorType == "ONLINE8" )
+		$mf: ModFactorDef( modfactorType == 4 )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
@@ -245,7 +245,7 @@ rule "online 4 kedvezmeny"
 	agenda-group "calculate"
 	when
 		$q : Quote( online == true && eval ( firstIsAfter(new DateTime(startDate), new DateTime(2010, 1, 1, 0, 0, 0, 0) ) ) )
-		$mf: ModFactorDef( modfactorType == "ONLINE4" )
+		$mf: ModFactorDef( modfactorType == 3 )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
@@ -256,7 +256,7 @@ rule "gyermek kedvezmeny"
 	agenda-group "calculate"
 	when
 		$q : Quote( childPreference == true )
-		$mf: ModFactorDef( modfactorType == "GYERMEK" )
+		$mf: ModFactorDef( modfactorType == 5 )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
@@ -267,7 +267,7 @@ rule "mkb partner kedvezmeny"
 	agenda-group "calculate"
 	when
 		$q : Quote( mkbPartner == true )
-		$mf: ModFactorDef( modfactorType == "PARTNER" )
+		$mf: ModFactorDef( modfactorType == 6 )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
@@ -278,7 +278,7 @@ rule "email kedvezmeny"
 	agenda-group "calculate"
 	when
 		$q : Quote( emailGranted == true )
-		$mf: ModFactorDef( modfactorType == "EMAIL" )
+		$mf: ModFactorDef( modfactorType == 7 )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
@@ -289,7 +289,7 @@ rule "extra karmentessegi kedvezmeny"
 	agenda-group "calculate"
 	when
 		$q : Quote( extraDamageExemption == true )
-		$mf: ModFactorDef( modfactorType == "EXTRA_KARMENTESSEG" )
+		$mf: ModFactorDef( modfactorType == 8 )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
@@ -355,7 +355,7 @@ rule "eves premium szamolasa"
 		$v : Vehicle()
 		$p : Partner()
         $quotemf : Double()
-	        			from accumulate ( $mf : ModFactor( quote == $q, $val : value, discount == false ),
+	        			from accumulate ( $mf : ModFactor( quote == $q, $val : value, discount == false, surcharge == false ),
 	                          init(double m = 1.0;),
 	                          action(
 	                          	m *= $val;
@@ -363,7 +363,7 @@ rule "eves premium szamolasa"
 	                          result(m) 
 	                        )
         $partnermf : Double()
-	        			from accumulate ( $mf : ModFactor( partner == $p, $val : value, discount == false ),
+	        			from accumulate ( $mf : ModFactor( partner == $p, $val : value, discount == false, surcharge == false ),
 	                          init(double m = 1.0;),
 	                          action(
 	                          	m *= $val;
@@ -371,7 +371,7 @@ rule "eves premium szamolasa"
 	                          result(m) 
 	                        )
         $vehiclemf : Double()
-	        			from accumulate ( $mf : ModFactor( vehicle == $v, $val : value, discount == false ),
+	        			from accumulate ( $mf : ModFactor( vehicle == $v, $val : value, discount == false, surcharge == false ),
 	                          init(double m = 1.0;),
 	                          action(
 	                          	m *= $val;

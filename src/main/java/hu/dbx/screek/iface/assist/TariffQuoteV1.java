@@ -1,8 +1,6 @@
 package hu.dbx.screek.iface.assist;
 
 import hu.dbx.screek.iface.model.*;
-import hu.dbx.screek.model.TypeOfFinalBonusMalus;
-import hu.dbx.screek.model.TypeOfInitialBonusMalus;
 
 import java.util.Date;
 
@@ -15,10 +13,9 @@ public class TariffQuoteV1 {
 	private String durationType;
 	private PartnerV1 partner;
 	private VehicleV1 vehicle;
-	private String paymentFrequency;
-	private String paymentMethod;
-	private TypeOfFinalBonusMalus finalBM;
-	private TypeOfInitialBonusMalus initialBM;
+	private Integer paymentFrequency;
+	private Integer paymentMethod;
+	private String bonusMalus;
 	
 	//módosító paraméterek
 	private boolean takeOutWithCasco;
@@ -105,11 +102,11 @@ public class TariffQuoteV1 {
 		this.emailGranted = emailGranted;
 	}
 
-	public String getPaymentFrequency() {
+	public Integer getPaymentFrequency() {
 		return paymentFrequency;
 	}
 
-	public void setPaymentFrequency(String paymentFrequency) {
+	public void setPaymentFrequency(Integer paymentFrequency) {
 		this.paymentFrequency = paymentFrequency;
 	}
 
@@ -121,11 +118,11 @@ public class TariffQuoteV1 {
 		this.extraDamageExemption = extraDamageExemption;
 	}
 	
-	public String getPaymentMethod() {
+	public Integer getPaymentMethod() {
 		return paymentMethod;
 	}
 
-	public void setPaymentMethod(String paymentMethod) {
+	public void setPaymentMethod(Integer paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 
@@ -158,23 +155,15 @@ public class TariffQuoteV1 {
 		return result;
 	}
 
-	public void setFinalBM(TypeOfFinalBonusMalus finalBM) {
-		this.finalBM = finalBM;
+	public void setBonusMalus(String bonusMalus) {
+		this.bonusMalus = bonusMalus;
 	}
 
-	@XmlElement(name = "finalBonusMalus")
-	public TypeOfFinalBonusMalus getFinalBM() {
-		return finalBM;
+	public String getBonusMalus() {
+		return bonusMalus;
 	}
 
-	public void setInitialBM(TypeOfInitialBonusMalus initialBM) {
-		this.initialBM = initialBM;
-	}
 
-	@XmlElement(name = "initialBonusMalus")
-	public TypeOfInitialBonusMalus getInitialBM() {
-		return initialBM;
-	}
 
 	
 	

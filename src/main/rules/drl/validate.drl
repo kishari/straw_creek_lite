@@ -4,14 +4,17 @@ import hu.dbx.screek.model.facts.*;
 import hu.dbx.screek.model.*;
 import org.joda.time.DateTime;
 
-function boolean isNull(String s) {
-	return ("".equals(s) || s == null);
+function boolean isNull(String o) {
+		return ("".equals(o) || o == null);
 }
 
 function boolean firstDateIsBiggerOrEqualsThanSecondDate(DateTime q, DateTime v) {
 	return ( q.isAfter(v) || q.isEqual(v) );
 }
 
+/*****************************************************************************
+				 Biztosítás szintű validációk 
+*****************************************************************************/
 rule "validate startDate (isNull)"
     agenda-group "validate"
 	when
@@ -20,95 +23,6 @@ rule "validate startDate (isNull)"
 	then
 		insert( Message.create("24") );		
 end
-
-rule "validate dateOfFirstPutIntoTraffic (isNull)"
-    agenda-group "validate"
-	when
-		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" && dateOfFirstPutIntoTraffic == null )
-				
-	then
-		insert( Message.create("25") );		
-end
-
-rule "validate dateOfBirth (isNull)"
-    agenda-group "validate"
-	when
-		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" || typeCode == "TEHERGEPJARMU" )
-		$p : Partner( dateOfBirth == null )
-				
-	then
-		insert( Message.create("23") );		
-end
-
-rule "validate postcode (isNull)"
-    agenda-group "validate"
-	when
-		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
-		$p : Partner( postCode == null )
-				
-	then
-		$p.setPostCode(null);
-		insert( Message.create("2") );		
-end
-
-rule "validate postcode (not valid)"
-    agenda-group "validate"
-	when
-		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
-		$p : Partner( postCode != null )
-		not(exists AreaDef( postCode == $p.postCode ) )
-		
-	then
-		insert( Message.create("1", $p.getPostCode().toString() ) );		
-end
-
-
-rule "validate vehicle typecode (isNull)"
-    agenda-group "validate"
-	when
-		$v : Vehicle( eval ( isNull(typeCode) ) )
-		
-	then
-		insert( Message.create("4") );		
-end
-
-
-rule "validate vehicle typecode (not valid)"
-    agenda-group "validate"
-	when
-		$v : Vehicle( eval ( !isNull(typeCode) ) )
-		not(exists VehicleTypeDef( typeCode == $v.typeCode ) )
-		
-	then
-		insert( Message.create("3", $v.getTypeCode() ) );		
-end
-
-
-rule "validate vehicle make (not valid)"
-    agenda-group "validate"
-	when
-		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU"  && eval ( !isNull(make) ) )
-		not(exists MakeDef( make == $v.make ) )
-		
-	then
-		insert( Message.create("9", $v.getMake() ) );		
-end
-
-rule "validate vehicle make (isNull)"
-    agenda-group "validate"
-	when
-		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" && eval( isNull(make) ))
-		
-	then
-		insert( Message.create("10") );		
-end
-
 
 rule "validate insurance duration (isNull)"
     agenda-group "validate"
@@ -132,66 +46,115 @@ end
 rule "validate payment method (isNull)"
     agenda-group "validate"
 	when
-		$q : Quote( durationType == "HATAROZATLAN" && eval( isNull( paymentMethod ) ) )
+		$q : Quote( durationType == "HATAROZATLAN" && 
+					( paymentMethod == null || paymentMethod == 0 ) )
 	then
+		$q.setPaymentMethod(null);
 		insert( Message.create("6") );		
 end
 
 rule "validate payment method (not valid)"
     agenda-group "validate"
 	when
-		$q : Quote( durationType == "HATAROZATLAN" &&  eval( !isNull( paymentMethod ) ) )
+		$q : Quote( durationType == "HATAROZATLAN" &&  
+					( paymentMethod != null || paymentMethod != 0 ) )
 		not(exists PaymentMethodDef( paymentMethod == $q.paymentMethod ) )
 			
 	then
-		insert( Message.create("5", $q.getPaymentMethod() ) );		
+		insert( Message.create("5", $q.getPaymentMethod().toString() ) );		
 end
 
 rule "validate payment frequency (isNull)"
     agenda-group "validate"
 	when
-		$q : Quote( durationType == "HATAROZATLAN" && eval( isNull( paymentFrequency ) ) )
+		$q : Quote( durationType == "HATAROZATLAN" &&
+					( paymentFrequency == null || paymentFrequency == 0 ) )
 	then
+		$q.setPaymentFrequency(null);
 		insert( Message.create("8") );		
 end
 
 rule "validate payment frequency (not valid)"
     agenda-group "validate"
 	when
-		$q : Quote( durationType == "HATAROZATLAN" && eval( !isNull( paymentFrequency ) ) )
+		$q : Quote( durationType == "HATAROZATLAN" &&
+					( paymentFrequency != null && paymentFrequency != 0 ) )
 		not(exists PaymentFreqDef( frequencyCode == $q.paymentFrequency ) )
 			
 	then
-		insert( Message.create("7", $q.getPaymentFrequency() ) );
+		insert( Message.create("7", $q.getPaymentFrequency().toString() ) );
 end
 
-rule "validate genderCode (isNull)"
+rule "validate payment frequency (not valid- HAVI vs CSOPORTOS_BESZEDES)"
     agenda-group "validate"
 	when
-		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" || typeCode == "TEHERGEPJARMU" )
-		$p : Partner( eval( isNull( genderCode ) ) )
-	then
-		insert( Message.create("14") );		
-end
-
-rule "validate genderCode (not valid)"
-    agenda-group "validate"
-	when
-		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" || typeCode == "TEHERGEPJARMU" )
-		$p : Partner( eval( !isNull( genderCode ) ) )
-		not(exists GenderDef( genderCode == $p.genderCode ) )
+		$q : Quote( durationType == "HATAROZATLAN" && 
+					groupedCollection == true &&
+					paymentFrequency != 12 )
 			
 	then
-		insert( Message.create("13", $p.getGenderCode() ) );
+		insert( Message.create("27") );
+end
+
+/*****************************************************************************
+				        Jármű szintű validációk 
+*****************************************************************************/
+rule "validate dateOfFirstPutIntoTraffic (isNull)"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == 1 && dateOfFirstPutIntoTraffic == null )
+				
+	then
+		insert( Message.create("25") );		
+end
+
+rule "validate vehicle typecode (isNull)"
+    agenda-group "validate"
+	when
+		$v : Vehicle( typeCode == null || typeCode == 0 )
+		
+	then
+		$v.setTypeCode(null);
+		insert( Message.create("4") );		
+end
+
+rule "validate vehicle typecode (not valid)"
+    agenda-group "validate"
+	when
+		$v : Vehicle( typeCode != null && typeCode != 0 )
+		not(exists VehicleTypeDef( typeCode == $v.typeCode ) )
+		
+	then
+		insert( Message.create("3", $v.getTypeCode().toString() ) );		
+end
+
+rule "validate vehicle make (not valid)"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == 1  && eval ( !isNull(make) ) )
+		not(exists MakeDef( make == $v.make ) )
+		
+	then
+		insert( Message.create("9", $v.getMake() ) );		
+end
+
+rule "validate vehicle make (isNull)"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == 1 && eval( isNull(make) ))
+		
+	then
+		insert( Message.create("10") );		
 end
 
 rule "validate operationalModality (not valid)"
     agenda-group "validate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( eval( !isNull( operationalModality ) ) )
+		$v : Vehicle( eval( !isNull(operationalModality) ) )
 		not(exists OperationalModalityDef( operationalModality == $v.operationalModality ) )
 			
 	then
@@ -202,9 +165,10 @@ rule "validate operationalModality (isNull)"
     agenda-group "validate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( eval( isNull( operationalModality ) ) )
+		$v : Vehicle( eval( isNull(operationalModality) ) )
 			
 	then
+//		$v.setOperationalModality(null);
 		insert( Message.create("17") );
 end
 
@@ -212,7 +176,7 @@ rule "validate power (isNull)"
     agenda-group "validate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" && 
+		$v : Vehicle( typeCode == 1 && 
 					  (maximumNettoPower == null || maximumNettoPower == 0) )
 			
 	then
@@ -224,7 +188,7 @@ rule "validate cubicCapacity (isNull)"
     agenda-group "validate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( (typeCode == "SZEMELYGEPJARMU" || typeCode == "MOTORKEREKPAR") &&  
+		$v : Vehicle( (typeCode == 1 || typeCode == 3) &&  
 					  (cubicCapacity == null || cubicCapacity == 0 ) )
 			
 	then
@@ -236,7 +200,7 @@ rule "validate seatingCapacity (isNull)"
     agenda-group "validate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "AUTOBUSZ" && 
+		$v : Vehicle( typeCode == 4 && 
 					  (seatingCapacity == null || seatingCapacity == 0) )
 			
 	then
@@ -248,7 +212,7 @@ rule "validate carryingCapacity (isNull)"
     agenda-group "validate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "TEHERGEPJARMU" && 
+		$v : Vehicle( typeCode == 2 && 
 					  (carryingCapacity == null || carryingCapacity == 0) )
 			
 	then
@@ -256,11 +220,71 @@ rule "validate carryingCapacity (isNull)"
 		insert( Message.create("21") );
 end
 
+/*****************************************************************************
+				        Partner szintű validációk 
+*****************************************************************************/
+rule "validate dateOfBirth (isNull)"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == 1 || typeCode == 2 )
+		$p : Partner( dateOfBirth == null )
+				
+	then
+		insert( Message.create("23") );		
+end
+
+rule "validate postcode (isNull)"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == 1 )
+		$p : Partner( postCode == null )
+				
+	then
+		$p.setPostCode(null);
+		insert( Message.create("2") );		
+end
+
+rule "validate postcode (not valid)"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == 1 )
+		$p : Partner( postCode != null )
+		not(exists AreaDef( postCode == $p.postCode ) )
+		
+	then
+		insert( Message.create("1", $p.getPostCode().toString() ) );		
+end
+
+rule "validate genderCode (isNull)"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == 1 || typeCode == 2 )
+		$p : Partner( eval( isNull( genderCode ) ) )
+	then
+		insert( Message.create("14") );		
+end
+
+rule "validate genderCode (not valid)"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == 1 || typeCode == 2 )
+		$p : Partner( eval( !isNull( genderCode ) ) )
+		not(exists GenderDef( genderCode == $p.genderCode ) )
+			
+	then
+		insert( Message.create("13", $p.getGenderCode() ) );
+end
+
 rule "validate yearOfDrivingLicense (isNull)"
     agenda-group "validate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
+		$v : Vehicle( typeCode == 1 )
 		$p : Partner( yearOfDrivingLicense == null || yearOfDrivingLicense == 0 )
 			
 	then
@@ -268,18 +292,22 @@ rule "validate yearOfDrivingLicense (isNull)"
 		insert( Message.create("22") );
 end
 
+
+/*****************************************************************************
+				        		Egyéb
+*****************************************************************************/
 rule "setting groupedCollection flag"
     agenda-group "validate"
     no-loop
 	when
-		$p : PaymentMethodDef( paymentMethod == "BANKI_CSOPORTOS_BESZEDES")
+		$p : PaymentMethodDef( paymentMethod == 1 )
 		$q : Quote( paymentMethod == $p.paymentMethod )
 		
 	then
 		modify( $q ) { setGroupedCollection( true ) };		
 end
 
-rule "validate SZEMELYGEPJARMU discounts (startDate >= 2010 jan 1 and insuranceDuration = HATAROZATLAN)"
+rule "validate szemelygepjarmu discounts (startDate >= 2010 jan 1 and insuranceDuration = HATAROZATLAN)"
     agenda-group "validate"
     salience -10
 	when
@@ -292,7 +320,7 @@ rule "validate SZEMELYGEPJARMU discounts (startDate >= 2010 jan 1 and insuranceD
 					groupedCollection == true )
 		$v : Vehicle()
 		$d : DurationDef( durationType == "HATAROZATLAN" )
-		$vt: VehicleTypeDef( typeCode == "SZEMELYGEPJARMU" )
+		$vt: VehicleTypeDef( typeCode == 1 )
 		//ha ez a not exists feltétel nem lenne itt, akkor az eval elszállna a startDate = null esetén! (code = 24)
 		//hasonlóan a durationType-ra és a typeCode-ra is! (3,4,11,12 code)
 		not (exists (Message( code == "3" || code == "4" || code == "11" || code == "12" || code == "24") ) )

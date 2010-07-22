@@ -2,14 +2,23 @@ package hu.dbx.screek.model.facts;
 
 public class PaymentFreqDef extends BaseDef{
 
-	private String frequencyCode;
+	private Integer frequencyCode;
+	private String description;
 
-	public void setFrequencyCode(String frequencyCode) {
+	public void setFrequencyCode(Integer frequencyCode) {
 		this.frequencyCode = frequencyCode;
 	}
 
-	public String getFrequencyCode() {
+	public Integer getFrequencyCode() {
 		return frequencyCode;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 	
 }

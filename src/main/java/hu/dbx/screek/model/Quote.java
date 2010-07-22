@@ -10,8 +10,8 @@ public class Quote {
 	private String durationType;
 	private Partner partner;
 	private Vehicle vehicle;
-	private String paymentFrequency;
-	private String paymentMethod;
+	private Integer paymentFrequency;
+	private Integer paymentMethod;
 	
 	private boolean takeOutWithCasco;
 	private boolean childPreference;
@@ -20,8 +20,7 @@ public class Quote {
 	private boolean emailGranted;
 	private boolean extraDamageExemption;
 	private boolean groupedCollection;
-	private TypeOfFinalBonusMalus finalBM;
-	private TypeOfInitialBonusMalus initialBM;
+	private String bonusMalus;
 	
 	private Result result = new Result();
 	private MessageList messages = new MessageList();
@@ -59,11 +58,11 @@ public class Quote {
 		this.durationType = durationType;
 	}
 	
-	public void setPaymentMethod(String paymentMethod) {
+	public void setPaymentMethod(Integer paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 
-	public String getPaymentMethod() {
+	public Integer getPaymentMethod() {
 		return paymentMethod;
 	}
 
@@ -107,11 +106,11 @@ public class Quote {
 		this.emailGranted = emailGranted;
 	}
 
-	public String getPaymentFrequency() {
+	public Integer getPaymentFrequency() {
 		return paymentFrequency;
 	}
 
-	public void setPaymentFrequency(String paymentFrequency) {
+	public void setPaymentFrequency(Integer paymentFrequency) {
 		this.paymentFrequency = paymentFrequency;
 	}
 
@@ -165,20 +164,13 @@ public class Quote {
 		return result;
 	}
 
-	public void setFinalBM(TypeOfFinalBonusMalus finalBM) {
-		this.finalBM = finalBM;
+	public void setBonusMalus(String bonusMalus) {
+		this.bonusMalus = bonusMalus;
 	}
 
-	public TypeOfFinalBonusMalus getFinalBM() {
-		return finalBM;
+	public String getBonusMalus() {
+		return bonusMalus;
 	}
 
-	public void setInitialBM(TypeOfInitialBonusMalus initialBM) {
-		this.initialBM = initialBM;
-	}
-
-	public TypeOfInitialBonusMalus getInitialBM() {
-		return initialBM;
-	}
 	
 }

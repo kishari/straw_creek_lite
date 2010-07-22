@@ -2,14 +2,23 @@ package hu.dbx.screek.model.facts;
 
 public class VehicleTypeDef extends BaseDef {
 
-	private String typeCode;
+	private Integer typeCode;
+	private String description;
 	
 
-	public void setTypeCode(String typeCode) {
+	public void setTypeCode(Integer typeCode) {
 		this.typeCode = typeCode;
 	}
 
-	public String getTypeCode() {
+	public Integer getTypeCode() {
 		return typeCode;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 }

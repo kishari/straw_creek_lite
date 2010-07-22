@@ -1,13 +1,14 @@
 package hu.dbx.screek.model.facts;
 
 public class ModFactorDef extends BaseDef {
-	private String modfactorType;
+	private Integer modfactorType;
+	private String description;
 	private Double value;
 	
-	public void setModfactorType(String modfactorType) {
+	public void setModfactorType(Integer modfactorType) {
 		this.modfactorType = modfactorType;
 	}
-	public String getModfactorType() {
+	public Integer getModfactorType() {
 		return modfactorType;
 	}
 	public void setValue(Double value) {
@@ -15,6 +16,12 @@ public class ModFactorDef extends BaseDef {
 	}
 	public Double getValue() {
 		return value;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getDescription() {
+		return description;
 	}
 
 }

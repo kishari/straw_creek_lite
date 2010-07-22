@@ -219,14 +219,15 @@
 	    <online>true</online>
 	    <childPreference>true</childPreference>
 	    <mkbPartner>true</mkbPartner>
+	    <extraDamageExemption>true</extraDamageExemption>
             <partner>
 		<postCode>2626</postCode>
            	<dateOfBirth>1986-02-05</dateOfBirth>
 	       <genderCode>JOGI_SZEMELY</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>HAVI</paymentFrequency>
-            <paymentMethod>CSOPORTOS_BESZEDES</paymentMethod>
+            <paymentFrequency>2</paymentFrequency>
+            <paymentMethod>1</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity>333</cubicCapacity>

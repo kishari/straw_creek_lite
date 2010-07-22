@@ -33,7 +33,7 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 	
 	private void addFacts(StatefulKnowledgeSession sess) throws Exception {
 		addFacts(sess, MakeDef.class, new String[] {"make", "makeCode", "validFrom", "validTo"}, getReaderFor("MakeDef"));
-		addFacts(sess, ModFactorDef.class, new String[] {"modfactorType", "value", "validFrom", "validTo"}, getReaderFor("ModFactorDef"));
+		addFacts(sess, ModFactorDef.class, new String[] {"modfactorType", "description", "value", "validFrom", "validTo"}, getReaderFor("ModFactorDef"));
 		addFacts(sess, PowerModFactorDef.class, new String[] {"makeCode", "powerMin", "powerMax", "value", "validFrom", "validTo"}, getReaderFor("PowerModFactorDef"));
 		addFacts(sess, CubicCapacityModFactorDef.class, new String[] {"capacityMin", "capacityMax", "value", "validFrom", "validTo"}, getReaderFor("CubicCapacityModFactorDef"));
 		addFacts(sess, DrivingLicenseModFactorDef.class, new String[] {"sinceMin", "sinceMax", "value", "validFrom", "validTo"}, getReaderFor("DrivingLicenseModFactorDef"));
@@ -42,12 +42,12 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 		addFacts(sess, VehicleAgeModFactorDef.class, new String[] {"ageMin", "ageMax", "value", "validFrom", "validTo"}, getReaderFor("VehicleAgeModFactorDef"));
 		addFacts(sess, BonusMalusModFactorDef.class, new String[] {"bmCode", "value", "validFrom", "validTo"}, getReaderFor("BonusMalusModFactorDef"));
 		addFacts(sess, PaymentFreqModFactorDef.class, new String[] {"frequencyCode", "value", "validFrom", "validTo"}, getReaderFor("PaymentFreqModFactorDef"));
-		addFacts(sess, PaymentFreqDef.class, new String[] {"frequencyCode", "validFrom", "validTo"}, getReaderFor("PaymentFreqDef"));
+		addFacts(sess, PaymentFreqDef.class, new String[] {"frequencyCode", "description", "validFrom", "validTo"}, getReaderFor("PaymentFreqDef"));
 		addFacts(sess, AreaDef.class, new String[] {"postCode", "areaCode", "validFrom", "validTo"}, getReaderFor("AreaDef"));
-		addFacts(sess, VehicleTypeDef.class, new String[] {"typeCode", "validFrom", "validTo"}, getReaderFor("VehicleTypeDef"));
+		addFacts(sess, VehicleTypeDef.class, new String[] {"typeCode", "description", "validFrom", "validTo"}, getReaderFor("VehicleTypeDef"));
 		addFacts(sess, DurationDef.class, new String[] {"durationType", "validFrom", "validTo"}, getReaderFor("DurationDef"));
 		addFacts(sess, OperationalModalityDef.class, new String[] {"operationalModality", "validFrom", "validTo"}, getReaderFor("OperationalModalityDef"));
-		addFacts(sess, PaymentMethodDef.class, new String[] {"paymentMethod", "validFrom", "validTo"}, getReaderFor("PaymentMethodDef"));
+		addFacts(sess, PaymentMethodDef.class, new String[] {"paymentMethod", "description", "validFrom", "validTo"}, getReaderFor("PaymentMethodDef"));
 		addFacts(sess, GenderDef.class, new String[] {"genderCode", "validFrom", "validTo"}, getReaderFor("GenderDef"));
 		addFacts(sess, BaseTariffDef.class, new String[] {"vehicleType", "durationType", "value", "validFrom", "validTo"}, getReaderFor("BaseTariffDef"));
 		addFacts(sess, MotorBikeBaseTariffDef.class, new String[] {"durationType", "cubicCapacityMin", "cubicCapacityMax", "value", "validFrom", "validTo"}, getReaderFor("MotorBikeBaseTariffDef"));

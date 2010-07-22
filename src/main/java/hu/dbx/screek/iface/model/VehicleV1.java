@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class VehicleV1 {
 	//Típus
-	private String typeCode;
+	private Integer typeCode;
 	
 	//Gyártmány
 	private String make;
@@ -41,11 +41,11 @@ public class VehicleV1 {
 	private ModFactorListV1 modfactors = new ModFactorListV1();
 	
 
-	public String getTypeCode() {
+	public Integer getTypeCode() {
 		return typeCode;
 	}
 
-	public void setTypeCode(String typeCode) {
+	public void setTypeCode(Integer typeCode) {
 		this.typeCode = typeCode;
 	}
 
