@@ -213,8 +213,8 @@
    <soapenv:Body>
       <ser:tariff>
          <quote>
-            <durationType>HATAROZATLAN</durationType> 
-            <emailGranted>true</emailGranted>
+            <durationType>1</durationType> 
+            <emailGranted>false</emailGranted>
             <takeOutWithCasco>true</takeOutWithCasco>
 	    <online>true</online>
 	    <childPreference>true</childPreference>
@@ -223,10 +223,10 @@
             <partner>
 		<postCode>2626</postCode>
            	<dateOfBirth>1986-02-05</dateOfBirth>
-	       <genderCode>JOGI_SZEMELY</genderCode>
+	       <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>2</paymentFrequency>
+            <paymentFrequency>12</paymentFrequency>
             <paymentMethod>1</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
@@ -239,8 +239,8 @@
                <ownWeight>?</ownWeight>
                <seatingCapacity></seatingCapacity>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>SZEMELYGEPJARMU</typeCode>
-               <operationalModality>TAXI</operationalModality>
+               <typeCode>1</typeCode>
+               <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>

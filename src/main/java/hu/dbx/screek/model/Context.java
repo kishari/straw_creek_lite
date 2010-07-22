@@ -8,6 +8,7 @@ public class Context {
 		this.action = action;
 		this.version = version;
 	}
+	
 	public String getAction() {
 		return action;
 	}
@@ -20,6 +21,5 @@ public class Context {
 	public void setVersion(String version) {
 		this.version = version;
 	}
-	
 	
 }

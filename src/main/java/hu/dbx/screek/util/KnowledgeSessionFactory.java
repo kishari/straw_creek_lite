@@ -45,15 +45,16 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 		addFacts(sess, PaymentFreqDef.class, new String[] {"frequencyCode", "description", "validFrom", "validTo"}, getReaderFor("PaymentFreqDef"));
 		addFacts(sess, AreaDef.class, new String[] {"postCode", "areaCode", "validFrom", "validTo"}, getReaderFor("AreaDef"));
 		addFacts(sess, VehicleTypeDef.class, new String[] {"typeCode", "description", "validFrom", "validTo"}, getReaderFor("VehicleTypeDef"));
-		addFacts(sess, DurationDef.class, new String[] {"durationType", "validFrom", "validTo"}, getReaderFor("DurationDef"));
-		addFacts(sess, OperationalModalityDef.class, new String[] {"operationalModality", "validFrom", "validTo"}, getReaderFor("OperationalModalityDef"));
+		addFacts(sess, DurationTypeDef.class, new String[] {"durationType", "description", "validFrom", "validTo"}, getReaderFor("DurationTypeDef"));
+		addFacts(sess, OperationalModalityDef.class, new String[] {"operationalModality", "description", "validFrom", "validTo"}, getReaderFor("OperationalModalityDef"));
 		addFacts(sess, PaymentMethodDef.class, new String[] {"paymentMethod", "description", "validFrom", "validTo"}, getReaderFor("PaymentMethodDef"));
-		addFacts(sess, GenderDef.class, new String[] {"genderCode", "validFrom", "validTo"}, getReaderFor("GenderDef"));
+		addFacts(sess, GenderDef.class, new String[] {"genderCode", "description", "validFrom", "validTo"}, getReaderFor("GenderDef"));
 		addFacts(sess, BaseTariffDef.class, new String[] {"vehicleType", "durationType", "value", "validFrom", "validTo"}, getReaderFor("BaseTariffDef"));
 		addFacts(sess, MotorBikeBaseTariffDef.class, new String[] {"durationType", "cubicCapacityMin", "cubicCapacityMax", "value", "validFrom", "validTo"}, getReaderFor("MotorBikeBaseTariffDef"));
 		addFacts(sess, AutoBusBaseTariffDef.class, new String[] {"durationType", "seatingCapacityMin", "seatingCapacityMax", "value", "validFrom", "validTo"}, getReaderFor("AutoBusBaseTariffDef"));
 		addFacts(sess, TruckBaseTariffDef.class, new String[] {"durationType", "genderCode", "carryingCapacityMin", "carryingCapacityMax", "partnerAgeMin", "partnerAgeMax", "value", "validFrom", "validTo"}, getReaderFor("TruckBaseTariffDef"));
 		addFacts(sess, MessageDef.class, new String[] {"code", "severity", "description"}, getReaderFor("MessageDef"));
+		addFacts(sess, ParamDef.class, new String[] {"key", "value"}, getReaderFor("ParamDef"));
 	}
 
 	private void addFacts(StatefulKnowledgeSession sess, Class clazz, String[] columnNames, Reader in){

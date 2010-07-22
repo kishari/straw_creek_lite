@@ -2,17 +2,17 @@ package hu.dbx.screek.model.facts;
 
 public class MotorBikeBaseTariffDef extends BaseDef {
 
-	private String durationType;
+	private Integer durationType;
 	private Integer cubicCapacityMin;
 	private Integer cubicCapacityMax;
 	private Integer value;
 	
 	
-	public String getDurationType() {
+	public Integer getDurationType() {
 		return durationType;
 	}
 	
-	public void setDurationType(String durationType) {
+	public void setDurationType(Integer durationType) {
 		this.durationType = durationType;
 	}
 	

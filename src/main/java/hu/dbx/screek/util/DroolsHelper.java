@@ -25,7 +25,7 @@ public class DroolsHelper {
 	
 	public Quote compute(Quote quote, Context context) throws NoSuchElementException, IllegalStateException, Exception {
 		StatefulKnowledgeSession ksession = (StatefulKnowledgeSession)pool.borrowObject();
-
+		
 		Collection facts = new ArrayList();
 		facts.add(quote);
 		facts.add(context);
@@ -72,4 +72,5 @@ public class DroolsHelper {
 	public void setPool(ObjectPool pool) {
 		this.pool = pool;
 	}
+
 }

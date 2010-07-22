@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 public class PartnerV1 {
 
 	private Date dateOfBirth;
-	private String genderCode;
+	private Integer genderCode;
 	private Integer postCode;
 	private Integer yearOfDrivingLicense;
 	
@@ -21,11 +21,11 @@ public class PartnerV1 {
 		return dateOfBirth;
 	}
 	
-	public String getGenderCode() {
+	public Integer getGenderCode() {
 		return genderCode;
 	}
 	
-	public void setGenderCode(String genderCode) {
+	public void setGenderCode(Integer genderCode) {
 		this.genderCode = genderCode;
 	}
 	

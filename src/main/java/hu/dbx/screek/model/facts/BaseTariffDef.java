@@ -3,7 +3,7 @@ package hu.dbx.screek.model.facts;
 public class BaseTariffDef extends BaseDef{
 	
 	private Integer vehicleType;
-	private String durationType;
+	private Integer durationType;
 	private Integer value;
 	
 	
@@ -15,11 +15,11 @@ public class BaseTariffDef extends BaseDef{
 		this.vehicleType = vehicleType;
 	}
 	
-	public String getDurationType() {
+	public Integer getDurationType() {
 		return durationType;
 	}
 	
-	public void setDurationType(String durationType) {
+	public void setDurationType(Integer durationType) {
 		this.durationType = durationType;
 	}
 	

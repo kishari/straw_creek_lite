@@ -18,7 +18,7 @@ public class Vehicle {
 	private Integer maximumNettoPower;
 	private Date dateOfFirstPutIntoTraffic;
 	private Date dateOfPurchase;
-	private String operationalModality;
+	private Integer operationalModality;
 	private Integer age;
 	
 	private ModFactorList modfactors = new ModFactorList();
@@ -134,11 +134,11 @@ public class Vehicle {
 		return carryingCapacity;
 	}
 
-	public void setOperationalModality(String operationalModality) {
+	public void setOperationalModality(Integer operationalModality) {
 		this.operationalModality = operationalModality;
 	}
 
-	public String getOperationalModality() {
+	public Integer getOperationalModality() {
 		return operationalModality;
 	}
 	

@@ -9,7 +9,7 @@ public class Partner {
 
 	private Quote quote;
 	private Date dateOfBirth;
-	private String genderCode;
+	private Integer genderCode;
 	private Integer postCode;
 	private Integer yearOfDrivingLicense;
 	
@@ -33,11 +33,11 @@ public class Partner {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String getGenderCode() {
+	public Integer getGenderCode() {
 		return genderCode;
 	}
 
-	public void setGenderCode(String genderCode) {
+	public void setGenderCode(Integer genderCode) {
 		this.genderCode = genderCode;
 	}
 

@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 public class Quote {
 
 	private Date startDate;
-	private String durationType;
+	private Integer durationType;
 	private Partner partner;
 	private Vehicle vehicle;
 	private Integer paymentFrequency;
@@ -50,11 +50,11 @@ public class Quote {
 		this.vehicle = vehicle;
 	}
 
-	public String getDurationType() {
+	public Integer getDurationType() {
 		return durationType;
 	}
 
-	public void setDurationType(String durationType) {
+	public void setDurationType(Integer durationType) {
 		this.durationType = durationType;
 	}
 	

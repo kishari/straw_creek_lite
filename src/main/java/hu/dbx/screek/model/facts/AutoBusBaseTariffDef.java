@@ -2,16 +2,16 @@ package hu.dbx.screek.model.facts;
 
 public class AutoBusBaseTariffDef extends BaseDef {
 
-	private String durationType;
+	private Integer durationType;
 	private Integer seatingCapacityMin;
 	private Integer seatingCapacityMax;
 	private Integer value;
 	
 	
-	public String getDurationType() {
+	public Integer getDurationType() {
 		return durationType;
 	}
-	public void setDurationType(String durationType) {
+	public void setDurationType(Integer durationType) {
 		this.durationType = durationType;
 	}
 	public Integer getSeatingCapacityMin() {
