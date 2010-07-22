@@ -26,3 +26,6 @@
 25;2;"Az első forgalomba helyezés dátum mező kitöltése kötelező!"
 26;0;"Az összevont kedvezmény tényleges értéke %1 %, de a szabályzatnak megfelelően 40 %-ban maximalizálva lett!"
 27;2;"Banki csoportos beszedés csak havi díjfizetési gyakoriság esetén választható!"
+28;2;"A megadott járműtípus (%1 - %2) esetén csak éves díjfizetési gyakoriság megengedett!"
+29;2;"A Bonus-Malus mező kitöltése kötelező!"
+30;2;"A megadott Bonus-Malus (%1) érvénytelen!"

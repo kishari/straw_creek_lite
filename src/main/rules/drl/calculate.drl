@@ -14,6 +14,15 @@ function double round(double val, int precision) {
 	return temp.doubleValue();
 }
 
+function boolean isBetween(Integer lowerBound, Integer upperBound, Integer value) {
+	if ( value == null ) {
+		return false;
+	} 
+	else {
+		return (lowerBound <= value && upperBound >= value);
+	}
+}
+
 function int yearsBetween(Date s, Date e) {
 	return Math.abs(new DateTime(s).getYear() - new DateTime(e).getYear());  
 }
@@ -54,9 +63,8 @@ rule "alaptarifa beallitas (motorkerekpar)"
 	when
 		$q : Quote()
 		$v : Vehicle( typeCode == Constants.TC_MOTORKEREKPAR )
-		$b : MotorBikeBaseTariffDef( durationType == $q.durationType &&
-									 cubicCapacityMin <= $v.cubicCapacity &&
-									 cubicCapacityMax >= $v.cubicCapacity )
+		$b : MotorBikeBaseTariffDef( durationType == $q.durationType ) 
+		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
 		eval ( $b.isValid( $q.getStartDate() ) )
 						
 	then
@@ -69,9 +77,8 @@ rule "alaptarifa beallitas (autobusz)"
 	when
 		$q : Quote()
 		$v : Vehicle( typeCode == Constants.TC_AUTOBUSZ )
-		$b : AutoBusBaseTariffDef( durationType == $q.durationType &&
-								   seatingCapacityMin <= $v.seatingCapacity &&
-								   seatingCapacityMax >= $v.seatingCapacity )
+		$b : AutoBusBaseTariffDef( durationType == $q.durationType )
+		eval ( isBetween($b.getSeatingCapacityMin(), $b.getSeatingCapacityMax(), $v.getSeatingCapacity() ) )
 		eval ( $b.isValid( $q.getStartDate() ) )
 						
 	then
@@ -84,14 +91,16 @@ rule "alaptarifa beallitas (tehergepjarmu)"
 		$q : Quote()
 		$p : Partner()
 		$v : Vehicle( typeCode == Constants.TC_TEHERGEPJARMU )
-		$b : TruckBaseTariffDef( durationType == $q.durationType &&
-								 genderCode == $p.genderCode &&
-								 carryingCapacityMin <= $v.carryingCapacity &&
-								 carryingCapacityMax >= $v.carryingCapacity )
-		eval ( ( !"JOGI_SZEMELY".equals( $p.getGenderCode() ) &&
-		 	    $b.getPartnerAgeMin() <= yearsBetween( $p.getDateOfBirth(), $q.getStartDate() ) &&
-			    $b.getPartnerAgeMax() >= yearsBetween( $p.getDateOfBirth(), $q.getStartDate() ) ) ||
-			   ( "JOGI_SZEMELY".equals( $p.getGenderCode() ) ) )
+		$b : TruckBaseTariffDef( durationType == $q.durationType,
+								 genderCode == $p.genderCode )
+		eval ( isBetween( $b.getCarryingCapacityMin(), 
+						  $b.getCarryingCapacityMax(), 
+						  $v.getCarryingCapacity() ) )
+		eval ( ( $p.getGenderCode() != Constants.JOGI_SZEMELY &&
+				 isBetween( $b.getPartnerAgeMin(), 
+				 			$b.getPartnerAgeMax(), 
+				 			yearsBetween( $p.getDateOfBirth(), $q.getStartDate() ) ) ) || 
+			   ( $p.getGenderCode() == Constants.JOGI_SZEMELY ) )
 		eval ( $b.isValid( $q.getStartDate() ) )
 						
 	then
@@ -109,12 +118,14 @@ rule "alaptarifa modositas a gyartmany-teljesitmeny-hengerurtartalom alapjan"
 		$m : MakeDef( make == $v.make )
 		$p : PowerModFactorDef( makeCode == $m.makeCode )
 		$c : CubicCapacityModFactorDef( )
-		eval( $p.getPowerMin() <= $v.getMaximumNettoPower() &&
-			  $p.getPowerMax() >= $v.getMaximumNettoPower() &&
-			  $p.isValid( $q.getStartDate() ) )
-		eval( $c.getCapacityMin() <= $v.getCubicCapacity() &&
-			  $c.getCapacityMax() >= $v.getCubicCapacity() &&
-			  $c.isValid( $q.getStartDate() ) ) 
+		eval ( isBetween( $p.getPowerMin(), 
+						  $p.getPowerMax(), 
+						  $v.getMaximumNettoPower() ) )
+		eval ( isBetween( $c.getCapacityMin(), 
+						  $c.getCapacityMax(), 
+						  $v.getCubicCapacity() ) )
+		eval ( $p.isValid( $q.getStartDate() ) )
+		eval ( $c.isValid( $q.getStartDate() ) ) 
 				
 	then
 		int baseTariff = $q.getResult().getBaseTariff();
@@ -130,11 +141,12 @@ rule "teruleti besorolas-korcsoport szorzo (termeszetes szemely)"
 		$p : Partner( genderCode != Constants.JOGI_SZEMELY )
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: PartnerAgeModFactorDef( areaCode == $a.areaCode )
-		eval ( $a.isValid( $q.getStartDate() ) &&
-		 	   $mf.isValid( $q.getStartDate() ) &&
-		 	   $mf.getAgeMin() <= yearsBetween($p.getDateOfBirth(), $q.getStartDate()) &&
-		 	   $mf.getAgeMax() >= yearsBetween($p.getDateOfBirth(), $q.getStartDate()) )
-				
+		eval ( isBetween( $mf.getAgeMin(), 
+						  $mf.getAgeMax(), 
+						  yearsBetween($p.getDateOfBirth(), $q.getStartDate() ) ) )
+		eval ( $a.isValid( $q.getStartDate() ) )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				 	   				
 	then
 		insert(new ModFactor("AREA-AGEGROUP", $mf.getValue(), $p, "MULTIPLIER"));
 end
@@ -160,9 +172,10 @@ rule "jarmu eletkor szorzo"
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
 		$mf: VehicleAgeModFactorDef()
-		eval ( $mf.isValid( $q.getStartDate() ) &&
-			   $mf.getAgeMin() <= yearsBetween($v.getDateOfFirstPutIntoTraffic(), $q.getStartDate()) &&
-		 	   $mf.getAgeMax() >= yearsBetween($v.getDateOfFirstPutIntoTraffic(), $q.getStartDate()) )
+		eval ( isBetween( $mf.getAgeMin(),
+						  $mf.getAgeMax(),
+						  yearsBetween($v.getDateOfFirstPutIntoTraffic(), $q.getStartDate() ) ) )
+		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
 		insert(new ModFactor("VEHICLE-AGE", $mf.getValue(), $v, "MULTIPLIER"));
@@ -175,9 +188,10 @@ rule "vezetoi engedely szorzo"
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
 		$p : Partner()
 		$mf: DrivingLicenseModFactorDef()
-		eval ( $mf.isValid( $q.getStartDate() ) &&
-			   $mf.getSinceMin() <= yearsBetween(new DateTime($p.getYearOfDrivingLicense(),1,1,0,0,0,0).toDate(), $q.getStartDate()) &&
-		 	   $mf.getSinceMax() >= yearsBetween(new DateTime($p.getYearOfDrivingLicense(),1,1,0,0,0,0).toDate(), $q.getStartDate()) )
+		eval ( isBetween( $mf.getSinceMin(),
+						  $mf.getSinceMax(),
+						  yearsBetween(new DateTime($p.getYearOfDrivingLicense(),1,1,0,0,0,0).toDate(), $q.getStartDate() ) ) )
+		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
 		insert(new ModFactor("DRIVING-LICENSE", $mf.getValue(), $p, "MULTIPLIER"));
@@ -192,6 +206,17 @@ rule "dijfizetes gyakorisaga szorzo"
 				
 	then
 		insert(new ModFactor("PAYMENT-FREQUENCY", $mf.getValue(), $q, "MULTIPLIER"));
+end
+
+rule "Bonus-Malus szorzo"
+	agenda-group "calculate"
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$bm: BonusMalusModFactorDef( bmCode == $q.bonusMalus )	
+		eval ( $bm.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("BONUS-MALUS", $bm.getValue(), $q, "MULTIPLIER") );
 end
 
 /*****************************************************************************

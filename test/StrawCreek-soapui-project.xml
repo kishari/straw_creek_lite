@@ -47,19 +47,18 @@
   </xs:complexType>
   <xs:complexType name="tariffQuoteV1">
     <xs:sequence>
+      <xs:element name="bonusMalus" type="xs:string" minOccurs="0"/>
       <xs:element name="childPreference" type="xs:boolean"/>
-      <xs:element name="durationType" type="xs:string" minOccurs="0"/>
+      <xs:element name="durationType" type="xs:int" minOccurs="0"/>
       <xs:element name="emailGranted" type="xs:boolean"/>
       <xs:element name="extraDamageExemption" type="xs:boolean"/>
-      <xs:element name="finalBonusMalus" type="tns:typeOfFinalBonusMalus" minOccurs="0"/>
-      <xs:element name="initialBonusMalus" type="tns:typeOfInitialBonusMalus" minOccurs="0"/>
       <xs:element name="messages" type="tns:messageListV1" minOccurs="0"/>
       <xs:element name="mkbPartner" type="xs:boolean"/>
       <xs:element name="modfactors" type="tns:modFactorListV1" minOccurs="0"/>
       <xs:element name="online" type="xs:boolean"/>
       <xs:element name="partner" type="tns:partnerV1" minOccurs="0"/>
-      <xs:element name="paymentFrequency" type="xs:string" minOccurs="0"/>
-      <xs:element name="paymentMethod" type="xs:string" minOccurs="0"/>
+      <xs:element name="paymentFrequency" type="xs:int" minOccurs="0"/>
+      <xs:element name="paymentMethod" type="xs:int" minOccurs="0"/>
       <xs:element name="result" type="tns:resultV1" minOccurs="0"/>
       <xs:element name="startDate" type="xs:dateTime" minOccurs="0"/>
       <xs:element name="takeOutWithCasco" type="xs:boolean"/>
@@ -87,14 +86,14 @@
   <xs:complexType name="modFactorV1">
     <xs:sequence>
       <xs:element name="code" type="xs:string" minOccurs="0"/>
-      <xs:element name="discount" type="xs:boolean"/>
+      <xs:element name="type" type="xs:string" minOccurs="0"/>
       <xs:element name="value" type="xs:double" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="partnerV1">
     <xs:sequence>
       <xs:element name="dateOfBirth" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="genderCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="genderCode" type="xs:int" minOccurs="0"/>
       <xs:element name="modfactors" type="tns:modFactorListV1" minOccurs="0"/>
       <xs:element name="postCode" type="xs:int" minOccurs="0"/>
       <xs:element name="yearOfDrivingLicense" type="xs:int" minOccurs="0"/>
@@ -102,13 +101,18 @@
   </xs:complexType>
   <xs:complexType name="resultV1">
     <xs:sequence>
-      <xs:element name="baseTariff" type="xs:int"/>
-      <xs:element name="premium" type="xs:int"/>
+      <xs:element name="baseTariff" type="xs:int" minOccurs="0"/>
+      <xs:element name="discountMultiplier" type="xs:double"/>
+      <xs:element name="monthlyPremium" type="xs:int" minOccurs="0"/>
+      <xs:element name="otherMultiplier" type="xs:double"/>
+      <xs:element name="surchargeMultiplier" type="xs:double"/>
+      <xs:element name="totalMultiplier" type="xs:double"/>
+      <xs:element name="yearlyPremium" type="xs:int" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="vehicleV1">
     <xs:sequence>
-      <xs:element name="carryingCapacity" type="xs:int" nillable="true" minOccurs="0"/>
+      <xs:element name="carryingCapacity" type="xs:int" minOccurs="0"/>
       <xs:element name="cubicCapacity" type="xs:int" minOccurs="0"/>
       <xs:element name="dateOfFirstPutIntoTraffic" type="xs:dateTime" minOccurs="0"/>
       <xs:element name="dateOfPurchase" type="xs:dateTime" minOccurs="0"/>
@@ -116,10 +120,10 @@
       <xs:element name="maximumAllowedWeight" type="xs:double" minOccurs="0"/>
       <xs:element name="maximumNettoPower" type="xs:int" minOccurs="0"/>
       <xs:element name="modfactors" type="tns:modFactorListV1" minOccurs="0"/>
+      <xs:element name="operationalModality" type="xs:int" minOccurs="0"/>
       <xs:element name="ownWeight" type="xs:double" minOccurs="0"/>
       <xs:element name="seatingCapacity" type="xs:int" minOccurs="0"/>
-      <xs:element name="typeCode" type="xs:string" minOccurs="0"/>
-      <xs:element name="useOfVehicleCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="typeCode" type="xs:int" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="tariffResponse">
@@ -127,93 +131,13 @@
       <xs:element name="return" type="tns:tariffQuoteV1" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:simpleType name="typeOfFinalBonusMalus">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="A00"/>
-      <xs:enumeration value="B01"/>
-      <xs:enumeration value="B02"/>
-      <xs:enumeration value="B03"/>
-      <xs:enumeration value="B04"/>
-      <xs:enumeration value="B05"/>
-      <xs:enumeration value="B06"/>
-      <xs:enumeration value="B07"/>
-      <xs:enumeration value="B08"/>
-      <xs:enumeration value="B09"/>
-      <xs:enumeration value="B010"/>
-      <xs:enumeration value="M01"/>
-      <xs:enumeration value="M02"/>
-      <xs:enumeration value="M04"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="typeOfInitialBonusMalus">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="A0"/>
-      <xs:enumeration value="B1"/>
-      <xs:enumeration value="B2"/>
-      <xs:enumeration value="B3"/>
-      <xs:enumeration value="B4"/>
-      <xs:enumeration value="B5"/>
-      <xs:enumeration value="B6"/>
-      <xs:enumeration value="B7"/>
-      <xs:enumeration value="B8"/>
-      <xs:enumeration value="B9"/>
-      <xs:enumeration value="B10"/>
-      <xs:enumeration value="B11"/>
-      <xs:enumeration value="B12"/>
-      <xs:enumeration value="B13"/>
-      <xs:enumeration value="B14"/>
-      <xs:enumeration value="B15"/>
-      <xs:enumeration value="M1"/>
-      <xs:enumeration value="M2"/>
-      <xs:enumeration value="M3"/>
-      <xs:enumeration value="M4"/>
-    </xs:restriction>
-  </xs:simpleType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:endpoint>http://localhost:8088/screek/MTPLService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="tariff" bindingOperationName="tariff" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="test"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <ser:tariff>
-         <!--Optional:-->
-         <quote>
-            <partner>
-               <address>
-                  <postCode>2626</postCode>
-               </address>
-               <dateOfBirth>1986-02-05T00:00:00</dateOfBirth>
-            </partner>
-            <startDate>2010-01-01T00:00:00</startDate>
-            <startYear>2010</startYear>
-            <vehicle>
-               <!--Optional:-->
-               <cubicCapacity>?</cubicCapacity>
-               <!--Optional:-->
-               <dateOfPurchase>?</dateOfPurchase>
-               <!--Optional:-->
-               <firstPutIntoTraffic>?</firstPutIntoTraffic>
-               <!--Optional:-->
-               <makeCode>?</makeCode>
-               <!--Optional:-->
-               <maximumAllowedWeigth>?</maximumAllowedWeigth>
-               <!--Optional:-->
-               <maximumNettoPower>?</maximumNettoPower>
-               <!--Optional:-->
-               <ownWeight>?</ownWeight>
-               <!--Optional:-->
-               <seatingCapacity>?</seatingCapacity>
-               <!--Optional:-->
-               <typeCode>?</typeCode>
-               <!--Optional:-->
-               <useOfVehicleCode>?</useOfVehicleCode>
-            </vehicle>
-         </quote>
-      </ser:tariff>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 4"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:endpoint>http://localhost:8088/screek/MTPLService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="tariff" bindingOperationName="tariff" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Test"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
          <quote>
-            <durationType>1</durationType> 
+            <durationType>1</durationType>
+	    <bonusMalus>B01</bonusMalus> 
             <emailGranted>false</emailGranted>
             <takeOutWithCasco>true</takeOutWithCasco>
 	    <online>true</online>
@@ -230,7 +154,7 @@
             <paymentMethod>1</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
-               <cubicCapacity>333</cubicCapacity>
+               <cubicCapacity>223</cubicCapacity>
                <dateOfFirstPutIntoTraffic>2000-11-11</dateOfFirstPutIntoTraffic>
                <dateOfPurchase>2000-02-04</dateOfPurchase>
                <make>OPEL</make>
@@ -251,15 +175,13 @@
       <ser:tariff>
          <!--Optional:-->
          <quote>
+            <!--Optional:-->
+            <bonusMalus>?</bonusMalus>
             <childPreference>?</childPreference>
             <!--Optional:-->
             <durationType>?</durationType>
             <emailGranted>?</emailGranted>
             <extraDamageExemption>?</extraDamageExemption>
-            <!--Optional:-->
-            <finalBonusMalus>?</finalBonusMalus>
-            <!--Optional:-->
-            <initialBonusMalus>?</initialBonusMalus>
             <!--Optional:-->
             <messages>
                <!--Zero or more repetitions:-->
@@ -280,7 +202,8 @@
                <modfactor>
                   <!--Optional:-->
                   <code>?</code>
-                  <discount>?</discount>
+                  <!--Optional:-->
+                  <type>?</type>
                   <!--Optional:-->
                   <value>?</value>
                </modfactor>
@@ -298,7 +221,8 @@
                   <modfactor>
                      <!--Optional:-->
                      <code>?</code>
-                     <discount>?</discount>
+                     <!--Optional:-->
+                     <type>?</type>
                      <!--Optional:-->
                      <value>?</value>
                   </modfactor>
@@ -314,8 +238,16 @@
             <paymentMethod>?</paymentMethod>
             <!--Optional:-->
             <result>
+               <!--Optional:-->
                <baseTariff>?</baseTariff>
-               <premium>?</premium>
+               <discountMultiplier>?</discountMultiplier>
+               <!--Optional:-->
+               <monthlyPremium>?</monthlyPremium>
+               <otherMultiplier>?</otherMultiplier>
+               <surchargeMultiplier>?</surchargeMultiplier>
+               <totalMultiplier>?</totalMultiplier>
+               <!--Optional:-->
+               <yearlyPremium>?</yearlyPremium>
             </result>
             <!--Optional:-->
             <startDate>?</startDate>
@@ -342,19 +274,20 @@
                   <modfactor>
                      <!--Optional:-->
                      <code>?</code>
-                     <discount>?</discount>
+                     <!--Optional:-->
+                     <type>?</type>
                      <!--Optional:-->
                      <value>?</value>
                   </modfactor>
                </modfactors>
+               <!--Optional:-->
+               <operationalModality>?</operationalModality>
                <!--Optional:-->
                <ownWeight>?</ownWeight>
                <!--Optional:-->
                <seatingCapacity>?</seatingCapacity>
                <!--Optional:-->
                <typeCode>?</typeCode>
-               <!--Optional:-->
-               <useOfVehicleCode>?</useOfVehicleCode>
             </vehicle>
          </quote>
       </ser:tariff>
