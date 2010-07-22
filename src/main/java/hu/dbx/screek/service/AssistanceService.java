@@ -9,6 +9,7 @@ import hu.dbx.screek.util.Mapper;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Resource;
+import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -23,6 +24,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 @WebService(serviceName="MTPLService")
+@HandlerChain(file = "handlers.xml")
 public class AssistanceService implements ApplicationContextAware {
 	Logger logger = Logger.getLogger(AssistanceService.class);
 	

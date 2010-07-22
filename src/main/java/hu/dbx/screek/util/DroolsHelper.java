@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 
 import org.apache.commons.pool.ObjectPool;
+import org.drools.event.rule.AgendaEventListener;
 import org.drools.runtime.rule.FactHandle;
 import org.drools.runtime.StatefulKnowledgeSession;
 
@@ -25,6 +26,8 @@ public class DroolsHelper {
 	
 	public Quote compute(Quote quote, Context context) throws NoSuchElementException, IllegalStateException, Exception {
 		StatefulKnowledgeSession ksession = (StatefulKnowledgeSession)pool.borrowObject();
+		
+//		test(ksession);
 		
 		Collection facts = new ArrayList();
 		facts.add(quote);
@@ -46,6 +49,7 @@ public class DroolsHelper {
 		retractHandles(factHandles, ksession);
 		pool.returnObject(ksession);
 		
+//		test(ksession);
 		ksession.dispose();
 		
 		return quote;
@@ -71,6 +75,16 @@ public class DroolsHelper {
 
 	public void setPool(ObjectPool pool) {
 		this.pool = pool;
+	}
+	
+	private void test(StatefulKnowledgeSession ksession) {
+		System.out.println("Test");
+		Collection<AgendaEventListener> listeners = ksession.getAgendaEventListeners();
+		System.out.println(listeners.size());
+		
+		for(AgendaEventListener l : listeners) {
+			System.out.println(l.getClass().getName());
+		}
 	}
 
 }
