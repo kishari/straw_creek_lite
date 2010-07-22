@@ -27,7 +27,8 @@ public class DroolsHelper {
 	public Quote compute(Quote quote, Context context) throws NoSuchElementException, IllegalStateException, Exception {
 		StatefulKnowledgeSession ksession = (StatefulKnowledgeSession)pool.borrowObject();
 		
-//		test(ksession);
+		AgendaLogger agendaLogger = new AgendaLogger();
+		ksession.addEventListener( agendaLogger );
 		
 		Collection facts = new ArrayList();
 		facts.add(quote);
@@ -46,10 +47,11 @@ public class DroolsHelper {
 		Collection<FactHandle> factHandles = insertFacts(facts, ksession);
 		ksession.fireAllRules();
 		
+		ksession.removeEventListener( agendaLogger );
+
 		retractHandles(factHandles, ksession);
 		pool.returnObject(ksession);
 		
-//		test(ksession);
 		ksession.dispose();
 		
 		return quote;

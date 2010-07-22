@@ -27,7 +27,7 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 		config.setProperty("drools.keepReference", "false");
 		StatefulKnowledgeSession sess = knowledgeBase.newStatefulKnowledgeSession(config, env);
 		addFacts(sess);
-		sess.addEventListener( new AgendaLogger());
+//		sess.addEventListener( new AgendaLogger());
 		return sess;
 	}
 	

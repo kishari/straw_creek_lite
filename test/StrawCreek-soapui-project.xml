@@ -145,7 +145,7 @@
 	    <mkbPartner>true</mkbPartner>
 	    <extraDamageExemption>true</extraDamageExemption>
             <partner>
-		<postCode>2626</postCode>
+		<postCode></postCode>
            	<dateOfBirth>1986-02-05</dateOfBirth>
 	       <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
@@ -292,43 +292,118 @@
          </quote>
       </ser:tariff>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase" searchProperties="true" id="59cfd874-f62c-477f-a33b-ed4bab77e513"><con:settings/><con:testStep type="request" name="tariff - Request 2 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AssistanceServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="tariff - Request 2 1" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase" searchProperties="true" id="59cfd874-f62c-477f-a33b-ed4bab77e513"><con:settings/><con:testStep type="request" name="Test"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AssistanceServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Test" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
-         <!--Optional:-->
          <quote>
+            <durationType>1</durationType>
+	    <bonusMalus>B01</bonusMalus> 
+            <emailGranted>false</emailGranted>
+            <takeOutWithCasco>true</takeOutWithCasco>
+	    <online>true</online>
+	    <childPreference>true</childPreference>
+	    <mkbPartner>true</mkbPartner>
+	    <extraDamageExemption>true</extraDamageExemption>
             <partner>
-               <address>
-                  <postCode>2626</postCode>
-               </address>
-               <dateOfBirth>1986-02-05T00:00:00</dateOfBirth>
+		<postCode></postCode>
+           	<dateOfBirth>1986-02-05</dateOfBirth>
+	       <genderCode>2</genderCode>
+	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <startDate>2010-01-01T00:00:00</startDate>
-            <startYear>2010</startYear>
+            <paymentFrequency>12</paymentFrequency>
+            <paymentMethod>1</paymentMethod>
+            <startDate>2010-01-01</startDate>
             <vehicle>
-               <!--Optional:-->
-               <cubicCapacity>?</cubicCapacity>
-               <!--Optional:-->
-               <dateOfPurchase>?</dateOfPurchase>
-               <!--Optional:-->
-               <firstPutIntoTraffic>?</firstPutIntoTraffic>
-               <!--Optional:-->
-               <makeCode>?</makeCode>
-               <!--Optional:-->
-               <maximumAllowedWeigth>?</maximumAllowedWeigth>
-               <!--Optional:-->
-               <maximumNettoPower>?</maximumNettoPower>
-               <!--Optional:-->
+               <cubicCapacity>223</cubicCapacity>
+               <dateOfFirstPutIntoTraffic>2000-11-11</dateOfFirstPutIntoTraffic>
+               <dateOfPurchase>2000-02-04</dateOfPurchase>
+               <make>OPEL</make>
+               <maximumAllowedWeight>?</maximumAllowedWeight>
+               <maximumNettoPower>44</maximumNettoPower>
                <ownWeight>?</ownWeight>
-               <!--Optional:-->
-               <seatingCapacity>?</seatingCapacity>
-               <!--Optional:-->
-               <typeCode>?</typeCode>
-               <!--Optional:-->
-               <useOfVehicleCode>?</useOfVehicleCode>
+               <seatingCapacity></seatingCapacity>
+	       <carryingCapacity>222</carryingCapacity>
+               <typeCode>1</typeCode>
+               <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="LoadTest 1"><con:settings><con:setting id="HttpSettings@close-connections">false</con:setting></con:settings><con:threadCount>10</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>160</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Thread</con:type><con:config><startThreadCount>1</startThreadCount><endThreadCount>10</endThreadCount></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Test-clone"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AssistanceServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Test-clone" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:tariff>
+         <quote>
+            <durationType>1</durationType>
+	    <bonusMalus>B01</bonusMalus> 
+            <emailGranted>false</emailGranted>
+            <takeOutWithCasco>true</takeOutWithCasco>
+	    <online>true</online>
+	    <childPreference>true</childPreference>
+	    <mkbPartner>true</mkbPartner>
+	    <extraDamageExemption>true</extraDamageExemption>
+            <partner>
+		<postCode>2626</postCode>
+           	<dateOfBirth>1986-02-05</dateOfBirth>
+	       <genderCode>2</genderCode>
+	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
+            </partner>
+            <paymentFrequency>12</paymentFrequency>
+            <paymentMethod>1</paymentMethod>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+               <cubicCapacity>223</cubicCapacity>
+               <dateOfFirstPutIntoTraffic>2000-11-11</dateOfFirstPutIntoTraffic>
+               <dateOfPurchase>2000-02-04</dateOfPurchase>
+               <make>OPEL</make>
+               <maximumAllowedWeight>?</maximumAllowedWeight>
+               <maximumNettoPower>44</maximumNettoPower>
+               <ownWeight>?</ownWeight>
+               <seatingCapacity></seatingCapacity>
+	       <carryingCapacity>222</carryingCapacity>
+               <typeCode>1</typeCode>
+               <operationalModality>1</operationalModality>
+            </vehicle>
+         </quote>
+      </ser:tariff>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Test-clone-2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AssistanceServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Test-clone-2" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:tariff>
+         <quote>
+            <durationType>1</durationType>
+	    <bonusMalus>B01</bonusMalus> 
+            <emailGranted>false</emailGranted>
+            <takeOutWithCasco>true</takeOutWithCasco>
+	    <online>true</online>
+	    <childPreference>true</childPreference>
+	    <mkbPartner>true</mkbPartner>
+	    <extraDamageExemption>true</extraDamageExemption>
+            <partner>
+		<postCode>2626</postCode>
+           	<dateOfBirth>1986-02-05</dateOfBirth>
+	       <genderCode>2</genderCode>
+	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
+            </partner>
+            <paymentFrequency>12</paymentFrequency>
+            <paymentMethod>1</paymentMethod>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+               <cubicCapacity>223</cubicCapacity>
+               <dateOfFirstPutIntoTraffic>2000-11-11</dateOfFirstPutIntoTraffic>
+               <dateOfPurchase>2000-02-04</dateOfPurchase>
+               <make>OPEL</make>
+               <maximumAllowedWeight>?</maximumAllowedWeight>
+               <maximumNettoPower>44</maximumNettoPower>
+               <ownWeight>?</ownWeight>
+               <seatingCapacity></seatingCapacity>
+	       <carryingCapacity>222</carryingCapacity>
+               <typeCode>2</typeCode>
+               <operationalModality>1</operationalModality>
+            </vehicle>
+         </quote>
+      </ser:tariff>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="LoadTest 1"><con:settings><con:setting id="HttpSettings@close-connections">false</con:setting></con:settings><con:threadCount>15</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>1260</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Thread</con:type><con:config><startThreadCount>1</startThreadCount><endThreadCount>15</endThreadCount></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>
