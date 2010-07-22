@@ -46,7 +46,7 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 		addFacts(sess, AreaDef.class, new String[] {"postCode", "areaCode", "validFrom", "validTo"}, getReaderFor("AreaDef"));
 		addFacts(sess, VehicleTypeDef.class, new String[] {"typeCode", "validFrom", "validTo"}, getReaderFor("VehicleTypeDef"));
 		addFacts(sess, DurationDef.class, new String[] {"durationType", "validFrom", "validTo"}, getReaderFor("DurationDef"));
-		addFacts(sess, UseOfVehicleDef.class, new String[] {"useOfVehicleCode", "validFrom", "validTo"}, getReaderFor("UseOfVehicleDef"));
+		addFacts(sess, OperationalModalityDef.class, new String[] {"operationalModality", "validFrom", "validTo"}, getReaderFor("OperationalModalityDef"));
 		addFacts(sess, PaymentMethodDef.class, new String[] {"paymentMethod", "validFrom", "validTo"}, getReaderFor("PaymentMethodDef"));
 		addFacts(sess, GenderDef.class, new String[] {"genderCode", "validFrom", "validTo"}, getReaderFor("GenderDef"));
 		addFacts(sess, BaseTariffDef.class, new String[] {"vehicleType", "durationType", "value", "validFrom", "validTo"}, getReaderFor("BaseTariffDef"));

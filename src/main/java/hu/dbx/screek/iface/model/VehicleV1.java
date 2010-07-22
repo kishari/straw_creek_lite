@@ -36,7 +36,7 @@ public class VehicleV1 {
 	private Date dateOfPurchase;
 	
 	//Üzemeltetés jellege
-	private String useOfVehicleCode;
+	private String operationalModality;
 	
 	private ModFactorListV1 modfactors = new ModFactorListV1();
 	
@@ -113,14 +113,6 @@ public class VehicleV1 {
 		this.dateOfPurchase = dateOfPurchase;
 	}
 
-	public String getUseOfVehicleCode() {
-		return useOfVehicleCode;
-	}
-
-	public void setUseOfVehicleCode(String useOfVehicleCode) {
-		this.useOfVehicleCode = useOfVehicleCode;
-	}
-	
 	@XmlElement(name = "modfactors")
 	public ModFactorListV1 getModfactors() {
 		return modfactors;
@@ -136,6 +128,14 @@ public class VehicleV1 {
 
 	public Integer getCarryingCapacity() {
 		return carryingCapacity;
+	}
+
+	public void setOperationalModality(String operationalModality) {
+		this.operationalModality = operationalModality;
+	}
+
+	public String getOperationalModality() {
+		return operationalModality;
 	}
 	
 }

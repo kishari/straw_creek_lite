@@ -239,7 +239,7 @@
                <seatingCapacity></seatingCapacity>
 	       <carryingCapacity>222</carryingCapacity>
                <typeCode>SZEMELYGEPJARMU</typeCode>
-               <useOfVehicleCode>TAXI</useOfVehicleCode>
+               <operationalModality>TAXI</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>

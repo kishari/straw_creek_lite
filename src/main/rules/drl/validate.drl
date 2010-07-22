@@ -187,22 +187,22 @@ rule "validate genderCode (not valid)"
 		insert( Message.create("13", $p.getGenderCode() ) );
 end
 
-rule "validate useOfVehicle (not valid)"
+rule "validate operationalModality (not valid)"
     agenda-group "validate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( eval( !isNull( useOfVehicleCode ) ) )
-		not(exists UseOfVehicleDef( useOfVehicleCode == $v.useOfVehicleCode ) )
+		$v : Vehicle( eval( !isNull( operationalModality ) ) )
+		not(exists OperationalModalityDef( operationalModality == $v.operationalModality ) )
 			
 	then
-		insert( Message.create("16", $v.getUseOfVehicleCode() ) );
+		insert( Message.create("16", $v.getOperationalModality() ) );
 end
 
-rule "validate useOfVehicle (isNull)"
+rule "validate operationalModality (isNull)"
     agenda-group "validate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( eval( isNull( useOfVehicleCode ) ) )
+		$v : Vehicle( eval( isNull( operationalModality ) ) )
 			
 	then
 		insert( Message.create("17") );
@@ -270,12 +270,13 @@ end
 
 rule "setting groupedCollection flag"
     agenda-group "validate"
+    no-loop
 	when
-		$p : PaymentMethodDef( paymentMethod == "CSOPORTOS_BESZEDES")
+		$p : PaymentMethodDef( paymentMethod == "BANKI_CSOPORTOS_BESZEDES")
 		$q : Quote( paymentMethod == $p.paymentMethod )
 		
 	then
-		$q.setGroupedCollection( true );		
+		modify( $q ) { setGroupedCollection( true ) };		
 end
 
 rule "validate SZEMELYGEPJARMU discounts (startDate >= 2010 jan 1 and insuranceDuration = HATAROZATLAN)"

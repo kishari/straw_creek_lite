@@ -18,7 +18,7 @@ public class Vehicle {
 	private Integer maximumNettoPower;
 	private Date dateOfFirstPutIntoTraffic;
 	private Date dateOfPurchase;
-	private String useOfVehicleCode;
+	private String operationalModality;
 	private Integer age;
 	
 	private ModFactorList modfactors = new ModFactorList();
@@ -96,14 +96,6 @@ public class Vehicle {
 		this.dateOfPurchase = dateOfPurchase;
 	}
 
-	public String getUseOfVehicleCode() {
-		return useOfVehicleCode;
-	}
-
-	public void setUseOfVehicleCode(String useOfVehicleCode) {
-		this.useOfVehicleCode = useOfVehicleCode;
-	}
-
 	public void setAge(Integer age) {
 		this.age = age;
 	}
@@ -140,6 +132,14 @@ public class Vehicle {
 
 	public Integer getCarryingCapacity() {
 		return carryingCapacity;
+	}
+
+	public void setOperationalModality(String operationalModality) {
+		this.operationalModality = operationalModality;
+	}
+
+	public String getOperationalModality() {
+		return operationalModality;
 	}
 	
 }

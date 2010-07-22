@@ -100,6 +100,27 @@ end
 /*****************************************************************************
 				 Díjszámítási paraméterek beállítása 
 *****************************************************************************/
+rule "alaptarifa modositas a gyartmany-teljesitmeny-hengerurtartalom alapjan"
+	agenda-group "calculate"
+	when
+		$q : Quote( durationType == "HATAROZATLAN" )
+		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
+		$m : MakeDef( make == $v.make )
+		$p : PowerModFactorDef( makeCode == $m.makeCode )
+		$c : CubicCapacityModFactorDef( )
+		eval( $p.getPowerMin() <= $v.getMaximumNettoPower() &&
+			  $p.getPowerMax() >= $v.getMaximumNettoPower() &&
+			  $p.isValid( $q.getStartDate() ) )
+		eval( $c.getCapacityMin() <= $v.getCubicCapacity() &&
+			  $c.getCapacityMax() >= $v.getCubicCapacity() &&
+			  $c.isValid( $q.getStartDate() ) ) 
+				
+	then
+		int baseTariff = $q.getResult().getBaseTariff();
+		baseTariff = (int)Math.round(baseTariff * $p.getValue() * $c.getValue() );
+		$q.getResult().setBaseTariff( baseTariff );
+end
+
 rule "teruleti besorolas-korcsoport szorzo (termeszetes szemely)"
 	agenda-group "calculate"
 	when
@@ -172,27 +193,6 @@ rule "dijfizetes gyakorisaga szorzo"
 		insert(new ModFactor("PAYMENT-FREQUENCY", $mf.getValue(), $q, "MULTIPLIER"));
 end
 
-rule "alaptarifa modositas a gyartmany-teljesitmeny-hengerurtartalom alapjan"
-	agenda-group "calculate"
-	when
-		$q : Quote( durationType == "HATAROZATLAN" )
-		$v : Vehicle( typeCode == "SZEMELYGEPJARMU" )
-		$m : MakeDef( make == $v.make )
-		$p : PowerModFactorDef( makeCode == $m.makeCode )
-		$c : CubicCapacityModFactorDef( )
-		eval( $p.getPowerMin() <= $v.getMaximumNettoPower() &&
-			  $p.getPowerMax() >= $v.getMaximumNettoPower() &&
-			  $p.isValid( $q.getStartDate() ) )
-		eval( $c.getCapacityMin() <= $v.getCubicCapacity() &&
-			  $c.getCapacityMax() >= $v.getCubicCapacity() &&
-			  $c.isValid( $q.getStartDate() ) ) 
-				
-	then
-		int baseTariff = $q.getResult().getBaseTariff();
-		baseTariff = (int)Math.round(baseTariff * $p.getValue() * $c.getValue() );
-		$q.getResult().setBaseTariff( baseTariff );
-end
-
 /*****************************************************************************
 				 Kedvezmények, pótdíjak számolása 
 *****************************************************************************/
@@ -200,12 +200,12 @@ rule "uzemeltetesi jelleg potdij"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == "HATAROZATLAN" )
-		$v: Vehicle( useOfVehicleCode != "NORMAL" )
+		$v: Vehicle( operationalModality != "NORMAL" )
 		$mf: ModFactorDef( modfactorType == "UZEMELTETES" )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
-		insert(new ModFactor("USE-OF-VEHICLE", $mf.getValue(), $v, "SURCHARGE"));
+		insert(new ModFactor("OPERATIONAL-MODALITY", $mf.getValue(), $v, "SURCHARGE"));
 end
 
 rule "casco egyuttkotes kedvezmeny"
@@ -347,7 +347,7 @@ rule "partner szorzok"
     	}
 end
 
-rule "premium szamolasa"
+rule "eves premium szamolasa"
 	agenda-group "calculate"
 	salience -50
 	when
@@ -404,19 +404,13 @@ rule "premium szamolasa"
 		}
 		double mult = round($quotemf * $partnermf * $vehiclemf * $discounts * $surcharges, precision);
 		int premium = (int)Math.round(baseTariff * mult); 
-		$q.getResult().setPremium( premium );
-		$q.getResult().setMultiplier( round($quotemf * $partnermf * $vehiclemf, precision) );
+		
+		$q.getResult().setYearlyPremium( premium );
+		$q.getResult().setOtherMultiplier( round($quotemf * $partnermf * $vehiclemf, precision) );
 		$q.getResult().setDiscountMultiplier( round($discounts, precision) );
 		$q.getResult().setSurchargeMultiplier( round($surcharges, precision) );
+		$q.getResult().setTotalMultiplier( mult );
 		
-		
-		System.out.println("quote szorzó: " + $quotemf);
-		System.out.println("partner szorzó: " + $partnermf);
-		System.out.println("vehicle szorzó: " + $vehiclemf);
-		System.out.println("összes szorzó: " + $vehiclemf*$partnermf*$quotemf);
-		System.out.println("discounts szorzó: " + $discounts);
-		System.out.println("surcharges szorzó: " + $surcharges);
-		System.out.println("normalizált szorzó: " + round($vehiclemf * $partnermf * $quotemf, precision));
 end
 
 

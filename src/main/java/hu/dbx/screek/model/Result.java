@@ -2,25 +2,36 @@ package hu.dbx.screek.model;
 
 public class Result {
 	
-	private int premium;
-	private int baseTariff;
+	private Integer monthlyPremium;
+	private Integer yearlyPremium;
+	private Integer baseTariff;
 	private double discountMultiplier;
 	private double surchargeMultiplier;
-	private double multiplier;
+	private double otherMultiplier;
+	private double totalMultiplier;
 	
-	public int getPremium() {
-		return premium;
+
+	public Integer getMonthlyPremium() {
+		return monthlyPremium;
 	}
-	
-	public void setPremium(int premium) {
-		this.premium = premium;
+
+	public void setMonthlyPremium(Integer monthlyPremium) {
+		this.monthlyPremium = monthlyPremium;
 	}
-	
-	public int getBaseTariff() {
+
+	public Integer getYearlyPremium() {
+		return yearlyPremium;
+	}
+
+	public void setYearlyPremium(Integer yearlyPremium) {
+		this.yearlyPremium = yearlyPremium;
+	}
+
+	public Integer getBaseTariff() {
 		return baseTariff;
 	}
-	
-	public void setBaseTariff(int baseTariff) {
+
+	public void setBaseTariff(Integer baseTariff) {
 		this.baseTariff = baseTariff;
 	}
 
@@ -40,12 +51,20 @@ public class Result {
 		this.surchargeMultiplier = surchargeMultiplier;
 	}
 
-	public double getMultiplier() {
-		return multiplier;
+	public void setOtherMultiplier(double otherMultiplier) {
+		this.otherMultiplier = otherMultiplier;
 	}
 
-	public void setMultiplier(double multiplier) {
-		this.multiplier = multiplier;
+	public double getOtherMultiplier() {
+		return otherMultiplier;
+	}
+
+	public void setTotalMultiplier(double totalMultiplier) {
+		this.totalMultiplier = totalMultiplier;
+	}
+
+	public double getTotalMultiplier() {
+		return totalMultiplier;
 	}
 
 }

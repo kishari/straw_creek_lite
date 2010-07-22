@@ -74,7 +74,7 @@ public class Mapper {
 		v.setOwnWeight(vehicleV1.getOwnWeight());
 		v.setSeatingCapacity(vehicleV1.getSeatingCapacity());
 		v.setTypeCode(vehicleV1.getTypeCode());
-		v.setUseOfVehicleCode(vehicleV1.getUseOfVehicleCode());
+		v.setOperationalModality(vehicleV1.getOperationalModality());
 		
 		v.setModfactors(mapIn(vehicleV1.getModfactors(), v));
 		
@@ -199,7 +199,7 @@ public class Mapper {
 		v.setOwnWeight(vehicle.getOwnWeight());
 		v.setSeatingCapacity(vehicle.getSeatingCapacity());
 		v.setTypeCode(vehicle.getTypeCode());
-		v.setUseOfVehicleCode(vehicle.getUseOfVehicleCode());
+		v.setOperationalModality(vehicle.getOperationalModality());
 		
 		v.setModfactors(mapOut(vehicle.getModfactors()));
 		
@@ -257,10 +257,12 @@ public class Mapper {
 			ResultV1 resultV1 = new ResultV1();
 			
 			resultV1.setBaseTariff(result.getBaseTariff());
-			resultV1.setPremium(result.getPremium());
-			resultV1.setMultiplier(result.getMultiplier());
+			resultV1.setMonthlyPremium(result.getMonthlyPremium());
+			resultV1.setYearlyPremium(result.getYearlyPremium());
+			resultV1.setOtherMultiplier(result.getOtherMultiplier());
 			resultV1.setDiscountMultiplier(result.getDiscountMultiplier());
 			resultV1.setSurchargeMultiplier(result.getSurchargeMultiplier());
+			resultV1.setTotalMultiplier(result.getTotalMultiplier());
 			
 			return resultV1;
 		}
