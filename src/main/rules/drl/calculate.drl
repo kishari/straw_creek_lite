@@ -70,7 +70,6 @@ rule "alaptarifa beallitas (motorkerekpar)"
 		eval ( $b.isValid( $q.getStartDate() ) )
 						
 	then
-		System.out.println("alaptarifa beallitas (motorkerekpar)");
 		$q.getResult().setBaseTariff( $b.getValue() );
 end
 
@@ -188,7 +187,9 @@ rule "vezetoi engedely szorzo"
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
-		$p : Partner()
+		//Azért kell a Partnerhoz betenni ezt a feltételt, mert ha nincs itt, és a yearOfDrivingLicense = null,
+		//akkor az 1. eval elszáll a new DateTime miatt.
+		$p : Partner( yearOfDrivingLicense != null )
 		$mf: DrivingLicenseModFactorDef()
 		eval ( isBetween( $mf.getSinceMin(),
 						  $mf.getSinceMax(),
@@ -214,7 +215,7 @@ rule "Bonus-Malus szorzo"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$bm: BonusMalusModFactorDef( bmCode == $q.bonusMalus )
+		$bm: BonusMalusModFactorDef( bonusMalus == $q.bonusMalus )
 		$v : Vehicle()
 		$vt: VehicleTypeDef( typeCode == $v.typeCode, bonusMalus == true )	
 		eval ( $bm.isValid( $q.getStartDate() ) )

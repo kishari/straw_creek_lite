@@ -20,7 +20,7 @@
 19;2;"A hengerűrtartalom mező kitöltése kötelező!"
 20;2;"A férőhelyek száma mező kitöltése kötelező!"
 21;2;"A teherbírás mező kitöltése kötelező!"
-22;2;"A jogosítvány éve mező kitöltése kötelező!"
+22;2;"A vezetői engedély éve mező kitöltése kötelező!"
 23;2;"A partner születési dátum mező kitöltése kötelező!"
 24;2;"A kockázatviselés kezdete mező kitöltése kötelező!"
 25;2;"Az első forgalomba helyezés dátum mező kitöltése kötelező!"
@@ -31,3 +31,4 @@
 30;2;"A megadott Bonus-Malus (%1) érvénytelen!"
 31;2;"A megadott járműtípusra (%1 : %2) határozatlan idejű biztosítás nem köthető!"
 32;2;"A megadott járműtípusra (%1 : %2) határozott idejű biztosítás nem köthető!"
+33;2;"Nincs érvényes alaptarifa az adott kezdődátummal (%1) az adott járműtípushoz (%2 : %3)!"

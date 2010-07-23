@@ -2,17 +2,9 @@ package hu.dbx.screek.model.facts;
 
 public class BonusMalusModFactorDef extends BaseDef {
 
-	private String bmCode;
+	private String bonusMalus;
 	private Double value;
 	
-	
-	public String getBmCode() {
-		return bmCode;
-	}
-	
-	public void setBmCode(String bmCode) {
-		this.bmCode = bmCode;
-	}
 	
 	public Double getValue() {
 		return value;
@@ -20,6 +12,14 @@ public class BonusMalusModFactorDef extends BaseDef {
 	
 	public void setValue(Double value) {
 		this.value = value;
+	}
+
+	public void setBonusMalus(String bonusMalus) {
+		this.bonusMalus = bonusMalus;
+	}
+
+	public String getBonusMalus() {
+		return bonusMalus;
 	}
 	
 }
