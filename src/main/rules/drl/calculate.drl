@@ -50,12 +50,14 @@ rule "alaptarifa beallitas"
 		$b : BaseTariffDef( durationType == $q.durationType,
 							vehicleType == $v.typeCode )
 		eval ( $b.isValid( $q.getStartDate() ) )
-		eval ( $v.getTypeCode() != Constants.TC_TEHERGEPJARMU && 
-		   	   $v.getTypeCode() != Constants.TC_MOTORKEREKPAR && 
-		   	   $v.getTypeCode() != Constants.TC_AUTOBUSZ ) 
-	then
-		
+		eval ( ($q.getDurationType() == Constants.DT_HATAROZATLAN && 
+			   	$v.getTypeCode() != Constants.TC_TEHERGEPJARMU && 
+		   	   	$v.getTypeCode() != Constants.TC_MOTORKEREKPAR && 
+		   	   	$v.getTypeCode() != Constants.TC_AUTOBUSZ) ||
+		   	   	($q.getDurationType() == Constants.DT_HATAROZOTT) ) 
+	then		
 		$q.getResult().setBaseTariff( $b.getValue() );
+		
 end
 
 rule "alaptarifa beallitas (motorkerekpar)"
@@ -212,7 +214,9 @@ rule "Bonus-Malus szorzo"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$bm: BonusMalusModFactorDef( bmCode == $q.bonusMalus )	
+		$bm: BonusMalusModFactorDef( bmCode == $q.bonusMalus )
+		$v : Vehicle()
+		$vt: VehicleTypeDef( typeCode == $v.typeCode, bonusMalus == true )	
 		eval ( $bm.isValid( $q.getStartDate() ) )
 				
 	then
@@ -375,11 +379,11 @@ rule "partner szorzok"
     	}
 end
 
-rule "eves premium szamolasa"
+rule "hatarozatlan ideju kgfb eves premium szamolasa"
 	agenda-group "calculate"
 	salience -50
 	when
-		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN || durationType == Constants.DT_HATAROZOTT )
 		$v : Vehicle()
 		$p : Partner()
 		$param : ParamDef( key == "DOUBLE_PRECISION" )
@@ -434,7 +438,12 @@ rule "eves premium szamolasa"
 		double mult = round($quotemf * $partnermf * $vehiclemf * $discounts * $surcharges, precision);
 		int premium = (int)Math.round(baseTariff * mult); 
 		
-		$q.getResult().setYearlyPremium( premium );
+		if ($q.getDurationType() == Constants.DT_HATAROZATLAN ) {
+			$q.getResult().setYearlyPremium( premium );
+		}
+		else {
+			$q.getResult().setMonthlyPremium( premium );
+		}
 		$q.getResult().setOtherMultiplier( round($quotemf * $partnermf * $vehiclemf, precision) );
 		$q.getResult().setDiscountMultiplier( round($discounts, precision) );
 		$q.getResult().setSurchargeMultiplier( round($surcharges, precision) );

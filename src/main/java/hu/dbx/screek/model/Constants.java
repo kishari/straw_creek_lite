@@ -14,13 +14,17 @@ public class Constants {
 	public static final Integer TC_VONTATO = 6;
 	public static final Integer TC_KONNYU_POTKOCSI = 7;
 	public static final Integer TC_NEHEZ_POTKOCSI = 8;
-	public static final Integer TC_SZEMELYGEPKOCSI_UTANFUTO = 9;
-	public static final Integer TC_LAKOKOCSI = 10;
-	public static final Integer TC_MOTORKEREKPAR_UTANFUTO = 11;
-	public static final Integer TC_MEZOGAZDASAGI_VONTATO = 12;
-	public static final Integer TC_LASSUJARMU = 13;
-	public static final Integer TC_MUNKAGEP = 14;
-	public static final Integer TC_SEGEDMOTOROS_KEREKPAR = 15;
+	public static final Integer TC_POTKOCSI = 9;
+	public static final Integer TC_SZEMELYGEPKOCSI_UTANFUTO = 10;
+	public static final Integer TC_LAKOKOCSI = 11;
+	public static final Integer TC_MOTORKEREKPAR_UTANFUTO = 12;
+	public static final Integer TC_MEZOGAZDASAGI_VONTATO = 13;
+	public static final Integer TC_LASSUJARMU = 14;
+	public static final Integer TC_MUNKAGEP = 15;
+	public static final Integer TC_SEGEDMOTOROS_KEREKPAR = 16;
+	public static final Integer TC_PROBA_RENDSZAM = 17;
+	
+
 	
 	//Partner típusok (Partner.genderCode)
 	public static final Integer NO = 1;

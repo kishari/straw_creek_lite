@@ -19,6 +19,30 @@ function boolean firstDateIsBiggerOrEqualsThanSecondDate(DateTime q, DateTime v)
 /*****************************************************************************
 				 Biztosítás szintű validációk 
 *****************************************************************************/
+rule "validate bonusMalus (isNull)"
+    agenda-group "validate"
+    lock-on-active
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN,
+					eval( isNullString(bonusMalus) ) )
+		$v : Vehicle()
+		$vt: VehicleTypeDef( typeCode == $v.typeCode, bonusMalus == true )
+	then
+		$q.setBonusMalus(null);
+		insert( Message.create("29") );
+end
+
+rule "validate bonusMalus (not valid)"
+    agenda-group "validate"
+    lock-on-active
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN,
+					eval( !isNullString(bonusMalus) ) )
+		not(exists BonusMalusModFactorDef( bmCode == $q.bonusMalus ) )	
+	then
+		insert( Message.create("30", $q.getBonusMalus() ) );
+end
+
 rule "validate startDate (isNull)"
     agenda-group "validate"
     lock-on-active    
@@ -99,7 +123,7 @@ end
 
 rule "validate payment frequency (not valid - csoportos beszedes eseten nem havi)"
     agenda-group "validate"
-    lock-on-active    
+//    lock-on-active    
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN && 
 					groupedCollection == true &&
@@ -161,6 +185,30 @@ rule "validate vehicle typecode (not valid)"
 		
 	then
 		insert( Message.create("3", $v.getTypeCode().toString() ) );		
+end
+
+rule "validate vehicle typecode (not valid - sima potkocsi, proba rendszam nincs hatarozatlan esetben)"
+    agenda-group "validate"
+    lock-on-active    
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == Constants.TC_PROBA_RENDSZAM ||
+					  typeCode == Constants.TC_POTKOCSI )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )
+	then
+		insert( Message.create("31", $v.getTypeCode().toString(), $vt.getDescription() ) );		
+end
+
+rule "validate vehicle typecode (not valid - segedmotoros kerekpar, trolibusz nincs hatarozott esetben)"
+    agenda-group "validate"
+    lock-on-active    
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZOTT )
+		$v : Vehicle( typeCode == Constants.TC_SEGEDMOTOROS_KEREKPAR ||
+					  typeCode == Constants.TC_TROLIBUSZ )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )
+	then
+		insert( Message.create("32", $v.getTypeCode().toString(), $vt.getDescription() ) );		
 end
 
 rule "validate vehicle make (not valid)"
@@ -342,28 +390,7 @@ rule "validate yearOfDrivingLicense (isNull)"
 		insert( Message.create("22") );
 end
 
-rule "validate bonusMalus (isNull)"
-    agenda-group "validate"
-    lock-on-active
-	when
-		$q : Quote( durationType == Constants.DT_HATAROZATLAN,
-					eval( isNullString(bonusMalus) ) )
-			
-	then
-		$q.setBonusMalus(null);
-		insert( Message.create("29") );
-end
 
-rule "validate bonusMalus (not valid)"
-    agenda-group "validate"
-    lock-on-active
-	when
-		$q : Quote( durationType == Constants.DT_HATAROZATLAN,
-					eval( !isNullString(bonusMalus) ) )
-		not(exists BonusMalusModFactorDef( bmCode == $q.bonusMalus ) )	
-	then
-		insert( Message.create("30", $q.getBonusMalus() ) );
-end
 
 /*****************************************************************************
 				        		Egyéb
