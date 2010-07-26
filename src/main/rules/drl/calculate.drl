@@ -7,9 +7,12 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
+function boolean isNullInt(Integer i) {
+		return (i == null || i == 0);
+}
+
 function double round(double val, int precision) {
 	BigDecimal temp = new BigDecimal(val).setScale(precision, BigDecimal.ROUND_HALF_UP);
-	Double doublePrice= new Double(temp.doubleValue());
 	
 	return temp.doubleValue();
 }
@@ -149,7 +152,7 @@ rule "teruleti besorolas-korcsoport szorzo (termeszetes szemely)"
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				 	   				
 	then
-		insert(new ModFactor("AREA-AGEGROUP", $mf.getValue(), $p, "MULTIPLIER"));
+		insert(new ModFactor("AREA", $mf.getValue(), $p, "MULTIPLIER"));
 end
 
 rule "teruleti besorolas szorzo (jogi szemely)"
@@ -189,7 +192,7 @@ rule "vezetoi engedely szorzo"
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
 		//Azért kell a Partnerhoz betenni ezt a feltételt, mert ha nincs itt, és a yearOfDrivingLicense = null,
 		//akkor az 1. eval elszáll a new DateTime miatt.
-		$p : Partner( yearOfDrivingLicense != null )
+		$p : Partner( eval( !isNullInt( yearOfDrivingLicense ) ) )
 		$mf: DrivingLicenseModFactorDef()
 		eval ( isBetween( $mf.getSinceMin(),
 						  $mf.getSinceMax(),
@@ -293,7 +296,7 @@ rule "gyermek kedvezmeny"
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
-		insert(new ModFactor("CHILD-PREFERENCE", $mf.getValue(), $q, "DISCOUNT"));
+		insert(new ModFactor("CHILD", $mf.getValue(), $q, "DISCOUNT"));
 end
 
 rule "mkb partner kedvezmeny"
@@ -436,8 +439,17 @@ rule "hatarozatlan ideju kgfb eves premium szamolasa"
 			insert( Message.create("26", String.valueOf( round( (1 - $discounts) * 100, precision ) ) ) );
 			$discounts = 0.6;
 		}
+
 		double mult = round($quotemf * $partnermf * $vehiclemf * $discounts * $surcharges, precision);
-		int premium = (int)Math.round(baseTariff * mult); 
+		int premium = (int)Math.round(baseTariff * mult);
+//		System.out.println("qoute: " + $quotemf); 
+//		System.out.println("vehicle: " + $vehiclemf); 
+//		System.out.println("partner: " + $partnermf);
+//		System.out.println("discounts: " + $discounts);
+//		System.out.println("surcharges: " + $surcharges); 
+//		System.out.println("mult: " + mult); 
+//		System.out.println(baseTariff * mult); 
+//		System.out.println("premium: " + premium); 
 		
 		if ($q.getDurationType() == Constants.DT_HATAROZATLAN ) {
 			$q.getResult().setYearlyPremium( premium );

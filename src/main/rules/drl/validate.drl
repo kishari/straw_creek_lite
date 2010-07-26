@@ -154,16 +154,17 @@ rule "validate payment frequency (not valid)"
 		insert( Message.create("7", $q.getPaymentFrequency().toString() ) );
 end
 
-rule "validate payment frequency (not valid - csoportos beszedes eseten nem havi)"
+rule "validate payment frequency (not valid - havi eseten nem csoportos)"
     agenda-group "validate"
-//    lock-on-active    
+    lock-on-active    
 	when
+		$p : PaymentMethodDef( paymentMethod == Constants.PM_BANKI_CSOPORTOS_BESZEDES )
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN && 
-					groupedCollection == true &&
-					eval ( !isNullInt(paymentFrequency) ) &&
-					paymentFrequency != Constants.PF_HAVI )
+					paymentMethod != $p.paymentMethod &&
+					paymentFrequency == Constants.PF_HAVI )				
 			
 	then
+		System.out.println("validate payment frequency (not valid - havi eseten nem csoportos)");
 		insert( Message.create("27") );
 end
 
@@ -514,7 +515,7 @@ end
 *****************************************************************************/
 rule "setting groupedCollection flag"
     agenda-group "validate"
-    salience -30
+    salience 50
     lock-on-active
 	when
 		$p : PaymentMethodDef( paymentMethod == Constants.PM_BANKI_CSOPORTOS_BESZEDES )

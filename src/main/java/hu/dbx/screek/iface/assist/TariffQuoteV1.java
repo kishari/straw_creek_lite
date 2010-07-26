@@ -19,7 +19,7 @@ public class TariffQuoteV1 {
 	
 	//módosító paraméterek
 	private boolean takeOutWithCasco;
-	private boolean childPreference;
+	private boolean child;
 	private boolean mkbPartner;
 	private boolean online;
 	private boolean emailGranted;
@@ -70,12 +70,12 @@ public class TariffQuoteV1 {
 		this.takeOutWithCasco = takeOutWithCasco;
 	}
 
-	public boolean isChildPreference() {
-		return childPreference;
+	public boolean isChild() {
+		return child;
 	}
 
-	public void setChildPreference(boolean childPreference) {
-		this.childPreference = childPreference;
+	public void setChild(boolean child) {
+		this.child = child;
 	}
 
 	public boolean isMkbPartner() {

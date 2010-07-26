@@ -29,7 +29,7 @@ public class Mapper {
 		q.setDurationType(tariffQuoteV1.getDurationType());
 		
 		q.setTakeOutWithCasco(tariffQuoteV1.isTakeOutWithCasco());
-		q.setChildPreference(tariffQuoteV1.isChildPreference());
+		q.setChildPreference(tariffQuoteV1.isChild());
 		q.setMkbPartner(tariffQuoteV1.isMkbPartner());
 		q.setOnline(tariffQuoteV1.isOnline());
 		q.setEmailGranted(tariffQuoteV1.isEmailGranted());
@@ -150,7 +150,7 @@ public class Mapper {
 		q.setPaymentMethod(quote.getPaymentMethod());
 		
 		q.setTakeOutWithCasco(quote.isTakeOutWithCasco());
-		q.setChildPreference(quote.isChildPreference());
+		q.setChild(quote.isChildPreference());
 		q.setMkbPartner(quote.isMkbPartner());
 		q.setOnline(quote.isOnline());
 		q.setEmailGranted(quote.isEmailGranted());
