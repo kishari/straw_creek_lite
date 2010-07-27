@@ -164,7 +164,6 @@ rule "validate payment frequency (not valid - havi eseten nem csoportos)"
 					paymentFrequency == Constants.PF_HAVI )				
 			
 	then
-		System.out.println("validate payment frequency (not valid - havi eseten nem csoportos)");
 		insert( Message.create("27") );
 end
 
@@ -521,7 +520,6 @@ rule "setting groupedCollection flag"
 		$q : Quote( paymentMethod == $p.paymentMethod )
 		
 	then
-//		System.out.println("setting groupedCollection flag");
 		modify( $q ) { setGroupedCollection( true ) };		
 end
 
