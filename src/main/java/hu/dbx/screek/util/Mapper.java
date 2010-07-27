@@ -50,33 +50,33 @@ public class Mapper {
 	
 	private static Partner mapIn(PartnerV1 partnerV1) {		
 		Partner p = new Partner();
-		
-		p.setDateOfBirth(partnerV1.getDateOfBirth());
-		p.setPostCode(partnerV1.getPostCode());
-		p.setYearOfDrivingLicense(partnerV1.getYearOfDrivingLicense());
-		p.setGenderCode(partnerV1.getGenderCode());
-		p.setModfactors(mapIn(partnerV1.getModfactors(), p));
-		
+		if (partnerV1 != null) {
+			p.setDateOfBirth(partnerV1.getDateOfBirth());
+			p.setPostCode(partnerV1.getPostCode());
+			p.setYearOfDrivingLicense(partnerV1.getYearOfDrivingLicense());
+			p.setGenderCode(partnerV1.getGenderCode());
+			p.setModfactors(mapIn(partnerV1.getModfactors(), p));
+		}
 		return p;
 	}
 	
 	private static Vehicle mapIn(VehicleV1 vehicleV1) {
 		Vehicle v = new Vehicle();
-	
-		v.setCubicCapacity(vehicleV1.getCubicCapacity());
-		v.setCarryingCapacity(vehicleV1.getCarryingCapacity());
-		v.setDateOfPurchase(vehicleV1.getDateOfPurchase());
-		v.setDateOfFirstPutIntoTraffic(vehicleV1.getDateOfFirstPutIntoTraffic());
-		v.setMake(vehicleV1.getMake());
-		v.setMaximumAllowedWeight(vehicleV1.getMaximumAllowedWeight());
-		v.setMaximumNettoPower(vehicleV1.getMaximumNettoPower());
-		v.setOwnWeight(vehicleV1.getOwnWeight());
-		v.setSeatingCapacity(vehicleV1.getSeatingCapacity());
-		v.setTypeCode(vehicleV1.getTypeCode());
-		v.setOperationalModality(vehicleV1.getOperationalModality());
+		if (vehicleV1 != null) {
+			v.setCubicCapacity(vehicleV1.getCubicCapacity());
+			v.setCarryingCapacity(vehicleV1.getCarryingCapacity());
+			v.setDateOfPurchase(vehicleV1.getDateOfPurchase());
+			v.setDateOfFirstPutIntoTraffic(vehicleV1.getDateOfFirstPutIntoTraffic());
+			v.setMake(vehicleV1.getMake());
+			v.setMaximumAllowedWeight(vehicleV1.getMaximumAllowedWeight());
+			v.setMaximumNettoPower(vehicleV1.getMaximumNettoPower());
+			v.setOwnWeight(vehicleV1.getOwnWeight());
+			v.setSeatingCapacity(vehicleV1.getSeatingCapacity());
+			v.setTypeCode(vehicleV1.getTypeCode());
+			v.setOperationalModality(vehicleV1.getOperationalModality());
 		
-		v.setModfactors(mapIn(vehicleV1.getModfactors(), v));
-		
+			v.setModfactors(mapIn(vehicleV1.getModfactors(), v));
+		}
 		return v;
 	}
 		
