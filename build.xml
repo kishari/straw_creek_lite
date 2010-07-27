@@ -2,6 +2,7 @@
 	<dirname property="screek.basedir" file="${ant.file.screek}"/>
 	<property file="${screek.basedir}/build.properties"/>
 	<property name="web" value="${screek.basedir}/web"/>
+	<property name="lib" value="${screek.basedir}/lib"/>
 	<property name="resources" value="${screek.basedir}/resources"/>
 	<property name="web.web-inf" value="${web}/WEB-INF"/>
 	<property name="web.web-inf.classes" value="${web.web-inf}/classes"/>
@@ -18,6 +19,7 @@
 	<property name="verbose" value="false"/>
 
 	<path id="classpath">
+		<fileset dir="${lib}" includes="*.jar" />
 		<fileset dir="${web.web-inf.lib}" includes="*.jar" />
 	</path>
 
@@ -42,9 +44,14 @@
 	</target>
 
 	<target name="war" description="create war file" depends="compile">
-		<copy todir="${web.web-inf.classes}">
+		 <copy todir="${web.web-inf.classes}">
 		    <fileset dir="${src}">
 		      <exclude name="**/*.java"/>
+		    </fileset>
+		  </copy>
+		 <copy todir="${web.web-inf.lib}">
+		    <fileset dir="${lib}">
+		      <exclude name="**/javaee-api-6.0.jar"/>
 		    </fileset>
 		  </copy>
 		<jar destfile="${screek.warfile}" duplicate="preserve">
