@@ -438,7 +438,6 @@ rule "validate dateOfBirth (isNull)"
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU || typeCode == Constants.TC_TEHERGEPJARMU )
 		$p : Partner( dateOfBirth == null &&
-					  eval( !isNullInt( genderCode ) ) &&
 					  genderCode != 3 )
 				
 	then
