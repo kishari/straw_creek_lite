@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class Quote {
 
+	private String callerId;
 	private Date startDate;
 	private Integer durationType;
 	private Partner partner;
@@ -170,6 +171,14 @@ public class Quote {
 
 	public String getBonusMalus() {
 		return bonusMalus;
+	}
+
+	public void setCallerId(String callerId) {
+		this.callerId = callerId;
+	}
+
+	public String getCallerId() {
+		return callerId;
 	}
 
 	

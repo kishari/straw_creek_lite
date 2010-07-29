@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class TariffQuoteV1 {
 	
+	private String callerId;
 	private Date startDate;
 	private Integer durationType;
 	private PartnerV1 partner;
@@ -161,6 +162,14 @@ public class TariffQuoteV1 {
 
 	public String getBonusMalus() {
 		return bonusMalus;
+	}
+
+	public void setCallerId(String callerId) {
+		this.callerId = callerId;
+	}
+
+	public String getCallerId() {
+		return callerId;
 	}
 
 

@@ -25,6 +25,7 @@ public class Mapper {
 	public static Quote mapIn(TariffQuoteV1 tariffQuoteV1) {
 		Quote q = new Quote();
 		
+		q.setCallerId(tariffQuoteV1.getCallerId());
 		q.setStartDate(tariffQuoteV1.getStartDate());
 		q.setDurationType(tariffQuoteV1.getDurationType());
 		
@@ -145,6 +146,7 @@ public class Mapper {
 	public static TariffQuoteV1 mapOut(Quote quote) {
 		TariffQuoteV1 q = new TariffQuoteV1();
 		
+		q.setCallerId(quote.getCallerId());
 		q.setStartDate(quote.getStartDate());
 		q.setDurationType(quote.getDurationType());
 		q.setPaymentMethod(quote.getPaymentMethod());
