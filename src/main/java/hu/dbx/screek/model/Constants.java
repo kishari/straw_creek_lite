@@ -14,7 +14,6 @@ public class Constants {
 	public static final Integer TC_VONTATO = 6;
 	public static final Integer TC_KONNYU_POTKOCSI = 7;
 	public static final Integer TC_NEHEZ_POTKOCSI = 8;
-	public static final Integer TC_POTKOCSI = 9;
 	public static final Integer TC_SZEMELYGEPKOCSI_UTANFUTO = 10;
 	public static final Integer TC_LAKOKOCSI = 11;
 	public static final Integer TC_MOTORKEREKPAR_UTANFUTO = 12;

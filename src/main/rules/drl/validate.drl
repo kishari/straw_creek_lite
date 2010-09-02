@@ -302,13 +302,12 @@ rule "validate vehicle typecode (not valid)"
 		insert( Message.create("3", $v.getTypeCode().toString() ) );		
 end
 
-rule "validate vehicle typecode (not valid - sima potkocsi, proba rendszam nincs hatarozatlan esetben)"
+rule "validate vehicle typecode (not valid - proba rendszam nincs hatarozatlan esetben)"
     agenda-group "validate"
     lock-on-active    
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_PROBA_RENDSZAM ||
-					  typeCode == Constants.TC_POTKOCSI )
+		$v : Vehicle( typeCode == Constants.TC_PROBA_RENDSZAM )
 		$vt: VehicleTypeDef( typeCode == $v.typeCode )
 	then
 		insert( Message.create("31", $v.getTypeCode().toString(), $vt.getDescription() ) );		
