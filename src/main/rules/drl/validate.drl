@@ -32,8 +32,21 @@ function boolean isNullInt(Integer i) {
 		return (i == null || i == 0);
 }
 
-function boolean firstDateIsBiggerOrEqualsThanSecondDate(DateTime q, DateTime v) {
+function boolean firstDateIsAfterOrEqualsThanSecondDate(DateTime q, DateTime v) {
 	return ( q.isAfter(v) || q.isEqual(v) );
+}
+
+function boolean firstDateIsAfter(Date s0, Date e0) {
+	if (s0 == null || e0 == null) {
+		return false;
+	}
+	
+	DateTime s = new DateTime(s0);
+	DateTime e = new DateTime(e0);	
+	
+	DateTime temp = s.withDate(s.getYear(), s.getMonthOfYear(), s.getDayOfMonth());
+	
+	return temp.isAfter(e);    
 }
 
 function boolean isBetween(Integer lowerBound, Integer upperBound, Integer value) {
@@ -52,6 +65,17 @@ function int yearsBetween(Date s, Date e) {
 /*****************************************************************************
 				 Biztosítás szintű validációk 
 *****************************************************************************/
+rule "validate endDate (endDate < startDate)"
+    agenda-group "validate"
+    //lock-on-active
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZOTT)
+		eval( firstDateIsAfter( $q.getStartDate(), $q.getEndDate() ) )
+
+	then
+		insert( Message.create2("34", $q.getStartDate(), $q.getEndDate() ) );
+end
+
 rule "validate bonusMalus (isNull)"
     agenda-group "validate"
     lock-on-active
@@ -538,7 +562,7 @@ rule "validate szemelygepjarmu discounts (startDate >= 2010 jan 1 and insuranceD
 		$d : DurationTypeDef( durationType == Constants.DT_HATAROZATLAN )
 		$vt: VehicleTypeDef( typeCode == Constants.TC_SZEMELYGEPJARMU )
 		not (exists ( Message() ) )  
-		eval ( !firstDateIsBiggerOrEqualsThanSecondDate(new DateTime($q.getStartDate()), new DateTime(2010, 1, 1, 0, 0, 0, 0) ) 
+		eval ( !firstDateIsAfterOrEqualsThanSecondDate(new DateTime($q.getStartDate()), new DateTime(2010, 1, 1, 0, 0, 0, 0) ) 
 			  || ($d.getDurationType() != $q.getDurationType() ) 
 			  || ($vt.getTypeCode() != $v.getTypeCode() ) )
 		
@@ -552,5 +576,29 @@ rule "validate szemelygepjarmu discounts (startDate >= 2010 jan 1 and insuranceD
 			setEmailGranted(false),
 			setExtraDamageExemption(false),
 			setGroupedCollection(false)	
+		}
+end
+
+rule "setting durationType (hatarozatlan)"
+    agenda-group "validate"
+    salience 100
+    no-loop
+	when
+		$q : Quote( endDate == null )
+	then
+		modify ( $q ) {
+			setDurationType( Constants.DT_HATAROZATLAN )
+		}
+end
+
+rule "setting durationType (hatarozott)"
+    agenda-group "validate"
+    salience 100
+    no-loop
+	when
+		$q : Quote( endDate != null )
+	then
+		modify ( $q ) {
+			setDurationType( Constants.DT_HATAROZOTT )
 		}
 end

@@ -3,6 +3,7 @@ package hu.dbx.screek.iface.model;
 public class ResultV1 {
 	private Integer monthlyPremium;
 	private Integer yearlyPremium;
+	private Integer totalPremium;
 	private Integer baseTariff;
 	private double discountMultiplier;
 	private double surchargeMultiplier;
@@ -53,6 +54,12 @@ public class ResultV1 {
 	}
 	public double getTotalMultiplier() {
 		return totalMultiplier;
+	}
+	public void setTotalPremium(Integer totalPremium) {
+		this.totalPremium = totalPremium;
+	}
+	public Integer getTotalPremium() {
+		return totalPremium;
 	}
 	
 	

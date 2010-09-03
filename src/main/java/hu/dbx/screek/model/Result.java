@@ -4,6 +4,7 @@ public class Result {
 	
 	private Integer monthlyPremium;
 	private Integer yearlyPremium;
+	private Integer totalPremium;
 	private Integer baseTariff;
 	private double discountMultiplier;
 	private double surchargeMultiplier;
@@ -65,6 +66,14 @@ public class Result {
 
 	public double getTotalMultiplier() {
 		return totalMultiplier;
+	}
+
+	public void setTotalPremium(Integer totalPremium) {
+		this.totalPremium = totalPremium;
+	}
+
+	public Integer getTotalPremium() {
+		return totalPremium;
 	}
 
 }

@@ -11,7 +11,8 @@ public class TariffQuoteV1 {
 	
 	private String callerId;
 	private Date startDate;
-	private Integer durationType;
+	private Date endDate;
+	//private Integer durationType;
 	private PartnerV1 partner;
 	private VehicleV1 vehicle;
 	private Integer paymentFrequency;
@@ -39,6 +40,14 @@ public class TariffQuoteV1 {
 		this.startDate = startDate;
 	}
 	
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+	
 	public PartnerV1 getPartner() {
 		return partner;
 	}
@@ -53,14 +62,6 @@ public class TariffQuoteV1 {
 	
 	public void setVehicle(VehicleV1 vehicle) {
 		this.vehicle = vehicle;
-	}
-
-	public Integer getDurationType() {
-		return durationType;
-	}
-
-	public void setDurationType(Integer durationType) {
-		this.durationType = durationType;
 	}
 
 	public boolean isTakeOutWithCasco() {
@@ -172,8 +173,5 @@ public class TariffQuoteV1 {
 		return callerId;
 	}
 
-
-
-	
 	
 }

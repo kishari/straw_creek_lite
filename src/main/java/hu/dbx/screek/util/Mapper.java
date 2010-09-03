@@ -3,6 +3,8 @@ package hu.dbx.screek.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 import hu.dbx.screek.iface.assist.TariffQuoteV1;
 import hu.dbx.screek.iface.model.MessageListV1;
 import hu.dbx.screek.iface.model.MessageV1;
@@ -27,7 +29,19 @@ public class Mapper {
 		
 		q.setCallerId(tariffQuoteV1.getCallerId());
 		q.setStartDate(tariffQuoteV1.getStartDate());
-		q.setDurationType(tariffQuoteV1.getDurationType());
+		q.setEndDate(tariffQuoteV1.getEndDate());
+		
+		if (q.getEndDate() != null) {
+			DateTime endTmp = new DateTime(q.getEndDate());
+			
+			DateTime end = new DateTime(endTmp.getYear(), 
+										endTmp.getMonthOfYear(), 
+										endTmp.getDayOfMonth(),
+										23, 59, 59, 0);
+			q.setEndDate(end.toDate());
+		}
+
+		//q.setDurationType(tariffQuoteV1.getDurationType());
 		
 		q.setTakeOutWithCasco(tariffQuoteV1.isTakeOutWithCasco());
 		q.setChildPreference(tariffQuoteV1.isChild());
@@ -148,7 +162,8 @@ public class Mapper {
 		
 		q.setCallerId(quote.getCallerId());
 		q.setStartDate(quote.getStartDate());
-		q.setDurationType(quote.getDurationType());
+		q.setEndDate(quote.getEndDate());
+		//q.setDurationType(quote.getDurationType());
 		q.setPaymentMethod(quote.getPaymentMethod());
 		
 		q.setTakeOutWithCasco(quote.isTakeOutWithCasco());
@@ -259,6 +274,7 @@ public class Mapper {
 			resultV1.setBaseTariff(result.getBaseTariff());
 			resultV1.setMonthlyPremium(result.getMonthlyPremium());
 			resultV1.setYearlyPremium(result.getYearlyPremium());
+			resultV1.setTotalPremium(result.getTotalPremium());
 			resultV1.setOtherMultiplier(result.getOtherMultiplier());
 			resultV1.setDiscountMultiplier(result.getDiscountMultiplier());
 			resultV1.setSurchargeMultiplier(result.getSurchargeMultiplier());

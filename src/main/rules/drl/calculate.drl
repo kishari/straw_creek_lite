@@ -4,6 +4,7 @@ import hu.dbx.screek.model.facts.*;
 import hu.dbx.screek.model.*;
 import java.util.Date;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
@@ -28,6 +29,10 @@ function boolean isBetween(Integer lowerBound, Integer upperBound, Integer value
 
 function int yearsBetween(Date s, Date e) {
 	return Math.abs(new DateTime(s).getYear() - new DateTime(e).getYear());  
+}
+
+function int daysBetween(Date s, Date e) {
+	return Days.daysBetween(new DateTime(s), new DateTime(e)).getDays() + 1;
 }
 
 function boolean isEquals(DateTime s, DateTime e) {

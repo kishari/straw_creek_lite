@@ -32,3 +32,4 @@
 31;2;"A megadott járműtípusra (%1 : %2) határozatlan idejű biztosítás nem köthető!"
 32;2;"A megadott járműtípusra (%1 : %2) határozott idejű biztosítás nem köthető!"
 33;2;"Nincs érvényes alaptarifa az adott kezdődátummal (%1) az adott járműtípushoz (%2 : %3)!"
+34;2;"A megadott kezdődátum (%1) későbbi időpont, mint a végdátum (%2)!"

@@ -8,6 +8,7 @@ public class Quote {
 
 	private String callerId;
 	private Date startDate;
+	private Date endDate;
 	private Integer durationType;
 	private Partner partner;
 	private Vehicle vehicle;
@@ -41,6 +42,14 @@ public class Quote {
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+	}
+	
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
 	}
 
 	public Vehicle getVehicle() {
