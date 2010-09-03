@@ -35,6 +35,7 @@
 	    		<value>${knowledgeBasePath}/drl/validate.drl</value>
 	    		<value>${knowledgeBasePath}/drl/calculate.drl</value>
 	    		<value>${knowledgeBasePath}/drl/cleanup.drl</value>
+	    		<value>${knowledgeBasePath}/drl/preprocess.drl</value>
 	    	</list>
 	    </constructor-arg>
     </bean>

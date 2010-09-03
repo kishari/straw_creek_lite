@@ -20,8 +20,8 @@ rule "State-ek eltavolitas a sessionbol"
 	
 	when
 		$s : State( state != States.WF_CLEANUP &&
-					state != States.CLEANUP_START &&
-					state != States.CLEANUP_END)
+					state != States.AGENDA_CLEANUP_START &&
+					state != States.AGENDA_CLEANUP_END)
 		
 	then
 		retract($s);

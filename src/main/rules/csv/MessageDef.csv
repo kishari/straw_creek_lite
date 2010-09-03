@@ -1,5 +1,5 @@
 "CODE";"SEVERITY";"DESCRIPTION"
-1;2;"A megadott irányítószám (%1) érvénytelen!"
+1;2;"A megadott irányítószám (%1) nem létezik a rendszerben!"
 2;2;"Az irányítószám mező kitöltése kötelező!"
 3;2;"A megadott járműtípus (%1) nem létezik!"
 4;2;"A járműtípus mező kitöltése kötelező!"

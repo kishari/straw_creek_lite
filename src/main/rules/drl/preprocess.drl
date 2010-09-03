@@ -1,0 +1,43 @@
+package MTPLTariffRules
+
+import hu.dbx.screek.model.facts.*;
+import hu.dbx.screek.model.*;
+import org.joda.time.DateTime;
+import java.util.Date;
+ /*
+function boolean firstDateIsAfterOrEqualsThanSecondDate(DateTime q, DateTime v) {
+	return ( q.isAfter(v) || q.isEqual(v) );
+}
+*/
+rule "setting groupedCollection flag"
+    agenda-group "preprocess"
+    lock-on-active
+	when
+		$p : PaymentMethodDef( paymentMethod == Constants.PM_BANKI_CSOPORTOS_BESZEDES )
+		$q : Quote( paymentMethod == $p.paymentMethod )
+		
+	then
+		modify( $q ) { setGroupedCollection( true ) };		
+end
+
+rule "setting durationType (hatarozatlan)"
+    agenda-group "preprocess"
+    no-loop
+	when
+		$q : Quote( endDate == null )
+	then
+		modify ( $q ) {
+			setDurationType( Constants.DT_HATAROZATLAN )
+		}
+end
+
+rule "setting durationType (hatarozott)"
+    agenda-group "preprocess"
+    no-loop
+	when
+		$q : Quote( endDate != null )
+	then
+		modify ( $q ) {
+			setDurationType( Constants.DT_HATAROZOTT )
+		}
+end

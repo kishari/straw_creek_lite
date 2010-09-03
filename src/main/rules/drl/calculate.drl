@@ -392,7 +392,7 @@ rule "hatarozatlan ideju kgfb eves premium szamolasa"
 	agenda-group "calculate"
 	salience -50
 	when
-		$q : Quote( durationType == Constants.DT_HATAROZATLAN || durationType == Constants.DT_HATAROZOTT )
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle()
 		$p : Partner()
 		$param : ParamDef( key == "DOUBLE_PRECISION" )
@@ -467,6 +467,33 @@ rule "hatarozatlan ideju kgfb eves premium szamolasa"
 		$q.getResult().setSurchargeMultiplier( round($surcharges, precision) );
 		$q.getResult().setTotalMultiplier( mult );
 		
+end
+
+rule "hatarozott ideju kgfb teljes premium szamolasa"
+	agenda-group "calculate"
+	salience -50
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZOTT )
+		$v : Vehicle()
+		$p : Partner()
+	then
+		int baseTariff = $q.getResult().getBaseTariff();
+		
+		int numOfDays = daysBetween( $q.getStartDate(), $q.getEndDate() );
+		double dailyPremium = baseTariff / 30.0;
+		
+//		System.out.println(dailyPremium);
+//		System.out.println(dailyPremium * numOfDays);
+		
+		int total = (int)Math.round(dailyPremium * numOfDays);
+		
+		$q.getResult().setTotalPremium( total );
+		
+		$q.getResult().setOtherMultiplier( 1.0 );
+		$q.getResult().setDiscountMultiplier( 1.0 );
+		$q.getResult().setSurchargeMultiplier( 1.0 );
+		$q.getResult().setTotalMultiplier( 1.0 );
+	
 end
 
 

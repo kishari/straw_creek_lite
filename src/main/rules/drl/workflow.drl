@@ -4,25 +4,49 @@ import hu.dbx.screek.model.*;
 import hu.dbx.screek.model.State.States;
 import hu.dbx.screek.model.facts.*;
 
-rule "workflow setState(VALID-TARIFF-START)"
+rule "workflow insert AGENDA_PREPROCESS_START state"
 	agenda-group "workflow"
 	auto-focus true
 	when
 		exists ( State( state == States.WF_START ) )
 		
 	then
-		insert ( new State( States.VALID_TARIFF_START ) );
+		insert ( new State( States.AGENDA_PREPROCESS_START ) );
 		
 end
 
-//tariff validálás lefutott. Hibák keresése indul.
-rule "valid-tariff ended"
+//preprocess lefutott. Validálás indul
+rule "preprocess ended. modify workflow state to WF_VALIDATE"
 	agenda-group "workflow"
 	
 	when
 		$s : State( state == States.WF_START )
 		$a : Context( action == "tariff" )
-		exists ( State( state == States.VALID_TARIFF_END ) )
+		exists ( State( state == States.AGENDA_PREPROCESS_END ) )
+		
+	then
+		modify( $s ) { setState( States.WF_VALIDATE ) };		
+		
+end
+
+rule "workflow insert AGENDA_VALIDATE_START state"
+	agenda-group "workflow"
+	when
+		exists ( State( state == States.WF_VALIDATE ) )
+		
+	then
+		insert ( new State( States.AGENDA_VALIDATE_START ) );
+		
+end
+
+//tariff validálás lefutott. Hibák keresése indul.
+rule "validate ended. modify workflow state to WF_CHECK_VALID"
+	agenda-group "workflow"
+	
+	when
+		$s : State( state == States.WF_VALIDATE )
+		$a : Context( action == "tariff" )
+		exists ( State( state == States.AGENDA_VALIDATE_END ) )
 		
 	then
 		modify( $s ) { setState( States.WF_CHECK_VALID ) };
@@ -30,7 +54,7 @@ rule "valid-tariff ended"
 end
 
 /*	Hibák keresése. Van hibaüzenet! */
-rule "hibak keresese"
+rule "hibak keresese. Van hiba. modify workflow state to WF_CLEANUP"
 	agenda-group "workflow"
 	when
 		$s : State(state == States.WF_CHECK_VALID)
@@ -40,23 +64,41 @@ rule "hibak keresese"
 		
 	then			
 		modify( $s ) { setState( States.WF_CLEANUP ) };
-		insert( new State( States.CLEANUP_START ) );
 		$q.setResult(null);
 
 end
 
+rule "workflow insert AGENDA_CLEANUP_START state"
+	agenda-group "workflow"
+	when
+		$s : State(state == States.WF_CLEANUP)
+		
+	then			
+		insert( new State( States.AGENDA_CLEANUP_START ) );
+
+end
+
+
 /*	Hibák keresése, nincs hiba! Kalkuláció indulhat.
 	(-10 salience azért kell, hogy mindenképp a hibakereső szabály után fusson le.)
 	Ha a hibakereső elsül, akkor átállítja a WF állapotát cleanup-ra, és akkor ez deaktíválja ezt a szabályt. */
-rule "validalas utan nem volt hiba"
+rule "validalas utan nem volt hiba. modify workflow state to WF_CALCULATE"
 	agenda-group "workflow"
 	salience -10
 	when
 		$s : State( state == States.WF_CHECK_VALID )
 		
 	then
-		insert( new State( States.CALCULATE_START ) );
+		modify( $s ) { setState( States.WF_CALCULATE ) };
+end
 
+rule "workflow insert AGENDA_CALCULATE_START state"
+	agenda-group "workflow"
+	when
+		$s : State(state == States.WF_CALCULATE)
+		
+	then			
+		insert( new State( States.AGENDA_CALCULATE_START ) );
 end
 
 /*	Kalkulációs szabályok lefutottak. Indulhat a session takarítása. */
@@ -64,21 +106,19 @@ rule "calculate szabalyok lefutottak"
 	agenda-group "workflow"
 	
 	when
-		$s : State( state == States.WF_CHECK_VALID )
-		exists( State( state == States.CALCULATE_END ) )
+		$s : State( state == States.WF_CALCULATE )
+		exists( State( state == States.AGENDA_CALCULATE_END ) )
 		
 	then
-		modify( $s ) { setState( States.WF_CLEANUP ) };
-		insert( new State( States.CLEANUP_START ) );
-		
+		modify( $s ) { setState( States.WF_CLEANUP ) };	
 end
 
 /* A kérést kiszolgáló műveletek sikeresen befejeződtek.	*/
-rule "workflow vege"
+rule "workflow modify state to WF_END"
 	agenda-group "workflow"
 	when
 		$s : State( state == States.WF_CLEANUP )
-		$c: State( state == States.CLEANUP_END )
+		$c: State( state == States.AGENDA_CLEANUP_END )
 		
 	then
 		modify( $s ) { setState( States.WF_END ) };
@@ -86,13 +126,45 @@ rule "workflow vege"
 		
 end
 
-rule "valid-tariff csoport aktivalasa"
+rule "workflow vege"
+	agenda-group "workflow"
+	when
+		$s : State( state == States.WF_END )
+		
+	then
+		retract( $s );
+		
+end
+
+rule "preprocess csoport aktivalasa"
+	agenda-group "preprocess"
+	auto-focus true
+	
+	when
+		exists( State( state == States.AGENDA_PREPROCESS_START ) and
+			    State( state == States.WF_START ) )	 
+	then
+	
+end
+
+rule "preprocess csoport utolso szabalya"
+	agenda-group "preprocess"
+	salience -100
+	
+	when
+		exists( State( state == States.AGENDA_PREPROCESS_START ) )
+	then
+		insert( new State( States.AGENDA_PREPROCESS_END ) );
+	
+end
+
+rule "validate csoport aktivalasa"
 	agenda-group "validate"
 	auto-focus true
 	
 	when
-		exists( State( state == States.VALID_TARIFF_START ) and
-			    State( state == States.WF_START ) )	 
+		exists( State( state == States.AGENDA_VALIDATE_START ) and
+			    State( state == States.WF_VALIDATE ) )	 
 	then
 	
 end
@@ -101,10 +173,10 @@ rule "validate csoport utolso szabalya"
 	agenda-group "validate"
 	salience -100
 	when
-		$s : State( state == States.VALID_TARIFF_START )
+		$s : State( state == States.AGENDA_VALIDATE_START )
 		
 	then
-		insert( new State( States.VALID_TARIFF_END ) );
+		insert( new State( States.AGENDA_VALIDATE_END ) );
 		
 end
 
@@ -113,8 +185,8 @@ rule "calculate csoport aktivalasa"
 	auto-focus true
 	
 	when
-		exists( State( state == States.CALCULATE_START ) and
-			    State( state == States.WF_CHECK_VALID ) )
+		exists( State( state == States.AGENDA_CALCULATE_START ) and
+			    State( state == States.WF_CALCULATE ) )
 	then
 
 end
@@ -124,9 +196,9 @@ rule "calculate csoport utolso szabaly"
 	salience -100
 	
 	when
-		$s : State( state == States.CALCULATE_START )
+		$s : State( state == States.AGENDA_CALCULATE_START )
 	then
-		insert( new State(States.CALCULATE_END ) );
+		insert( new State(States.AGENDA_CALCULATE_END ) );
 end
 
 rule "cleanup csoport aktivalasa"
@@ -134,10 +206,9 @@ rule "cleanup csoport aktivalasa"
 	auto-focus true
 	when
 		exists( State( state == States.WF_CLEANUP ) and
-			    State( state == States.CLEANUP_START ) )
-		
+			    State( state == States.AGENDA_CLEANUP_START ) )		
 	then
-
+	
 end
 
 rule "cleanup csoport utolso szabaly"
@@ -145,10 +216,10 @@ rule "cleanup csoport utolso szabaly"
 	salience -100
 	
 	when
-		$s: State( state == States.CLEANUP_START )
+		$s: State( state == States.AGENDA_CLEANUP_START )
 		
 	then
-		insert( new State( States.CLEANUP_END ) );
+		insert( new State( States.AGENDA_CLEANUP_END ) );
 		retract( $s );
 
 end

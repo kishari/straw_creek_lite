@@ -67,7 +67,6 @@ function int yearsBetween(Date s, Date e) {
 *****************************************************************************/
 rule "validate endDate (endDate < startDate)"
     agenda-group "validate"
-    //lock-on-active
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZOTT)
 		eval( firstDateIsAfter( $q.getStartDate(), $q.getEndDate() ) )
@@ -78,7 +77,6 @@ end
 
 rule "validate bonusMalus (isNull)"
     agenda-group "validate"
-    lock-on-active
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN,
 					eval( isNullString(bonusMalus) ) )
@@ -91,7 +89,7 @@ end
 
 rule "validate bonusMalus (not valid)"
     agenda-group "validate"
-    lock-on-active
+
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN,
 					eval( !isNullString(bonusMalus) ) )
@@ -102,7 +100,7 @@ end
 
 rule "validate startDate (isNull)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( startDate == null )
 				
@@ -110,9 +108,12 @@ rule "validate startDate (isNull)"
 		insert( Message.create("24") );		
 end
 
+/*
+//Ez azért nem kell, mert a durationType kikerült az interfészből (durationType beállítás preprocess-ben)
+
 rule "validate insurance duration (isNull)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( eval( isNullInt(durationType) ) )
 		
@@ -123,7 +124,7 @@ end
 
 rule "validate insurance duration (not valid)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( eval( !isNullInt(durationType) ) )
 		not(exists DurationTypeDef( durationType == $q.durationType ) )
@@ -131,10 +132,11 @@ rule "validate insurance duration (not valid)"
 	then
 		insert( Message.create("11", $q.getDurationType().toString() ) );		
 end
+*/
 
 rule "validate payment method (isNull)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN &&  
 					eval( isNullInt(paymentMethod) ) )
@@ -145,7 +147,7 @@ end
 
 rule "validate payment method (not valid)"
     agenda-group "validate"
-    lock-on-active    
+   
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN &&  
 					eval( !isNullInt(paymentMethod) ) )
@@ -157,7 +159,7 @@ end
 
 rule "validate payment frequency (isNull)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN && 
 					eval( isNullInt(paymentFrequency) ) )
@@ -168,7 +170,7 @@ end
 
 rule "validate payment frequency (not valid)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN &&
 					eval( !isNullInt(paymentFrequency) ) )
@@ -180,7 +182,7 @@ end
 
 rule "validate payment frequency (not valid - havi eseten nem csoportos)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$p : PaymentMethodDef( paymentMethod == Constants.PM_BANKI_CSOPORTOS_BESZEDES )
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN && 
@@ -193,7 +195,7 @@ end
 
 rule "validate payment frequency (not valid - bizonyos jármuveknel egy osszegben kell fizetni)"
     agenda-group "validate"
-    lock-on-active     
+       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN, 
 					paymentFrequency != Constants.PF_EVES )
@@ -210,7 +212,7 @@ end
 
 rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (egyeb jarmu)"
 	agenda-group "validate"
-	lock-on-active
+	
 	salience -5 
 	when
 		$q : Quote()
@@ -232,7 +234,7 @@ end
 
 rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (motorkerekpar)"
 	agenda-group "validate"
-	lock-on-active
+	
 	salience -5 
 	when
 		$q : Quote()
@@ -249,7 +251,7 @@ end
 
 rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (autobusz)"
 	agenda-group "validate"
-	lock-on-active
+	
 	salience -5 
 	when
 		$q : Quote()
@@ -266,7 +268,7 @@ end
 
 rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (tehergepjarmu)"
 	agenda-group "validate"
-	lock-on-active
+	
 	salience -5 
 	when
 		$q : Quote()
@@ -294,7 +296,7 @@ end
 *****************************************************************************/
 rule "validate dateOfFirstPutIntoTraffic (isNull)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU &&
@@ -306,7 +308,7 @@ end
 
 rule "validate vehicle typecode (isNull)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$v : Vehicle( eval( isNullInt(typeCode) ) )
 		
@@ -317,7 +319,7 @@ end
 
 rule "validate vehicle typecode (not valid)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$v : Vehicle( eval( !isNullInt(typeCode) ) )
 		not(exists VehicleTypeDef( typeCode == $v.typeCode ) )
@@ -328,7 +330,7 @@ end
 
 rule "validate vehicle typecode (not valid - proba rendszam nincs hatarozatlan esetben)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_PROBA_RENDSZAM )
@@ -339,7 +341,7 @@ end
 
 rule "validate vehicle typecode (not valid - segedmotoros kerekpar, trolibusz nincs hatarozott esetben)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZOTT )
 		$v : Vehicle( typeCode == Constants.TC_SEGEDMOTOROS_KEREKPAR ||
@@ -351,7 +353,7 @@ end
 
 rule "validate vehicle make (not valid)"
     agenda-group "validate"
-    lock-on-active    
+       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU && 
@@ -364,7 +366,7 @@ end
 
 rule "validate vehicle make (isNull)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU && 
@@ -376,7 +378,7 @@ end
 
 rule "validate operationalModality (not valid)"
     agenda-group "validate"
-    lock-on-active    
+     
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( eval( !isNullInt(operationalModality) ) )
@@ -388,7 +390,7 @@ end
 
 rule "validate operationalModality (isNull)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( eval( isNullInt(operationalModality) ) )
@@ -400,7 +402,7 @@ end
 
 rule "validate power (isNull)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU && 
@@ -413,7 +415,7 @@ end
 
 rule "validate cubicCapacity (isNull)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( (typeCode == Constants.TC_SZEMELYGEPJARMU || typeCode == Constants.TC_MOTORKEREKPAR) &&  
@@ -426,7 +428,7 @@ end
 
 rule "validate seatingCapacity (isNull)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_AUTOBUSZ && 
@@ -439,7 +441,7 @@ end
 
 rule "validate carryingCapacity (isNull)"
     agenda-group "validate"
-    lock-on-active
+    
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_TEHERGEPJARMU && 
@@ -455,7 +457,7 @@ end
 *****************************************************************************/
 rule "validate dateOfBirth (isNull)"
     agenda-group "validate"
-    lock-on-active    
+      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU || typeCode == Constants.TC_TEHERGEPJARMU )
@@ -468,7 +470,7 @@ end
 
 rule "validate postcode (isNull)"
     agenda-group "validate"    
-    lock-on-active
+    
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
@@ -481,7 +483,7 @@ end
 
 rule "validate postcode (not valid)"
     agenda-group "validate"  
-    lock-on-active      
+        
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
@@ -494,7 +496,7 @@ end
 
 rule "validate genderCode (isNull)"
     agenda-group "validate"
-    lock-on-active   
+     
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU || typeCode == Constants.TC_TEHERGEPJARMU )
@@ -505,7 +507,7 @@ end
 
 rule "validate genderCode (not valid)"
     agenda-group "validate"
-    lock-on-active        
+          
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU || typeCode == Constants.TC_TEHERGEPJARMU )
@@ -518,7 +520,7 @@ end
 
 rule "validate yearOfDrivingLicense (isNull)"
     agenda-group "validate"
-    lock-on-active
+    
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
@@ -534,18 +536,6 @@ end
 /*****************************************************************************
 				        		Egyéb
 *****************************************************************************/
-rule "setting groupedCollection flag"
-    agenda-group "validate"
-    salience 50
-    lock-on-active
-	when
-		$p : PaymentMethodDef( paymentMethod == Constants.PM_BANKI_CSOPORTOS_BESZEDES )
-		$q : Quote( paymentMethod == $p.paymentMethod )
-		
-	then
-		modify( $q ) { setGroupedCollection( true ) };		
-end
-
 rule "validate szemelygepjarmu discounts (startDate >= 2010 jan 1 and insuranceDuration = HATAROZATLAN)"
     agenda-group "validate"
     salience -50
@@ -576,29 +566,5 @@ rule "validate szemelygepjarmu discounts (startDate >= 2010 jan 1 and insuranceD
 			setEmailGranted(false),
 			setExtraDamageExemption(false),
 			setGroupedCollection(false)	
-		}
-end
-
-rule "setting durationType (hatarozatlan)"
-    agenda-group "validate"
-    salience 100
-    no-loop
-	when
-		$q : Quote( endDate == null )
-	then
-		modify ( $q ) {
-			setDurationType( Constants.DT_HATAROZATLAN )
-		}
-end
-
-rule "setting durationType (hatarozott)"
-    agenda-group "validate"
-    salience 100
-    no-loop
-	when
-		$q : Quote( endDate != null )
-	then
-		modify ( $q ) {
-			setDurationType( Constants.DT_HATAROZOTT )
 		}
 end
