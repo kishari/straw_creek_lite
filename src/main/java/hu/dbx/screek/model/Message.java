@@ -27,32 +27,6 @@ public class Message {
 		this.setMessageParams(messageParams);
 	}
 	
-	public static Message create2(String code, Date ... params ) {
-		List<String> msgParams = new ArrayList<String>();
-		
-		for (int i = 0; i < params.length; i++) {
-			
-			DateTime date = new DateTime(params[i]);
-			
-			String dateAsString = new String(Integer.toString(date.getYear()) + "-"); 
-			
-			String month = new String(Integer.toString(date.getMonthOfYear()) + "-");		
-			if (date.getMonthOfYear() < 10) {
-				month = "0" + month;
-			}
-			
-			String day = new String(Integer.toString(date.getDayOfMonth()));
-			if (date.getDayOfMonth() < 10) {
-				day = "0" + day;
-			}
-			dateAsString += month + day;
-			
-			msgParams.add(dateAsString);
-		}
-				
-		return new Message(code, msgParams);
-	}
-	
 	public static Message create(String code, String ... params ) {
 		List<String> msgParams = new ArrayList<String>();
 		

@@ -72,7 +72,7 @@ rule "validate endDate (endDate < startDate)"
 		eval( firstDateIsAfter( $q.getStartDate(), $q.getEndDate() ) )
 
 	then
-		insert( Message.create2("34", $q.getStartDate(), $q.getEndDate() ) );
+		insert( Message.create("34", getFormattedDate($q.getStartDate()), getFormattedDate($q.getEndDate()) ) );
 end
 
 rule "validate bonusMalus (isNull)"
