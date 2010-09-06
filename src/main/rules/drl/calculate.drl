@@ -479,15 +479,13 @@ rule "hatarozott ideju kgfb teljes premium szamolasa"
 	then
 		int baseTariff = $q.getResult().getBaseTariff();
 		
-		int numOfDays = daysBetween( $q.getStartDate(), $q.getEndDate() );
-		double dailyPremium = baseTariff / 30.0;
+		//int numOfDays = daysBetween( $q.getStartDate(), $q.getEndDate() );
+		//double dailyPremium = baseTariff / 30.0;
 		
-//		System.out.println(dailyPremium);
-//		System.out.println(dailyPremium * numOfDays);
+		//int total = (int)Math.round(dailyPremium * numOfDays);
+		//$q.getResult().setTotalPremium( total );
 		
-		int total = (int)Math.round(dailyPremium * numOfDays);
-		
-		$q.getResult().setTotalPremium( total );
+		$q.getResult().setTotalPremium( baseTariff );
 		
 		$q.getResult().setOtherMultiplier( 1.0 );
 		$q.getResult().setDiscountMultiplier( 1.0 );

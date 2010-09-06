@@ -65,6 +65,7 @@ function int yearsBetween(Date s, Date e) {
 /*****************************************************************************
 				 Biztosítás szintű validációk 
 *****************************************************************************/
+/*
 rule "validate endDate (endDate < startDate)"
     agenda-group "validate"
 	when
@@ -74,7 +75,7 @@ rule "validate endDate (endDate < startDate)"
 	then
 		insert( Message.create("34", getFormattedDate($q.getStartDate()), getFormattedDate($q.getEndDate()) ) );
 end
-
+*/
 rule "validate bonusMalus (isNull)"
     agenda-group "validate"
 	when
@@ -108,9 +109,6 @@ rule "validate startDate (isNull)"
 		insert( Message.create("24") );		
 end
 
-/*
-//Ez azért nem kell, mert a durationType kikerült az interfészből (durationType beállítás preprocess-ben)
-
 rule "validate insurance duration (isNull)"
     agenda-group "validate"
       
@@ -132,7 +130,16 @@ rule "validate insurance duration (not valid)"
 	then
 		insert( Message.create("11", $q.getDurationType().toString() ) );		
 end
-*/
+
+rule "insert info message to insurance duration (hatarozott)"
+    agenda-group "validate"
+      
+	when
+		$q : Quote( eval( !isNullInt(durationType) && durationType == Constants.DT_HATAROZOTT ) )
+		
+	then
+		insert( Message.create("35") );		
+end
 
 rule "validate payment method (isNull)"
     agenda-group "validate"

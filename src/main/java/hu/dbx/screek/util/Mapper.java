@@ -29,7 +29,7 @@ public class Mapper {
 		
 		q.setCallerId(tariffQuoteV1.getCallerId());
 		q.setStartDate(tariffQuoteV1.getStartDate());
-		q.setEndDate(tariffQuoteV1.getEndDate());
+/*		q.setEndDate(tariffQuoteV1.getEndDate());
 		
 		if (q.getEndDate() != null) {
 			DateTime endTmp = new DateTime(q.getEndDate());
@@ -40,8 +40,8 @@ public class Mapper {
 										23, 59, 59, 0);
 			q.setEndDate(end.toDate());
 		}
-
-		//q.setDurationType(tariffQuoteV1.getDurationType());
+*/
+		q.setDurationType(tariffQuoteV1.getDurationType());
 		
 		q.setTakeOutWithCasco(tariffQuoteV1.isTakeOutWithCasco());
 		q.setChildPreference(tariffQuoteV1.isChild());
@@ -162,9 +162,10 @@ public class Mapper {
 		
 		q.setCallerId(quote.getCallerId());
 		q.setStartDate(quote.getStartDate());
-		q.setEndDate(quote.getEndDate());
-		//q.setDurationType(quote.getDurationType());
+		//q.setEndDate(quote.getEndDate());
+		q.setDurationType(quote.getDurationType());
 		q.setPaymentMethod(quote.getPaymentMethod());
+		q.setPaymentFrequency(quote.getPaymentFrequency());
 		
 		q.setTakeOutWithCasco(quote.isTakeOutWithCasco());
 		q.setChild(quote.isChildPreference());
@@ -175,9 +176,6 @@ public class Mapper {
 		q.setResult(mapOut(quote.getResult()));
 		
 		q.setBonusMalus(quote.getBonusMalus());
-		
-		q.setPaymentFrequency(quote.getPaymentFrequency());
-
 		
 		q.setPartner(mapOut(quote.getPartner()));
 		q.setVehicle(mapOut(quote.getVehicle()));

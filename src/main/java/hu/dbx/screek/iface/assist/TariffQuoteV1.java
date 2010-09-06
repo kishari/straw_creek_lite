@@ -11,8 +11,8 @@ public class TariffQuoteV1 {
 	
 	private String callerId;
 	private Date startDate;
-	private Date endDate;
-	//private Integer durationType;
+	//private Date endDate;
+	private Integer durationType;
 	private PartnerV1 partner;
 	private VehicleV1 vehicle;
 	private Integer paymentFrequency;
@@ -38,14 +38,6 @@ public class TariffQuoteV1 {
 	
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
-	}
-	
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	public Date getEndDate() {
-		return endDate;
 	}
 	
 	public PartnerV1 getPartner() {
@@ -171,6 +163,14 @@ public class TariffQuoteV1 {
 
 	public String getCallerId() {
 		return callerId;
+	}
+
+	public void setDurationType(Integer durationType) {
+		this.durationType = durationType;
+	}
+
+	public Integer getDurationType() {
+		return durationType;
 	}
 
 	

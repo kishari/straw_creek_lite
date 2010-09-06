@@ -4,11 +4,7 @@ import hu.dbx.screek.model.facts.*;
 import hu.dbx.screek.model.*;
 import org.joda.time.DateTime;
 import java.util.Date;
- /*
-function boolean firstDateIsAfterOrEqualsThanSecondDate(DateTime q, DateTime v) {
-	return ( q.isAfter(v) || q.isEqual(v) );
-}
-*/
+
 rule "setting groupedCollection flag"
     agenda-group "preprocess"
     lock-on-active
@@ -20,6 +16,7 @@ rule "setting groupedCollection flag"
 		modify( $q ) { setGroupedCollection( true ) };		
 end
 
+/*
 rule "setting durationType (hatarozatlan)"
     agenda-group "preprocess"
     no-loop
@@ -41,3 +38,4 @@ rule "setting durationType (hatarozott)"
 			setDurationType( Constants.DT_HATAROZOTT )
 		}
 end
+*/
