@@ -10,5 +10,5 @@ echo "knowledgeBasePath=$knowledgeBasePath" > screek.properties
 
 ant -f build.xml deploy
 
-Move screek.properties file to $domainClassesDir directory...
+echo Move screek.properties file to $domainClassesDir directory...
 mv screek.properties $domainClassesDir
