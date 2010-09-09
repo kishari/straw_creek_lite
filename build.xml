@@ -1,5 +1,6 @@
 <project name="screek" basedir="." default="deploy">
 	<dirname property="screek.basedir" file="${ant.file.screek}"/>
+	<property file="${screek.basedir}/local.properties"/>
 	<property file="${screek.basedir}/build.properties"/>
 	<property name="web" value="${screek.basedir}/web"/>
 	<property name="lib" value="${screek.basedir}/lib"/>
