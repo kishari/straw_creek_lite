@@ -11,11 +11,13 @@
 	<property name="target" value="${screek.basedir}/target"/>
 	<property name="target.dist" value="${target}/dist"/>
 	<property name="autodeploy-dir" value="${glassfish.home}/glassfish/domains/${glassfish.domain}/autodeploy" />
+	<property name="glassfish.domain.lib.classes" value="${glassfish.home}/glassfish/domains/${glassfish.domain}/lib/classes" />
 	
 	<property name="screek.warname" value="screek.war"/>
 	<property name="screek.earname" value="screek.ear"/>
 	<property name="screek.earfile" value="${target.dist}/${screek.earname}"/>
 	<property name="screek.warfile" value="${target.dist}/${screek.warname}"/>
+	<property name="log4j.propfile" value="${resources}/log4j.properties"/>
 	<property name="verbose" value="false"/>
 
 	<path id="classpath">
@@ -60,6 +62,7 @@
 	</target>
 	
 	<target name="deploy" depends="war">
+			<copy file="${log4j.propfile}" todir="${glassfish.domain.lib.classes}" />
 			<copy file="${screek.warfile}" todir="${autodeploy-dir}" />
 	</target>
 </project>
