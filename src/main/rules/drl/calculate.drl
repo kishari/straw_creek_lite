@@ -491,6 +491,8 @@ rule "hatarozott ideju kgfb teljes premium szamolasa"
 		$q.getResult().setDiscountMultiplier( 1.0 );
 		$q.getResult().setSurchargeMultiplier( 1.0 );
 		$q.getResult().setTotalMultiplier( 1.0 );
+		
+		insert( Message.create("35") );
 	
 end
 

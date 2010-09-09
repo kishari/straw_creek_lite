@@ -130,7 +130,7 @@ rule "validate insurance duration (not valid)"
 	then
 		insert( Message.create("11", $q.getDurationType().toString() ) );		
 end
-
+/*
 rule "insert info message to insurance duration (hatarozott)"
     agenda-group "validate"
       
@@ -140,7 +140,7 @@ rule "insert info message to insurance duration (hatarozott)"
 	then
 		insert( Message.create("35") );		
 end
-
+*/
 rule "validate payment method (isNull)"
     agenda-group "validate"
       
