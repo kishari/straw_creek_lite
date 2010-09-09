@@ -8,6 +8,8 @@ domainClassesDir="$domainDir/lib/classes"
 knowledgeBasePath="$HOME/screek/StrawCreek/src/main/rules"
 echo "knowledgeBasePath=$knowledgeBasePath" > screek.properties
 
+rm $HOME/screek/StrawCreek/target/dist/screek.war
+
 ant -f build.xml deploy
 
 echo Move screek.properties file to $domainClassesDir directory...
