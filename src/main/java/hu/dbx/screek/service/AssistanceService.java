@@ -25,8 +25,8 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 @WebService(serviceName="MTPLService")
 @HandlerChain(file = "handlers.xml")
-public class MTPLService implements ApplicationContextAware {
-	Logger logger = Logger.getLogger(MTPLService.class);
+public class AssistanceService implements ApplicationContextAware {
+	Logger logger = Logger.getLogger(AssistanceService.class);
 	
 	public DroolsHelper droolsHelper;
 	
