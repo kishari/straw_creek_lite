@@ -11,13 +11,19 @@
 	<property name="src" value="${screek.basedir}/src/main/java"/>
 	<property name="target" value="${screek.basedir}/target"/>
 	<property name="target.dist" value="${target}/dist"/>
-	<property name="autodeploy-dir" value="${glassfish.home}/glassfish/domains/${glassfish.domain}/autodeploy" />
-	<property name="glassfish.domain.lib.classes" value="${glassfish.home}/glassfish/domains/${glassfish.domain}/lib/classes" />
+	<property name="screek-autodeploy-dir" value="${glassfish.home}/glassfish/domains/${screek.domain}/autodeploy" />
+	<property name="services-autodeploy-dir" value="${glassfish.home}/glassfish/domains/${services.domain}/autodeploy" />
+	<property name="screek.domain.lib.classes" value="${glassfish.home}/glassfish/domains/${screek.domain}/lib/classes" />
+	<property name="services.domain.lib.classes" value="${glassfish.home}/glassfish/domains/${services.domain}/lib/classes" />
 	
 	<property name="screek.warname" value="screek.war"/>
 	<property name="screek.earname" value="screek.ear"/>
 	<property name="screek.earfile" value="${target.dist}/${screek.earname}"/>
 	<property name="screek.warfile" value="${target.dist}/${screek.warname}"/>
+	<property name="services.warname" value="services.war"/>
+	<property name="services.earname" value="services.ear"/>
+	<property name="services.earfile" value="${target.dist}/${services.earname}"/>
+	<property name="services.warfile" value="${target.dist}/${services.warname}"/>
 	<property name="log4j.propfile" value="${resources}/log4j.properties"/>
 	<property name="verbose" value="false"/>
 
@@ -62,8 +68,29 @@
 		</jar>
 	</target>
 	
+	<target name="war-services" description="create war file" depends="compile">
+		 <copy todir="${web.web-inf.classes}">
+		    <fileset dir="${src}">
+		      <exclude name="**/*.java"/>
+		    </fileset>
+		  </copy>
+		 <copy todir="${web.web-inf.lib}">
+		    <fileset dir="${lib}">
+		      <exclude name="**/javaee-api-6.0.jar"/>
+		    </fileset>
+		  </copy>
+		<jar destfile="${screek_services.warfile}" duplicate="preserve">
+			<fileset dir="${web}" />
+		</jar>
+	</target>
+	
 	<target name="deploy" depends="war">
-			<copy file="${log4j.propfile}" todir="${glassfish.domain.lib.classes}" />
-			<copy file="${screek.warfile}" todir="${autodeploy-dir}" />
+			<copy file="${log4j.propfile}" todir="${screek.domain.lib.classes}" />
+			<copy file="${screek.warfile}" todir="${screek-autodeploy-dir}" />
+	</target>
+	
+	<target name="deploy-services" depends="war-services">
+			<copy file="${log4j.propfile}" todir="${services.domain.lib.classes}" />
+			<copy file="${services.warfile}" todir="${services-autodeploy-dir}" />
 	</target>
 </project>
