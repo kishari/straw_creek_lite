@@ -79,7 +79,7 @@
 		      <exclude name="**/javaee-api-6.0.jar"/>
 		    </fileset>
 		  </copy>
-		<jar destfile="${screek_services.warfile}" duplicate="preserve">
+		<jar destfile="${services.warfile}" duplicate="preserve">
 			<fileset dir="${web}" />
 		</jar>
 	</target>
