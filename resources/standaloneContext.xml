@@ -12,7 +12,7 @@
 	    <property name="baseAddress" value="http://localhost:8888/"/>
 	</bean>
 
-	<bean id="kgfbService" class="hu.dbx.screek.service.AssistanceService">
+	<bean id="kgfbService" class="hu.dbx.screek.service.MTPLService">
 	</bean>
 
 </beans>

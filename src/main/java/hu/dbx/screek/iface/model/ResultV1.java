@@ -1,7 +1,8 @@
 package hu.dbx.screek.iface.model;
 
 public class ResultV1 {
-	private Integer monthlyPremium;
+	//private Integer monthlyPremium;
+	private Integer installmentPremium;
 	private Integer yearlyPremium;
 	private Integer totalPremium;
 	private Integer baseTariff;
@@ -31,12 +32,6 @@ public class ResultV1 {
 		return surchargeMultiplier;
 	}
 
-	public void setMonthlyPremium(Integer monthlyPremium) {
-		this.monthlyPremium = monthlyPremium;
-	}
-	public Integer getMonthlyPremium() {
-		return monthlyPremium;
-	}
 	public void setYearlyPremium(Integer yearlyPremium) {
 		this.yearlyPremium = yearlyPremium;
 	}
@@ -60,6 +55,12 @@ public class ResultV1 {
 	}
 	public Integer getTotalPremium() {
 		return totalPremium;
+	}
+	public void setInstallmentPremium(Integer installmentPremium) {
+		this.installmentPremium = installmentPremium;
+	}
+	public Integer getInstallmentPremium() {
+		return installmentPremium;
 	}
 	
 	

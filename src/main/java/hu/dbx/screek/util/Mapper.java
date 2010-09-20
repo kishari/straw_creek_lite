@@ -3,8 +3,6 @@ package hu.dbx.screek.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.DateTime;
-
 import hu.dbx.screek.iface.assist.TariffQuoteV1;
 import hu.dbx.screek.iface.model.MessageListV1;
 import hu.dbx.screek.iface.model.MessageV1;
@@ -270,9 +268,10 @@ public class Mapper {
 			ResultV1 resultV1 = new ResultV1();
 			
 			resultV1.setBaseTariff(result.getBaseTariff());
-			resultV1.setMonthlyPremium(result.getMonthlyPremium());
+			//resultV1.setMonthlyPremium(result.getMonthlyPremium());
 			resultV1.setYearlyPremium(result.getYearlyPremium());
 			resultV1.setTotalPremium(result.getTotalPremium());
+			resultV1.setInstallmentPremium(result.getInstallmentPremium());
 			resultV1.setOtherMultiplier(result.getOtherMultiplier());
 			resultV1.setDiscountMultiplier(result.getDiscountMultiplier());
 			resultV1.setSurchargeMultiplier(result.getSurchargeMultiplier());

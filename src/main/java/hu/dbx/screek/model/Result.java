@@ -2,23 +2,15 @@ package hu.dbx.screek.model;
 
 public class Result {
 	
-	private Integer monthlyPremium;
+	//private Integer monthlyPremium;
 	private Integer yearlyPremium;
+	private Integer installmentPremium;
 	private Integer totalPremium;
 	private Integer baseTariff;
 	private double discountMultiplier;
 	private double surchargeMultiplier;
 	private double otherMultiplier;
 	private double totalMultiplier;
-	
-
-	public Integer getMonthlyPremium() {
-		return monthlyPremium;
-	}
-
-	public void setMonthlyPremium(Integer monthlyPremium) {
-		this.monthlyPremium = monthlyPremium;
-	}
 
 	public Integer getYearlyPremium() {
 		return yearlyPremium;
@@ -74,6 +66,14 @@ public class Result {
 
 	public Integer getTotalPremium() {
 		return totalPremium;
+	}
+
+	public void setInstallmentPremium(Integer installmentPremium) {
+		this.installmentPremium = installmentPremium;
+	}
+
+	public Integer getInstallmentPremium() {
+		return installmentPremium;
 	}
 
 }

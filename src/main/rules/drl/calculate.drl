@@ -447,6 +447,7 @@ rule "hatarozatlan ideju kgfb eves premium szamolasa"
 
 		double mult = round($quotemf * $partnermf * $vehiclemf * $discounts * $surcharges, precision);
 		int premium = (int)Math.round(baseTariff * mult);
+		int installmentPremium = (int)Math.round(premium / (double)$q.getPaymentFrequency() );
 //		System.out.println("qoute: " + $quotemf); 
 //		System.out.println("vehicle: " + $vehiclemf); 
 //		System.out.println("partner: " + $partnermf);
@@ -456,12 +457,9 @@ rule "hatarozatlan ideju kgfb eves premium szamolasa"
 //		System.out.println(baseTariff * mult); 
 //		System.out.println("premium: " + premium); 
 		
-		if ($q.getDurationType() == Constants.DT_HATAROZATLAN ) {
-			$q.getResult().setYearlyPremium( premium );
-		}
-		else {
-			$q.getResult().setMonthlyPremium( premium );
-		}
+		$q.getResult().setYearlyPremium( premium );
+		$q.getResult().setInstallmentPremium( installmentPremium );
+		
 		$q.getResult().setOtherMultiplier( round($quotemf * $partnermf * $vehiclemf, precision) );
 		$q.getResult().setDiscountMultiplier( round($discounts, precision) );
 		$q.getResult().setSurchargeMultiplier( round($surcharges, precision) );
