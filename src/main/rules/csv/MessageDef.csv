@@ -34,3 +34,5 @@
 33;2;"Nincs érvényes alaptarifa az adott kezdődátummal (%1) az adott járműtípushoz (%2 : %3)!"
 34;2;"A megadott kezdődátum (%1) későbbi időpont, mint a végdátum (%2)!"
 35;0;"A teljes díj 30 napra szól. Határozott időre szóló KGFB csak 30 napra köthető! "
+36;2;"A gyártási év mező kitöltése kötelező!"
+37;2;"A megadott gyártási év (%1) érvénytelen!"

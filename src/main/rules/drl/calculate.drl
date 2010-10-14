@@ -21,10 +21,11 @@ function double round(double val, int precision) {
 function boolean isBetween(Integer lowerBound, Integer upperBound, Integer value) {
 	if ( value == null ) {
 		return false;
-	} 
-	else {
-		return (lowerBound <= value && upperBound >= value);
 	}
+		if ( value == -1 ) {
+		value = 0;
+	}
+ 		return (lowerBound <= value && upperBound >= value);
 }
 
 function int yearsBetween(Date s, Date e) {
@@ -33,6 +34,10 @@ function int yearsBetween(Date s, Date e) {
 
 function int daysBetween(Date s, Date e) {
 	return Days.daysBetween(new DateTime(s), new DateTime(e)).getDays() + 1;
+}
+
+function int getYear(Date d) {
+	return new DateTime(d).getYear();
 }
 
 function boolean isEquals(DateTime s, DateTime e) {
@@ -179,11 +184,11 @@ rule "jarmu eletkor szorzo"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
+		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU && eval ( !isNullInt( yearOfProduction ) ) )
 		$mf: VehicleAgeModFactorDef()
 		eval ( isBetween( $mf.getAgeMin(),
 						  $mf.getAgeMax(),
-						  yearsBetween($v.getDateOfFirstPutIntoTraffic(), $q.getStartDate() ) ) )
+						  ( getYear( $q.getStartDate() ) - $v.getYearOfProduction() ) ) )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
@@ -490,6 +495,7 @@ rule "hatarozott ideju kgfb teljes premium szamolasa"
 		$q.getResult().setSurchargeMultiplier( 1.0 );
 		$q.getResult().setTotalMultiplier( 1.0 );
 		
+		//Beszúrunk egy info messaget : ("A teljes díj 30 napra szól. Határozott időre szóló KGFB csak 30 napra köthető!")
 		insert( Message.create("35") );
 	
 end

@@ -9,6 +9,11 @@ function boolean isNullString(String s) {
 		return ("".equals(s) || s == null);
 }
 
+function int getActualYear() {
+	DateTime now = new DateTime(new Date());
+	return now.getYear();
+}
+
 function String getFormattedDate(Date d) {
 		DateTime d1 = new DateTime(d);
 		String date = String.valueOf(d1.getYear());
@@ -130,17 +135,7 @@ rule "validate insurance duration (not valid)"
 	then
 		insert( Message.create("11", $q.getDurationType().toString() ) );		
 end
-/*
-rule "insert info message to insurance duration (hatarozott)"
-    agenda-group "validate"
-      
-	when
-		$q : Quote( eval( !isNullInt(durationType) && durationType == Constants.DT_HATAROZOTT ) )
-		
-	then
-		insert( Message.create("35") );		
-end
-*/
+
 rule "validate payment method (isNull)"
     agenda-group "validate"
       
@@ -301,16 +296,26 @@ end
 /*****************************************************************************
 				        Jármű szintű validációk 
 *****************************************************************************/
-rule "validate dateOfFirstPutIntoTraffic (isNull)"
-    agenda-group "validate"
-      
+rule "validate yearOfProduction (isNull)"
+    agenda-group "validate"      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU &&
-					  dateOfFirstPutIntoTraffic == null )
+					  eval( isNullInt( yearOfProduction ) ) )
 				
 	then
-		insert( Message.create("25") );		
+		insert( Message.create("36") );		
+end
+
+rule "validate yearOfProduction (not valid)"
+    agenda-group "validate"      
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU && eval ( !isNullInt( yearOfProduction ) ) )					  
+		eval( $v.getYearOfProduction() < 1900 || $v.getYearOfProduction() > getActualYear() + 1)
+				
+	then
+		insert( Message.create("37", $v.getYearOfProduction().toString() ) );		
 end
 
 rule "validate vehicle typecode (isNull)"

@@ -29,8 +29,8 @@ public class VehicleV1 {
 	//Teljesítmény
 	private Integer maximumNettoPower;
 	
-	//Első forgalomba helyezés dátuma
-	private Date dateOfFirstPutIntoTraffic;
+	//Gyártási év
+	private Integer yearOfProduction;
 	
 	//Tulajdonszerzés dátuma
 	private Date dateOfPurchase;
@@ -97,14 +97,6 @@ public class VehicleV1 {
 		this.maximumNettoPower = maximumNettoPower;
 	}
 
-	public Date getDateOfFirstPutIntoTraffic() {
-		return dateOfFirstPutIntoTraffic;
-	}
-
-	public void setDateOfFirstPutIntoTraffic(Date dateOfFirstPutIntoTraffic) {
-		this.dateOfFirstPutIntoTraffic = dateOfFirstPutIntoTraffic;
-	}
-
 	public Date getDateOfPurchase() {
 		return dateOfPurchase;
 	}
@@ -136,6 +128,14 @@ public class VehicleV1 {
 
 	public Integer getOperationalModality() {
 		return operationalModality;
+	}
+
+	public void setYearOfProduction(Integer yearOfProduction) {
+		this.yearOfProduction = yearOfProduction;
+	}
+
+	public Integer getYearOfProduction() {
+		return yearOfProduction;
 	}
 	
 }

@@ -16,7 +16,7 @@ public class Vehicle {
 	private Double ownWeight;
 	private Double maximumAllowedWeight;
 	private Integer maximumNettoPower;
-	private Date dateOfFirstPutIntoTraffic;
+	private Integer yearOfProduction;
 	private Date dateOfPurchase;
 	private Integer operationalModality;
 	private Integer age;
@@ -80,14 +80,6 @@ public class Vehicle {
 		this.maximumNettoPower = maximumNettoPower;
 	}
 
-	public Date getDateOfFirstPutIntoTraffic() {
-		return dateOfFirstPutIntoTraffic;
-	}
-
-	public void setDateOfFirstPutIntoTraffic(Date dateOfFirstPutIntoTraffic) {
-		this.dateOfFirstPutIntoTraffic = dateOfFirstPutIntoTraffic;
-	}
-
 	public Date getDateOfPurchase() {
 		return dateOfPurchase;
 	}
@@ -140,6 +132,14 @@ public class Vehicle {
 
 	public Integer getOperationalModality() {
 		return operationalModality;
+	}
+
+	public void setYearOfProduction(Integer yearOfProduction) {
+		this.yearOfProduction = yearOfProduction;
+	}
+
+	public Integer getYearOfProduction() {
+		return yearOfProduction;
 	}
 	
 }

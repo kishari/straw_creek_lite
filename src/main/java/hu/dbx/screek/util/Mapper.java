@@ -79,7 +79,7 @@ public class Mapper {
 			v.setCubicCapacity(vehicleV1.getCubicCapacity());
 			v.setCarryingCapacity(vehicleV1.getCarryingCapacity());
 			v.setDateOfPurchase(vehicleV1.getDateOfPurchase());
-			v.setDateOfFirstPutIntoTraffic(vehicleV1.getDateOfFirstPutIntoTraffic());
+			v.setYearOfProduction(vehicleV1.getYearOfProduction());
 			v.setMake(vehicleV1.getMake());
 			v.setMaximumAllowedWeight(vehicleV1.getMaximumAllowedWeight());
 			v.setMaximumNettoPower(vehicleV1.getMaximumNettoPower());
@@ -203,7 +203,7 @@ public class Mapper {
 		v.setCubicCapacity(vehicle.getCubicCapacity());
 		v.setCarryingCapacity(vehicle.getCarryingCapacity());
 		v.setDateOfPurchase(vehicle.getDateOfPurchase());
-		v.setDateOfFirstPutIntoTraffic(vehicle.getDateOfFirstPutIntoTraffic());
+		v.setYearOfProduction(vehicle.getYearOfProduction());
 		v.setMake(vehicle.getMake());
 		v.setMaximumAllowedWeight(vehicle.getMaximumAllowedWeight());
 		v.setMaximumNettoPower(vehicle.getMaximumNettoPower());
