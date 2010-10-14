@@ -1110,7 +1110,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity>1598</cubicCapacity>
-               <dateOfFirstPutIntoTraffic>2004-06-09</dateOfFirstPutIntoTraffic>
+	       <yearOfProduction>2004</yearOfProduction>
                <dateOfPurchase>2004-06-09</dateOfPurchase>
                <make>TOYOTA</make>
                <maximumNettoPower>81</maximumNettoPower>
@@ -1147,7 +1147,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity>1798</cubicCapacity>
-               <dateOfFirstPutIntoTraffic>2005-06-09</dateOfFirstPutIntoTraffic>
+	       <yearOfProduction>2005</yearOfProduction>               
                <dateOfPurchase>2004-06-09</dateOfPurchase>
                <make>MERCEDES_BENZ</make>
                <maximumAllowedWeight>?</maximumAllowedWeight>
@@ -1188,7 +1188,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity>1398</cubicCapacity>
-               <dateOfFirstPutIntoTraffic>2000-12-09</dateOfFirstPutIntoTraffic>
+	       <yearOfProduction>2000</yearOfProduction>
                <dateOfPurchase>2004-06-09</dateOfPurchase>
                <make>KIA</make>
                <maximumAllowedWeight>?</maximumAllowedWeight>
@@ -1229,7 +1229,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity>2800</cubicCapacity>
-               <dateOfFirstPutIntoTraffic>2004-06-09</dateOfFirstPutIntoTraffic>
+	       <yearOfProduction>2004</yearOfProduction>
                <dateOfPurchase>2004-06-09</dateOfPurchase>
                <make>TOYOTA</make>
                <maximumAllowedWeight>?</maximumAllowedWeight>
@@ -1270,7 +1270,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity>1589</cubicCapacity>
-               <dateOfFirstPutIntoTraffic>1998-06-09</dateOfFirstPutIntoTraffic>
+	       <yearOfProduction>1998</yearOfProduction>
                <dateOfPurchase>2004-06-09</dateOfPurchase>
                <make>RENAULT</make>
                <maximumAllowedWeight>?</maximumAllowedWeight>
@@ -1311,7 +1311,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity>1589</cubicCapacity>
-               <dateOfFirstPutIntoTraffic>1998-06-09</dateOfFirstPutIntoTraffic>
+	       <yearOfProduction>1998</yearOfProduction>
                <dateOfPurchase>2004-06-09</dateOfPurchase>
                <make>RENAULT</make>
                <maximumAllowedWeight>?</maximumAllowedWeight>
@@ -1352,7 +1352,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity>1589</cubicCapacity>
-               <dateOfFirstPutIntoTraffic>1998-06-09</dateOfFirstPutIntoTraffic>
+	       <yearOfProduction>1998</yearOfProduction>
                <dateOfPurchase>2004-06-09</dateOfPurchase>
                <make>RENAULT</make>
                <maximumAllowedWeight>?</maximumAllowedWeight>
