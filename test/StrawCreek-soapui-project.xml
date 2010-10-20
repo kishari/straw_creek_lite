@@ -199,7 +199,7 @@
          </quote>
       </ser:tariff>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="HibaLista postCode"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="HibaLista postCode"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/services/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -361,6 +361,45 @@
                <typeCode>?</typeCode>
                <!--Optional:-->
                <yearOfProduction>?</yearOfProduction>
+            </vehicle>
+         </quote>
+      </ser:tariff>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Copy of HibaLista postCode"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:tariff>
+         <quote>
+            <durationType>1</durationType>
+	    <callerId>12</callerId>
+	    <bonusMalus>A0</bonusMalus> 
+            <emailGranted>true</emailGranted>
+            <takeOutWithCasco>true</takeOutWithCasco>
+	    <online>true</online>
+	    <childPreference>true</childPreference>
+	    <mkbPartner>true</mkbPartner>
+	    <extraDamageExemption>true</extraDamageExemption>
+            <partner>
+		<postCode>8636</postCode>
+           	<dateOfBirth>1971-04-15</dateOfBirth>
+	       <genderCode>2</genderCode>
+	       <yearOfDrivingLicense>1996</yearOfDrivingLicense>
+            </partner>
+            <paymentFrequency>4</paymentFrequency>
+            <paymentMethod>2</paymentMethod>
+            <startDate>2010-09-01</startDate>
+            <vehicle>
+               <cubicCapacity>1598</cubicCapacity>
+	       <yearOfProduction>2000</yearOfProduction>
+               <dateOfPurchase>2000-02-04</dateOfPurchase>
+               <make>RENAULT</make>
+               <maximumAllowedWeight>?</maximumAllowedWeight>
+               <maximumNettoPower>77</maximumNettoPower>
+               <ownWeight>?</ownWeight>
+               <seatingCapacity></seatingCapacity>
+	       <carryingCapacity>222</carryingCapacity>
+               <typeCode>1</typeCode>
+               <operationalModality>3</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>

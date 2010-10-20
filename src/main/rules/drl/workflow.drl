@@ -21,7 +21,7 @@ rule "preprocess ended. modify workflow state to WF_VALIDATE"
 	
 	when
 		$s : State( state == States.WF_START )
-		$a : Context( action == "tariff" )
+		//$a : Context( action == "tariff" )
 		exists ( State( state == States.AGENDA_PREPROCESS_END ) )
 		
 	then
@@ -45,7 +45,7 @@ rule "validate ended. modify workflow state to WF_CHECK_VALID"
 	
 	when
 		$s : State( state == States.WF_VALIDATE )
-		$a : Context( action == "tariff" )
+		//$a : Context( action == "tariff" )
 		exists ( State( state == States.AGENDA_VALIDATE_END ) )
 		
 	then

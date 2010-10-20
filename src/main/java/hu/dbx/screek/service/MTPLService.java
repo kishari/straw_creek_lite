@@ -1,5 +1,6 @@
 package hu.dbx.screek.service;
 
+import hu.dbx.screek.iface.assist.QuoteV1;
 import hu.dbx.screek.iface.assist.TariffQuoteV1;
 import hu.dbx.screek.model.Context;
 import hu.dbx.screek.model.Quote;
@@ -54,6 +55,28 @@ public class MTPLService implements ApplicationContextAware {
 			e.printStackTrace();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@WebMethod
+	public QuoteV1 approve(@WebParam(name="quote")QuoteV1 insurance) {
+		logger.debug("approve started.");
+		try {
+			//Context(action, version)
+			Context context = new Context("approve", "1");
+			Quote q = Mapper.mapIn(insurance);
+			q = getDroolsHelper().compute(q, context);
+			QuoteV1 resp = Mapper.mapOut2(q);
+			logger.debug("approve finished.");
+			
+			return resp;
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

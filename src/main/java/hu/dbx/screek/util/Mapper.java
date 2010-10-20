@@ -3,11 +3,13 @@ package hu.dbx.screek.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.dbx.screek.iface.assist.QuoteV1;
 import hu.dbx.screek.iface.assist.TariffQuoteV1;
 import hu.dbx.screek.iface.model.MessageListV1;
 import hu.dbx.screek.iface.model.MessageV1;
 import hu.dbx.screek.iface.model.ModFactorListV1;
 import hu.dbx.screek.iface.model.ModFactorV1;
+import hu.dbx.screek.iface.model.PartnerThinV1;
 import hu.dbx.screek.iface.model.PartnerV1;
 import hu.dbx.screek.iface.model.ResultV1;
 import hu.dbx.screek.iface.model.VehicleV1;
@@ -27,18 +29,7 @@ public class Mapper {
 		
 		q.setCallerId(tariffQuoteV1.getCallerId());
 		q.setStartDate(tariffQuoteV1.getStartDate());
-/*		q.setEndDate(tariffQuoteV1.getEndDate());
-		
-		if (q.getEndDate() != null) {
-			DateTime endTmp = new DateTime(q.getEndDate());
-			
-			DateTime end = new DateTime(endTmp.getYear(), 
-										endTmp.getMonthOfYear(), 
-										endTmp.getDayOfMonth(),
-										23, 59, 59, 0);
-			q.setEndDate(end.toDate());
-		}
-*/
+
 		q.setDurationType(tariffQuoteV1.getDurationType());
 		
 		q.setTakeOutWithCasco(tariffQuoteV1.isTakeOutWithCasco());
@@ -59,6 +50,47 @@ public class Mapper {
 		q.setModfactors(mapIn(tariffQuoteV1.getModfactors(), q));
 		
 		return q;
+	}
+	
+	//Ajánlatot mappel
+	public static Quote mapIn(QuoteV1 approveQuoteV1) {
+		Quote q = new Quote();
+		
+		q.setCallerId(approveQuoteV1.getCallerId());
+		q.setStartDate(approveQuoteV1.getStartDate());
+
+		q.setDurationType(approveQuoteV1.getDurationType());
+		
+		q.setTakeOutWithCasco(approveQuoteV1.isTakeOutWithCasco());
+		q.setChildPreference(approveQuoteV1.isChild());
+		q.setMkbPartner(approveQuoteV1.isMkbPartner());
+		q.setOnline(approveQuoteV1.isOnline());
+		q.setEmailGranted(approveQuoteV1.isEmailGranted());
+		q.setExtraDamageExemption(approveQuoteV1.isExtraDamageExemption());
+		q.setPaymentMethod(approveQuoteV1.getPaymentMethod());
+		q.setBonusMalus(approveQuoteV1.getBonusMalus());
+		
+		q.setPaymentFrequency(approveQuoteV1.getPaymentFrequency());
+		
+		q.setPartner(mapIn(approveQuoteV1.getPartner()));
+		q.setVehicle(mapIn(approveQuoteV1.getVehicle()));
+		
+		q.setMessages(mapIn(approveQuoteV1.getMessages(), q));
+		q.setModfactors(mapIn(approveQuoteV1.getModfactors(), q));
+		
+		return q;
+	}
+	
+	private static Partner mapIn(PartnerThinV1 partnerV1) {		
+		Partner p = new Partner();
+		if (partnerV1 != null) {
+			p.setDateOfBirth(partnerV1.getDateOfBirth());
+			p.setPostCode(partnerV1.getPostCode());
+			p.setYearOfDrivingLicense(partnerV1.getYearOfDrivingLicense());
+			p.setGenderCode(partnerV1.getGenderCode());
+			p.setModfactors(mapIn(partnerV1.getModfactors(), p));
+		}
+		return p;
 	}
 	
 	private static Partner mapIn(PartnerV1 partnerV1) {		
@@ -183,8 +215,49 @@ public class Mapper {
 		return q;
 		
 	}
+	
+	public static QuoteV1 mapOut2(Quote quote) {
+		QuoteV1 q = new QuoteV1();
+		
+		q.setCallerId(quote.getCallerId());
+		q.setStartDate(quote.getStartDate());
+		//q.setEndDate(quote.getEndDate());
+		q.setDurationType(quote.getDurationType());
+		q.setPaymentMethod(quote.getPaymentMethod());
+		q.setPaymentFrequency(quote.getPaymentFrequency());
+		
+		q.setTakeOutWithCasco(quote.isTakeOutWithCasco());
+		q.setChild(quote.isChildPreference());
+		q.setMkbPartner(quote.isMkbPartner());
+		q.setOnline(quote.isOnline());
+		q.setEmailGranted(quote.isEmailGranted());
+		q.setExtraDamageExemption(quote.isExtraDamageExemption());
+		q.setResult(mapOut(quote.getResult()));
+		
+		q.setBonusMalus(quote.getBonusMalus());
+		
+		q.setPartner(mapOut2(quote.getPartner()));
+		q.setVehicle(mapOut(quote.getVehicle()));
+		q.setMessages( mapOut(quote.getMessages()) );
+		q.setModfactors(mapOut(quote.getModfactors()));
+		
+		return q;
+	}
 
-	private static PartnerV1 mapOut(Partner partner) {
+	private static PartnerThinV1 mapOut(Partner partner) {
+		PartnerThinV1 p = new PartnerThinV1();
+		
+		p.setDateOfBirth(partner.getDateOfBirth());
+		p.setPostCode(partner.getPostCode());
+		p.setYearOfDrivingLicense(partner.getYearOfDrivingLicense());
+		p.setGenderCode(partner.getGenderCode());
+		
+		p.setModfactors(mapOut(partner.getModfactors()));
+		
+		return p;
+	}
+	
+	private static PartnerV1 mapOut2(Partner partner) {
 		PartnerV1 p = new PartnerV1();
 		
 		p.setDateOfBirth(partner.getDateOfBirth());
