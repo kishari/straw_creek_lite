@@ -7,7 +7,6 @@ public class AutoBusBaseTariffDef extends BaseDef {
 	private Integer seatingCapacityMax;
 	private Integer value;
 	
-	
 	public Integer getDurationType() {
 		return durationType;
 	}

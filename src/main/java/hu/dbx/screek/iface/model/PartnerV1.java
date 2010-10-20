@@ -3,9 +3,19 @@ package hu.dbx.screek.iface.model;
 import java.util.Date;
 
 public class PartnerV1 {
-
-	private Date dateOfBirth;
 	private Integer genderCode;
+	private String name;
+	private String phone;
+	private String mobilePhone;
+	private String email;
+	private String nationality;
+	
+	private Date dateOfBirth;
+	private String placeOfBirth;
+	private String birthName;
+	private String mothersName;
+	
+	
 	private Integer postCode;
 	private Integer yearOfDrivingLicense;
 	

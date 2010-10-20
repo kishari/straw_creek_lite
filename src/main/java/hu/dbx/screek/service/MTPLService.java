@@ -1,11 +1,8 @@
 package hu.dbx.screek.service;
 
-import hu.dbx.screek.iface.assist.QuoteV1;
-import hu.dbx.screek.iface.assist.TariffQuoteV1;
-import hu.dbx.screek.model.Context;
-import hu.dbx.screek.model.Quote;
-import hu.dbx.screek.util.DroolsHelper;
-import hu.dbx.screek.util.Mapper;
+import hu.dbx.screek.iface.assist.*;
+import hu.dbx.screek.model.*;
+import hu.dbx.screek.util.*;
 
 import java.util.NoSuchElementException;
 
@@ -40,6 +37,28 @@ public class MTPLService implements ApplicationContextAware {
 		logger.debug("tariff started.");
 		try {
 			//Context(action, version)
+			Context context = new Context("tariff", 1);
+			Quote q = Mapper.mapIn(insurance);
+			q = getDroolsHelper().compute(q, context);
+			TariffQuoteV1 resp = Mapper.mapOut(q);
+			logger.debug("tariff finished.");
+			
+			return resp;
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+/*	@WebMethod
+	public TariffQuoteV2 tariffV2(@WebParam(name="quote")TariffQuoteV2 insurance) {
+		logger.debug("tariff started.");
+		try {
+			//Context(action, version)
 			Context context = new Context("tariff", "1");
 			Quote q = Mapper.mapIn(insurance);
 			q = getDroolsHelper().compute(q, context);
@@ -48,24 +67,21 @@ public class MTPLService implements ApplicationContextAware {
 			
 			return resp;
 		} catch (NoSuchElementException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+*/	
 	@WebMethod
 	public QuoteV1 approve(@WebParam(name="quote")QuoteV1 insurance) {
 		logger.debug("approve started.");
 		try {
 			//Context(action, version)
-			Context context = new Context("approve", "1");
+			Context context = new Context("approve", 1);
 			Quote q = Mapper.mapIn(insurance);
 			q = getDroolsHelper().compute(q, context);
 			QuoteV1 resp = Mapper.mapOut2(q);

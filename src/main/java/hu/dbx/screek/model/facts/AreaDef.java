@@ -7,7 +7,6 @@ public class AreaDef extends BaseDef {
 	//areaCode = 1, 2, 3 vagy 4, postCode-tól függően
 	private Integer areaCode; 
 	
-	
 	public Integer getPostCode() {
 		return postCode;
 	}
@@ -23,5 +22,6 @@ public class AreaDef extends BaseDef {
 	public Integer getAreaCode() {
 		return areaCode;
 	}
+
 	
 }

@@ -7,6 +7,7 @@ public class BaseDef {
 	private Date validFrom;
 	private Date validTo;
 	private boolean valid;
+	private Integer version;
 	
 	public Date getValidFrom() {
 		return validFrom;
@@ -45,6 +46,14 @@ public class BaseDef {
 
 	private boolean firstDateIsSmallerOrEqualsThanSecondDate(Date q, Date v) {
 		return ( q.before(v) || q.equals(v) );
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	public Integer getVersion() {
+		return version;
 	}
 	
 }
