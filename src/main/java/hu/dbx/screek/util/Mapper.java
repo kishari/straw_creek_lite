@@ -5,6 +5,7 @@ import java.util.List;
 
 import hu.dbx.screek.iface.assist.QuoteV1;
 import hu.dbx.screek.iface.assist.TariffQuoteV1;
+import hu.dbx.screek.iface.assist.TariffQuoteV2;
 import hu.dbx.screek.iface.model.MessageListV1;
 import hu.dbx.screek.iface.model.MessageV1;
 import hu.dbx.screek.iface.model.ModFactorListV1;
@@ -24,59 +25,103 @@ import hu.dbx.screek.model.Vehicle;
 
 public class Mapper {
 	
-	public static Quote mapIn(TariffQuoteV1 tariffQuoteV1) {
+	private static String int2String(Integer value) {		
+		if (value != null) {
+			return Integer.toString(value);
+		}
+		return null;
+	}
+	
+	private static Integer string2Int(String value) {		
+		if (value != null && "".equals(value)) {
+			return Integer.valueOf(value);
+		}
+		return null;
+	}
+
+	
+	
+	public static Quote mapIn(TariffQuoteV1 tariffQuote) {
 		Quote q = new Quote();
 		
-		q.setCallerId(tariffQuoteV1.getCallerId());
-		q.setStartDate(tariffQuoteV1.getStartDate());
+		q.setCallerId(tariffQuote.getCallerId());
+		q.setStartDate(tariffQuote.getStartDate());
 
-		q.setDurationType(tariffQuoteV1.getDurationType());
+		q.setDurationType(tariffQuote.getDurationType());
 		
-		q.setTakeOutWithCasco(tariffQuoteV1.isTakeOutWithCasco());
-		q.setChildPreference(tariffQuoteV1.isChild());
-		q.setMkbPartner(tariffQuoteV1.isMkbPartner());
-		q.setOnline(tariffQuoteV1.isOnline());
-		q.setEmailGranted(tariffQuoteV1.isEmailGranted());
-		q.setExtraDamageExemption(tariffQuoteV1.isExtraDamageExemption());
-		q.setPaymentMethod(tariffQuoteV1.getPaymentMethod());
-		q.setBonusMalus(tariffQuoteV1.getBonusMalus());
+		q.setTakeOutWithCasco(tariffQuote.isTakeOutWithCasco());
+		q.setChildPreference(tariffQuote.isChild());
+		q.setMkbPartner(tariffQuote.isMkbPartner());
+		q.setOnline(tariffQuote.isOnline());
+		q.setEmailGranted(tariffQuote.isEmailGranted());
+		q.setExtraDamageExemption(tariffQuote.isExtraDamageExemption());
+		q.setPaymentMethod(tariffQuote.getPaymentMethod());
+		q.setBonusMalus(tariffQuote.getBonusMalus());
 		
-		q.setPaymentFrequency(tariffQuoteV1.getPaymentFrequency());
+		q.setPaymentFrequency(tariffQuote.getPaymentFrequency());
 		
-		q.setPartner(mapIn(tariffQuoteV1.getPartner()));
-		q.setVehicle(mapIn(tariffQuoteV1.getVehicle()));
+		q.setPartner(mapIn(tariffQuote.getPartner()));
+		q.setVehicle(mapIn(tariffQuote.getVehicle()));
 		
-		q.setMessages(mapIn(tariffQuoteV1.getMessages(), q));
-		q.setModfactors(mapIn(tariffQuoteV1.getModfactors(), q));
+		q.setMessages(mapIn(tariffQuote.getMessages(), q));
+		q.setModfactors(mapIn(tariffQuote.getModfactors(), q));
+		
+		return q;
+	}
+	
+	public static Quote mapIn(TariffQuoteV2 tariffQuote) {
+		Quote q = new Quote();
+		
+		q.setCallerId(tariffQuote.getCallerId());
+		q.setStartDate(tariffQuote.getStartDate());
+
+		q.setDurationType(tariffQuote.getDurationType());
+		
+		q.setTakeOutWithCasco(tariffQuote.isTakeOutWithCasco());
+		q.setChildPreference(tariffQuote.isChild());
+		q.setMkbPartner(tariffQuote.isMkbPartner());
+		q.setOnline(tariffQuote.isOnline());
+		q.setEmailGranted(tariffQuote.isEmailGranted());
+		q.setExtraDamageExemption(tariffQuote.isExtraDamageExemption());
+		q.setPaymentMethod(tariffQuote.getPaymentMethod());
+		q.setBonusMalus(tariffQuote.getBonusMalus());
+		
+		q.setPaymentFrequency(tariffQuote.getPaymentFrequency());
+		
+		q.setPartner(mapIn(tariffQuote.getPartner()));
+		q.setVehicle(mapIn(tariffQuote.getVehicle()));
+		
+		q.setMessages(mapIn(tariffQuote.getMessages(), q));
+		q.setModfactors(mapIn(tariffQuote.getModfactors(), q));
 		
 		return q;
 	}
 	
 	//Ajánlatot mappel
-	public static Quote mapIn(QuoteV1 approveQuoteV1) {
+	public static Quote mapIn(QuoteV1 approveQuote) {
 		Quote q = new Quote();
 		
-		q.setCallerId(approveQuoteV1.getCallerId());
-		q.setStartDate(approveQuoteV1.getStartDate());
+		q.setCallerId(approveQuote.getCallerId());
+		q.setStartDate(approveQuote.getStartDate());
 
-		q.setDurationType(approveQuoteV1.getDurationType());
+		q.setDurationType(approveQuote.getDurationType());
 		
-		q.setTakeOutWithCasco(approveQuoteV1.isTakeOutWithCasco());
-		q.setChildPreference(approveQuoteV1.isChild());
-		q.setMkbPartner(approveQuoteV1.isMkbPartner());
-		q.setOnline(approveQuoteV1.isOnline());
-		q.setEmailGranted(approveQuoteV1.isEmailGranted());
-		q.setExtraDamageExemption(approveQuoteV1.isExtraDamageExemption());
-		q.setPaymentMethod(approveQuoteV1.getPaymentMethod());
-		q.setBonusMalus(approveQuoteV1.getBonusMalus());
+		q.setTakeOutWithCasco(approveQuote.isTakeOutWithCasco());
+		q.setChildPreference(approveQuote.isChild());
+		q.setMkbPartner(approveQuote.isMkbPartner());
+		q.setOnline(approveQuote.isOnline());
+		q.setEmailGranted(approveQuote.isEmailGranted());
+		q.setExtraDamageExemption(approveQuote.isExtraDamageExemption());
+		q.setPaymentMethod(approveQuote.getPaymentMethod());
+		q.setBonusMalus(approveQuote.getBonusMalus());
 		
-		q.setPaymentFrequency(approveQuoteV1.getPaymentFrequency());
+		q.setPaymentFrequency(approveQuote.getPaymentFrequency());
 		
-		q.setPartner(mapIn(approveQuoteV1.getPartner()));
-		q.setVehicle(mapIn(approveQuoteV1.getVehicle()));
+		q.setPartner(mapIn(approveQuote.getPartner()));
+		q.setVehicle(mapIn(approveQuote.getVehicle()));
 		
-		q.setMessages(mapIn(approveQuoteV1.getMessages(), q));
-		q.setModfactors(mapIn(approveQuoteV1.getModfactors(), q));
+		q.setMessages(mapIn(approveQuote.getMessages(), q));
+		q.setModfactors(mapIn(approveQuote.getModfactors(), q));
 		
 		return q;
 	}
@@ -87,7 +132,12 @@ public class Mapper {
 			p.setDateOfBirth(partnerV1.getDateOfBirth());
 			p.setPostCode(partnerV1.getPostCode());
 			p.setYearOfDrivingLicense(partnerV1.getYearOfDrivingLicense());
-			p.setGenderCode(partnerV1.getGenderCode());
+			
+			if (partnerV1.getGenderCode() != null && partnerV1.getGenderCode() == 0) { // 0 genderCode-ot null-nak tekintjük
+				partnerV1.setGenderCode(null);
+			}
+			
+			p.setGenderCode(int2String(partnerV1.getGenderCode()));
 			p.setModfactors(mapIn(partnerV1.getModfactors(), p));
 		}
 		return p;
@@ -99,7 +149,7 @@ public class Mapper {
 			p.setDateOfBirth(partnerV1.getDateOfBirth());
 			p.setPostCode(partnerV1.getPostCode());
 			p.setYearOfDrivingLicense(partnerV1.getYearOfDrivingLicense());
-			p.setGenderCode(partnerV1.getGenderCode());
+			p.setGenderCode(int2String(partnerV1.getGenderCode()));
 			p.setModfactors(mapIn(partnerV1.getModfactors(), p));
 		}
 		return p;
@@ -187,7 +237,7 @@ public class Mapper {
 	 * 				mapOut
 	 *******************************************/
 	
-	public static TariffQuoteV1 mapOut(Quote quote) {
+	public static TariffQuoteV1 mapOutV1(Quote quote) {
 		TariffQuoteV1 q = new TariffQuoteV1();
 		
 		q.setCallerId(quote.getCallerId());
@@ -203,20 +253,49 @@ public class Mapper {
 		q.setOnline(quote.isOnline());
 		q.setEmailGranted(quote.isEmailGranted());
 		q.setExtraDamageExemption(quote.isExtraDamageExemption());
-		q.setResult(mapOut(quote.getResult()));
+		q.setResult(mapOutV1(quote.getResult()));
 		
 		q.setBonusMalus(quote.getBonusMalus());
 		
-		q.setPartner(mapOut(quote.getPartner()));
-		q.setVehicle(mapOut(quote.getVehicle()));
-		q.setMessages( mapOut(quote.getMessages()) );
-		q.setModfactors(mapOut(quote.getModfactors()));
+		q.setPartner(mapOutV1(quote.getPartner()));
+		q.setVehicle(mapOutV1(quote.getVehicle()));
+		q.setMessages( mapOutV1(quote.getMessages()) );
+		q.setModfactors(mapOutV1(quote.getModfactors()));
 		
 		return q;
 		
 	}
 	
-	public static QuoteV1 mapOut2(Quote quote) {
+	public static TariffQuoteV2 mapOutV2(Quote quote) {
+		TariffQuoteV2 q = new TariffQuoteV2();
+		
+		q.setCallerId(quote.getCallerId());
+		q.setStartDate(quote.getStartDate());
+		//q.setEndDate(quote.getEndDate());
+		q.setDurationType(quote.getDurationType());
+		q.setPaymentMethod(quote.getPaymentMethod());
+		q.setPaymentFrequency(quote.getPaymentFrequency());
+		
+		q.setTakeOutWithCasco(quote.isTakeOutWithCasco());
+		q.setChild(quote.isChildPreference());
+		q.setMkbPartner(quote.isMkbPartner());
+		q.setOnline(quote.isOnline());
+		q.setEmailGranted(quote.isEmailGranted());
+		q.setExtraDamageExemption(quote.isExtraDamageExemption());
+		q.setResult(mapOutV1(quote.getResult()));
+		
+		q.setBonusMalus(quote.getBonusMalus());
+		
+		q.setPartner(mapOutV1(quote.getPartner()));
+		q.setVehicle(mapOutV1(quote.getVehicle()));
+		q.setMessages( mapOutV1(quote.getMessages()) );
+		q.setModfactors(mapOutV1(quote.getModfactors()));
+		
+		return q;
+		
+	}
+	
+	public static QuoteV1 mapOutApproveV1(Quote quote) {
 		QuoteV1 q = new QuoteV1();
 		
 		q.setCallerId(quote.getCallerId());
@@ -232,45 +311,45 @@ public class Mapper {
 		q.setOnline(quote.isOnline());
 		q.setEmailGranted(quote.isEmailGranted());
 		q.setExtraDamageExemption(quote.isExtraDamageExemption());
-		q.setResult(mapOut(quote.getResult()));
+		q.setResult(mapOutV1(quote.getResult()));
 		
 		q.setBonusMalus(quote.getBonusMalus());
 		
-		q.setPartner(mapOut2(quote.getPartner()));
-		q.setVehicle(mapOut(quote.getVehicle()));
-		q.setMessages( mapOut(quote.getMessages()) );
-		q.setModfactors(mapOut(quote.getModfactors()));
+		q.setPartner(mapOutApproveV1(quote.getPartner()));
+		q.setVehicle(mapOutV1(quote.getVehicle()));
+		q.setMessages( mapOutV1(quote.getMessages()) );
+		q.setModfactors(mapOutV1(quote.getModfactors()));
 		
 		return q;
 	}
 
-	private static PartnerThinV1 mapOut(Partner partner) {
+	private static PartnerThinV1 mapOutV1(Partner partner) {
 		PartnerThinV1 p = new PartnerThinV1();
 		
 		p.setDateOfBirth(partner.getDateOfBirth());
 		p.setPostCode(partner.getPostCode());
 		p.setYearOfDrivingLicense(partner.getYearOfDrivingLicense());
-		p.setGenderCode(partner.getGenderCode());
+		p.setGenderCode(string2Int(partner.getGenderCode()));
 		
-		p.setModfactors(mapOut(partner.getModfactors()));
+		p.setModfactors(mapOutV1(partner.getModfactors()));
 		
 		return p;
 	}
 	
-	private static PartnerV1 mapOut2(Partner partner) {
+	private static PartnerV1 mapOutApproveV1(Partner partner) {
 		PartnerV1 p = new PartnerV1();
 		
 		p.setDateOfBirth(partner.getDateOfBirth());
 		p.setPostCode(partner.getPostCode());
 		p.setYearOfDrivingLicense(partner.getYearOfDrivingLicense());
-		p.setGenderCode(partner.getGenderCode());
+		p.setGenderCode(string2Int(partner.getGenderCode()));
 		
-		p.setModfactors(mapOut(partner.getModfactors()));
+		p.setModfactors(mapOutV1(partner.getModfactors()));
 		
 		return p;
 	}
 	
-	private static VehicleV1 mapOut(Vehicle vehicle) {
+	private static VehicleV1 mapOutV1(Vehicle vehicle) {
 		VehicleV1 v = new VehicleV1();
 		
 		v.setCubicCapacity(vehicle.getCubicCapacity());
@@ -285,23 +364,23 @@ public class Mapper {
 		v.setTypeCode(vehicle.getTypeCode());
 		v.setOperationalModality(vehicle.getOperationalModality());
 		
-		v.setModfactors(mapOut(vehicle.getModfactors()));
+		v.setModfactors(mapOutV1(vehicle.getModfactors()));
 		
 		return v;
 	}
 	
-	private static MessageListV1 mapOut(MessageList messages) {
+	private static MessageListV1 mapOutV1(MessageList messages) {
 		List<MessageV1> list = new ArrayList<MessageV1>();
 		MessageListV1 messagesV1 = new MessageListV1();
 		for (Message m : messages.getMessages()) {
-			list.add( mapOut(m) );
+			list.add( mapOutV1(m) );
 		}
 		messagesV1.setMessages(list);
 		
 		return messagesV1;
 	}
 	
-	private static MessageV1 mapOut(Message message) {
+	private static MessageV1 mapOutV1(Message message) {
 		MessageV1 messageV1 = new MessageV1();
 		
 		messageV1.setCode(message.getCode());
@@ -313,12 +392,12 @@ public class Mapper {
 	}
 	
 	//ModFactorListet mappel
-	private static ModFactorListV1 mapOut(ModFactorList modfactors) {
+	private static ModFactorListV1 mapOutV1(ModFactorList modfactors) {
 		List<ModFactorV1> list = new ArrayList<ModFactorV1>();
 		ModFactorListV1 modfactorsv1 = new ModFactorListV1();
 		
 		for ( ModFactor m : modfactors.getModfactors() ) {
-			list.add( mapOut(m) );
+			list.add( mapOutV1(m) );
 		}
 		modfactorsv1.setModfactors(list);
 		
@@ -326,7 +405,7 @@ public class Mapper {
 	}
 	
 	//ModFactorokat mappel
-	private static ModFactorV1 mapOut(ModFactor modfactor) {
+	private static ModFactorV1 mapOutV1(ModFactor modfactor) {
 		ModFactorV1 modfactorV1 = new ModFactorV1();
 		
 		modfactorV1.setCode(modfactor.getCode());
@@ -336,7 +415,7 @@ public class Mapper {
 		return modfactorV1;
 	}
 	
-	private static ResultV1 mapOut(Result result) {		
+	private static ResultV1 mapOutV1(Result result) {		
 		if (result != null) {
 			ResultV1 resultV1 = new ResultV1();
 			

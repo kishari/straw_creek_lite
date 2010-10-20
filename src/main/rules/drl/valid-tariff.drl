@@ -9,6 +9,13 @@ function boolean isNullString(String s) {
 		return ("".equals(s) || s == null);
 }
 
+function boolean isEq(String str1, String str2) {
+	if (str1 != null && str2 != null) {
+		return str1.equals(str2);
+	}
+	return false;
+}
+
 function int getActualYear() {
 	DateTime now = new DateTime(new Date());
 	return now.getYear();
@@ -276,22 +283,23 @@ rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (tehergepjarmu)"
 	
 	salience -5 
 	when
-		$c : Context()
+		$ctx : Context()
+		$c : ConstantsDef( version == $ctx.version, eval(isEq(name, "LEGAL_PERSON") ) )
 		$q : Quote()
 		$p : Partner()
 		$v : Vehicle( typeCode == Constants.TC_TEHERGEPJARMU )
-		$vt: VehicleTypeDef( typeCode == $v.typeCode, version == $c.version )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode, version == $ctx.version )
 		$b : TruckBaseTariffDef( durationType == $q.durationType,
-								 genderCode == $p.genderCode,
-								 version == $c.version )
+								 eval( isEq(genderCode, $p.getGenderCode() ) ),
+								 version == $ctx.version )
 		eval ( isBetween( $b.getCarryingCapacityMin(), 
 						  $b.getCarryingCapacityMax(), 
 						  $v.getCarryingCapacity() ) )
-		eval ( ( $p.getGenderCode() != Constants.JOGI_SZEMELY &&
+		eval ( ( !isEq( $p.getGenderCode(), $c.getValue() ) &&
 				 isBetween( $b.getPartnerAgeMin(), 
 				 			$b.getPartnerAgeMax(), 
 				 			yearsBetween( $p.getDateOfBirth(), $q.getStartDate() ) ) ) || 
-			   ( $p.getGenderCode() == Constants.JOGI_SZEMELY ) )
+			   ( isEq( $p.getGenderCode(), $c.getValue() ) ) )
 		eval ( !$b.isValid( $q.getStartDate() ) )
 		not (exists (Message( code == "24") ) )				
 	then
@@ -494,7 +502,7 @@ rule "validate dateOfBirth (isNull)"
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU || typeCode == Constants.TC_TEHERGEPJARMU )
 		$p : Partner( dateOfBirth == null &&
-					  genderCode != 3 )
+					  eval( !isEq(genderCode, "3") ) )
 				
 	then
 		insert( Message.create("23") );		
@@ -535,7 +543,7 @@ rule "validate genderCode (isNull)"
 		$c : Context()
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU || typeCode == Constants.TC_TEHERGEPJARMU )
-		$p : Partner( eval( isNullInt( genderCode ) ) )
+		$p : Partner( eval( isNullString( genderCode ) ) )
 	then
 		insert( Message.create("14") );		
 end
@@ -547,11 +555,11 @@ rule "validate genderCode (not valid)"
 		$c : Context()
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU || typeCode == Constants.TC_TEHERGEPJARMU )
-		$p : Partner( eval( !isNullInt( genderCode ) ) )
-		not(exists GenderDef( genderCode == $p.genderCode, version == $c.version ) )
+		$p : Partner( eval( !isNullString( genderCode ) ) )
+		not(exists GenderDef( eval( isEq(genderCode, $p.getGenderCode() ) ), version == $c.version ) )
 			
 	then
-		insert( Message.create("13", $p.getGenderCode().toString() ) );
+		insert( Message.create("13", $p.getGenderCode() ) );
 end
 
 rule "validate yearOfDrivingLicense (isNull)"

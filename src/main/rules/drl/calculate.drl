@@ -12,6 +12,10 @@ function boolean isNullInt(Integer i) {
 		return (i == null || i == 0);
 }
 
+function boolean isNullString(String s) {
+		return ("".equals(s) || s == null);
+}
+
 function double round(double val, int precision) {
 	BigDecimal temp = new BigDecimal(val).setScale(precision, BigDecimal.ROUND_HALF_UP);
 	
@@ -44,6 +48,13 @@ function boolean isEquals(DateTime s, DateTime e) {
 	DateTime temp = s.withDate(s.getYear(), s.getMonthOfYear(), s.getDayOfMonth());
 
 	return temp.isEqual(e);
+}
+
+function boolean isEq(String str1, String str2) {
+	if (str1 != null && str2 != null) {
+		return str1.equals(str2);
+	}
+	return false;
 }
 
 function boolean firstIsAfter(DateTime s, DateTime e) {
@@ -102,19 +113,21 @@ end
 rule "alaptarifa beallitas (tehergepjarmu)"
 	agenda-group "calculate"
 	when
+		$ctx : Context()
+		$c : ConstantsDef( version == $ctx.version, eval( isEq(name, "LEGAL_PERSON") )  )
 		$q : Quote()
 		$p : Partner()
 		$v : Vehicle( typeCode == Constants.TC_TEHERGEPJARMU )
 		$b : TruckBaseTariffDef( durationType == $q.durationType,
-								 genderCode == $p.genderCode )
+								 eval( isEq(genderCode, $p.getGenderCode() ) ) )
 		eval ( isBetween( $b.getCarryingCapacityMin(), 
 						  $b.getCarryingCapacityMax(), 
 						  $v.getCarryingCapacity() ) )
-		eval ( ( $p.getGenderCode() != Constants.JOGI_SZEMELY &&
+		eval ( (!isEq( $p.getGenderCode(), $c.getValue() ) &&
 				 isBetween( $b.getPartnerAgeMin(), 
 				 			$b.getPartnerAgeMax(), 
 				 			yearsBetween( $p.getDateOfBirth(), $q.getStartDate() ) ) ) || 
-			   ( $p.getGenderCode() == Constants.JOGI_SZEMELY ) )
+			   ( isEq( $p.getGenderCode(), $c.getValue() ) ) )
 		eval ( $b.isValid( $q.getStartDate() ) )
 						
 	then
@@ -150,9 +163,11 @@ end
 rule "teruleti besorolas-korcsoport szorzo (termeszetes szemely)"
 	agenda-group "calculate"
 	when
+		$ctx : Context()
+		$c : ConstantsDef( version == $ctx.version, eval( isEq(name, "LEGAL_PERSON") )  )
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )		
-		$p : Partner( genderCode != Constants.JOGI_SZEMELY )
+		$p : Partner( eval( !isEq(genderCode, $c.getValue() ) ) )
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: PartnerAgeModFactorDef( areaCode == $a.areaCode )
 		eval ( isBetween( $mf.getAgeMin(), 
@@ -168,9 +183,11 @@ end
 rule "teruleti besorolas szorzo (jogi szemely)"
 	agenda-group "calculate"
 	when
+		$ctx : Context()
+		$c : ConstantsDef( version == $ctx.version, eval( isEq(name, "LEGAL_PERSON") )  )
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
-		$p : Partner( genderCode == Constants.JOGI_SZEMELY )
+		$p : Partner( eval( isEq(genderCode, $c.getValue() ) ) )
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: LegalModFactorDef( areaCode == $a.areaCode )
 		eval ( $a.isValid( $q.getStartDate() ) &&

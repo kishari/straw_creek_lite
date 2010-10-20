@@ -55,6 +55,7 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 		addFacts(sess, TruckBaseTariffDef.class, new String[] {"durationType", "genderCode", "carryingCapacityMin", "carryingCapacityMax", "partnerAgeMin", "partnerAgeMax", "value", "validFrom", "validTo", "version"}, getReaderFor("TruckBaseTariffDef"));
 		addFacts(sess, MessageDef.class, new String[] {"code", "severity", "description"}, getReaderFor("MessageDef"));
 		addFacts(sess, ParamDef.class, new String[] {"key", "value"}, getReaderFor("ParamDef"));
+		addFacts(sess, ConstantsDef.class, new String[] {"name", "value", "version"}, getReaderFor("ConstantsDef"));
 	}
 
 	private void addFacts(StatefulKnowledgeSession sess, Class clazz, String[] columnNames, Reader in){

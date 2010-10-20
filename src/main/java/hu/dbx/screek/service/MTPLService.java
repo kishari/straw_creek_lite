@@ -40,7 +40,7 @@ public class MTPLService implements ApplicationContextAware {
 			Context context = new Context("tariff", 1);
 			Quote q = Mapper.mapIn(insurance);
 			q = getDroolsHelper().compute(q, context);
-			TariffQuoteV1 resp = Mapper.mapOut(q);
+			TariffQuoteV1 resp = Mapper.mapOutV1(q);
 			logger.debug("tariff finished.");
 			
 			return resp;
@@ -54,16 +54,16 @@ public class MTPLService implements ApplicationContextAware {
 		return null;
 	}
 	
-/*	@WebMethod
+	@WebMethod
 	public TariffQuoteV2 tariffV2(@WebParam(name="quote")TariffQuoteV2 insurance) {
-		logger.debug("tariff started.");
+		logger.debug("tariffV2 started.");
 		try {
 			//Context(action, version)
-			Context context = new Context("tariff", "1");
+			Context context = new Context("tariff", 2);
 			Quote q = Mapper.mapIn(insurance);
 			q = getDroolsHelper().compute(q, context);
-			TariffQuoteV1 resp = Mapper.mapOut(q);
-			logger.debug("tariff finished.");
+			TariffQuoteV2 resp = Mapper.mapOutV2(q);
+			logger.debug("tariffV2 finished.");
 			
 			return resp;
 		} catch (NoSuchElementException e) {
@@ -75,7 +75,7 @@ public class MTPLService implements ApplicationContextAware {
 		}
 		return null;
 	}
-*/	
+
 	@WebMethod
 	public QuoteV1 approve(@WebParam(name="quote")QuoteV1 insurance) {
 		logger.debug("approve started.");
@@ -84,7 +84,7 @@ public class MTPLService implements ApplicationContextAware {
 			Context context = new Context("approve", 1);
 			Quote q = Mapper.mapIn(insurance);
 			q = getDroolsHelper().compute(q, context);
-			QuoteV1 resp = Mapper.mapOut2(q);
+			QuoteV1 resp = Mapper.mapOutApproveV1(q);
 			logger.debug("approve finished.");
 			
 			return resp;

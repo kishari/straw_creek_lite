@@ -3,7 +3,7 @@ package hu.dbx.screek.model.facts;
 public class TruckBaseTariffDef extends BaseDef {
 
 	private Integer durationType;
-	private Integer genderCode;
+	private String genderCode;
 	private Integer carryingCapacityMin;
 	private Integer carryingCapacityMax;
 	private Integer partnerAgeMin;
@@ -17,10 +17,10 @@ public class TruckBaseTariffDef extends BaseDef {
 	public void setDurationType(Integer durationType) {
 		this.durationType = durationType;
 	}
-	public Integer getGenderCode() {
+	public String getGenderCode() {
 		return genderCode;
 	}
-	public void setGenderCode(Integer genderCode) {
+	public void setGenderCode(String genderCode) {
 		this.genderCode = genderCode;
 	}
 	public Integer getCarryingCapacityMin() {
