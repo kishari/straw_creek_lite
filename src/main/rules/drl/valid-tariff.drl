@@ -70,19 +70,9 @@ function int yearsBetween(Date s, Date e) {
 /*****************************************************************************
 				 Biztosítás szintű validációk 
 *****************************************************************************/
-/*
-rule "validate endDate (endDate < startDate)"
-    agenda-group "validate"
-	when
-		$q : Quote( durationType == Constants.DT_HATAROZOTT)
-		eval( firstDateIsAfter( $q.getStartDate(), $q.getEndDate() ) )
 
-	then
-		insert( Message.create("34", getFormattedDate($q.getStartDate()), getFormattedDate($q.getEndDate()) ) );
-end
-*/
 rule "validate bonusMalus (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN,
 					eval( isNullString(bonusMalus) ) )
@@ -94,7 +84,7 @@ rule "validate bonusMalus (isNull)"
 end
 
 rule "validate bonusMalus (not valid)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
 
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN,
@@ -105,7 +95,7 @@ rule "validate bonusMalus (not valid)"
 end
 
 rule "validate startDate (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( startDate == null )
@@ -115,7 +105,7 @@ rule "validate startDate (isNull)"
 end
 
 rule "validate insurance duration (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( eval( isNullInt(durationType) ) )
@@ -126,7 +116,7 @@ rule "validate insurance duration (isNull)"
 end
 
 rule "validate insurance duration (not valid)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( eval( !isNullInt(durationType) ) )
@@ -137,7 +127,7 @@ rule "validate insurance duration (not valid)"
 end
 
 rule "validate payment method (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN &&  
@@ -148,7 +138,7 @@ rule "validate payment method (isNull)"
 end
 
 rule "validate payment method (not valid)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
    
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN &&  
@@ -160,7 +150,7 @@ rule "validate payment method (not valid)"
 end
 
 rule "validate payment frequency (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN && 
@@ -171,7 +161,7 @@ rule "validate payment frequency (isNull)"
 end
 
 rule "validate payment frequency (not valid)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN &&
@@ -183,7 +173,7 @@ rule "validate payment frequency (not valid)"
 end
 
 rule "validate payment frequency (not valid - havi eseten nem csoportos)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$p : PaymentMethodDef( paymentMethod == Constants.PM_BANKI_CSOPORTOS_BESZEDES )
@@ -196,7 +186,7 @@ rule "validate payment frequency (not valid - havi eseten nem csoportos)"
 end
 
 rule "validate payment frequency (not valid - bizonyos jármuveknel egy osszegben kell fizetni)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
        
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN, 
@@ -213,7 +203,7 @@ rule "validate payment frequency (not valid - bizonyos jármuveknel egy osszegbe
 end
 
 rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (egyeb jarmu)"
-	agenda-group "validate"
+	agenda-group "valid-tariff"
 	
 	salience -5 
 	when
@@ -235,7 +225,7 @@ rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (egyeb jarmu)"
 end
 
 rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (motorkerekpar)"
-	agenda-group "validate"
+	agenda-group "valid-tariff"
 	
 	salience -5 
 	when
@@ -252,7 +242,7 @@ rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (motorkerekpar)"
 end
 
 rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (autobusz)"
-	agenda-group "validate"
+	agenda-group "valid-tariff"
 	
 	salience -5 
 	when
@@ -269,7 +259,7 @@ rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (autobusz)"
 end
 
 rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (tehergepjarmu)"
-	agenda-group "validate"
+	agenda-group "valid-tariff"
 	
 	salience -5 
 	when
@@ -297,7 +287,7 @@ end
 				        Jármű szintű validációk 
 *****************************************************************************/
 rule "validate yearOfProduction (isNull)"
-    agenda-group "validate"      
+    agenda-group "valid-tariff"      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU &&
@@ -308,7 +298,7 @@ rule "validate yearOfProduction (isNull)"
 end
 
 rule "validate yearOfProduction (not valid)"
-    agenda-group "validate"      
+    agenda-group "valid-tariff"      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU && eval ( !isNullInt( yearOfProduction ) ) )					  
@@ -319,7 +309,7 @@ rule "validate yearOfProduction (not valid)"
 end
 
 rule "validate vehicle typecode (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$v : Vehicle( eval( isNullInt(typeCode) ) )
@@ -330,7 +320,7 @@ rule "validate vehicle typecode (isNull)"
 end
 
 rule "validate vehicle typecode (not valid)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$v : Vehicle( eval( !isNullInt(typeCode) ) )
@@ -341,7 +331,7 @@ rule "validate vehicle typecode (not valid)"
 end
 
 rule "validate vehicle typecode (not valid - proba rendszam nincs hatarozatlan esetben)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -352,7 +342,7 @@ rule "validate vehicle typecode (not valid - proba rendszam nincs hatarozatlan e
 end
 
 rule "validate vehicle typecode (not valid - segedmotoros kerekpar, trolibusz nincs hatarozott esetben)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZOTT )
@@ -364,7 +354,7 @@ rule "validate vehicle typecode (not valid - segedmotoros kerekpar, trolibusz ni
 end
 
 rule "validate vehicle make (not valid)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
        
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -377,7 +367,7 @@ rule "validate vehicle make (not valid)"
 end
 
 rule "validate vehicle make (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -389,7 +379,7 @@ rule "validate vehicle make (isNull)"
 end
 
 rule "validate operationalModality (not valid)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -401,7 +391,7 @@ rule "validate operationalModality (not valid)"
 end
 
 rule "validate operationalModality (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -413,7 +403,7 @@ rule "validate operationalModality (isNull)"
 end
 
 rule "validate power (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -426,7 +416,7 @@ rule "validate power (isNull)"
 end
 
 rule "validate cubicCapacity (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -439,7 +429,7 @@ rule "validate cubicCapacity (isNull)"
 end
 
 rule "validate seatingCapacity (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -452,7 +442,7 @@ rule "validate seatingCapacity (isNull)"
 end
 
 rule "validate carryingCapacity (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
     
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -468,7 +458,7 @@ end
 				        Partner szintű validációk 
 *****************************************************************************/
 rule "validate dateOfBirth (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -481,7 +471,7 @@ rule "validate dateOfBirth (isNull)"
 end
 
 rule "validate postcode (isNull)"
-    agenda-group "validate"    
+    agenda-group "valid-tariff"    
     
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -494,7 +484,7 @@ rule "validate postcode (isNull)"
 end
 
 rule "validate postcode (not valid)"
-    agenda-group "validate"  
+    agenda-group "valid-tariff"  
         
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -507,7 +497,7 @@ rule "validate postcode (not valid)"
 end
 
 rule "validate genderCode (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -518,7 +508,7 @@ rule "validate genderCode (isNull)"
 end
 
 rule "validate genderCode (not valid)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
           
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -531,7 +521,7 @@ rule "validate genderCode (not valid)"
 end
 
 rule "validate yearOfDrivingLicense (isNull)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
     
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
@@ -549,7 +539,7 @@ end
 				        		Egyéb
 *****************************************************************************/
 rule "validate szemelygepjarmu discounts (startDate >= 2010 jan 1 and insuranceDuration = HATAROZATLAN)"
-    agenda-group "validate"
+    agenda-group "valid-tariff"
     salience -50
     no-loop
 	when

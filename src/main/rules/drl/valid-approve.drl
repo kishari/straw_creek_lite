@@ -1,0 +1,14 @@
+package MTPLTariffRules
+
+import hu.dbx.screek.model.facts.*;
+import hu.dbx.screek.model.*;
+import org.joda.time.DateTime;
+import java.util.Date;
+
+rule "approve test"
+    agenda-group "valid-approve"
+	when
+		$q : Quote( )
+	then
+		insert( Message.create("38") );
+end
