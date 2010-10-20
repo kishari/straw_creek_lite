@@ -168,8 +168,8 @@ rule "teruleti besorolas-korcsoport szorzo (termeszetes szemely)"
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )		
 		$p : Partner( eval( !isEq(genderCode, $c.getValue() ) ) )
-		$a : AreaDef( postCode == $p.postCode )
-		$mf: PartnerAgeModFactorDef( areaCode == $a.areaCode )
+		$a : AreaDef( eval ( isEq( postCode, $p.getPostCode() ) ), version == $ctx.version )
+		$mf: PartnerAgeModFactorDef( areaCode == $a.areaCode, version == $ctx.version )
 		eval ( isBetween( $mf.getAgeMin(), 
 						  $mf.getAgeMax(), 
 						  yearsBetween($p.getDateOfBirth(), $q.getStartDate() ) ) )
@@ -188,7 +188,7 @@ rule "teruleti besorolas szorzo (jogi szemely)"
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
 		$p : Partner( eval( isEq(genderCode, $c.getValue() ) ) )
-		$a : AreaDef( postCode == $p.postCode )
+		$a : AreaDef( eval ( isEq( postCode, $p.getPostCode() ) ), version == $ctx.version )
 		$mf: LegalModFactorDef( areaCode == $a.areaCode )
 		eval ( $a.isValid( $q.getStartDate() ) &&
 		 	   $mf.isValid( $q.getStartDate() ) )

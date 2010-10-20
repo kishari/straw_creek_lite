@@ -16,7 +16,7 @@ public class PartnerV1 {
 	private String mothersName;
 	
 	
-	private Integer postCode;
+	private String postCode;
 	private Integer yearOfDrivingLicense;
 	
 	private ModFactorListV1 modfactors = new ModFactorListV1();
@@ -37,11 +37,11 @@ public class PartnerV1 {
 		this.genderCode = genderCode;
 	}
 
-	public Integer getPostCode() {
+	public String getPostCode() {
 		return postCode;
 	}
 
-	public void setPostCode(Integer postCode) {
+	public void setPostCode(String postCode) {
 		this.postCode = postCode;
 	}
 

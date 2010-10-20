@@ -515,7 +515,7 @@ rule "validate postcode (isNull)"
 		$c : Context()
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
-		$p : Partner( eval( isNullInt(postCode) ) )
+		$p : Partner( eval( isNullString(postCode) ) )
 				
 	then
 		$p.setPostCode(null);
@@ -529,11 +529,11 @@ rule "validate postcode (not valid)"
 		$c : Context()
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
-		$p : Partner( eval( !isNullInt(postCode) ) )
-		not(exists AreaDef( postCode == $p.postCode, version == $c.version ) )
+		$p : Partner( eval( !isNullString(postCode) ) )
+		not(exists AreaDef( eval( postCode.equals($p.getPostCode() ) ), version == $c.version ) )
 		
 	then
-		insert( Message.create("1", $p.getPostCode().toString() ) );		
+		insert( Message.create("1", $p.getPostCode() ) );		
 end
 
 rule "validate genderCode (isNull)"

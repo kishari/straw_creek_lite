@@ -2,16 +2,16 @@ package hu.dbx.screek.model.facts;
 
 public class AreaDef extends BaseDef {
 	
-	private Integer postCode;
+	private String postCode;
 	
 	//areaCode = 1, 2, 3 vagy 4, postCode-tól függően
 	private Integer areaCode; 
 	
-	public Integer getPostCode() {
+	public String getPostCode() {
 		return postCode;
 	}
 	
-	public void setPostCode(Integer postCode) {
+	public void setPostCode(String postCode) {
 		this.postCode = postCode;
 	}
 

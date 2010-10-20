@@ -33,7 +33,7 @@ public class Mapper {
 	}
 	
 	private static Integer string2Int(String value) {		
-		if (value != null && "".equals(value)) {
+		if (value != null && !"".equals(value)) {
 			return Integer.valueOf(value);
 		}
 		return null;
@@ -130,14 +130,19 @@ public class Mapper {
 		Partner p = new Partner();
 		if (partnerV1 != null) {
 			p.setDateOfBirth(partnerV1.getDateOfBirth());
-			p.setPostCode(partnerV1.getPostCode());
+			
+			if (partnerV1.getPostCode() != null && partnerV1.getPostCode() == 0) { // 0 postCode-ot null-nak tekintjük
+				partnerV1.setPostCode(null);
+			}			
+			p.setPostCode(int2String(partnerV1.getPostCode()));
+			
 			p.setYearOfDrivingLicense(partnerV1.getYearOfDrivingLicense());
 			
 			if (partnerV1.getGenderCode() != null && partnerV1.getGenderCode() == 0) { // 0 genderCode-ot null-nak tekintjük
 				partnerV1.setGenderCode(null);
-			}
-			
+			}			
 			p.setGenderCode(int2String(partnerV1.getGenderCode()));
+			
 			p.setModfactors(mapIn(partnerV1.getModfactors(), p));
 		}
 		return p;
@@ -242,7 +247,6 @@ public class Mapper {
 		
 		q.setCallerId(quote.getCallerId());
 		q.setStartDate(quote.getStartDate());
-		//q.setEndDate(quote.getEndDate());
 		q.setDurationType(quote.getDurationType());
 		q.setPaymentMethod(quote.getPaymentMethod());
 		q.setPaymentFrequency(quote.getPaymentFrequency());
@@ -327,7 +331,8 @@ public class Mapper {
 		PartnerThinV1 p = new PartnerThinV1();
 		
 		p.setDateOfBirth(partner.getDateOfBirth());
-		p.setPostCode(partner.getPostCode());
+		System.out.println(partner.getPostCode());
+		p.setPostCode(string2Int(partner.getPostCode()));
 		p.setYearOfDrivingLicense(partner.getYearOfDrivingLicense());
 		p.setGenderCode(string2Int(partner.getGenderCode()));
 		
