@@ -2,16 +2,16 @@ package hu.dbx.screek.model.facts;
 
 public class BaseTariffDef extends BaseDef{
 	
-	private Integer vehicleType;
+	private String vehicleType;
 	private Integer durationType;
 	private Integer value;
 	
 	
-	public Integer getVehicleType() {
+	public String getVehicleType() {
 		return vehicleType;
 	}
 	
-	public void setVehicleType(Integer vehicleType) {
+	public void setVehicleType(String vehicleType) {
 		this.vehicleType = vehicleType;
 	}
 	

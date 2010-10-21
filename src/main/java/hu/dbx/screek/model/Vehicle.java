@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Vehicle {
 	
 	private Quote quote;
-	private Integer typeCode;
+	private String typeCode;
 	private String make;
 	private Integer seatingCapacity;
 	private Integer cubicCapacity;
@@ -24,11 +24,11 @@ public class Vehicle {
 	private ModFactorList modfactors = new ModFactorList();
 	
 
-	public Integer getTypeCode() {
+	public String getTypeCode() {
 		return typeCode;
 	}
 
-	public void setTypeCode(Integer typeCode) {
+	public void setTypeCode(String typeCode) {
 		this.typeCode = typeCode;
 	}
 

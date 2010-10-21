@@ -6,22 +6,22 @@ public class Constants {
 	public static final Integer DT_HATAROZOTT = 2;
 	
 	//Jármű típusok (Vehicle.typeCode)
-	public static final Integer TC_SZEMELYGEPJARMU = 1;
-	public static final Integer TC_TEHERGEPJARMU = 2;
-	public static final Integer TC_MOTORKEREKPAR = 3;
-	public static final Integer TC_AUTOBUSZ = 4;
-	public static final Integer TC_TROLIBUSZ = 5;
-	public static final Integer TC_VONTATO = 6;
-	public static final Integer TC_KONNYU_POTKOCSI = 7;
-	public static final Integer TC_NEHEZ_POTKOCSI = 8;
-	public static final Integer TC_SZEMELYGEPKOCSI_UTANFUTO = 10;
-	public static final Integer TC_LAKOKOCSI = 11;
-	public static final Integer TC_MOTORKEREKPAR_UTANFUTO = 12;
-	public static final Integer TC_MEZOGAZDASAGI_VONTATO = 13;
-	public static final Integer TC_LASSUJARMU = 14;
-	public static final Integer TC_MUNKAGEP = 15;
-	public static final Integer TC_SEGEDMOTOROS_KEREKPAR = 16;
-	public static final Integer TC_PROBA_RENDSZAM = 17;
+	public static final String TC_SZEMELYGEPJARMU = "1";
+	public static final String TC_TEHERGEPJARMU = "2";
+	public static final String TC_MOTORKEREKPAR = "3";
+	public static final String TC_AUTOBUSZ = "4";
+	public static final String TC_TROLIBUSZ = "5";
+	public static final String TC_VONTATO = "6";
+	public static final String TC_KONNYU_POTKOCSI = "7";
+	public static final String TC_NEHEZ_POTKOCSI = "8";
+	public static final String TC_SZEMELYGEPKOCSI_UTANFUTO = "10";
+	public static final String TC_LAKOKOCSI = "11";
+	public static final String TC_MOTORKEREKPAR_UTANFUTO = "12";
+	public static final String TC_MEZOGAZDASAGI_VONTATO = "13";
+	public static final String TC_LASSUJARMU = "14";
+	public static final String TC_MUNKAGEP = "15";
+	public static final String TC_SEGEDMOTOROS_KEREKPAR = "16";
+	public static final String TC_PROBA_RENDSZAM = "17";
 	
 
 	

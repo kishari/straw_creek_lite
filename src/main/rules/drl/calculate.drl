@@ -12,6 +12,13 @@ function boolean isNullInt(Integer i) {
 		return (i == null || i == 0);
 }
 
+function boolean isEq(String str1, String str2) {
+		if (str1 != null && str2 != null) {
+			return str1.equals(str2);
+		}
+		return false;		
+}
+
 function double round(double val, int precision) {
 	BigDecimal temp = new BigDecimal(val).setScale(precision, BigDecimal.ROUND_HALF_UP);
 	
@@ -61,12 +68,12 @@ rule "alaptarifa beallitas"
 		$q : Quote()
 		$v : Vehicle()
 		$b : BaseTariffDef( durationType == $q.durationType,
-							vehicleType == $v.typeCode )
+							eval( isEq( vehicleType, $v.getTypeCode() ) ) )
 		eval ( $b.isValid( $q.getStartDate() ) )
 		eval ( ($q.getDurationType() == Constants.DT_HATAROZATLAN && 
-			   	$v.getTypeCode() != Constants.TC_TEHERGEPJARMU && 
-		   	   	$v.getTypeCode() != Constants.TC_MOTORKEREKPAR && 
-		   	   	$v.getTypeCode() != Constants.TC_AUTOBUSZ) ||
+			    !isEq( $v.getTypeCode(), Constants.TC_TEHERGEPJARMU ) && 
+		   	    !isEq( $v.getTypeCode(), Constants.TC_MOTORKEREKPAR ) && 
+		   	    !isEq( $v.getTypeCode(), Constants.TC_AUTOBUSZ ) ) ||
 		   	   	($q.getDurationType() == Constants.DT_HATAROZOTT) ) 
 	then		
 		$q.getResult().setBaseTariff( $b.getValue() );
@@ -77,7 +84,7 @@ rule "alaptarifa beallitas (motorkerekpar)"
 	agenda-group "calculate"
 	when
 		$q : Quote()
-		$v : Vehicle( typeCode == Constants.TC_MOTORKEREKPAR )
+		$v : Vehicle( eval( isEq( typeCode, Constants.TC_MOTORKEREKPAR ) ) )
 		$b : MotorBikeBaseTariffDef( durationType == $q.durationType ) 
 		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
 		eval ( $b.isValid( $q.getStartDate() ) )
@@ -90,7 +97,7 @@ rule "alaptarifa beallitas (autobusz)"
 	agenda-group "calculate"
 	when
 		$q : Quote()
-		$v : Vehicle( typeCode == Constants.TC_AUTOBUSZ )
+		$v : Vehicle(eval( isEq( typeCode, Constants.TC_AUTOBUSZ ) ) )
 		$b : AutoBusBaseTariffDef( durationType == $q.durationType )
 		eval ( isBetween($b.getSeatingCapacityMin(), $b.getSeatingCapacityMax(), $v.getSeatingCapacity() ) )
 		eval ( $b.isValid( $q.getStartDate() ) )
@@ -104,7 +111,7 @@ rule "alaptarifa beallitas (tehergepjarmu)"
 	when
 		$q : Quote()
 		$p : Partner()
-		$v : Vehicle( typeCode == Constants.TC_TEHERGEPJARMU )
+		$v : Vehicle( eval( isEq( typeCode, Constants.TC_TEHERGEPJARMU ) ) )
 		$b : TruckBaseTariffDef( durationType == $q.durationType,
 								 genderCode == $p.genderCode )
 		eval ( isBetween( $b.getCarryingCapacityMin(), 
@@ -128,7 +135,7 @@ rule "alaptarifa modositas a gyartmany-teljesitmeny-hengerurtartalom alapjan"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
+		$v : Vehicle( eval( isEq( typeCode, Constants.TC_SZEMELYGEPJARMU ) ) )
 		$m : MakeDef( make == $v.make )
 		$p : PowerModFactorDef( makeCode == $m.makeCode )
 		$c : CubicCapacityModFactorDef( )
@@ -151,7 +158,7 @@ rule "teruleti besorolas-korcsoport szorzo (termeszetes szemely)"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )		
+		$v : Vehicle( eval( isEq( typeCode, Constants.TC_SZEMELYGEPJARMU ) ) )		
 		$p : Partner( genderCode != Constants.JOGI_SZEMELY )
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: PartnerAgeModFactorDef( areaCode == $a.areaCode )
@@ -169,7 +176,7 @@ rule "teruleti besorolas szorzo (jogi szemely)"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
+		$v : Vehicle( eval( isEq( typeCode, Constants.TC_SZEMELYGEPJARMU ) ) )
 		$p : Partner( genderCode == Constants.JOGI_SZEMELY )
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: LegalModFactorDef( areaCode == $a.areaCode )
@@ -184,7 +191,7 @@ rule "jarmu eletkor szorzo"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU && eval ( !isNullInt( yearOfProduction ) ) )
+		$v : Vehicle( eval( isEq( typeCode, Constants.TC_SZEMELYGEPJARMU ) && !isNullInt( yearOfProduction ) ) )
 		$mf: VehicleAgeModFactorDef()
 		eval ( isBetween( $mf.getAgeMin(),
 						  $mf.getAgeMax(),
@@ -199,7 +206,7 @@ rule "vezetoi engedely szorzo"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
+		$v : Vehicle( eval( isEq( typeCode, Constants.TC_SZEMELYGEPJARMU ) ) )
 		//Azért kell a Partnerhoz betenni ezt a feltételt, mert ha nincs itt, és a yearOfDrivingLicense = null,
 		//akkor az 1. eval elszáll a new DateTime miatt.
 		$p : Partner( eval( !isNullInt( yearOfDrivingLicense ) ) )
@@ -230,7 +237,7 @@ rule "Bonus-Malus szorzo"
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$bm: BonusMalusModFactorDef( bonusMalus == $q.bonusMalus )
 		$v : Vehicle()
-		$vt: VehicleTypeDef( typeCode == $v.typeCode, bonusMalus == true )	
+		$vt: VehicleTypeDef( eval( isEq( typeCode, $v.getTypeCode() ) ), bonusMalus == true )	
 		eval ( $bm.isValid( $q.getStartDate() ) )
 				
 	then
