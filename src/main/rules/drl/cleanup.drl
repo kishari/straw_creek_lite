@@ -15,6 +15,16 @@ rule "ModFactorok eltavolitas a sessionbol"
 		retract($mf);
 end
 
+rule "Atmeneti ParamDef(BASETARIFF-TEMP) eltavolitas a sessionbol"
+	agenda-group "cleanup"
+	
+	when
+		$p : ParamDef( key == "BASETARIFF-TEMP" )
+		
+	then
+		retract($p);
+end
+
 rule "State-ek eltavolitas a sessionbol"
 	agenda-group "cleanup"
 	

@@ -62,8 +62,22 @@ function boolean firstIsAfter(DateTime s, DateTime e) {
 /*****************************************************************************
 							  Alaptarifa beállítás 
 *****************************************************************************/
+rule "temp baseTariff parameter beszuras (Ez fogja tarolni szgk-nal a make_power x cc X alaptarifa erteket)"
+	agenda-group "calculate"
+	salience 50
+	when
+		$q : Quote()
+	then
+		ParamDef p = new ParamDef();
+		p.setKey("BASETARIFF-TEMP");
+		p.setValue("UNKNOWN");	
+		insert( p );
+		
+end
+
 rule "alaptarifa beallitas"
 	agenda-group "calculate"
+	salience 30
 	when
 		$q : Quote()
 		$v : Vehicle()
@@ -82,6 +96,7 @@ end
 
 rule "alaptarifa beallitas (motorkerekpar)"
 	agenda-group "calculate"
+	salience 30
 	when
 		$q : Quote()
 		$v : Vehicle( typeCode == Constants.TC_MOTORKEREKPAR )
@@ -95,6 +110,7 @@ end
 
 rule "alaptarifa beallitas (autobusz)"
 	agenda-group "calculate"
+	salience 30	
 	when
 		$q : Quote()
 		$v : Vehicle( typeCode == Constants.TC_AUTOBUSZ )
@@ -108,6 +124,7 @@ end
 
 rule "alaptarifa beallitas (tehergepjarmu)"
 	agenda-group "calculate"
+	salience 30	
 	when
 		$q : Quote()
 		$p : Partner()
@@ -135,6 +152,7 @@ rule "alaptarifa modositas a gyartmany-teljesitmeny-hengerurtartalom alapjan"
 	agenda-group "calculate"
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$pm: ParamDef( key == "BASETARIFF-TEMP", value == "UNKNOWN" )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
 		$m : MakeDef( make == $v.make )
 		$p : PowerModFactorDef( makeCode == $m.makeCode )
@@ -152,7 +170,9 @@ rule "alaptarifa modositas a gyartmany-teljesitmeny-hengerurtartalom alapjan"
 	then
 		int baseTariff = $q.getResult().getBaseTariff();
 		baseTariff = (int)Math.round(baseTariff * $p.getValue() * $c.getValue() );
-		$q.getResult().setBaseTariff( baseTariff );
+		modify ( $pm ) { setValue( Integer.toString(baseTariff) ) }		
+		insert(new ModFactor("MAKE-POWER", $p.getValue(), $v, "MULTIPLIER"));
+		insert(new ModFactor("CUBIC-CAPACITY", $c.getValue(), $v, "MULTIPLIER"));
 end
 
 rule "teruleti besorolas-korcsoport szorzo (termeszetes szemely)"
@@ -411,6 +431,7 @@ rule "hatarozatlan ideju kgfb eves premium szamolasa"
 		$p : Partner()
 		$pf: PaymentFreqDef( frequencyCode == $q.paymentFrequency)
 		$param : ParamDef( key == "DOUBLE_PRECISION" )
+		$bt : ParamDef( key == "BASETARIFF-TEMP" )
         $quotemf : Double()
 	        			from accumulate ( $mf : ModFactor( quote == $q, $val : value, discount == false, surcharge == false ),
 	                          init(double m = 1.0;),
@@ -453,6 +474,11 @@ rule "hatarozatlan ideju kgfb eves premium szamolasa"
 	                   )     	 	                              	                                  	                                           					
 	then
 		int baseTariff = $q.getResult().getBaseTariff();
+		
+		if (!"UNKNOWN".equals($bt.getValue() ) ) {
+			$q.getResult().setBaseTariff( Integer.parseInt( $bt.getValue() ) );
+		}
+		
 		int precision = Integer.parseInt( $param.getValue() );
 		
 		if ( $discounts < 0.6 ) {			
