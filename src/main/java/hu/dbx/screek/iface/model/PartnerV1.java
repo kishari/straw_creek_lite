@@ -8,7 +8,7 @@ public class PartnerV1 {
 
 	private Date dateOfBirth;
 	private Integer genderCode;
-	private Integer postCode;
+	private String postCode;
 	private Integer yearOfDrivingLicense;
 	
 	private ModFactorListV1 modfactors = new ModFactorListV1();
@@ -38,11 +38,11 @@ public class PartnerV1 {
 		this.modfactors = modfactors;
 	}
 
-	public void setPostCode(Integer postCode) {
+	public void setPostCode(String postCode) {
 		this.postCode = postCode;
 	}
 
-	public Integer getPostCode() {
+	public String getPostCode() {
 		return postCode;
 	}
 
