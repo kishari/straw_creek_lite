@@ -219,7 +219,7 @@
 	       <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>1996</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>4</paymentFrequency>
+            <paymentFrequency>49</paymentFrequency>
             <paymentMethod>2</paymentMethod>
             <startDate>2010-09-01</startDate>
             <vehicle>
@@ -232,7 +232,7 @@
                <ownWeight>?</ownWeight>
                <seatingCapacity></seatingCapacity>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>1</typeCode>
+               <typeCode>10</typeCode>
                <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
@@ -379,7 +379,7 @@
 	       <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>12</paymentFrequency>
+            <paymentFrequency>48</paymentFrequency>
             <paymentMethod>1</paymentMethod>
             <startDate>2010-01-01</startDate> 
             <vehicle>
@@ -388,8 +388,8 @@
                <make>OPEL</make>
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>1</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -411,7 +411,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	       <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>12</paymentFrequency>
+            <paymentFrequency>48</paymentFrequency>
             <paymentMethod>1</paymentMethod>
             <startDate>2010-01-01</startDate> 
             <vehicle>
@@ -420,8 +420,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <make>OPEL</make>
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>1</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -443,7 +443,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	       <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>12</paymentFrequency>
+            <paymentFrequency>48</paymentFrequency>
             <paymentMethod>1</paymentMethod>
             <startDate>2010-01-01</startDate> 
             <vehicle>
@@ -452,8 +452,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <make>OPEL</make>
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>1</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -474,7 +474,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	       <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
--->            <paymentFrequency>12</paymentFrequency>
+-->            <paymentFrequency>48</paymentFrequency>
             <paymentMethod>1</paymentMethod>
             <startDate>2010-01-01</startDate> 
             <vehicle>
@@ -483,8 +483,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <make>OPEL</make>
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>2</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>14</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -508,7 +508,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
- -->           <paymentFrequency>12</paymentFrequency>
+ -->           <paymentFrequency>48</paymentFrequency>
             <paymentMethod>1</paymentMethod>
             <startDate>2010-01-01</startDate> 
             <vehicle>
@@ -517,8 +517,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <make>OPEL</make>
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>2</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>14</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -539,7 +539,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-   -->         <paymentFrequency>12</paymentFrequency>
+   -->         <paymentFrequency>48</paymentFrequency>
             <paymentMethod>2</paymentMethod>
             <startDate>2010-01-01</startDate> 
             <vehicle>
@@ -548,8 +548,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <make>OPEL</make>
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>1</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -570,7 +570,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>1</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>12</paymentFrequency>
+            <paymentFrequency>48</paymentFrequency>
             <paymentMethod>2</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
@@ -579,8 +579,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <make>OPEL</make>
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>2</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>14</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -601,7 +601,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>1</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>12</paymentFrequency>
+            <paymentFrequency>48</paymentFrequency>
             <paymentMethod>2</paymentMethod>
             <startDate>2010-01-01</startDate> 
             <vehicle>
@@ -610,8 +610,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <make>OPEL</make>
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>1</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -632,7 +632,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>2</genderCode>
 	  <!--     <yearOfDrivingLicense>2008</yearOfDrivingLicense> -->
             </partner>
-            <paymentFrequency>12</paymentFrequency>
+            <paymentFrequency>48</paymentFrequency>
             <paymentMethod>2</paymentMethod>
             <startDate>2010-01-01</startDate> 
             <vehicle>
@@ -641,8 +641,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <make>OPEL</make>
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>1</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -665,7 +665,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>3</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-      <!--      <paymentFrequency>12</paymentFrequency> -->
+      <!--      <paymentFrequency>48</paymentFrequency> -->
             <paymentMethod>1</paymentMethod>
             <startDate>2010-11-01</startDate> 
             <vehicle>
@@ -675,7 +675,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
 	       <seatingCapacity>22</seatingCapacity>
-               <typeCode>3</typeCode>
+               <typeCode>11</typeCode>
                <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
@@ -699,7 +699,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>3</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>12</paymentFrequency> 
+            <paymentFrequency>48</paymentFrequency> 
             <paymentMethod>2</paymentMethod>
             <startDate>2010-11-01</startDate> 
             <vehicle>
@@ -709,7 +709,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
 	       <seatingCapacity>22</seatingCapacity>
-               <typeCode>5</typeCode>
+               <typeCode>13</typeCode>
                <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
@@ -733,7 +733,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>3</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>4</paymentFrequency> 
+            <paymentFrequency>49</paymentFrequency> 
             <paymentMethod>2</paymentMethod>
             <startDate>2010-11-01</startDate> 
             <vehicle>
@@ -743,7 +743,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
 	       <seatingCapacity>22</seatingCapacity>
-               <typeCode>10</typeCode>
+               <typeCode>18</typeCode>
                <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
@@ -767,7 +767,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>3</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>4</paymentFrequency> 
+            <paymentFrequency>49</paymentFrequency> 
             <paymentMethod>2</paymentMethod>
             <startDate>2010-11-01</startDate> 
             <vehicle>
@@ -777,7 +777,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
 	       <seatingCapacity>22</seatingCapacity>
-               <typeCode>1</typeCode>
+               <typeCode>10</typeCode>
                <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
@@ -801,7 +801,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>3</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>4</paymentFrequency> 
+            <paymentFrequency>49</paymentFrequency> 
             <paymentMethod>2</paymentMethod>
             <startDate>2010-11-01</startDate> 
             <vehicle>
@@ -811,7 +811,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <maximumNettoPower>44</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
 	       <seatingCapacity>22</seatingCapacity>
-               <typeCode>1</typeCode>
+               <typeCode>10</typeCode>
                <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
@@ -835,7 +835,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>4</paymentFrequency> 
+            <paymentFrequency>49</paymentFrequency> 
             <paymentMethod>2</paymentMethod>
             <startDate>2010-11-01</startDate> 
             <vehicle>
@@ -845,7 +845,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
             <!--   <maximumNettoPower></maximumNettoPower> -->
 	       <carryingCapacity>222</carryingCapacity>
 	       <seatingCapacity>22</seatingCapacity>
-               <typeCode>1</typeCode>
+               <typeCode>10</typeCode>
                <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
@@ -869,7 +869,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>4</paymentFrequency> 
+            <paymentFrequency>49</paymentFrequency> 
             <paymentMethod>2</paymentMethod>
             <startDate>2010-11-01</startDate> 
             <vehicle>
@@ -879,7 +879,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <maximumNettoPower>1111</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
 	       <seatingCapacity>22</seatingCapacity>
-               <typeCode>1</typeCode>
+               <typeCode>10</typeCode>
                <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
@@ -903,7 +903,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>4</paymentFrequency> 
+            <paymentFrequency>49</paymentFrequency> 
             <paymentMethod>2</paymentMethod>
             <startDate></startDate>
             <vehicle>
@@ -913,7 +913,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <maximumNettoPower>1111</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
 	       <seatingCapacity>22</seatingCapacity>
-               <typeCode>1</typeCode>
+               <typeCode>10</typeCode>
                <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
@@ -937,7 +937,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
--->            <paymentFrequency>1</paymentFrequency> 
+-->            <paymentFrequency>51</paymentFrequency> 
             <paymentMethod>2</paymentMethod>
             <startDate>2010-11-01</startDate> 
             <vehicle>
@@ -947,7 +947,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <maximumNettoPower>1111</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
 	       <seatingCapacity></seatingCapacity>
-               <typeCode>4</typeCode>
+               <typeCode>12</typeCode>
                <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
@@ -969,12 +969,12 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
            	<dateOfBirth>1986-02-05</dateOfBirth>
 	        <genderCode>2</genderCode>
             </partner>
-            <paymentFrequency>1</paymentFrequency> 
+            <paymentFrequency>51</paymentFrequency> 
             <paymentMethod>2</paymentMethod>
             <startDate>2010-11-01</startDate> 
             <vehicle>
 	       <carryingCapacity></carryingCapacity>
-               <typeCode>2</typeCode>
+               <typeCode>14</typeCode>
                <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
@@ -998,7 +998,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode></genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>1</paymentFrequency> 
+            <paymentFrequency>51</paymentFrequency> 
             <paymentMethod>2</paymentMethod>
             <startDate>2010-11-01</startDate> 
             <vehicle>
@@ -1008,7 +1008,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <maximumNettoPower>1111</maximumNettoPower>
 	       <carryingCapacity>1111</carryingCapacity>
 	       <seatingCapacity></seatingCapacity>
-               <typeCode>1</typeCode>
+               <typeCode>10</typeCode>
                <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
@@ -1067,7 +1067,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	        <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>4</paymentFrequency> 
+            <paymentFrequency>51</paymentFrequency> 
             <paymentMethod>2</paymentMethod>
             <startDate>2009-09-01</startDate>
             <vehicle>
@@ -1077,7 +1077,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <maximumNettoPower>1111</maximumNettoPower>
 	       <carryingCapacity>222</carryingCapacity>
 	       <seatingCapacity>22</seatingCapacity>
-               <typeCode>7</typeCode>
+               <typeCode>16</typeCode>
                <operationalModality>1</operationalModality>
             </vehicle>
          </quote>
@@ -1086,7 +1086,41 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>33</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="LoadTest 1"><con:settings><con:setting id="HttpSettings@close-connections">false</con:setting></con:settings><con:threadCount>15</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>600</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Thread</con:type><con:config><startThreadCount>1</startThreadCount><endThreadCount>15</endThreadCount></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Tarifálás" searchProperties="true" id="b9ac2961-2326-48ba-917c-65f223fcde72"><con:settings/><con:testStep type="request" name="Nincs kedvezmény vagy pótdíj" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Nincs kedvezmény vagy pótdíj" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>33</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Üzemeltetés jellege"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Üzemeltetés jellege" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:tariff>
+         <quote>
+	    <bonusMalus>B1</bonusMalus>
+	    <durationType>1</durationType>
+	    <emailGranted>true</emailGranted>
+            <extraDamageExemption>true</extraDamageExemption> 
+            <partner>
+		<postCode>1111</postCode> 
+           	<dateOfBirth>1986-02-05</dateOfBirth>
+	        <genderCode>1</genderCode>
+	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
+            </partner>
+            <paymentFrequency>51</paymentFrequency> 
+            <paymentMethod>2</paymentMethod>
+            <startDate>2010-11-01</startDate> 
+            <vehicle>
+              <cubicCapacity>1111</cubicCapacity>
+               <yearOfProduction>2000</yearOfProduction>
+               <make>OPEL</make>
+               <maximumNettoPower>1111</maximumNettoPower>
+	       <carryingCapacity>1111</carryingCapacity>
+	       <seatingCapacity></seatingCapacity>
+               <typeCode>10</typeCode>
+               <operationalModality></operationalModality>
+            </vehicle>
+         </quote>
+      </ser:tariff>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>17</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="LoadTest 1"><con:settings><con:setting id="HttpSettings@close-connections">false</con:setting></con:settings><con:threadCount>15</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>600</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Thread</con:type><con:config><startThreadCount>1</startThreadCount><endThreadCount>15</endThreadCount></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Tarifálás" searchProperties="true" id="b9ac2961-2326-48ba-917c-65f223fcde72"><con:settings/><con:testStep type="request" name="Nincs kedvezmény vagy pótdíj" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Nincs kedvezmény vagy pótdíj" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1142,7 +1176,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	       <genderCode>2</genderCode>
 	       <yearOfDrivingLicense>2000</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>1</paymentFrequency>
+            <paymentFrequency>51</paymentFrequency>
             <paymentMethod>2</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
@@ -1155,8 +1189,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <ownWeight>?</ownWeight>
                <seatingCapacity></seatingCapacity>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>1</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -1183,7 +1217,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	       <genderCode>1</genderCode>
 	       <yearOfDrivingLicense>2000</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>2</paymentFrequency>
+            <paymentFrequency>50</paymentFrequency>
             <paymentMethod>2</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
@@ -1196,8 +1230,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <ownWeight>?</ownWeight>
                <seatingCapacity></seatingCapacity>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>1</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -1224,7 +1258,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	       <genderCode>1</genderCode>
 	       <yearOfDrivingLicense>2008</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>2</paymentFrequency>
+            <paymentFrequency>50</paymentFrequency>
             <paymentMethod>2</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
@@ -1237,8 +1271,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <ownWeight>?</ownWeight>
                <seatingCapacity></seatingCapacity>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>1</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -1265,7 +1299,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	       <genderCode>1</genderCode>
 	       <yearOfDrivingLicense>2002</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>2</paymentFrequency>
+            <paymentFrequency>50</paymentFrequency>
             <paymentMethod>1</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
@@ -1278,8 +1312,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <ownWeight>?</ownWeight>
                <seatingCapacity></seatingCapacity>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>1</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -1306,7 +1340,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	       <genderCode>1</genderCode>
 	       <yearOfDrivingLicense>2002</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>1</paymentFrequency>
+            <paymentFrequency>51</paymentFrequency>
             <paymentMethod>1</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
@@ -1319,8 +1353,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <ownWeight>?</ownWeight>
                <seatingCapacity></seatingCapacity>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>1</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -1347,7 +1381,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	       <genderCode>1</genderCode>
 	       <yearOfDrivingLicense>2002</yearOfDrivingLicense>
             </partner>
-            <paymentFrequency>12</paymentFrequency>
+            <paymentFrequency>48</paymentFrequency>
             <paymentMethod>1</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
@@ -1360,8 +1394,8 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
                <ownWeight>?</ownWeight>
                <seatingCapacity></seatingCapacity>
 	       <carryingCapacity>222</carryingCapacity>
-               <typeCode>1</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -1384,13 +1418,13 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	    <extraDamageExemption>false</extraDamageExemption>
             <partner>
             </partner>
-            <paymentFrequency>12</paymentFrequency>
+            <paymentFrequency>48</paymentFrequency>
             <paymentMethod>1</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity>250</cubicCapacity>
-               <typeCode>3</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>11</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -1413,13 +1447,13 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	    <extraDamageExemption>false</extraDamageExemption>
             <partner>
             </partner>
-            <paymentFrequency>12</paymentFrequency>
+            <paymentFrequency>48</paymentFrequency>
             <paymentMethod>1</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity>1001</cubicCapacity>
-               <typeCode>3</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>11</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -1442,12 +1476,12 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	    <extraDamageExemption>false</extraDamageExemption>
             <partner>
             </partner>
-            <paymentFrequency>4</paymentFrequency>
+            <paymentFrequency>49</paymentFrequency>
             <paymentMethod>2</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
-               <typeCode>5</typeCode>
-               <operationalModality>1</operationalModality>
+               <typeCode>13</typeCode>
+               <operationalModality>000</operationalModality>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -1469,11 +1503,11 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	    <extraDamageExemption>false</extraDamageExemption>
             <partner>
             </partner>
-            <paymentFrequency>4</paymentFrequency>
+            <paymentFrequency>49</paymentFrequency>
             <paymentMethod>2</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
-               <typeCode>1</typeCode>
+               <typeCode>10</typeCode>
             </vehicle>
          </quote>
       </ser:tariff>
@@ -1495,11 +1529,11 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 	    <extraDamageExemption>false</extraDamageExemption>
             <partner>
             </partner>
-            <paymentFrequency>4</paymentFrequency>
+            <paymentFrequency>49</paymentFrequency>
             <paymentMethod>2</paymentMethod>
             <startDate>2010-01-01</startDate>
             <vehicle>
-               <typeCode>4</typeCode>
+               <typeCode>12</typeCode>
             </vehicle>
          </quote>
       </ser:tariff>

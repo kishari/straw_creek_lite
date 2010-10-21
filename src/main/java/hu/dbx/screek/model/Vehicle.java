@@ -18,8 +18,7 @@ public class Vehicle {
 	private Integer maximumNettoPower;
 	private Integer yearOfProduction;
 	private Date dateOfPurchase;
-	private Integer operationalModality;
-	private Integer age;
+	private String operationalModality;
 	
 	private ModFactorList modfactors = new ModFactorList();
 	
@@ -88,14 +87,6 @@ public class Vehicle {
 		this.dateOfPurchase = dateOfPurchase;
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
-
 	@XmlTransient
 	public Quote getQuote() {
 		return quote;
@@ -126,11 +117,11 @@ public class Vehicle {
 		return carryingCapacity;
 	}
 
-	public void setOperationalModality(Integer operationalModality) {
+	public void setOperationalModality(String operationalModality) {
 		this.operationalModality = operationalModality;
 	}
 
-	public Integer getOperationalModality() {
+	public String getOperationalModality() {
 		return operationalModality;
 	}
 

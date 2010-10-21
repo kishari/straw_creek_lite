@@ -36,7 +36,7 @@ public class VehicleV1 {
 	private Date dateOfPurchase;
 	
 	//Üzemeltetés jellege
-	private Integer operationalModality;
+	private String operationalModality;
 	
 	private ModFactorListV1 modfactors = new ModFactorListV1();
 	
@@ -122,11 +122,11 @@ public class VehicleV1 {
 		return carryingCapacity;
 	}
 
-	public void setOperationalModality(Integer operationalModality) {
+	public void setOperationalModality(String operationalModality) {
 		this.operationalModality = operationalModality;
 	}
 
-	public Integer getOperationalModality() {
+	public String getOperationalModality() {
 		return operationalModality;
 	}
 

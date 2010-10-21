@@ -390,11 +390,11 @@ rule "validate operationalModality (not valid)"
      
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( eval( !isNullInt(operationalModality) ) )
+		$v : Vehicle( eval( !isNullString(operationalModality) ) )
 		not(exists OperationalModalityDef( operationalModality == $v.operationalModality ) )
 			
 	then
-		insert( Message.create("16", $v.getOperationalModality().toString() ) );
+		insert( Message.create("16", $v.getOperationalModality() ) );
 end
 
 rule "validate operationalModality (isNull)"
@@ -402,7 +402,7 @@ rule "validate operationalModality (isNull)"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( eval( isNullInt(operationalModality) ) )
+		$v : Vehicle( eval( isNullString(operationalModality) ) )
 			
 	then
 		$v.setOperationalModality(null);

@@ -43,7 +43,7 @@ public class Constants {
 	public static final String PM_POSTAI_CSEKK = "2";
 	
 	//Üzemeltetési jelleg (Vehicle.operationalModality)
-	public static final Integer OM_NORMAL = 1;
+	public static final String OM_NORMAL = "000";
 
 	//Kedvezmények, pótdíjak (ModFactorDef.modfactorType)
 	public static final Integer MF_CASCO = 1;
