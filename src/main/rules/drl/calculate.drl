@@ -114,7 +114,7 @@ rule "alaptarifa beallitas (tehergepjarmu)"
 	agenda-group "calculate"
 	when
 		$ctx : Context()
-		$c : ConstantsDef( version == $ctx.version, eval( isEq(name, "LEGAL_PERSON") )  )
+		$c : ConstantsDef( version == $ctx.version, eval( isEq(name, "JOGI_SZEMELY") )  )
 		$q : Quote()
 		$p : Partner()
 		$v : Vehicle( typeCode == Constants.TC_TEHERGEPJARMU )
@@ -164,7 +164,7 @@ rule "teruleti besorolas-korcsoport szorzo (termeszetes szemely)"
 	agenda-group "calculate"
 	when
 		$ctx : Context()
-		$c : ConstantsDef( version == $ctx.version, eval( isEq(name, "LEGAL_PERSON") )  )
+		$c : ConstantsDef( version == $ctx.version, eval( isEq(name, "JOGI_SZEMELY") )  )
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )		
 		$p : Partner( eval( !isEq(genderCode, $c.getValue() ) ) )
@@ -184,7 +184,7 @@ rule "teruleti besorolas szorzo (jogi szemely)"
 	agenda-group "calculate"
 	when
 		$ctx : Context()
-		$c : ConstantsDef( version == $ctx.version, eval( isEq(name, "LEGAL_PERSON") )  )
+		$c : ConstantsDef( version == $ctx.version, eval( isEq(name, "JOGI_SZEMELY") )  )
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
 		$p : Partner( eval( isEq(genderCode, $c.getValue() ) ) )
