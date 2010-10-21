@@ -16,8 +16,8 @@ rule "setting groupedCollection flag"
     agenda-group "preprocess"
     lock-on-active
 	when
-		$p : PaymentMethodDef( eval( isEq( paymentMethod, Constants.PM_BANKI_CSOPORTOS_BESZEDES ) ) )
-		$q : Quote( eval( isEq( paymentMethod, $p.getPaymentMethod() ) ) )
+		$p : PaymentMethodDef( paymentMethod == Constants.PM_BANKI_CSOPORTOS_BESZEDES )
+		$q : Quote( paymentMethod == $p.paymentMethod)
 		
 	then
 		modify( $q ) { setGroupedCollection( true ) };		
