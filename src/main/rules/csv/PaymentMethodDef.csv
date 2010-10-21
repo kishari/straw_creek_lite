@@ -1,3 +1,4 @@
 "PAYMENT_METHOD";"DESCRIPTION";"VALID_FROM";"VALID_TO"
-1;"Banki csoportos beszedés";"2010-01-01";"2010-12-31"
-2;"Egyéb";"2010-01-01";"2010-12-31"
+3;"átutalás";"1900-01-01";"9999-12-31"
+1;"csoportos beszedés";"1900-01-01";"9999-12-31"
+2;"készpénzfizetési megbízás (csekk)";"1900-01-01";"9999-12-31"

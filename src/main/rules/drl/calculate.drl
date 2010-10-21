@@ -145,6 +145,7 @@ rule "alaptarifa modositas a gyartmany-teljesitmeny-hengerurtartalom alapjan"
 		eval ( isBetween( $c.getCapacityMin(), 
 						  $c.getCapacityMax(), 
 						  $v.getCubicCapacity() ) )
+		eval ( $m.isValid( $q.getStartDate() ) )
 		eval ( $p.isValid( $q.getStartDate() ) )
 		eval ( $c.isValid( $q.getStartDate() ) ) 
 				
@@ -239,6 +240,7 @@ rule "Bonus-Malus szorzo"
 		$v : Vehicle()
 		$vt: VehicleTypeDef( eval( isEq( typeCode, $v.getTypeCode() ) ), bonusMalus == true )	
 		eval ( $bm.isValid( $q.getStartDate() ) )
+		eval ( $vt.isValid( $q.getStartDate() ) )		
 				
 	then
 		insert(new ModFactor("BONUS-MALUS", $bm.getValue(), $q, "MULTIPLIER") );
