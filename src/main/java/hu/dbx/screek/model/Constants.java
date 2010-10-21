@@ -37,9 +37,9 @@ public class Constants {
 	public static final Integer PF_EVES = 1;
 	
 	//Fizetési mód (Quote.paymentMethod)
-	public static final Integer PM_ATUTALAS = 3;
-	public static final Integer PM_BANKI_CSOPORTOS_BESZEDES = 1;
-	public static final Integer PM_POSTAI_CSEKK = 2;
+	public static final String PM_ATUTALAS = "0";
+	public static final String PM_BANKI_CSOPORTOS_BESZEDES = "1";
+	public static final String PM_POSTAI_CSEKK = "2";
 	
 	//Üzemeltetési jelleg (Vehicle.operationalModality)
 	public static final Integer OM_NORMAL = 1;

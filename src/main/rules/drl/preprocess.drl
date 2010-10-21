@@ -5,12 +5,19 @@ import hu.dbx.screek.model.*;
 import org.joda.time.DateTime;
 import java.util.Date;
 
+function boolean isEq(String str1, String str2) {
+		if (str1 != null && str2 != null) {
+			return str1.equals(str2);
+		}
+		return false;		
+}
+
 rule "setting groupedCollection flag"
     agenda-group "preprocess"
     lock-on-active
 	when
-		$p : PaymentMethodDef( paymentMethod == Constants.PM_BANKI_CSOPORTOS_BESZEDES )
-		$q : Quote( paymentMethod == $p.paymentMethod )
+		$p : PaymentMethodDef( eval( isEq( paymentMethod, Constants.PM_BANKI_CSOPORTOS_BESZEDES ) ) )
+		$q : Quote( eval( isEq( paymentMethod, $p.getPaymentMethod() ) ) )
 		
 	then
 		modify( $q ) { setGroupedCollection( true ) };		

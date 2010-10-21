@@ -13,7 +13,7 @@ public class Quote {
 	private Partner partner;
 	private Vehicle vehicle;
 	private Integer paymentFrequency;
-	private Integer paymentMethod;
+	private String paymentMethod;
 	
 	private boolean takeOutWithCasco;
 	private boolean childPreference;
@@ -60,11 +60,11 @@ public class Quote {
 		this.durationType = durationType;
 	}
 	
-	public void setPaymentMethod(Integer paymentMethod) {
+	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 
-	public Integer getPaymentMethod() {
+	public String getPaymentMethod() {
 		return paymentMethod;
 	}
 
