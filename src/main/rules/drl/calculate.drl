@@ -409,6 +409,7 @@ rule "hatarozatlan ideju kgfb eves premium szamolasa"
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle()
 		$p : Partner()
+		$pf: PaymentFreqDef( frequencyCode == $q.paymentFrequency)
 		$param : ParamDef( key == "DOUBLE_PRECISION" )
         $quotemf : Double()
 	        			from accumulate ( $mf : ModFactor( quote == $q, $val : value, discount == false, surcharge == false ),
@@ -461,7 +462,7 @@ rule "hatarozatlan ideju kgfb eves premium szamolasa"
 
 		double mult = round($quotemf * $partnermf * $vehiclemf * $discounts * $surcharges, precision);
 		int premium = (int)Math.round(baseTariff * mult);
-		int installmentPremium = (int)Math.round(premium / (double)$q.getPaymentFrequency() );
+		int installmentPremium = (int)Math.round(premium / (double)$pf.getInstallmentDivisor() );
 //		System.out.println("qoute: " + $quotemf); 
 //		System.out.println("vehicle: " + $vehiclemf); 
 //		System.out.println("partner: " + $partnermf);
