@@ -161,7 +161,7 @@ rule "validate payment frequency (isNull)"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN && 
-					eval( isNullInt(paymentFrequency) ) )
+					eval( isNullString(paymentFrequency) ) )
 	then
 		$q.setPaymentFrequency(null);
 		insert( Message.create("8") );		
@@ -172,7 +172,7 @@ rule "validate payment frequency (not valid)"
       
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN &&
-					eval( !isNullInt(paymentFrequency) ) )
+					eval( !isNullString(paymentFrequency) ) )
 		not(exists PaymentFreqDef( frequencyCode == $q.paymentFrequency ) )
 			
 	then

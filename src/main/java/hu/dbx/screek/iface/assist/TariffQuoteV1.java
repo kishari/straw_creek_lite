@@ -15,7 +15,7 @@ public class TariffQuoteV1 {
 	private Integer durationType;
 	private PartnerV1 partner;
 	private VehicleV1 vehicle;
-	private Integer paymentFrequency;
+	private String paymentFrequency;
 	private String paymentMethod;
 	private String bonusMalus;
 	
@@ -96,11 +96,11 @@ public class TariffQuoteV1 {
 		this.emailGranted = emailGranted;
 	}
 
-	public Integer getPaymentFrequency() {
+	public String getPaymentFrequency() {
 		return paymentFrequency;
 	}
 
-	public void setPaymentFrequency(Integer paymentFrequency) {
+	public void setPaymentFrequency(String paymentFrequency) {
 		this.paymentFrequency = paymentFrequency;
 	}
 

@@ -12,7 +12,7 @@ public class Quote {
 	private Integer durationType;
 	private Partner partner;
 	private Vehicle vehicle;
-	private Integer paymentFrequency;
+	private String paymentFrequency;
 	private String paymentMethod;
 	
 	private boolean takeOutWithCasco;
@@ -108,11 +108,11 @@ public class Quote {
 		this.emailGranted = emailGranted;
 	}
 
-	public Integer getPaymentFrequency() {
+	public String getPaymentFrequency() {
 		return paymentFrequency;
 	}
 
-	public void setPaymentFrequency(Integer paymentFrequency) {
+	public void setPaymentFrequency(String paymentFrequency) {
 		this.paymentFrequency = paymentFrequency;
 	}
 

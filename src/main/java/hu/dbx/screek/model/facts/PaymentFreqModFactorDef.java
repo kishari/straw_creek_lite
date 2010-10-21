@@ -2,14 +2,14 @@ package hu.dbx.screek.model.facts;
 
 public class PaymentFreqModFactorDef extends BaseDef {
 	
-	private Integer frequencyCode;
+	private String frequencyCode;
 	private Double value;
 	
-	public Integer getFrequencyCode() {
+	public String getFrequencyCode() {
 		return frequencyCode;
 	}
 	
-	public void setFrequencyCode(Integer frequencyCode) {
+	public void setFrequencyCode(String frequencyCode) {
 		this.frequencyCode = frequencyCode;
 	}
 	

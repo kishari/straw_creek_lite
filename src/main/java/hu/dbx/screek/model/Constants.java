@@ -31,11 +31,11 @@ public class Constants {
 	public static final Integer JOGI_SZEMELY = 3;
 	
 	//Fizetési gyakoriságok (Quote.paymentFrequency)
-	public static final Integer PF_EGYSZERI = 47;
-	public static final Integer PF_HAVI = 48;
-	public static final Integer PF_NEGYEDEVES = 49;
-	public static final Integer PF_FELEVES = 50;
-	public static final Integer PF_EVES = 51;
+	public static final String PF_EGYSZERI = "47";
+	public static final String PF_HAVI = "48";
+	public static final String PF_NEGYEDEVES = "49";
+	public static final String PF_FELEVES = "50";
+	public static final String PF_EVES = "51";
 	
 	//Fizetési mód (Quote.paymentMethod)
 	public static final String PM_ATUTALAS = "0";
