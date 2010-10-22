@@ -5,13 +5,6 @@ import hu.dbx.screek.model.*;
 import org.joda.time.DateTime;
 import java.util.Date;
 
-function boolean isEq(String str1, String str2) {
-		if (str1 != null && str2 != null) {
-			return str1.equals(str2);
-		}
-		return false;		
-}
-
 rule "setting groupedCollection flag"
     agenda-group "preprocess"
     lock-on-active
@@ -21,6 +14,15 @@ rule "setting groupedCollection flag"
 		
 	then
 		modify( $q ) { setGroupedCollection( true ) };		
+end
+
+rule "insert vehicle-type-def contansts"
+    agenda-group "preprocess"
+	when
+		$vt : VehicleTypeDef()
+		not ( exists( Constant( name == $vt.constantName ) ) )
+	then
+		insert( new Constant($vt.getConstantName(), $vt.getTypeCode() ) );		
 end
 
 /*

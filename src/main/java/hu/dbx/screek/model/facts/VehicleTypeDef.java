@@ -4,6 +4,7 @@ public class VehicleTypeDef extends BaseDef {
 
 	private String typeCode;
 	private String description;
+	private String constantName;
 	private Integer bonusMalusValid;
 	private boolean bonusMalus;
 	
@@ -44,5 +45,13 @@ public class VehicleTypeDef extends BaseDef {
 
 	public Integer getBonusMalusValid() {
 		return bonusMalusValid;
+	}
+
+	public void setConstantName(String constantName) {
+		this.constantName = constantName;
+	}
+
+	public String getConstantName() {
+		return constantName;
 	}
 }

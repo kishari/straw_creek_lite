@@ -196,14 +196,20 @@ rule "validate payment frequency (not valid - bizonyos jármuveknel egy osszegbe
     agenda-group "validate"
        
 	when
+		$c1: Constant( name == "TC_KONNYU_POTKOCSI")
+		$c2: Constant( name == "TC_NEHEZ_POTKOCSI")
+		$c3: Constant( name == "TC_SZEMELYGEPKOCSI_UTANFUTO")
+		$c4: Constant( name == "TC_LAKOKOCSI")
+		$c5: Constant( name == "TC_MOTORKEREKPAR_UTANFUTO")
+		$c6: Constant( name == "TC_SEGEDMOTOROS_KEREKPAR")
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN, 
 					paymentFrequency != Constants.PF_EVES )
-		$v : Vehicle( typeCode == Constants.TC_KONNYU_POTKOCSI ||
-					  typeCode == Constants.TC_NEHEZ_POTKOCSI ||
-					  typeCode == Constants.TC_SZEMELYGEPKOCSI_UTANFUTO ||
-					  typeCode == Constants.TC_LAKOKOCSI ||
-					  typeCode == Constants.TC_MOTORKEREKPAR_UTANFUTO ||
-					  typeCode == Constants.TC_SEGEDMOTOROS_KEREKPAR )
+		$v : Vehicle( typeCode == $c1.value ||
+					  typeCode == $c2.value ||
+					  typeCode == $c3.value ||
+					  typeCode == $c4.value ||
+					  typeCode == $c5.value ||
+					  typeCode == $c6.value )
 		$vt: VehicleTypeDef( typeCode == $v.typeCode )
 	then
 		insert( Message.create("28", $v.getTypeCode(), $vt.getDescription() ) );
@@ -214,6 +220,9 @@ rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (egyeb jarmu)"
 	
 	salience -5 
 	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$c3: Constant( name == "TC_AUTOBUSZ")
 		$q : Quote()
 		$v : Vehicle()
 		$b : BaseTariffDef( durationType == $q.durationType,
@@ -221,9 +230,9 @@ rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (egyeb jarmu)"
 		$vt: VehicleTypeDef( typeCode == $v.typeCode )		    		   
 		eval ( !$b.isValid( $q.getStartDate() ) )
 		eval ( ($q.getDurationType() == Constants.DT_HATAROZATLAN && 
-			   	!$v.getTypeCode().equals(Constants.TC_TEHERGEPJARMU) && 
-		   	   	!$v.getTypeCode().equals(Constants.TC_MOTORKEREKPAR) && 
-		   	   	!$v.getTypeCode().equals(Constants.TC_AUTOBUSZ ) ) ||
+			   	!$v.getTypeCode().equals( $c1.getValue() ) && 
+		   	   	!$v.getTypeCode().equals( $c2.getValue() ) && 
+		   	   	!$v.getTypeCode().equals( $c3.getValue() ) ) ||
 		   	   	($q.getDurationType() == Constants.DT_HATAROZOTT) ) 
 	    not (exists (Message( code == "24") ) )	
 	then	
@@ -236,8 +245,9 @@ rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (motorkerekpar)"
 	
 	salience -5 
 	when
+		$c1: Constant( name == "TC_MOTORKEREKPAR")
 		$q : Quote()
-		$v : Vehicle( typeCode == Constants.TC_MOTORKEREKPAR )
+		$v : Vehicle( typeCode == $c1.value )
 		$vt: VehicleTypeDef( typeCode == $v.typeCode )	
 		$b : MotorBikeBaseTariffDef( durationType == $q.durationType ) 
 		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
@@ -253,8 +263,9 @@ rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (autobusz)"
 	
 	salience -5 
 	when
+		$c1: Constant( name == "TC_AUTOBUSZ")
 		$q : Quote()
-		$v : Vehicle( typeCode == Constants.TC_AUTOBUSZ )
+		$v : Vehicle( typeCode == $c1.value )
 		$vt: VehicleTypeDef( typeCode == $v.typeCode )		
 		$b : AutoBusBaseTariffDef( durationType == $q.durationType )
 		eval ( isBetween($b.getSeatingCapacityMin(), $b.getSeatingCapacityMax(), $v.getSeatingCapacity() ) )
@@ -270,9 +281,10 @@ rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (tehergepjarmu)"
 	
 	salience -5 
 	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")
 		$q : Quote()
 		$p : Partner()
-		$v : Vehicle( typeCode == Constants.TC_TEHERGEPJARMU )
+		$v : Vehicle( typeCode == $c1.value )
 		$vt: VehicleTypeDef( typeCode == $v.typeCode )
 		$b : TruckBaseTariffDef( durationType == $q.durationType,
 								 genderCode == $p.genderCode )
@@ -536,7 +548,7 @@ rule "validate yearOfDrivingLicense (isNull)"
 	when
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
-		$p : Partner( eval( isNullInt(yearOfDrivingLicense) ) )
+		$p : Partner( genderCode != 3 && eval( isNullInt(yearOfDrivingLicense) ) )
 			
 	then
 		$p.setYearOfDrivingLicense(null);
