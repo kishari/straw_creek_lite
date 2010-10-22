@@ -230,7 +230,7 @@ rule "vezetoi engedely szorzo"
 		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
 		//Azért kell a Partnerhoz betenni ezt a feltételt, mert ha nincs itt, és a yearOfDrivingLicense = null,
 		//akkor az 1. eval elszáll a new DateTime miatt.
-		$p : Partner( eval( !isNullInt( yearOfDrivingLicense ) ) )
+		$p : Partner( genderCode != 3 && eval( !isNullInt( yearOfDrivingLicense ) ) )
 		$mf: DrivingLicenseModFactorDef()
 		eval ( isBetween( $mf.getSinceMin(),
 						  $mf.getSinceMax(),
