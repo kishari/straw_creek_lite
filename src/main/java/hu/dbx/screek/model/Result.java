@@ -7,10 +7,10 @@ public class Result {
 	private Integer installmentPremium;
 	private Integer totalPremium;
 	private Integer baseTariff;
-	private double discountMultiplier;
-	private double surchargeMultiplier;
-	private double otherMultiplier;
-	private double totalMultiplier;
+	private Double discountMultiplier;
+	private Double surchargeMultiplier;
+	private Double otherMultiplier;
+	private Double totalMultiplier;
 
 	public Integer getYearlyPremium() {
 		return yearlyPremium;
@@ -28,35 +28,35 @@ public class Result {
 		this.baseTariff = baseTariff;
 	}
 
-	public double getDiscountMultiplier() {
+	public Double getDiscountMultiplier() {
 		return discountMultiplier;
 	}
 
-	public void setDiscountMultiplier(double discountMultiplier) {
+	public void setDiscountMultiplier(Double discountMultiplier) {
 		this.discountMultiplier = discountMultiplier;
 	}
 
-	public double getSurchargeMultiplier() {
+	public Double getSurchargeMultiplier() {
 		return surchargeMultiplier;
 	}
 
-	public void setSurchargeMultiplier(double surchargeMultiplier) {
+	public void setSurchargeMultiplier(Double surchargeMultiplier) {
 		this.surchargeMultiplier = surchargeMultiplier;
 	}
 
-	public void setOtherMultiplier(double otherMultiplier) {
+	public void setOtherMultiplier(Double otherMultiplier) {
 		this.otherMultiplier = otherMultiplier;
 	}
 
-	public double getOtherMultiplier() {
+	public Double getOtherMultiplier() {
 		return otherMultiplier;
 	}
 
-	public void setTotalMultiplier(double totalMultiplier) {
+	public void setTotalMultiplier(Double totalMultiplier) {
 		this.totalMultiplier = totalMultiplier;
 	}
 
-	public double getTotalMultiplier() {
+	public Double getTotalMultiplier() {
 		return totalMultiplier;
 	}
 
