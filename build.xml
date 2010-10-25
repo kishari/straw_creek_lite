@@ -24,6 +24,10 @@
 	<property name="services.earname" value="services.ear"/>
 	<property name="services.earfile" value="${target.dist}/${services.earname}"/>
 	<property name="services.warfile" value="${target.dist}/${services.warname}"/>
+	<property name="tariff.warname" value="tariff.war"/>
+	<property name="tariff.earname" value="tariff.ear"/>
+	<property name="tariff.earfile" value="${target.dist}/${tariff.earname}"/>
+	<property name="tariff.warfile" value="${target.dist}/${tariff.warname}"/>
 	<property name="log4j.propfile" value="${resources}/log4j.properties"/>
 	<property name="verbose" value="false"/>
 
@@ -84,6 +88,23 @@
 		</jar>
 	</target>
 	
+	<target name="war-tariff" description="create war file" depends="compile">
+		 <copy todir="${web.web-inf.classes}">
+		    <fileset dir="${src}">
+		      <exclude name="**/*.java"/>
+		    </fileset>
+		  </copy>
+		 <copy todir="${web.web-inf.lib}">
+		    <fileset dir="${lib}">
+		      <exclude name="**/javaee-api-6.0.jar"/>
+		    </fileset>
+		  </copy>
+		<copy file="${log4j.propfile}" todir="${web.web-inf.classes}" />
+		<jar destfile="${tariff.warfile}" duplicate="preserve">
+			<fileset dir="${web}" />
+		</jar>
+	</target>
+	
 	<target name="deploy" depends="war">
 			<copy file="${log4j.propfile}" todir="${screek.domain.lib.classes}" />
 			<copy file="${screek.warfile}" todir="${screek-autodeploy-dir}" />
@@ -92,5 +113,8 @@
 	<target name="deploy-services" depends="war-services">
 			<copy file="${log4j.propfile}" todir="${services.domain.lib.classes}" />
 			<copy file="${services.warfile}" todir="${services-autodeploy-dir}" />
+	</target>
+	<target name="deploy-tariff" depends="war-tariff">
+			<copy file="${tariff.warfile}" todir="${services-autodeploy-dir}" />
 	</target>
 </project>
