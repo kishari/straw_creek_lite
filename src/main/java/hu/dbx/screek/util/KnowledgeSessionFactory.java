@@ -2,8 +2,10 @@ package hu.dbx.screek.util;
 
 import hu.dbx.screek.model.facts.*;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
 
@@ -82,7 +84,9 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 	}
 	
 	private Reader getReaderFor(String fact) throws FileNotFoundException{
-		return new FileReader(String.format("%s/%s.csv", this.getCsvPath(), fact));
+		return new BufferedReader(new InputStreamReader( 
+						getClass().getClassLoader().getResourceAsStream(String.format("csv/%s.csv", fact) ) )
+				   );
 	}
 
 }
