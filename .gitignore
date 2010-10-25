@@ -4,7 +4,7 @@
 *.class
 .settings/**
 bin/**
-web/WEB-INF/classes/log4j.properties
+web/WEB-INF/classes
 web/WEB-INF/lib
 target
 lib
