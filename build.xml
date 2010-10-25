@@ -9,6 +9,7 @@
 	<property name="web.web-inf.classes" value="${web.web-inf}/classes"/>
 	<property name="web.web-inf.lib" value="${web.web-inf}/lib"/>
 	<property name="src" value="${screek.basedir}/src/main/java"/>
+	<property name="src.rules" value="${screek.basedir}/src/main/rules"/>
 	<property name="target" value="${screek.basedir}/target"/>
 	<property name="target.dist" value="${target}/dist"/>
 	<property name="screek-autodeploy-dir" value="${glassfish.home}/glassfish/domains/${screek.domain}/autodeploy" />
@@ -93,6 +94,9 @@
 		    <fileset dir="${src}">
 		      <exclude name="**/*.java"/>
 		    </fileset>
+		  </copy>
+		 <copy todir="${web.web-inf.classes}">
+		    <fileset dir="${src.rules}"/>
 		  </copy>
 		 <copy todir="${web.web-inf.lib}">
 		    <fileset dir="${lib}">

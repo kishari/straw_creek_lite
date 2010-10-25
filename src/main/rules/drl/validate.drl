@@ -425,8 +425,9 @@ rule "validate power (isNull)"
     agenda-group "validate"
       
 	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU && 
+		$v : Vehicle( typeCode == $c1.value && 
 					  eval( isNullInt(maximumNettoPower) ) )
 			
 	then
@@ -434,12 +435,29 @@ rule "validate power (isNull)"
 		insert( Message.create("18") );
 end
 
+rule "validate power (not valid)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && 
+					  eval( !isNullInt(maximumNettoPower) ) )
+		eval( $v.getMaximumNettoPower() < 0 || $v.getMaximumNettoPower() > 999999)
+
+	then
+		$v.setMaximumNettoPower(null);
+		insert( Message.create("38") );
+end
+
 rule "validate cubicCapacity (isNull)"
     agenda-group "validate"
       
 	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$c2: Constant( name == "TC_MOTORKEREKPAR")
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( ( typeCode == Constants.TC_SZEMELYGEPJARMU || typeCode == Constants.TC_MOTORKEREKPAR ) &&  
+		$v : Vehicle( ( typeCode == $c1.value || typeCode == $c2.value ) &&  
 					  eval( isNullInt(cubicCapacity) ) )
 			
 	then
@@ -447,12 +465,29 @@ rule "validate cubicCapacity (isNull)"
 		insert( Message.create("19") );
 end
 
+rule "validate cubicCapacity (not valid)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value ) &&  
+					  eval( !isNullInt(cubicCapacity) ) )
+		eval( $v.getCubicCapacity() < 0 || $v.getCubicCapacity() > 999999)
+
+	then
+		$v.setCubicCapacity(null);
+		insert( Message.create("39") );
+end
+
 rule "validate seatingCapacity (isNull)"
     agenda-group "validate"
       
 	when
+		$c1: Constant( name == "TC_AUTOBUSZ")
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_AUTOBUSZ && 
+		$v : Vehicle( typeCode == $c1.value && 
 					  eval( isNullInt(seatingCapacity) ) )
 			
 	then
@@ -460,17 +495,46 @@ rule "validate seatingCapacity (isNull)"
 		insert( Message.create("20") );
 end
 
+rule "validate seatingCapacity (not valid)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_AUTOBUSZ")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && eval( !isNullInt(seatingCapacity) ) )
+		eval( $v.getSeatingCapacity() > 999999 || $v.getSeatingCapacity() < 10 )
+
+	then
+		$v.setSeatingCapacity(null);
+		insert( Message.create("40") );
+end
+
 rule "validate carryingCapacity (isNull)"
     agenda-group "validate"
     
 	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_TEHERGEPJARMU && 
+		$v : Vehicle( typeCode == $c1.value && 
 					  eval( isNullInt(carryingCapacity) ) )
 			
 	then
 		$v.setCarryingCapacity(null);
 		insert( Message.create("21") );
+end
+
+rule "validate carryingCapacity (not valid)"
+    agenda-group "validate"
+    
+	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")		
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && eval( !isNullInt(carryingCapacity) ) )
+		eval ($v.getCarryingCapacity() > 999999 || $v.getCarryingCapacity() < 0 )
+
+	then
+		$v.setCarryingCapacity(null);
+		insert( Message.create("41") );
 end
 
 /*****************************************************************************

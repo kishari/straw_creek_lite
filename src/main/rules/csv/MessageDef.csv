@@ -36,3 +36,7 @@
 35;0;"A teljes díj 30 napra szól. Határozott időre szóló KGFB csak 30 napra köthető! "
 36;2;"A gyártási év mező kitöltése kötelező!"
 37;2;"A megadott gyártási év (%1) érvénytelen!"
+38;2;"A megadott teljesítmény értéke nem megfelelő!"
+39;2;"A megadott hengerűrtartalom értéke nem megfelelő!"
+40;2;"A szállítható személyek számának értéke nem megfelelő!"
+41;2;"A megadott teherbírás értéke nem megfelelő!"
