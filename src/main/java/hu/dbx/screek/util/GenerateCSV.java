@@ -14,17 +14,24 @@ import au.com.bytecode.opencsv.CSVReader;
 
 public class GenerateCSV {
 	
-	private List<String[]> l;
+	private List<String[]> l1;
+	private List<String[]> l2;
 	
-	private List<RowObject> generateRows(String[] row) {
+	private List<RowObject> generateRows(String[] row, boolean workWithL1) {
 		List<RowObject> rowObjects = new ArrayList<RowObject>();
 		
 		for (int col = 1; col < row.length - 2; col++) {
 			RowObject r = new RowObject();
 			
-			r.setMakeCode(row[0]);			
-			r.setMinKW(l.get(0)[col].split("_")[1]);
-			r.setMaxKW(l.get(0)[col].split("_")[2]);
+			r.setMakeCode(row[0]);
+			if (workWithL1) {
+				r.setMinKW(l1.get(0)[col].split("_")[1]);
+				r.setMaxKW(l1.get(0)[col].split("_")[2]);
+			}
+			else {
+				r.setMinKW(l2.get(0)[col].split("_")[1]);
+				r.setMaxKW(l2.get(0)[col].split("_")[2]);
+			}
 			r.setValue(row[col]);			
 			r.setValidFrom(row[row.length - 2]);			
 			r.setValidTo(row[row.length - 1]);
@@ -41,30 +48,46 @@ public class GenerateCSV {
 		
 		writer.write("\"MAKE_CODE\";\"MIN_KW\";\"MAX_KW\";\"VALUE\";\"VALID_FROM\";\"VALID_TO\"\n");
 		
-		for (int row = 1; row < l.size(); row++) {
+		for (int row = 1; row < l1.size(); row++) {
 				
-				List<RowObject> rowObjects = generateRows(l.get(row));
+				List<RowObject> rowObjects = generateRows(l1.get(row), true);
 				
 				for (RowObject h : rowObjects) {
 					writer.write("\"" + h.getMakeCode() + "\";\"" + h.getMinKW() + "\";\"" + h.getMaxKW() + "\";\"" + h.getValue() + 
 							"\";\"" + h.getValidFrom() + "\";\"" + h.getValidTo() + "\"\n");
 				}
 		}
+		for (int row = 1; row < l2.size(); row++) {
+			
+			List<RowObject> rowObjects = generateRows(l2.get(row), false);
+			
+			for (RowObject h : rowObjects) {
+				writer.write("\"" + h.getMakeCode() + "\";\"" + h.getMinKW() + "\";\"" + h.getMaxKW() + "\";\"" + h.getValue() + 
+						"\";\"" + h.getValidFrom() + "\";\"" + h.getValidTo() + "\"\n");
+			}
+	}
 			
 		writer.close();
 	}
 
 	private void parse(String path) throws IOException {
 		CSVReader reader = new CSVReader(new FileReader(path), ';');
-		l = reader.readAll();
+		if (l1 == null) {
+			l1 = reader.readAll();
+		}
+		else {
+			l2 = reader.readAll();
+		}		
 	}
 	
 	public static void main(String[] args) {
 		GenerateCSV gen = new GenerateCSV();
 		try {
-			
-			gen.parse("/home/csaba/src/straw_creek/data/PowerModFactorTable.csv");
-			gen.buildNewCSV("/home/csaba/src/straw_creek/src/main/rules/csv/", "PowerModFactorDef.csv");
+			gen.parse("/home/csaba/src/straw_creek/data/PowerModFactorTable2010.csv");
+			//gen.buildNewCSV("/home/csaba/src/straw_creek/data/", "PowerModFactorDef2010.csv");
+			gen.parse("/home/csaba/src/straw_creek/data/PowerModFactorTable2011.csv");
+			//gen.buildNewCSV("/home/csaba/src/straw_creek/data/", "PowerModFactorDef2011.csv");
+			gen.buildNewCSV("/home/csaba/src/straw_creek/data/", "PowerModFactorDef.csv");
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
