@@ -41,14 +41,16 @@ public class Mapper {
 */
 		q.setDurationType(tariffQuoteV1.getDurationType());
 		
-		q.setTakeOutWithCasco(tariffQuoteV1.isTakeOutWithCasco());
+		q.setTakeOutWithMKBBCasco(tariffQuoteV1.isTakeOutWithMKBBCasco());
 		q.setChildPreference(tariffQuoteV1.isChild());
 		q.setMkbPartner(tariffQuoteV1.isMkbPartner());
 		q.setOnline(tariffQuoteV1.isOnline());
 		q.setEmailGranted(tariffQuoteV1.isEmailGranted());
-		q.setExtraDamageExemption(tariffQuoteV1.isExtraDamageExemption());
+		q.setExtraClaimFree(tariffQuoteV1.isExtraClaimFree());
+		q.setNonMKBBCasco(tariffQuoteV1.isNonMKBBCasco());
 		q.setPaymentMethod(tariffQuoteV1.getPaymentMethod());
 		q.setBonusMalus(tariffQuoteV1.getBonusMalus());
+		q.setMarketingPartner(tariffQuoteV1.isMarketingPartner());
 		
 		q.setPaymentFrequency(tariffQuoteV1.getPaymentFrequency());
 		
@@ -68,6 +70,11 @@ public class Mapper {
 			p.setPostCode(partnerV1.getPostCode());
 			p.setYearOfDrivingLicense(partnerV1.getYearOfDrivingLicense());
 			p.setGenderCode(partnerV1.getGenderCode());
+			p.setEntrepreneur(partnerV1.isEntrepreneur());
+			p.setGovernmentEmployee(partnerV1.isGovernmentEmployee());
+			p.setPublicEmployee(partnerV1.isPublicEmployee());
+			p.setTeacher(partnerV1.isTeacher());
+			p.setGerHunCCMember(partnerV1.isGerHunCCMember());
 			p.setModfactors(mapIn(partnerV1.getModfactors(), p));
 		}
 		return p;
@@ -165,12 +172,15 @@ public class Mapper {
 		q.setPaymentMethod(quote.getPaymentMethod());
 		q.setPaymentFrequency(quote.getPaymentFrequency());
 		
-		q.setTakeOutWithCasco(quote.isTakeOutWithCasco());
+		q.setTakeOutWithMKBBCasco(quote.isTakeOutWithMKBBCasco());
 		q.setChild(quote.isChildPreference());
 		q.setMkbPartner(quote.isMkbPartner());
 		q.setOnline(quote.isOnline());
 		q.setEmailGranted(quote.isEmailGranted());
-		q.setExtraDamageExemption(quote.isExtraDamageExemption());
+		q.setExtraClaimFree(quote.isExtraClaimFree());
+		q.setNonMKBBCasco(quote.isNonMKBBCasco());
+		q.setMarketingPartner(quote.isMarketingPartner());
+		
 		q.setResult(mapOut(quote.getResult()));
 		
 		q.setBonusMalus(quote.getBonusMalus());
@@ -191,6 +201,11 @@ public class Mapper {
 		p.setPostCode(partner.getPostCode());
 		p.setYearOfDrivingLicense(partner.getYearOfDrivingLicense());
 		p.setGenderCode(partner.getGenderCode());
+		p.setEntrepreneur(partner.isEntrepreneur());
+		p.setGovernmentEmployee(partner.isGovernmentEmployee());
+		p.setPublicEmployee(partner.isPublicEmployee());
+		p.setTeacher(partner.isTeacher());
+		p.setGerHunCCMember(partner.isGerHunCCMember());
 		
 		p.setModfactors(mapOut(partner.getModfactors()));
 		

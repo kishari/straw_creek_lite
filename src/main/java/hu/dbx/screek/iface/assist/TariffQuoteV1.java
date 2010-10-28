@@ -20,12 +20,14 @@ public class TariffQuoteV1 {
 	private String bonusMalus;
 	
 	//módosító paraméterek
-	private boolean takeOutWithCasco;
+	private boolean takeOutWithMKBBCasco;
+	private boolean nonMKBBCasco;
 	private boolean child;
 	private boolean mkbPartner;
 	private boolean online;
 	private boolean emailGranted;
-	private boolean extraDamageExemption;
+	private boolean extraClaimFree;
+	private boolean marketingPartner;
 	
 	private ResultV1 result;
 	private MessageListV1 messages = new MessageListV1();
@@ -56,12 +58,12 @@ public class TariffQuoteV1 {
 		this.vehicle = vehicle;
 	}
 
-	public boolean isTakeOutWithCasco() {
-		return takeOutWithCasco;
+	public boolean isTakeOutWithMKBBCasco() {
+		return takeOutWithMKBBCasco;
 	}
 
-	public void setTakeOutWithCasco(boolean takeOutWithCasco) {
-		this.takeOutWithCasco = takeOutWithCasco;
+	public void setTakeOutWithMKBBCasco(boolean takeOutWithMKBBCasco) {
+		this.takeOutWithMKBBCasco = takeOutWithMKBBCasco;
 	}
 
 	public boolean isChild() {
@@ -102,14 +104,6 @@ public class TariffQuoteV1 {
 
 	public void setPaymentFrequency(String paymentFrequency) {
 		this.paymentFrequency = paymentFrequency;
-	}
-
-	public boolean isExtraDamageExemption() {
-		return extraDamageExemption;
-	}
-
-	public void setExtraDamageExemption(boolean extraDamageExemption) {
-		this.extraDamageExemption = extraDamageExemption;
 	}
 	
 	public String getPaymentMethod() {
@@ -171,6 +165,30 @@ public class TariffQuoteV1 {
 
 	public Integer getDurationType() {
 		return durationType;
+	}
+
+	public void setNonMKBBCasco(boolean nonMKBBCasco) {
+		this.nonMKBBCasco = nonMKBBCasco;
+	}
+
+	public boolean isNonMKBBCasco() {
+		return nonMKBBCasco;
+	}
+
+	public void setMarketingPartner(boolean marketingPartner) {
+		this.marketingPartner = marketingPartner;
+	}
+
+	public boolean isMarketingPartner() {
+		return marketingPartner;
+	}
+
+	public void setExtraClaimFree(boolean extraClaimFree) {
+		this.extraClaimFree = extraClaimFree;
+	}
+
+	public boolean isExtraClaimFree() {
+		return extraClaimFree;
 	}
 
 	

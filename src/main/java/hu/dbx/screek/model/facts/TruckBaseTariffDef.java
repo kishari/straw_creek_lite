@@ -8,6 +8,8 @@ public class TruckBaseTariffDef extends BaseDef {
 	private Integer carryingCapacityMax;
 	private Integer partnerAgeMin;
 	private Integer partnerAgeMax;
+	private Integer allowedWeightMin;
+	private Integer allowedWeightMax;
 	private Integer value;
 	
 	
@@ -52,6 +54,18 @@ public class TruckBaseTariffDef extends BaseDef {
 	}
 	public void setValue(Integer value) {
 		this.value = value;
+	}
+	public void setAllowedWeightMin(Integer allowedWeightMin) {
+		this.allowedWeightMin = allowedWeightMin;
+	}
+	public Integer getAllowedWeightMin() {
+		return allowedWeightMin;
+	}
+	public void setAllowedWeightMax(Integer allowedWeightMax) {
+		this.allowedWeightMax = allowedWeightMax;
+	}
+	public Integer getAllowedWeightMax() {
+		return allowedWeightMax;
 	}
 	
 }

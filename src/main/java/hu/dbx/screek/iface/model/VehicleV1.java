@@ -21,10 +21,10 @@ public class VehicleV1 {
 	private Integer carryingCapacity;
 	
 	//Saját tömeg
-	private Double ownWeight;
+	private Integer ownWeight;
 	
 	//Maximálisan megengedett össztömeg
-	private Double maximumAllowedWeight;
+	private Integer maximumAllowedWeight;
 	
 	//Teljesítmény
 	private Integer maximumNettoPower;
@@ -73,19 +73,19 @@ public class VehicleV1 {
 		this.cubicCapacity = cubicCapacity;
 	}
 
-	public Double getOwnWeight() {
+	public Integer getOwnWeight() {
 		return ownWeight;
 	}
 
-	public void setOwnWeight(Double ownWeight) {
+	public void setOwnWeight(Integer ownWeight) {
 		this.ownWeight = ownWeight;
 	}
 
-	public Double getMaximumAllowedWeight() {
+	public Integer getMaximumAllowedWeight() {
 		return maximumAllowedWeight;
 	}
 
-	public void setMaximumAllowedWeight(Double maximumAllowedWeight) {
+	public void setMaximumAllowedWeight(Integer maximumAllowedWeight) {
 		this.maximumAllowedWeight = maximumAllowedWeight;
 	}
 

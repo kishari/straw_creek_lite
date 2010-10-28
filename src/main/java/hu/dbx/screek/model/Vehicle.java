@@ -13,8 +13,8 @@ public class Vehicle {
 	private Integer seatingCapacity;
 	private Integer cubicCapacity;
 	private Integer carryingCapacity;
-	private Double ownWeight;
-	private Double maximumAllowedWeight;
+	private Integer ownWeight;
+	private Integer maximumAllowedWeight;
 	private Integer maximumNettoPower;
 	private Integer yearOfProduction;
 	private Date dateOfPurchase;
@@ -55,19 +55,19 @@ public class Vehicle {
 		this.cubicCapacity = cubicCapacity;
 	}
 
-	public Double getOwnWeight() {
+	public Integer getOwnWeight() {
 		return ownWeight;
 	}
 
-	public void setOwnWeight(Double ownWeight) {
+	public void setOwnWeight(Integer ownWeight) {
 		this.ownWeight = ownWeight;
 	}
 
-	public Double getMaximumAllowedWeight() {
+	public Integer getMaximumAllowedWeight() {
 		return maximumAllowedWeight;
 	}
 
-	public void setMaximumAllowedWeight(Double maximumAllowedWeight) {
+	public void setMaximumAllowedWeight(Integer maximumAllowedWeight) {
 		this.maximumAllowedWeight = maximumAllowedWeight;
 	}
 
