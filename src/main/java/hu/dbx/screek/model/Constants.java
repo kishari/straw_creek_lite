@@ -23,7 +23,6 @@ public class Constants {
 	public static final String TC_MUNKAGEP = "23";
 	public static final String TC_SEGEDMOTOROS_KEREKPAR = "24";
 	public static final String TC_QUAD = "25";
-	public static final String TC_PROBA_RENDSZAM = "27";
 	
 
 	
@@ -34,7 +33,7 @@ public class Constants {
 	
 	//Fizetési gyakoriságok (Quote.paymentFrequency)
 	public static final String PF_EGYSZERI = "47";
-	public static final String PF_HAVI = "48"; //havi díjfizetés: megszűnt 2011-ben
+	//public static final String PF_HAVI = "48"; //havi díjfizetés: megszűnt 2011-ben
 	public static final String PF_NEGYEDEVES = "49";
 	public static final String PF_FELEVES = "50";
 	public static final String PF_EVES = "51";
@@ -51,9 +50,7 @@ public class Constants {
 	public static final Integer MF_MKBB_CASCO = 1;
 	public static final Integer MF_NEM_MKBB_CASCO = 10;
 	public static final Integer MF_BANKI_CSOPORTOS_LEHIVAS_VAGY_ATUTALAS = 2;
-	public static final Integer MF_ONLINE4 = 3; //csak 2010-esben
 	public static final Integer MF_ERTEKESITESI_PARTNER = 3; //csak 2011-ben
-	public static final Integer MF_ONLINE8 = 4; //csak 2010-esben
 	public static final Integer MF_GYERMEK = 5;
 	public static final Integer MF_MKB_PARTNER = 6;
 	public static final Integer MF_EMAIL = 7;

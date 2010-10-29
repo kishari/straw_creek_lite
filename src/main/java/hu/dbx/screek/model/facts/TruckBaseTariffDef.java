@@ -4,8 +4,6 @@ public class TruckBaseTariffDef extends BaseDef {
 
 	private Integer durationType;
 	private Integer genderCode;
-	private Integer carryingCapacityMin;
-	private Integer carryingCapacityMax;
 	private Integer partnerAgeMin;
 	private Integer partnerAgeMax;
 	private Integer allowedWeightMin;
@@ -25,18 +23,7 @@ public class TruckBaseTariffDef extends BaseDef {
 	public void setGenderCode(Integer genderCode) {
 		this.genderCode = genderCode;
 	}
-	public Integer getCarryingCapacityMin() {
-		return carryingCapacityMin;
-	}
-	public void setCarryingCapacityMin(Integer carryingCapacityMin) {
-		this.carryingCapacityMin = carryingCapacityMin;
-	}
-	public Integer getCarryingCapacityMax() {
-		return carryingCapacityMax;
-	}
-	public void setCarryingCapacityMax(Integer carryingCapacityMax) {
-		this.carryingCapacityMax = carryingCapacityMax;
-	}
+
 	public Integer getPartnerAgeMin() {
 		return partnerAgeMin;
 	}

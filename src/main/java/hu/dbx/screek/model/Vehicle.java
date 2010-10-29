@@ -12,7 +12,6 @@ public class Vehicle {
 	private String make;
 	private Integer seatingCapacity;
 	private Integer cubicCapacity;
-	private Integer carryingCapacity;
 	private Integer ownWeight;
 	private Integer maximumAllowedWeight;
 	private Integer maximumNettoPower;
@@ -107,14 +106,6 @@ public class Vehicle {
 	
 	public void addModFactor(ModFactor mf){
 		this.modfactors.getModfactors().add(mf);
-	}
-
-	public void setCarryingCapacity(Integer carryingCapacity) {
-		this.carryingCapacity = carryingCapacity;
-	}
-
-	public Integer getCarryingCapacity() {
-		return carryingCapacity;
 	}
 
 	public void setOperationalModality(String operationalModality) {

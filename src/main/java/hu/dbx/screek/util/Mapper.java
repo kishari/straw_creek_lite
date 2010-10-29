@@ -44,7 +44,6 @@ public class Mapper {
 		q.setTakeOutWithMKBBCasco(tariffQuoteV1.isTakeOutWithMKBBCasco());
 		q.setChildPreference(tariffQuoteV1.isChild());
 		q.setMkbPartner(tariffQuoteV1.isMkbPartner());
-		q.setOnline(tariffQuoteV1.isOnline());
 		q.setEmailGranted(tariffQuoteV1.isEmailGranted());
 		q.setExtraClaimFree(tariffQuoteV1.isExtraClaimFree());
 		q.setNonMKBBCasco(tariffQuoteV1.isNonMKBBCasco());
@@ -84,7 +83,7 @@ public class Mapper {
 		Vehicle v = new Vehicle();
 		if (vehicleV1 != null) {
 			v.setCubicCapacity(vehicleV1.getCubicCapacity());
-			v.setCarryingCapacity(vehicleV1.getCarryingCapacity());
+			//v.setCarryingCapacity(vehicleV1.getCarryingCapacity()); //2011-ben nincs
 			v.setDateOfPurchase(vehicleV1.getDateOfPurchase());
 			v.setYearOfProduction(vehicleV1.getYearOfProduction());
 			v.setMake(vehicleV1.getMake());
@@ -175,7 +174,6 @@ public class Mapper {
 		q.setTakeOutWithMKBBCasco(quote.isTakeOutWithMKBBCasco());
 		q.setChild(quote.isChildPreference());
 		q.setMkbPartner(quote.isMkbPartner());
-		q.setOnline(quote.isOnline());
 		q.setEmailGranted(quote.isEmailGranted());
 		q.setExtraClaimFree(quote.isExtraClaimFree());
 		q.setNonMKBBCasco(quote.isNonMKBBCasco());
@@ -216,7 +214,7 @@ public class Mapper {
 		VehicleV1 v = new VehicleV1();
 		
 		v.setCubicCapacity(vehicle.getCubicCapacity());
-		v.setCarryingCapacity(vehicle.getCarryingCapacity());
+		//v.setCarryingCapacity(vehicle.getCarryingCapacity()); //2011-ben nincs
 		v.setDateOfPurchase(vehicle.getDateOfPurchase());
 		v.setYearOfProduction(vehicle.getYearOfProduction());
 		v.setMake(vehicle.getMake());

@@ -52,9 +52,9 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 		addFacts(sess, PaymentMethodDef.class, new String[] {"paymentMethod", "description", "validFrom", "validTo"}, getReaderFor("PaymentMethodDef"));
 		addFacts(sess, GenderDef.class, new String[] {"genderCode", "description", "validFrom", "validTo"}, getReaderFor("GenderDef"));
 		addFacts(sess, BaseTariffDef.class, new String[] {"vehicleType", "durationType", "value", "validFrom", "validTo"}, getReaderFor("BaseTariffDef"));
-		addFacts(sess, MotorBikeBaseTariffDef.class, new String[] {"durationType", "cubicCapacityMin", "cubicCapacityMax", "powerMin", "powerMax", "value", "validFrom", "validTo"}, getReaderFor("MotorBikeBaseTariffDef"));
+		addFacts(sess, MotorBikeBaseTariffDef.class, new String[] {"durationType", "powerMin", "powerMax", "value", "validFrom", "validTo"}, getReaderFor("MotorBikeBaseTariffDef"));
 		addFacts(sess, AutoBusBaseTariffDef.class, new String[] {"durationType", "seatingCapacityMin", "seatingCapacityMax", "value", "validFrom", "validTo"}, getReaderFor("AutoBusBaseTariffDef"));
-		addFacts(sess, TruckBaseTariffDef.class, new String[] {"durationType", "genderCode", "carryingCapacityMin", "carryingCapacityMax", "partnerAgeMin", "partnerAgeMax", "allowedWeightMin", "allowedWeightMax", "value", "validFrom", "validTo"}, getReaderFor("TruckBaseTariffDef"));
+		addFacts(sess, TruckBaseTariffDef.class, new String[] {"durationType", "genderCode", "partnerAgeMin", "partnerAgeMax", "allowedWeightMin", "allowedWeightMax", "value", "validFrom", "validTo"}, getReaderFor("TruckBaseTariffDef"));
 		addFacts(sess, MessageDef.class, new String[] {"code", "severity", "description"}, getReaderFor("MessageDef"));
 		addFacts(sess, ParamDef.class, new String[] {"key", "value"}, getReaderFor("ParamDef"));
 	}

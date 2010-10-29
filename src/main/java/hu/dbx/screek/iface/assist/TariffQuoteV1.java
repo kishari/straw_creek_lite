@@ -24,7 +24,6 @@ public class TariffQuoteV1 {
 	private boolean nonMKBBCasco;
 	private boolean child;
 	private boolean mkbPartner;
-	private boolean online;
 	private boolean emailGranted;
 	private boolean extraClaimFree;
 	private boolean marketingPartner;
@@ -80,14 +79,6 @@ public class TariffQuoteV1 {
 
 	public void setMkbPartner(boolean mkbPartner) {
 		this.mkbPartner = mkbPartner;
-	}
-
-	public boolean isOnline() {
-		return online;
-	}
-
-	public void setOnline(boolean online) {
-		this.online = online;
 	}
 
 	public boolean isEmailGranted() {

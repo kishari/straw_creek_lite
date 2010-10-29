@@ -19,7 +19,6 @@ public class Quote {
 	private boolean nonMKBBCasco;
 	private boolean childPreference;
 	private boolean mkbPartner;
-	private boolean online;
 	private boolean emailGranted;
 	private boolean extraClaimFree;
 	private boolean groupedCollection;
@@ -93,14 +92,6 @@ public class Quote {
 
 	public void setMkbPartner(boolean mkbPartner) {
 		this.mkbPartner = mkbPartner;
-	}
-
-	public boolean isOnline() {
-		return online;
-	}
-
-	public void setOnline(boolean online) {
-		this.online = online;
 	}
 
 	public boolean isEmailGranted() {
