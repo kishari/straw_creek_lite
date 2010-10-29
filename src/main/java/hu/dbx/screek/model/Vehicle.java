@@ -18,6 +18,7 @@ public class Vehicle {
 	private Integer yearOfProduction;
 	private Date dateOfPurchase;
 	private String operationalModality;
+	private boolean cubicCapacityNotDefined;
 	
 	private ModFactorList modfactors = new ModFactorList();
 	
@@ -122,6 +123,14 @@ public class Vehicle {
 
 	public Integer getYearOfProduction() {
 		return yearOfProduction;
+	}
+
+	public void setCubicCapacityNotDefined(boolean cubicCapacityNotDefined) {
+		this.cubicCapacityNotDefined = cubicCapacityNotDefined;
+	}
+
+	public boolean isCubicCapacityNotDefined() {
+		return cubicCapacityNotDefined;
 	}
 	
 }

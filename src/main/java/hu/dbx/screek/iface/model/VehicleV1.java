@@ -35,6 +35,8 @@ public class VehicleV1 {
 	//Üzemeltetés jellege
 	private String operationalModality;
 	
+	private boolean cubicCapacityNotDefined; //A járműre nem értelmezett a hengerűrtartalom érték
+	
 	private ModFactorListV1 modfactors = new ModFactorListV1();
 	
 
@@ -125,6 +127,14 @@ public class VehicleV1 {
 
 	public Integer getYearOfProduction() {
 		return yearOfProduction;
+	}
+
+	public void setCubicCapacityNotDefined(boolean cubicCapacityNotDefined) {
+		this.cubicCapacityNotDefined = cubicCapacityNotDefined;
+	}
+
+	public boolean isCubicCapacityNotDefined() {
+		return cubicCapacityNotDefined;
 	}
 	
 }

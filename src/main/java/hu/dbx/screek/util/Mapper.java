@@ -93,6 +93,7 @@ public class Mapper {
 			v.setSeatingCapacity(vehicleV1.getSeatingCapacity());
 			v.setTypeCode(vehicleV1.getTypeCode());
 			v.setOperationalModality(vehicleV1.getOperationalModality());
+			v.setCubicCapacityNotDefined(vehicleV1.isCubicCapacityNotDefined());
 		
 			v.setModfactors(mapIn(vehicleV1.getModfactors(), v));
 		}
@@ -224,6 +225,7 @@ public class Mapper {
 		v.setSeatingCapacity(vehicle.getSeatingCapacity());
 		v.setTypeCode(vehicle.getTypeCode());
 		v.setOperationalModality(vehicle.getOperationalModality());
+		v.setCubicCapacityNotDefined(vehicle.isCubicCapacityNotDefined());
 		
 		v.setModfactors(mapOut(vehicle.getModfactors()));
 		

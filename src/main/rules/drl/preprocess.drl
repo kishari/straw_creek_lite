@@ -5,18 +5,54 @@ import hu.dbx.screek.model.*;
 import org.joda.time.DateTime;
 import java.util.Date;
 
-rule "setting groupedCollection flag"
+function boolean isEqualsDate(DateTime s0, DateTime e0) {
+	if (s0 == null || e0 == null) {
+		return false;
+	}
+		
+	DateTime temp = s0.withDate(s0.getYear(), s0.getMonthOfYear(), s0.getDayOfMonth());
+	
+	return temp.isEqual(e0);    
+}
+
+rule "setting groupedCollection flag (2011)"
     agenda-group "preprocess"
     lock-on-active
 	when
-		$p : PaymentMethodDef( paymentMethod == Constants.PM_BANKI_CSOPORTOS_BESZEDES )
-		$q : Quote( paymentMethod == $p.paymentMethod)
+		$p : PaymentMethodDef( paymentMethod == Constants.PM_BANKI_CSOPORTOS_BESZEDES || 
+							   paymentMethod == Constants.PM_ATUTALAS )
+		$q : Quote( paymentMethod == $p.paymentMethod )
 		
 	then
 		modify( $q ) { setGroupedCollection( true ) };		
 end
 
-rule "insert vehicle-type-def contansts"
+rule "setting campaign flag (if start = 2011.01.01)"
+    agenda-group "preprocess"
+    lock-on-active
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		eval ( isEqualsDate( new DateTime($q.getStartDate()), new DateTime(2011, 1, 1, 0, 0, 0, 0) ) )
+	then
+		modify( $q ) { setCampaign( true ) };		
+end
+
+rule "modify cubicCapacity (cubicCapacityNotDefined == true)"
+    agenda-group "preprocess"
+    no-loop 
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && 
+					  cubicCapacityNotDefined == true )				  
+			
+	then
+		modify( $v ) {
+			setCubicCapacity(100) //850 ccm alatti értéket kell kapnia. 100 < 850 :)		
+		}
+end
+
+rule "insert vehicle-type-def constants"
     agenda-group "preprocess"
 	when
 		$vt : VehicleTypeDef()
@@ -24,27 +60,3 @@ rule "insert vehicle-type-def contansts"
 	then
 		insert( new Constant($vt.getConstantName(), $vt.getTypeCode() ) );		
 end
-
-/*
-rule "setting durationType (hatarozatlan)"
-    agenda-group "preprocess"
-    no-loop
-	when
-		$q : Quote( endDate == null )
-	then
-		modify ( $q ) {
-			setDurationType( Constants.DT_HATAROZATLAN )
-		}
-end
-
-rule "setting durationType (hatarozott)"
-    agenda-group "preprocess"
-    no-loop
-	when
-		$q : Quote( endDate != null )
-	then
-		modify ( $q ) {
-			setDurationType( Constants.DT_HATAROZOTT )
-		}
-end
-*/
