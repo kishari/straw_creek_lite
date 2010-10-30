@@ -47,12 +47,6 @@ function int getYear(Date d) {
 	return new DateTime(d).getYear();
 }
 
-function boolean isEquals(DateTime s, DateTime e) {
-	DateTime temp = s.withDate(s.getYear(), s.getMonthOfYear(), s.getDayOfMonth());
-
-	return temp.isEqual(e);
-}
-
 function boolean firstIsAfter(DateTime s, DateTime e) {
 	DateTime temp = s.withDate(s.getYear(), s.getMonthOfYear(), s.getDayOfMonth());
 	
@@ -62,7 +56,7 @@ function boolean firstIsAfter(DateTime s, DateTime e) {
 /*****************************************************************************
 							  Alaptarifa beállítás 
 *****************************************************************************/
-rule "temp baseTariff parameter beszuras (Ez fogja tarolni szgk-nal a make_power x cc X alaptarifa erteket)"
+rule "temp baseTariff parameter beszuras (Ez fogja tarolni szgk-nal a make_power X alaptarifa erteket)"
 	agenda-group "calculate"
 	salience 50
 	when
@@ -101,7 +95,7 @@ rule "alaptarifa beallitas (motorkerekpar)"
 		$q : Quote()
 		$v : Vehicle( typeCode == Constants.TC_MOTORKEREKPAR )
 		$b : MotorBikeBaseTariffDef( durationType == $q.durationType ) 
-		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
+		eval ( isBetween($b.getPowerMin(), $b.getPowerMax(), $v.getMaximumNettoPower() ) )
 		eval ( $b.isValid( $q.getStartDate() ) )
 						
 	then
@@ -131,9 +125,9 @@ rule "alaptarifa beallitas (tehergepjarmu)"
 		$v : Vehicle( typeCode == Constants.TC_TEHERGEPJARMU )
 		$b : TruckBaseTariffDef( durationType == $q.durationType,
 								 genderCode == $p.genderCode )
-		eval ( isBetween( $b.getCarryingCapacityMin(), 
-						  $b.getCarryingCapacityMax(), 
-						  $v.getCarryingCapacity() ) )
+		eval ( isBetween( $b.getAllowedWeightMin(), 
+						  $b.getAllowedWeightMax(), 
+						  $v.getMaximumAllowedWeight() ) )
 		eval ( ( $p.getGenderCode() != Constants.JOGI_SZEMELY &&
 				 isBetween( $b.getPartnerAgeMin(), 
 				 			$b.getPartnerAgeMax(), 
@@ -148,38 +142,50 @@ end
 /*****************************************************************************
 				 Díjszámítási paraméterek beállítása 
 *****************************************************************************/
-rule "alaptarifa modositas a gyartmany-teljesitmeny-hengerurtartalom alapjan"
+rule "alaptarifa modositas a gyartmany-teljesitmeny alapjan"
 	agenda-group "calculate"
 	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
 		$pm: ParamDef( key == "BASETARIFF-TEMP", value == "UNKNOWN" )
-		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
+		$v : Vehicle( typeCode == $c1.value )
 		$m : MakeDef( make == $v.make )
 		$p : PowerModFactorDef( makeCode == $m.makeCode )
-		$c : CubicCapacityModFactorDef( )
 		eval ( isBetween( $p.getPowerMin(), 
 						  $p.getPowerMax(), 
 						  $v.getMaximumNettoPower() ) )
-		eval ( isBetween( $c.getCapacityMin(), 
-						  $c.getCapacityMax(), 
-						  $v.getCubicCapacity() ) )
 		eval ( $m.isValid( $q.getStartDate() ) )
-		eval ( $p.isValid( $q.getStartDate() ) )
-		eval ( $c.isValid( $q.getStartDate() ) ) 
+		eval ( $p.isValid( $q.getStartDate() ) ) 
 				
 	then
 		int baseTariff = $q.getResult().getBaseTariff();
-		baseTariff = (int)Math.round(baseTariff * $p.getValue() * $c.getValue() );
+		baseTariff = (int)Math.round(baseTariff * $p.getValue() );
 		modify ( $pm ) { setValue( Integer.toString(baseTariff) ) }		
 		insert(new ModFactor("MAKE-POWER", $p.getValue(), $v, "MULTIPLIER"));
+end
+
+rule "hengerurtartalom szorzo"
+	agenda-group "calculate"
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value )
+		$c : CubicCapacityModFactorDef( )
+		eval ( isBetween( $c.getCapacityMin(), 
+						  $c.getCapacityMax(), 
+						  $v.getCubicCapacity() ) )
+		eval ( $c.isValid( $q.getStartDate() ) ) 
+				
+	then		
 		insert(new ModFactor("CUBIC-CAPACITY", $c.getValue(), $v, "MULTIPLIER"));
 end
 
 rule "teruleti besorolas-korcsoport szorzo (termeszetes szemely)"
 	agenda-group "calculate"
 	when
+	    $c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )		
+		$v : Vehicle( typeCode == $c1.value )		
 		$p : Partner( genderCode != Constants.JOGI_SZEMELY )
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: PartnerAgeModFactorDef( areaCode == $a.areaCode )
@@ -196,8 +202,9 @@ end
 rule "teruleti besorolas szorzo (jogi szemely)"
 	agenda-group "calculate"
 	when
+	    $c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
+		$v : Vehicle( typeCode == $c1.value )
 		$p : Partner( genderCode == Constants.JOGI_SZEMELY )
 		$a : AreaDef( postCode == $p.postCode )
 		$mf: LegalModFactorDef( areaCode == $a.areaCode )
@@ -211,8 +218,9 @@ end
 rule "jarmu eletkor szorzo"
 	agenda-group "calculate"
 	when
+	    $c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU && eval( !isNullInt( yearOfProduction ) ) )
+		$v : Vehicle( typeCode == $c1.value && eval( !isNullInt( yearOfProduction ) ) )
 		$mf: VehicleAgeModFactorDef()
 		eval ( isBetween( $mf.getAgeMin(),
 						  $mf.getAgeMax(),
@@ -226,8 +234,9 @@ end
 rule "vezetoi engedely szorzo"
 	agenda-group "calculate"
 	when
+	    $c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == Constants.TC_SZEMELYGEPJARMU )
+		$v : Vehicle( typeCode == $c1.value )
 		//Azért kell a Partnerhoz betenni ezt a feltételt, mert ha nincs itt, és a yearOfDrivingLicense = null,
 		//akkor az 1. eval elszáll a new DateTime miatt.
 		$p : Partner( genderCode != 3 && eval( !isNullInt( yearOfDrivingLicense ) ) )
@@ -281,50 +290,49 @@ rule "uzemeltetesi jelleg potdij"
 		insert(new ModFactor("OPERATIONAL-MODALITY", $mf.getValue(), $v, "SURCHARGE"));
 end
 
-rule "casco egyuttkotes kedvezmeny"
+rule "mkbb casco egyuttkotes kedvezmeny"
 	agenda-group "calculate"
 	when
-		$q : Quote( takeOutWithCasco == true )
-		$mf: ModFactorDef( modfactorType == Constants.MF_CASCO )
+		$q : Quote( takeOutWithMKBBCasco == true )
+		$mf: ModFactorDef( modfactorType == Constants.MF_MKBB_CASCO )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
-		insert(new ModFactor("TAKE-OUT-WITH-CASCO", $mf.getValue(), $q, "DISCOUNT"));
+		insert(new ModFactor("MKBB-CASCO", $mf.getValue(), $q, "DISCOUNT"));
 end
 
-rule "banki csoportos beszedes kedvezmeny"
+rule "nem mkbb casco egyuttkotes kedvezmeny"
 	agenda-group "calculate"
 	when
-		$q : Quote( groupedCollection == true )
-		$mf: ModFactorDef( modfactorType == Constants.MF_BANKI_CSOPORTOS_LEHIVAS )
+		$q : Quote( nonMKBBCasco == true )
+		$mf: ModFactorDef( modfactorType == Constants.MF_NEM_MKBB_CASCO )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
-		insert(new ModFactor("GROUPED-COLLECTION", $mf.getValue(), $q, "DISCOUNT"));
+		insert(new ModFactor("NON-MKBB-CASCO", $mf.getValue(), $q, "DISCOUNT"));
 end
 
-rule "online 8 kedvezmeny"
+rule "fizetesi mod kedvezmeny"
 	agenda-group "calculate"
 	when
-		$q : Quote( online == true && 
-					eval ( isEquals(new DateTime(startDate), new DateTime(2010, 1, 1, 0, 0, 0, 0) ) ) )
-		$mf: ModFactorDef( modfactorType == Constants.MF_ONLINE8 )
+		$q : Quote( paymentMethodSurcharge == true )
+		$mf: ModFactorDef( modfactorType == Constants.MF_BANKI_CSOPORTOS_LEHIVAS_VAGY_ATUTALAS )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
-		insert(new ModFactor("ONLINE", $mf.getValue(), $q, "DISCOUNT"));
+		insert(new ModFactor("PAYMENT-METHOD", $mf.getValue(), $q, "DISCOUNT"));
 end
 
-rule "online 4 kedvezmeny"
+
+rule "ertekesitesi partner kedvezmeny"
 	agenda-group "calculate"
 	when
-		$q : Quote( online == true && 
-					eval ( firstIsAfter(new DateTime(startDate), new DateTime(2010, 1, 1, 0, 0, 0, 0) ) ) )
-		$mf: ModFactorDef( modfactorType == Constants.MF_ONLINE4 )
+		$q : Quote( marketingPartner == true )
+		$mf: ModFactorDef( modfactorType == Constants.MF_ERTEKESITESI_PARTNER )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
-		insert(new ModFactor("ONLINE", $mf.getValue(), $q, "DISCOUNT"));
+		insert(new ModFactor("MARKETING-PARTNER", $mf.getValue(), $q, "DISCOUNT"));
 end
 
 rule "gyermek kedvezmeny"
@@ -338,7 +346,7 @@ rule "gyermek kedvezmeny"
 		insert(new ModFactor("CHILD", $mf.getValue(), $q, "DISCOUNT"));
 end
 
-rule "mkb partner kedvezmeny"
+rule "mkbb partner kedvezmeny"
 	agenda-group "calculate"
 	when
 		$q : Quote( mkbPartner == true )
@@ -363,12 +371,83 @@ end
 rule "extra karmentessegi kedvezmeny"
 	agenda-group "calculate"
 	when
-		$q : Quote( extraDamageExemption == true )
+		$q : Quote( extraClaimFree == true )
 		$mf: ModFactorDef( modfactorType == Constants.MF_EXTRA_KARMENTESSEG )
 		eval ( $mf.isValid( $q.getStartDate() ) )
 				
 	then
-		insert(new ModFactor("EXTRA-DAMAGE-EXEMPTION", $mf.getValue(), $q, "DISCOUNT"));
+		insert(new ModFactor("EXTRA-CLAIM-FREE", $mf.getValue(), $q, "DISCOUNT"));
+end
+
+rule "nemet-magyar keresk. kamara tag kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( )
+		$p : Partner( gerHunCCMember == true )
+		$mf: ModFactorDef( modfactorType == Constants.MF_NEMET_MAGYAR_KERESK_KAMARA_TAGSAG )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("GER-HUN-CC-MEMBER", $mf.getValue(), $p, "DISCOUNT"));
+end
+
+rule "kisvallalkozoi kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( )
+		$p : Partner( entrepreneur == true )
+		$mf: ModFactorDef( modfactorType == Constants.MF_KISVALLALKOZO )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("ENTREPRENEUR", $mf.getValue(), $p, "DISCOUNT"));
+end
+
+rule "kampany kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( campaign == true )
+		$mf: ModFactorDef( modfactorType == Constants.MF_KAMPANY )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("CAMPAIGN", $mf.getValue(), $q, "DISCOUNT"));
+end
+
+rule "kozalkalmazotti kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( )
+		$p : Partner( publicEmployee == true )
+		$mf: ModFactorDef( modfactorType == Constants.MF_KOZALKALMAZOTT )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("PUBLIC-EMPLOYEE", $mf.getValue(), $p, "DISCOUNT"));
+end
+
+rule "koztisztviseloi kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( )
+		$p : Partner( governmentEmployee == true )
+		$mf: ModFactorDef( modfactorType == Constants.MF_KOZTISZTVISELO )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("GOVERNMENT-EMPLOYEE", $mf.getValue(), $p, "DISCOUNT"));
+end
+
+rule "tanar kedvezmeny"
+	agenda-group "calculate"
+	when
+		$q : Quote( )
+		$p : Partner( teacher == true )
+		$mf: ModFactorDef( modfactorType == Constants.MF_TANAR )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		insert(new ModFactor("TEACHER", $mf.getValue(), $p, "DISCOUNT"));
 end
 
 
@@ -481,9 +560,9 @@ rule "hatarozatlan ideju kgfb eves premium szamolasa"
 		
 		int precision = Integer.parseInt( $param.getValue() );
 		
-		if ( $discounts < 0.6 ) {			
+		if ( $discounts < 0.5 ) {			
 			insert( Message.create("26", String.valueOf( round( (1 - $discounts) * 100, precision ) ) ) );
-			$discounts = 0.6;
+			$discounts = 0.5;
 		}
 
 		double mult = round($quotemf * $partnermf * $vehiclemf * $discounts * $surcharges, precision);

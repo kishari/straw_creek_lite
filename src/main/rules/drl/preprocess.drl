@@ -9,10 +9,28 @@ function boolean isEqualsDate(DateTime s0, DateTime e0) {
 	if (s0 == null || e0 == null) {
 		return false;
 	}
-		
-	DateTime temp = s0.withDate(s0.getYear(), s0.getMonthOfYear(), s0.getDayOfMonth());
+	boolean equal = false;
 	
-	return temp.isEqual(e0);    
+	if (s0.getYear() == e0.getYear() && 
+		s0.getMonthOfYear() == e0.getMonthOfYear() && 
+		s0.getDayOfMonth() == e0.getDayOfMonth()) {
+		equal = true;
+	}	
+	return equal;    
+}
+
+function boolean isNullInt(Integer i) {
+		return (i == null || i == 0);
+}
+
+function boolean isBetween(Integer lowerBound, Integer upperBound, Integer value) {
+	if ( value == null ) {
+		return false;
+	}
+		if ( value == -1 ) {
+		value = 0;
+	}
+ 		return (lowerBound <= value && upperBound >= value);
 }
 
 rule "setting groupedCollection flag (2011)"
@@ -24,7 +42,7 @@ rule "setting groupedCollection flag (2011)"
 		$q : Quote( paymentMethod == $p.paymentMethod )
 		
 	then
-		modify( $q ) { setGroupedCollection( true ) };		
+		modify( $q ) { setPaymentMethodSurcharge( true ) };		
 end
 
 rule "setting campaign flag (if start = 2011.01.01)"
@@ -49,6 +67,22 @@ rule "modify cubicCapacity (cubicCapacityNotDefined == true)"
 	then
 		modify( $v ) {
 			setCubicCapacity(100) //850 ccm alatti értéket kell kapnia. 100 < 850 :)		
+		}
+end
+
+rule "modify maximumNettoPower to 71-85KW"
+    agenda-group "preprocess"
+    no-loop 
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && maximumNettoPower != null &&
+													eval(!isNullInt(cubicCapacity) && 
+														 isBetween(0, 20, maximumNettoPower) &&
+														 cubicCapacity >= 850 ) )			
+	then
+		modify( $v ) {
+			setMaximumNettoPower(80) //80 az 71 és 85 közé esik		
 		}
 end
 

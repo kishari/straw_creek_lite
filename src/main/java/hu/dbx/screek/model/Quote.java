@@ -21,7 +21,7 @@ public class Quote {
 	private boolean mkbPartner;
 	private boolean emailGranted;
 	private boolean extraClaimFree;
-	private boolean groupedCollection;
+	private boolean paymentMethodSurcharge;
 	private boolean marketingPartner;
 	private boolean campaign; //kampány kedvezmény
 	private String bonusMalus;
@@ -110,14 +110,6 @@ public class Quote {
 		this.paymentFrequency = paymentFrequency;
 	}
 
-	public void setGroupedCollection(boolean groupedCollection) {
-		this.groupedCollection = groupedCollection;
-	}
-
-	public boolean isGroupedCollection() {
-		return groupedCollection;
-	}
-	
 	@XmlElement(name = "messages")
 	public MessageList getMessages() {
 		return messages;
@@ -198,6 +190,14 @@ public class Quote {
 
 	public boolean isCampaign() {
 		return campaign;
+	}
+
+	public void setPaymentMethodSurcharge(boolean paymentMethodSurcharge) {
+		this.paymentMethodSurcharge = paymentMethodSurcharge;
+	}
+
+	public boolean isPaymentMethodSurcharge() {
+		return paymentMethodSurcharge;
 	}
 
 	
