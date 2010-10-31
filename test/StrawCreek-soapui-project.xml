@@ -586,6 +586,50 @@
      </quote>
    </wsdl:tariff>
  </env:Body>
+</env:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Test_xls"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://service.screek.dbx.hu/">
+ <env:Body>
+   <wsdl:tariff>
+     <quote>
+       <durationType>1</durationType>
+       <bonusMalus>B2</bonusMalus>
+       <callerId>csabi</callerId>
+       <emailGranted>false</emailGranted>
+       <takeOutWithMKBBCasco>true</takeOutWithMKBBCasco>
+       <nonMKBBCasco>false</nonMKBBCasco>
+       <child>true</child>
+       <mkbPartner>false</mkbPartner>
+       <extraClaimFree>false</extraClaimFree>
+       <paymentFrequency>51</paymentFrequency>
+       <paymentMethod>0</paymentMethod>
+       <startDate>2011-01-02T00:00:00+01:00</startDate>
+       <partner>
+         <postCode>1124</postCode>
+         <dateOfBirth>1980-02-01</dateOfBirth>
+         <genderCode>1</genderCode>
+         <yearOfDrivingLicense>1999</yearOfDrivingLicense>
+         <teacher>false</teacher>
+         <publicEmployee>false</publicEmployee>
+         <governmentEmployee>false</governmentEmployee>
+         <entrepreneur>false</entrepreneur>
+         <gerHunCCMember>false</gerHunCCMember>
+       </partner>
+       <vehicle>
+         <cubicCapacity>2000</cubicCapacity>
+         <yearOfProduction>2006</yearOfProduction>
+         <dateOfPurchase/>
+         <make>MERCEDES_BENZ</make>
+         <maximumNettoPower>181</maximumNettoPower>
+         <typeCode>10</typeCode>
+         <operationalModality>000</operationalModality>
+         <seatingCapacity>5</seatingCapacity>
+         <carryingCapacity/>
+         <ownWeight/>
+         <maximumAllowedWeight/>
+       </vehicle>
+     </quote>
+   </wsdl:tariff>
+ </env:Body>
 </env:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Validáció" searchProperties="true" id="59cfd874-f62c-477f-a33b-ed4bab77e513"><con:settings/><con:testStep type="request" name="Területi besorolás 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Területi besorolás 1" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>

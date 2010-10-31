@@ -5,6 +5,20 @@ import hu.dbx.screek.model.State.States;
 import hu.dbx.screek.model.facts.*;
 
 
+rule "modify cubicCapacity to 0 (cubicCapacityNotDefined == true)"
+    agenda-group "cleanup"
+    no-loop 
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && 
+					  cubicCapacityNotDefined == true )				  
+			
+	then
+		$v.setCubicCapacity(0); //Visszaállítjuk a ccm értékét 0-ra		
+
+end
+
 rule "ModFactorok eltavolitas a sessionbol"
 	agenda-group "cleanup"
 	
