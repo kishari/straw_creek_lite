@@ -29,6 +29,17 @@ rule "ModFactorok eltavolitas a sessionbol"
 		retract($mf);
 end
 
+rule "Atmeneti ParamDef(POWER-TEMP) eltavolitas a sessionbol"
+	agenda-group "cleanup"
+	
+	when
+		$p : ParamDef( key == "POWER-TEMP" )
+		$v : Vehicle()
+	then
+		$v.setMaximumNettoPower( Integer.parseInt( $p.getValue() ) );
+		retract($p);
+end
+
 rule "Atmeneti ParamDef(BASETARIFF-TEMP) eltavolitas a sessionbol"
 	agenda-group "cleanup"
 	

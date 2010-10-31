@@ -81,9 +81,14 @@ rule "modify maximumNettoPower to 71-85KW"
 														 isBetween(0, 20, maximumNettoPower) &&
 														 cubicCapacity >= 850 ) )			
 	then
+		int powerTemp = $v.getMaximumNettoPower();
 		modify( $v ) {
 			setMaximumNettoPower(80) //80 az 71 és 85 közé esik		
 		}
+		ParamDef p = new ParamDef();
+		p.setKey("POWER-TEMP");
+		p.setValue( Integer.toString(powerTemp) ); //Eltároljuk a bejövő teljesítményt, hogy a válaszban vissza tudjuk adni.	
+		insert( p );
 end
 
 rule "insert vehicle-type-def constants"
