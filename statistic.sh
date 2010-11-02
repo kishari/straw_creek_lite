@@ -1,10 +1,38 @@
 #!/bin/bash
 
-if test $# -eq 0 
-then
-	printf "Hasznalat: %s: [-a] konyvtar\n" $(basename $0) >&2
-	printf "[-a] Tobb konyvtarbol csinal statisztikát.\nPelda: sh statistic.sh -a 2010-11 --> Minden 2010. 11. havi mappaban vegigmegy! (Novemberi statisztikat ad vissza)\n"
-	exit 2
+if test $# -eq 0; then
+	logFile="callerIds.log"
+	if [ -f $logFile ]; then
+		echo Statisztika a mai naprol:
+		echo "("Lekerdezes idopontja: $(date)")"
+		echo "------------------------"
+
+		sed -e 's/.*callerId: //g' $logFile >> tempCallerIds
+		sort tempCallerIds > sorted
+		uniq sorted > uniqSorted
+	
+		rm tempCallerIds
+		rm sorted
+		
+		while read line; do
+	
+			counter=0;
+			grep -c $line $logFile | bc > lastNum;
+			while read n; do
+				#echo $line;	
+				counter=`expr $counter + $n`;
+			done < "lastNum"
+			echo $line:$counter
+		done < "uniqSorted"
+
+		rm lastNum
+		rm uniqSorted
+
+		exit 2
+	else
+		echo "A mai napra még nincs callerIds.log fájl!"
+		exit 2
+	fi
 fi
 
 havistat=0
@@ -12,10 +40,12 @@ while getopts 'a:' OPTION
 do
 	case $OPTION in
 	  	a)	havistat=1
-			bval="$OPTARG"
+			month="$OPTARG"
 			;;
-	  	[?])	printf "Hasznalat: %s: [-a] konyvtar\n" $(basename $0) >&2
-			printf "[-a] Tobb konyvtarbol csinal statisztikát.\nPelda: sh statistic.sh -a 2010-11 --> Minden 2010. 11. havi mappaban vegigmegy! (Novemberi statisztikat ad vissza)\n"
+	  	[?])	printf "Hasznalat: %s [-a] [datum]\n" $(basename $0) >&2 
+			printf "Pelda: bash statistic.sh 2010-10-03\n"
+			printf "[-a] Az egesz honaprol csinal statisztikát.\nPelda: bash statistic.sh -a 2010-10\n"
+			printf "Ha nem adunk meg parametert, akkor az aktualis naprol keszit statisztikat.\nPelda: bash statistic.sh\n"
 			exit 2
 			;;
 	esac
@@ -25,154 +55,121 @@ shift $(($OPTIND - 1))
 
 
 if [ $havistat -eq 0 ]; then
-	echo Statisztika a kovetkezo mappabol: $1
+	if [ ${#1} -ne 10 ];then
+		echo "Hibas input: "$1
+		echo "Helyes input formatum: yyyy-mm-dd"
+		exit 2
+	fi
+	echo Statisztika a kovetkezo naprol: $1
+	echo "("Lekerdezes idopontja: $(date)")"
+	echo "------------------------------"
+	f="callerIds.log."$1
+	#echo $f
+	if [ -f $f ]; then
+		sed -e 's/.*callerId: //g' $f >> tempCallerIds
 
-	for f in $1/callerIds.log*; do
-		if [ -e "${f}" ]; then
-			sed -e 's/.*callerId: //g' ${f} >> tempCallerIds
-		fi
-	done
-
-	if [ -f tempCallerIds ]; then
 		sort tempCallerIds > sorted
 		uniq sorted > uniqSorted
-		
+	
 		rm tempCallerIds
 		rm sorted
 		
 		while read line; do
-
- 			row=$line;
- 			#echo row: $row;
-
- 			counter=0;
-			for f1 in $1/callerIds.log*; do
- 				if [ -e "${f1}" ]; then
-					grep -c $row ${f1} | bc > lastNum;
-					while read n; do
-						#echo $line;	
-						counter=`expr $counter + $n`;
-					done < "lastNum"
- 				fi
- 			done
- 		echo $row:$counter
+	
+			counter=0;
+			grep -c $line $f | bc > lastNum;
+			while read n; do
+				#echo $line;	
+				counter=`expr $counter + $n`;
+			done < "lastNum"
+			echo $line:$counter
 		done < "uniqSorted"
 
 		rm lastNum
 		rm uniqSorted
 	else
-		echo "Nincs logbejegyzés az adott napra!"
+		echo "Nincs callerId logbejegyzés az adott napra!"
 	fi
 
 
 else #összesített a teljes hónapra
 
-	echo Statisztika a kovetkezo mappabol: $bval
+	if [ ${#month} -ne 7 ];then
+		echo "Hibas input: "$month
+		echo "Helyes input formatum: yyyy-mm"
+		exit 2
+	fi
+	echo Statisztika a kovetkezo honaprol: $month
+	echo "("Lekerdezes idopontja: $(date)")"
+	echo "--------------------------------"
+	
+	files="callerIds.log."$month"-*"
+	#echo files: $files
 
-	dirs=$bval"-*"
-	#echo dirs: $dirs
-
-	set -- "$dirs" 
+	set -- "$files" 
 	IFS=" "; declare -a Array=($*) 
-
-	for dir in ${Array[@]}; do #Végigmegyünk az összes mappán (pl bemenet 2010-11 akkor minden 2010-11-* mappán)
-    		#echo "$dir"
-		for f in $dir/callerIds.log*; do
-			if [ -e "${f}" ]; then
-				sed -e 's/.*callerId: //g' ${f} >> tempCallerIds
-			fi
-		done
-
-		if [ -f tempCallerIds ]; then
-			sort tempCallerIds > sorted
-			uniq sorted > uniqSorted
-
-			rm sorted
-			rm tempCallerIds
+	
+	
+	if [ ${#Array[@]} -ne 0 ]; then
+		for dailyLog in ${Array[@]}; do #Végigmegyünk az összes fájlon (pl bemenet 2010-11 akkor minden 2010-11-* végződésű callerIds.log fájlon)
+	    		#echo "processing $dailyLog ..."
+				sed -e 's/.*callerId: //g' $dailyLog >> callerIds
 		
-			while read line; do
+				sort callerIds > sortedCallerIds
+				uniq sortedCallerIds > uniqSortedCallerIds
+
+				rm sortedCallerIds
+				rm callerIds
 	
- 				row=$line;
- 				#echo row: $row;
+				while read line; do
+					counter=0;
+					grep -c $line $dailyLog | bc > lastNum;
+					while read n; do
+						#echo $n
+						counter=`expr $counter + $n`;
+					done < "lastNum"
+					echo $line:$counter >> allstat
+				done < "uniqSortedCallerIds"
+				
+				rm lastNum
+				rm uniqSortedCallerIds
+		done #Végigmentünk a logfájlokon
 
- 				counter=0;
-				for f1 in $dir/callerIds.log*; do
- 					if [ -e "${f1}" ]; then
-						grep -c $row ${f1} | bc > lastNum;
-						while read n; do
-							#echo $line;	
-							counter=`expr $counter + $n`;
-						done < "lastNum"
- 					fi
- 				done
-				#echo $row:$counter
- 				echo $row:$counter >> "tempstat_"$dir
-			done < "uniqSorted"
+			sort allstat > allstatSorted
 
-			rm lastNum
-			rm uniqSorted
-		else
-			echo "Nincs callerId logFile az adott napi mappában: "$dir
-		fi		
-	done
+			rm allstat
 
-	#Végigmegyünk a tempstat fájlokon, és beletesszük egy közös fájlba őket (allstat)
-	for dir in ${Array[@]}; do
-		if [ -f "tempstat_"$dir ]; then
+			summa=0
+			first=1
+			lastCaller=""
 			while read line; do
-				r=$line;
-				echo $r >> allstat
-			
-			done  < "tempstat_"$dir
-			
-			rm "tempstat_"$dir
-		fi
-	done
+				set -- "$line" 
+				IFS=":"; declare -a row=($*)
+				caller=${row[0]}
+				value=${row[1]}		
+
+				if [ $first -eq 1 ]; then
+					lastCaller=$caller
+					first=0
+				fi
+
+				if [ $caller == $lastCaller ]; then	
+					summa=`expr $summa + $value`;		
+				else
+					echo $lastCaller : $summa
+					summa=0
+					summa=`expr $summa + $value`;
+				fi
+		
+				lastCaller=$caller	
+			done  < "allstatSorted"
 	
-	if [ -f allstat ]; then
-		sort allstat > allstatSorted
-		rm allstat
+			echo $lastCaller : $summa
+
+			rm allstatSorted			
 	else
-		echo "Az adott hónapra nincs callerId logbejegyzés: "$bval
-	fi
-	
-	
-	if [ -f "sum_"$bval ]; then #Ha létezik a megadott hónappal összegző file, akkor azt töröljük
-		rm "sum_"$bval
-	fi
-
-	if [ -f allstatSorted ]; then
-		summa=0
-		first=1
-		lastCaller=""
-		while read line; do
-			set -- "$line" 
-			IFS=":"; declare -a row=($*)
-			caller=${row[0]}
-			value=${row[1]}		
-
-			if [ $first -eq 1 ]; then
-				lastCaller=$caller
-				first=0
-			fi
-
-			if [ $caller == $lastCaller ]; then	
-				summa=`expr $summa + $value`;		
-			else
-				echo $lastCaller : $summa
-				echo $lastCaller : $summa >> "sum_"$bval
-				summa=0
-				summa=`expr $summa + $value`;
-			fi
-		
-			lastCaller=$caller	
-		done  < "allstatSorted"
-
-		echo $lastCaller : $summa
-		echo $lastCaller : $summa >> "sum_"$bval
-
-		rm allstatSorted
-	fi
+		echo "Nincs callerId logbejegyzes az adott honapban: "$month
+	fi		
 
 fi
 
