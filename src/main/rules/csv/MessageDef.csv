@@ -10,7 +10,7 @@
 9;2;"A megadott gyártmánykód (%1) nem létezik!"
 10;2;"A gyártmány mező kitöltése kötelező!"
 11;2;"A megadott biztosítási időtartam (%1) érvénytelen!"
-12;2;"A biztosítási időtartam mező kitöltése kötelező!"
+12;2;"A biztosítási időtartam típusa mező kitöltése kötelező!"
 13;2;"A megadott partner neme (%1) érvénytelen! A lehetséges értékek: Nő: 1, Férfi: 2, Jogi személy: 3"
 14;2;"A partner neme mező kitöltése kötelező!"
 15;1;"A megadott kedvezmények csak határozatlan idejű, %1-ét követő kockázatviselés kezdetű, személygépjárműre kötött KGFB esetén érvényesek. "

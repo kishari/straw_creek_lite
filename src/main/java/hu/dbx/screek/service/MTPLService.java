@@ -6,16 +6,16 @@ import hu.dbx.screek.model.Quote;
 import hu.dbx.screek.util.DroolsHelper;
 import hu.dbx.screek.util.Mapper;
 
-import java.util.NoSuchElementException;
-
 import javax.annotation.Resource;
 import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.servlet.ServletContext;
+import javax.xml.soap.SOAPException;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
+import javax.xml.ws.soap.SOAPFaultException;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
@@ -35,7 +35,7 @@ public class MTPLService implements ApplicationContextAware {
 	private ApplicationContext applicationContext = null;
 
 	@WebMethod
-	public TariffQuoteV1 tariff(@WebParam(name="quote")TariffQuoteV1 insurance) {
+	public TariffQuoteV1 tariff(@WebParam(name="quote")TariffQuoteV1 insurance) {		
 		logger.debug("tariff started.");
 		try {
 			//Context(action, version)
@@ -46,17 +46,18 @@ public class MTPLService implements ApplicationContextAware {
 			logger.debug("tariff finished.");
 			
 			return resp;
-		} catch (NoSuchElementException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			WSFault f = new WSFault();
+			try {
+				f.setFaultString(e.getMessage());
+			} catch (SOAPException e2) {
+				e2.printStackTrace();
+			}
+			throw new SOAPFaultException(f);
 		}
-		return null;
 	}
 
 	@WebMethod(exclude = true)

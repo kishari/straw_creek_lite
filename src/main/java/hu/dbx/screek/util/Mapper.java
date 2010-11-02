@@ -3,6 +3,8 @@ package hu.dbx.screek.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import hu.dbx.screek.iface.assist.TariffQuoteV1;
 import hu.dbx.screek.iface.model.MessageListV1;
 import hu.dbx.screek.iface.model.MessageV1;
@@ -21,49 +23,42 @@ import hu.dbx.screek.model.Result;
 import hu.dbx.screek.model.Vehicle;
 
 public class Mapper {
+	private static final Logger log = Logger.getLogger(Mapper.class);
 	
 	public static Quote mapIn(TariffQuoteV1 tariffQuoteV1) {
 		Quote q = new Quote();
-		
-		q.setCallerId(tariffQuoteV1.getCallerId());
-		q.setStartDate(tariffQuoteV1.getStartDate());
-/*		q.setEndDate(tariffQuoteV1.getEndDate());
-		
-		if (q.getEndDate() != null) {
-			DateTime endTmp = new DateTime(q.getEndDate());
+		if (tariffQuoteV1 != null) {
+			q.setCallerId(tariffQuoteV1.getCallerId());
+			log.debug("tariff WS called by calledId: " + tariffQuoteV1.getCallerId());
 			
-			DateTime end = new DateTime(endTmp.getYear(), 
-										endTmp.getMonthOfYear(), 
-										endTmp.getDayOfMonth(),
-										23, 59, 59, 0);
-			q.setEndDate(end.toDate());
+			q.setStartDate(tariffQuoteV1.getStartDate());
+			q.setDurationType(tariffQuoteV1.getDurationType());
+			
+			q.setTakeOutWithMKBBCasco(tariffQuoteV1.isTakeOutWithMKBBCasco());
+			q.setChildPreference(tariffQuoteV1.isChild());
+			q.setMkbPartner(tariffQuoteV1.isMkbPartner());
+			q.setEmailGranted(tariffQuoteV1.isEmailGranted());
+			q.setExtraClaimFree(tariffQuoteV1.isExtraClaimFree());
+			q.setNonMKBBCasco(tariffQuoteV1.isNonMKBBCasco());
+			q.setPaymentMethod(tariffQuoteV1.getPaymentMethod());
+			q.setBonusMalus(tariffQuoteV1.getBonusMalus());
+			q.setMarketingPartner(tariffQuoteV1.isMarketingPartner());
+			
+			q.setPaymentFrequency(tariffQuoteV1.getPaymentFrequency());
+			
+			q.setPartner(mapIn(tariffQuoteV1.getPartner()));
+			q.setVehicle(mapIn(tariffQuoteV1.getVehicle()));
+			
+			//q.setMessages(mapIn(tariffQuoteV1.getMessages(), q));
+			//q.setModfactors(mapIn(tariffQuoteV1.getModfactors(), q));
+			
 		}
-*/
-		q.setDurationType(tariffQuoteV1.getDurationType());
-		
-		q.setTakeOutWithMKBBCasco(tariffQuoteV1.isTakeOutWithMKBBCasco());
-		q.setChildPreference(tariffQuoteV1.isChild());
-		q.setMkbPartner(tariffQuoteV1.isMkbPartner());
-		q.setEmailGranted(tariffQuoteV1.isEmailGranted());
-		q.setExtraClaimFree(tariffQuoteV1.isExtraClaimFree());
-		q.setNonMKBBCasco(tariffQuoteV1.isNonMKBBCasco());
-		q.setPaymentMethod(tariffQuoteV1.getPaymentMethod());
-		q.setBonusMalus(tariffQuoteV1.getBonusMalus());
-		q.setMarketingPartner(tariffQuoteV1.isMarketingPartner());
-		
-		q.setPaymentFrequency(tariffQuoteV1.getPaymentFrequency());
-		
-		q.setPartner(mapIn(tariffQuoteV1.getPartner()));
-		q.setVehicle(mapIn(tariffQuoteV1.getVehicle()));
-		
-		q.setMessages(mapIn(tariffQuoteV1.getMessages(), q));
-		q.setModfactors(mapIn(tariffQuoteV1.getModfactors(), q));
-		
 		return q;
 	}
 	
 	private static Partner mapIn(PartnerV1 partnerV1) {		
 		Partner p = new Partner();
+		
 		if (partnerV1 != null) {
 			p.setDateOfBirth(partnerV1.getDateOfBirth());
 			p.setPostCode(partnerV1.getPostCode());
@@ -74,16 +69,17 @@ public class Mapper {
 			p.setPublicEmployee(partnerV1.isPublicEmployee());
 			p.setTeacher(partnerV1.isTeacher());
 			p.setGerHunCCMember(partnerV1.isGerHunCCMember());
-			p.setModfactors(mapIn(partnerV1.getModfactors(), p));
+			
+			//p.setModfactors(mapIn(partnerV1.getModfactors(), p));
 		}
 		return p;
 	}
 	
 	private static Vehicle mapIn(VehicleV1 vehicleV1) {
 		Vehicle v = new Vehicle();
+		
 		if (vehicleV1 != null) {
 			v.setCubicCapacity(vehicleV1.getCubicCapacity());
-			//v.setCarryingCapacity(vehicleV1.getCarryingCapacity()); //2011-ben nincs
 			v.setDateOfPurchase(vehicleV1.getDateOfPurchase());
 			v.setYearOfProduction(vehicleV1.getYearOfProduction());
 			v.setMake(vehicleV1.getMake());
@@ -95,7 +91,7 @@ public class Mapper {
 			v.setOperationalModality(vehicleV1.getOperationalModality());
 			v.setCubicCapacityNotDefined(vehicleV1.isCubicCapacityNotDefined());
 		
-			v.setModfactors(mapIn(vehicleV1.getModfactors(), v));
+			//v.setModfactors(mapIn(vehicleV1.getModfactors(), v));
 		}
 		return v;
 	}
@@ -165,30 +161,31 @@ public class Mapper {
 	public static TariffQuoteV1 mapOut(Quote quote) {
 		TariffQuoteV1 q = new TariffQuoteV1();
 		
-		q.setCallerId(quote.getCallerId());
-		q.setStartDate(quote.getStartDate());
-		//q.setEndDate(quote.getEndDate());
-		q.setDurationType(quote.getDurationType());
-		q.setPaymentMethod(quote.getPaymentMethod());
-		q.setPaymentFrequency(quote.getPaymentFrequency());
-		
-		q.setTakeOutWithMKBBCasco(quote.isTakeOutWithMKBBCasco());
-		q.setChild(quote.isChildPreference());
-		q.setMkbPartner(quote.isMkbPartner());
-		q.setEmailGranted(quote.isEmailGranted());
-		q.setExtraClaimFree(quote.isExtraClaimFree());
-		q.setNonMKBBCasco(quote.isNonMKBBCasco());
-		q.setMarketingPartner(quote.isMarketingPartner());
-		
-		q.setResult(mapOut(quote.getResult()));
-		
-		q.setBonusMalus(quote.getBonusMalus());
-		
-		q.setPartner(mapOut(quote.getPartner()));
-		q.setVehicle(mapOut(quote.getVehicle()));
-		q.setMessages( mapOut(quote.getMessages()) );
-		q.setModfactors(mapOut(quote.getModfactors()));
-		
+		if (quote != null) {
+			q.setCallerId(quote.getCallerId());
+			q.setStartDate(quote.getStartDate());
+			//q.setEndDate(quote.getEndDate());
+			q.setDurationType(quote.getDurationType());
+			q.setPaymentMethod(quote.getPaymentMethod());
+			q.setPaymentFrequency(quote.getPaymentFrequency());
+
+			q.setTakeOutWithMKBBCasco(quote.isTakeOutWithMKBBCasco());
+			q.setChild(quote.isChildPreference());
+			q.setMkbPartner(quote.isMkbPartner());
+			q.setEmailGranted(quote.isEmailGranted());
+			q.setExtraClaimFree(quote.isExtraClaimFree());
+			q.setNonMKBBCasco(quote.isNonMKBBCasco());
+			q.setMarketingPartner(quote.isMarketingPartner());
+
+			q.setResult(mapOut(quote.getResult()));
+
+			q.setBonusMalus(quote.getBonusMalus());
+
+			q.setPartner(mapOut(quote.getPartner()));
+			q.setVehicle(mapOut(quote.getVehicle()));
+			q.setMessages( mapOut(quote.getMessages()) );
+			q.setModfactors(mapOut(quote.getModfactors()));
+		}
 		return q;
 		
 	}
@@ -196,39 +193,41 @@ public class Mapper {
 	private static PartnerV1 mapOut(Partner partner) {
 		PartnerV1 p = new PartnerV1();
 		
-		p.setDateOfBirth(partner.getDateOfBirth());
-		p.setPostCode(partner.getPostCode());
-		p.setYearOfDrivingLicense(partner.getYearOfDrivingLicense());
-		p.setGenderCode(partner.getGenderCode());
-		p.setEntrepreneur(partner.isEntrepreneur());
-		p.setGovernmentEmployee(partner.isGovernmentEmployee());
-		p.setPublicEmployee(partner.isPublicEmployee());
-		p.setTeacher(partner.isTeacher());
-		p.setGerHunCCMember(partner.isGerHunCCMember());
-		
-		p.setModfactors(mapOut(partner.getModfactors()));
-		
+		if (partner != null ) {
+			p.setDateOfBirth(partner.getDateOfBirth());
+			p.setPostCode(partner.getPostCode());
+			p.setYearOfDrivingLicense(partner.getYearOfDrivingLicense());
+			p.setGenderCode(partner.getGenderCode());
+			p.setEntrepreneur(partner.isEntrepreneur());
+			p.setGovernmentEmployee(partner.isGovernmentEmployee());
+			p.setPublicEmployee(partner.isPublicEmployee());
+			p.setTeacher(partner.isTeacher());
+			p.setGerHunCCMember(partner.isGerHunCCMember());
+
+			p.setModfactors(mapOut(partner.getModfactors()));
+		 }
 		return p;
 	}
 	
 	private static VehicleV1 mapOut(Vehicle vehicle) {
 		VehicleV1 v = new VehicleV1();
 		
-		v.setCubicCapacity(vehicle.getCubicCapacity());
-		//v.setCarryingCapacity(vehicle.getCarryingCapacity()); //2011-ben nincs
-		v.setDateOfPurchase(vehicle.getDateOfPurchase());
-		v.setYearOfProduction(vehicle.getYearOfProduction());
-		v.setMake(vehicle.getMake());
-		v.setMaximumAllowedWeight(vehicle.getMaximumAllowedWeight());
-		v.setMaximumNettoPower(vehicle.getMaximumNettoPower());
-		v.setOwnWeight(vehicle.getOwnWeight());
-		v.setSeatingCapacity(vehicle.getSeatingCapacity());
-		v.setTypeCode(vehicle.getTypeCode());
-		v.setOperationalModality(vehicle.getOperationalModality());
-		v.setCubicCapacityNotDefined(vehicle.isCubicCapacityNotDefined());
-		
-		v.setModfactors(mapOut(vehicle.getModfactors()));
-		
+		if (vehicle != null) {
+			v.setCubicCapacity(vehicle.getCubicCapacity());
+			//v.setCarryingCapacity(vehicle.getCarryingCapacity()); //2011-ben nincs
+			v.setDateOfPurchase(vehicle.getDateOfPurchase());
+			v.setYearOfProduction(vehicle.getYearOfProduction());
+			v.setMake(vehicle.getMake());
+			v.setMaximumAllowedWeight(vehicle.getMaximumAllowedWeight());
+			v.setMaximumNettoPower(vehicle.getMaximumNettoPower());
+			v.setOwnWeight(vehicle.getOwnWeight());
+			v.setSeatingCapacity(vehicle.getSeatingCapacity());
+			v.setTypeCode(vehicle.getTypeCode());
+			v.setOperationalModality(vehicle.getOperationalModality());
+			v.setCubicCapacityNotDefined(vehicle.isCubicCapacityNotDefined());
+
+			v.setModfactors(mapOut(vehicle.getModfactors()));
+		}
 		return v;
 	}
 	
@@ -278,12 +277,11 @@ public class Mapper {
 		return modfactorV1;
 	}
 	
-	private static ResultV1 mapOut(Result result) {		
-		if (result != null) {
-			ResultV1 resultV1 = new ResultV1();
-			
+	private static ResultV1 mapOut(Result result) {	
+		ResultV1 resultV1 = new ResultV1();
+		
+		if (result != null) {						
 			resultV1.setBaseTariff(result.getBaseTariff());
-			//resultV1.setMonthlyPremium(result.getMonthlyPremium());
 			resultV1.setYearlyPremium(result.getYearlyPremium());
 			resultV1.setTotalPremium(result.getTotalPremium());
 			resultV1.setInstallmentPremium(result.getInstallmentPremium());
@@ -291,11 +289,10 @@ public class Mapper {
 			resultV1.setDiscountMultiplier(result.getDiscountMultiplier());
 			resultV1.setSurchargeMultiplier(result.getSurchargeMultiplier());
 			resultV1.setTotalMultiplier(result.getTotalMultiplier());
-			
 			return resultV1;
 		}
-		else 
-			return null;
+		return null;
+		
 	}
 
 }
