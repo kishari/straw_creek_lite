@@ -8,10 +8,10 @@
            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+<!--    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:screek.properties"/>
     </bean>
-
+-->
 	<bean name="droolsHelper" class="hu.dbx.screek.util.DroolsHelper">
 		<property name="pool" ref="knowledgeSessionPool"/>
 	</bean>
@@ -22,7 +22,7 @@
 	
 	<bean id="knowledgeSessionFactory" class="hu.dbx.screek.util.KnowledgeSessionFactory">
 		<property name="knowledgeBase" ref="knowledgeBase"/>
-		<property name="csvPath" value="${knowledgeBasePath}/csv"/>
+		<!--<property name="csvPath" value="${knowledgeBasePath}/csv"/>-->
 	</bean>
 
 	<bean id="knowledgeBase"

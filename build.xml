@@ -57,7 +57,7 @@
 		</javac>
 	</target>
 
-	<target name="war" description="create war file" depends="compile">
+	<target name="war-local" description="create war file" depends="compile">
 		 <copy todir="${web.web-inf.classes}">
 		    <fileset dir="${src}">
 		      <exclude name="**/*.java"/>
@@ -68,6 +68,10 @@
 		      <exclude name="**/javaee-api-6.0.jar"/>
 		    </fileset>
 		  </copy>
+		 <copy todir="${web.web-inf.classes}">
+		    <fileset dir="${src.rules}"/>
+		  </copy>
+		<copy file="${log4j.propfile}" todir="${web.web-inf.classes}" />
 		<jar destfile="${screek.warfile}" duplicate="preserve">
 			<fileset dir="${web}" />
 		</jar>
@@ -109,8 +113,7 @@
 		</jar>
 	</target>
 	
-	<target name="deploy" depends="war">
-			<copy file="${log4j.propfile}" todir="${screek.domain.lib.classes}" />
+	<target name="deploy" depends="war-local">
 			<copy file="${screek.warfile}" todir="${screek-autodeploy-dir}" />
 	</target>
 	

@@ -29,8 +29,16 @@ public class Mapper {
 		Quote q = new Quote();
 		if (tariffQuoteV1 != null) {
 			q.setCallerId(tariffQuoteV1.getCallerId());
-			log.debug("tariff WS called by calledId: " + tariffQuoteV1.getCallerId());
-			
+			if (tariffQuoteV1.getCallerId() == null) {
+				log.debug("tariff WS called with callerId: null");
+			}
+			else if ("".equals(tariffQuoteV1.getCallerId())) {
+				log.debug("tariff WS called with callerId: empty");
+			}
+			else {
+				log.debug("tariff WS called with callerId: " + tariffQuoteV1.getCallerId());
+			}
+					
 			q.setStartDate(tariffQuoteV1.getStartDate());
 			q.setDurationType(tariffQuoteV1.getDurationType());
 			
