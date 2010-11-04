@@ -14,20 +14,24 @@ if test $# -eq 0; then
 		rm tempCallerIds
 		rm sorted
 		
+		sumCounter=0;
 		while read line; do
 	
 			counter=0;
-			grep -c $line $logFile | bc > lastNum;
+			grep -c "$line" $logFile | bc > lastNum;
 			while read n; do
 				#echo $line;	
 				counter=`expr $counter + $n`;
 			done < "lastNum"
 			echo $line:$counter
+			sumCounter=`expr $sumCounter + $counter`;
 		done < "uniqSorted"
 
+		echo "----------"
+		echo "Osszesen: "$sumCounter
 		rm lastNum
 		rm uniqSorted
-
+	
 		exit 2
 	else
 		echo "A mai napra még nincs callerIds.log fájl!"
@@ -73,17 +77,22 @@ if [ $havistat -eq 0 ]; then
 	
 		rm tempCallerIds
 		rm sorted
-		
+
+		sumCounter=0;
 		while read line; do
 	
 			counter=0;
-			grep -c $line $f | bc > lastNum;
+			grep -c "$line" $f | bc > lastNum;
 			while read n; do
 				#echo $line;	
 				counter=`expr $counter + $n`;
 			done < "lastNum"
 			echo $line:$counter
+			sumCounter=`expr $sumCounter + $counter`;
 		done < "uniqSorted"
+
+		echo "----------"
+		echo "Osszesen: "$sumCounter
 
 		rm lastNum
 		rm uniqSorted
@@ -123,7 +132,7 @@ else #összesített a teljes hónapra
 	
 				while read line; do
 					counter=0;
-					grep -c $line $dailyLog | bc > lastNum;
+					grep -c "$line" $dailyLog | bc > lastNum;
 					while read n; do
 						#echo $n
 						counter=`expr $counter + $n`;
@@ -139,6 +148,7 @@ else #összesített a teljes hónapra
 
 			rm allstat
 
+			sumCounter=0
 			summa=0
 			first=1
 			lastCaller=""
@@ -157,20 +167,25 @@ else #összesített a teljes hónapra
 					summa=`expr $summa + $value`;		
 				else
 					echo $lastCaller : $summa
+					sumCounter=`expr $sumCounter + $summa`;
 					summa=0
 					summa=`expr $summa + $value`;
-				fi
+				fi				
+	
 		
 				lastCaller=$caller	
 			done  < "allstatSorted"
 	
 			echo $lastCaller : $summa
 
+			sumCounter=`expr $sumCounter + $summa`;
+			echo "----------"
+			echo "Osszesen: "$sumCounter
+
 			rm allstatSorted			
 	else
 		echo "Nincs callerId logbejegyzes az adott honapban: "$month
 	fi		
-
 fi
 
 
