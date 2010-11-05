@@ -653,7 +653,7 @@ rule "validate partner kozalkalmazott vs koztisztviselo kedvezmenyek (not valid)
 	when
 		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$p : Partner( publicEmployee == true && governmentEmployee == true )
+		$p : Partner( publicEmployee == true && governmentEmployee == true && genderCode != 3 )
 		$v : Vehicle( typeCode == $c1.value )
 			
 	then
@@ -666,7 +666,7 @@ rule "validate partner kozalkalmazott vs tanar kedvezmenyek (not valid)"
 	when
 		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$p : Partner( publicEmployee == true && teacher == true ) 
+		$p : Partner( publicEmployee == true && teacher == true && genderCode != 3 ) 
 		$v : Vehicle( typeCode == $c1.value )
 			
 	then
@@ -679,7 +679,7 @@ rule "validate partner tanar vs koztisztviselo kedvezmenyek (not valid)"
 	when
 		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$p : Partner( governmentEmployee == true && teacher == true )
+		$p : Partner( governmentEmployee == true && teacher == true && genderCode != 3 )
 		$v : Vehicle( typeCode == $c1.value )
 			
 	then
@@ -725,9 +725,9 @@ rule "validate partner discounts (startDate >= 2011 jan 1 and insuranceDuration 
 	when
 		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$q : Quote( )
-		$p : Partner( governmentEmployee == true ||
+		$p : Partner( (governmentEmployee == true ||
 					  teacher == true ||
-					  publicEmployee == true )		
+					  publicEmployee == true) && genderCode != 3 )		
 		$v : Vehicle()
 		$d : DurationTypeDef( durationType == Constants.DT_HATAROZATLAN )
 		$vt: VehicleTypeDef( typeCode == $c1.value )
@@ -742,6 +742,38 @@ rule "validate partner discounts (startDate >= 2011 jan 1 and insuranceDuration 
 			setPublicEmployee(false),
 			setTeacher(false),
 			setGovernmentEmployee(false)
+		}
+end
+
+rule "validate partner discounts (jogi szemelyre nincs tanar, kozalk, koztisztv)"
+    agenda-group "validate"
+    salience -50
+    no-loop
+	when
+		$q : Quote( )
+		$p : Partner( (governmentEmployee == true ||
+					  teacher == true ||
+					  publicEmployee == true) && genderCode == 3 )		
+	then
+		//insert( Message.create("15", "2010-12-31" ) );
+		modify ( $p ) {	
+			setPublicEmployee(false),
+			setTeacher(false),
+			setGovernmentEmployee(false)
+		}
+end
+
+rule "validate partner discounts (jogi szemelyre nincs gyerek)"
+    agenda-group "validate"
+    salience -50
+    no-loop
+	when
+		$q : Quote( childPreference == true )
+		$p : Partner( genderCode == 3 )		
+	then
+		//insert( Message.create("15", "2010-12-31" ) );
+		modify ( $q ) {	
+			setChildPreference(false)
 		}
 end
 
