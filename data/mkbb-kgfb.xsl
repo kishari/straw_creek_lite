@@ -125,14 +125,8 @@
 	<xsl:variable name="modfactor.vehicle.age" select="/quote/modfactors/modfactor[code='VEHICLE-AGE']/value"/>
 	
 	<!-- Adatkezelési hozzájárulások -->
-	<xsl:variable name="declaration.privacy1" select="/quote/declarations/declaration[code='PRIVACY1']/value"/>	
-	<!--<xsl:variable name="declaration.privacy2" select="/quote/declarations/declaration[code='PRIVACY2']/value"/>-->
-	<xsl:variable name="declaration.privacy2a" select="substring(/quote/declarations/declaration[code='PRIVACY2']/value,1,1)"/>
-	<xsl:variable name="declaration.privacy2b" select="substring(/quote/declarations/declaration[code='PRIVACY2']/value,2,1)"/>
-	<xsl:variable name="declaration.privacy2c" select="substring(/quote/declarations/declaration[code='PRIVACY2']/value,3,1)"/>
-	<xsl:variable name="declaration.privacy2d" select="substring(/quote/declarations/declaration[code='PRIVACY2']/value,4,1)"/>
-	<xsl:variable name="declaration.privacy2e" select="substring(/quote/declarations/declaration[code='PRIVACY2']/value,5,1)"/>
-	<xsl:variable name="declaration.privacy3" select="/quote/declarations/declaration[code='PRIVACY3']/value"/>
+	<xsl:variable name="declaration.privacy" select="/quote/declarations/declaration[code='PRIVACY']/value"/>	
+	<xsl:variable name="declaration.marketing" select="/quote/declarations/declaration[code='MARKETING']/value"/>
 	<xsl:variable name="declaration.itemsChecked" select="/quote/declarations/declaration[code='ITEMS_CHECKED']/value"/>
 	<xsl:variable name="declaration.conditions" select="/quote/declarations/declaration[code='CONDITIONS']/value"/>
 	<xsl:variable name="declaration.customerReference" select="/quote/declarations/declaration[code='CUSTOMER_REFERENCE']/value"/>
@@ -156,6 +150,8 @@
 	<xsl:variable name="firstPageTableRowHeight">14pt</xsl:variable>
 	<xsl:variable name="secondPageTableRowHeight">12.8pt</xsl:variable>
 	<xsl:variable name="thirdPageTableRowHeight">13pt</xsl:variable>
+	<xsl:template name="Newline"><xsl:text>
+</xsl:text></xsl:template>
 	
 <!-- ============================ RAW XSL =============================== -->
 <!-- =========================== SCRIPTS ================================ -->
@@ -1123,7 +1119,7 @@
 		                                          <fo:list-block  provisional-label-separation="5pt" provisional-distance-between-starts="10pt">		                                                
 		                                                <fo:list-item>
 		                                                      <fo:list-item-label end-indent="label-end()">
-		                                                            <fo:block>&#8226;</fo:block>
+		                                                      	<fo:block>&#9679;</fo:block>
 		                                                      </fo:list-item-label>
 		                                                      <fo:list-item-body start-indent="body-start()">
 		                                                            <fo:block>Nyilatkozom, hogy 2007. 01. 01. óta folyamatosan &#8211; összesen legfeljebb 180 nap megszakítással &#8211; személygépkocsira vonatkozó felelősségbiztosítással rendelkezem:</fo:block>
@@ -1190,7 +1186,7 @@
 		                                          <fo:list-block  provisional-label-separation="5pt" provisional-distance-between-starts="10pt">		                                                
 		                                                <fo:list-item>
 		                                                      <fo:list-item-label end-indent="label-end()">
-		                                                            <fo:block>&#8226;</fo:block>
+		                                                      	<fo:block>&#9679;</fo:block>
 		                                                      </fo:list-item-label>
 		                                                      <fo:list-item-body start-indent="body-start()">
 		                                                            <fo:block>Nyilatkozom, hogy 2007. 01. 01. és az ajánlat aláírásának időpontja közötti időszakban KGFB szerződőjeként nem okoztam kárt
@@ -2958,7 +2954,7 @@
 							</fo:table-cell>
 							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="{$tableCellBackGround}">
 								<fo:block>
-									Egy díjfizetési periódus díja:	
+									Díjfizetés gyakorisága szerinti díj:	
 								</fo:block>
 							</fo:table-cell>
 							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
@@ -3089,25 +3085,6 @@
 														<xslt:value-of select="generate-id(.)"/>
 													</xslt:attribute>
 													<xsl:choose>
-														<xsl:when test="$declaration.customerReference=1">
-															<xsl:attribute name="src">
-																<xslt:value-of select="$filledCheckbox"/>
-															</xsl:attribute>
-														</xsl:when>
-													</xsl:choose>
-												</fo:external-graphic></fo:block>
-											</fo:list-item-label>
-											<fo:list-item-body start-indent="body-start()">
-												<fo:block>Elolvastam és elfogadom a Biztosító Ügyféltájékoztatójában foglaltakat.</fo:block>
-											</fo:list-item-body>
-										</fo:list-item>
-										<fo:list-item padding-bottom="8pt">
-											<fo:list-item-label end-indent="label-end()">
-												<fo:block><fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
-													<xslt:attribute name="xf:compat-id">id1837858
-														<xslt:value-of select="generate-id(.)"/>
-													</xslt:attribute>
-													<xsl:choose>
 														<xsl:when test="$declaration.telesale=1">
 															<xsl:attribute name="src">
 																<xslt:value-of select="$filledCheckbox"/>
@@ -3174,19 +3151,19 @@
 						</fo:table-row>
 						<fo:table-row display-align="center" padding-top="5pt">
 							<fo:table-cell border-width="thin" border-style="solid" border-bottom-style="none" border-top-style="solid" border-color="rgb(0,0,0)" padding="2pt" padding-left="5pt" padding-top="10pt" text-align="left" background-color="transparent">								
-								<fo:block padding-bottom="10pt" font-weight="bold" font-size="10pt">
+								<fo:block padding-bottom="8pt" font-weight="bold" font-size="10pt">
 									Nyilatkozat a személyes adatok átadásáról
 								</fo:block>	
 								<fo:block>	
 									<fo:list-block  provisional-label-separation="5pt" provisional-distance-between-starts="12pt">		                                                
-										<fo:list-item padding-bottom="5pt">
+										<fo:list-item padding-bottom="3pt">
 											<fo:list-item-label end-indent="label-end()">
 												<fo:block><fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
 													<xslt:attribute name="xf:compat-id">id1837858
 														<xslt:value-of select="generate-id(.)"/>
 													</xslt:attribute>
 													<xsl:choose>
-														<xsl:when test="$declaration.privacy1=1">
+														<xsl:when test="$declaration.privacy=1">
 															<xsl:attribute name="src">
 																<xslt:value-of select="$filledCheckbox"/>
 															</xsl:attribute>
@@ -3195,174 +3172,144 @@
 												</fo:external-graphic></fo:block>
 											</fo:list-item-label>
 											<fo:list-item-body start-indent="body-start()">
-												<fo:block>Kijelentem, hogy a biztosítási szerződési feltételekben és a külön tájékoztatóban elhelyezett, 
-													a személyes adatok kezelésére vonatkozó tájékoztatást megismertem, tudomásul vettem. 
-													Jelen nyilatkozataimat a tájékoztatás ismeretében teszem meg.</fo:block>
+												<fo:block>Jelen nyilatkozat aláírásával elfogadom az alább felsorolt pontokat:																						
+												</fo:block>
 											</fo:list-item-body>
 										</fo:list-item>
 									</fo:list-block>									
 								</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row display-align="center" padding-top="2pt">
+							<fo:table-cell border-width="thin" border-style="solid" border-bottom-style="none" border-top-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="20pt" padding-top="3pt" text-align="left" background-color="transparent">						
+								<fo:block padding-left="20pt">
+									<fo:list-block  provisional-label-separation="5pt" provisional-distance-between-starts="15pt">		                                                
+										<fo:list-item padding-bottom="3pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block>&#9679;</fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>Kijelentem, valamint hozzájárulok, hogy a biztosítási szerződési feltételekben és a 
+													külön tájékoztatóban elhelyezett, a személyes adatok kezelésére vonatkozó tájékoztatást 
+													megismertem, tudomásul vettem. Jelen nyilatkozataimat a tájékoztatás ismeretében teszem meg.</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="3pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block>&#9679;</fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>Hozzájárulok, hogy a Biztosító adatfeldolgozás céljából továbbítsa biztosítási titoknak 
+													minősülő adataimat (személyes adataimat és a biztosítási szerződésre vonatkozó adatokat) 
+													a GaVI Gesellschaft für angewandte Versicherungs-Informatik mbH (Székhely: Seckenheimer Str. 
+													150 D-68165 Mannheim, BRD) adatfeldolgozó részére.</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="3pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block>&#9679;</fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>Hozzájárulok, hogy a Biztosító a	személyes adataimat valamint a biztosított jármű adatait 
+													a Közigazgatási és Elektronikus Közszolgáltatások Központi Hivatalának adatbázisában a jogszabályoknak 
+													megfelelően ellenőrizze.</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+									</fo:list-block>
+								</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row display-align="center" padding-top="5pt">
+							<fo:table-cell border-width="thin" border-style="solid" border-bottom-style="none" border-top-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="5pt" padding-top="5pt" text-align="left" background-color="transparent">
 								<fo:block>
-									Alulírott szerződő/biztosított a jelen nyilatkozat aláírásával 
-									ezúton nyilvánítom ki arra vonatkozó önkéntes és határozott hozzájárulásomat, 
-									hogy az MKB Általános Biztosító Zrt.									
+									<fo:list-block  provisional-label-separation="5pt" provisional-distance-between-starts="12pt">		                                                
+										<fo:list-item padding-bottom="3pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block><fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
+													<xslt:attribute name="xf:compat-id">id1837858
+														<xslt:value-of select="generate-id(.)"/>
+													</xslt:attribute>
+													<xsl:choose>
+														<xsl:when test="$declaration.marketing=1">
+															<xsl:attribute name="src">
+																<xslt:value-of select="$filledCheckbox"/>
+															</xsl:attribute>
+														</xsl:when>
+													</xsl:choose>
+												</fo:external-graphic></fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>Jelen nyilatkozat aláírásával ezúton nyilvánítom ki arra vonatkozó önkéntes és
+													határozott hozzájárulásomat, hogy az MKB Általános Biztosító Zrt.</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+									</fo:list-block>																		
 								</fo:block>						
 							</fo:table-cell>
 						</fo:table-row>						
 						<fo:table-row display-align="center" padding-top="2pt">
 							<fo:table-cell border-width="thin" border-style="solid" border-bottom-style="none" border-top-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="20pt" padding-top="5pt" text-align="left" background-color="transparent">
 								<fo:block>
-										<fo:list-block  provisional-label-separation="5pt" provisional-distance-between-starts="23pt">		                                                
-											<fo:list-item padding-bottom="5pt">
+										<fo:list-block  provisional-label-separation="5pt" provisional-distance-between-starts="15pt">		                                                
+											<fo:list-item padding-bottom="3pt">
 												<fo:list-item-label end-indent="label-end()">
-													<fo:block><fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
-														<xslt:attribute name="xf:compat-id">id1837858
-															<xslt:value-of select="generate-id(.)"/>
-														</xslt:attribute>
-														<xsl:choose>
-															<xsl:when test="$declaration.privacy2a=1">
-																<xsl:attribute name="src">
-																	<xslt:value-of select="$filledCheckbox"/>
-																</xsl:attribute>
-															</xsl:when>
-														</xsl:choose>
-													</fo:external-graphic></fo:block>
+													<fo:block>&#9679;</fo:block>
 												</fo:list-item-label>
 												<fo:list-item-body start-indent="body-start()">
-													<fo:block text-indent="-9px">a) statisztikai adatszolgáltatás céljából továbbítsa biztosítási titoknak minősülő adataimat 
+													<fo:block>statisztikai adatszolgáltatás céljából továbbítsa biztosítási titoknak minősülő adataimat 
 														(személyes adataimat és a biztosítási szerződésre vonatkozó adatokat) a biztosító külföldi 
 														tulajdonosának,</fo:block>
 												</fo:list-item-body>
 											</fo:list-item>
-											<fo:list-item padding-bottom="5pt">
+											<fo:list-item padding-bottom="3pt">
 												<fo:list-item-label end-indent="label-end()">
-													<fo:block><fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
-														<xslt:attribute name="xf:compat-id">id1837858
-															<xslt:value-of select="generate-id(.)"/>
-														</xslt:attribute>
-														<xsl:choose>
-															<xsl:when test="$declaration.privacy2b=1">
-																<xsl:attribute name="src">
-																	<xslt:value-of select="$filledCheckbox"/>
-																</xsl:attribute>
-															</xsl:when>
-														</xsl:choose>
-													</fo:external-graphic></fo:block>
+													<fo:block>&#9679;</fo:block>
 												</fo:list-item-label>
 												<fo:list-item-body start-indent="body-start()">
-													<fo:block text-indent="-9px">b) marketingkutatások céljából és egyéb marketingcélokból biztosítási titoknak minősülő adataimat (személyes adataimat, vagyoni helyzetemre 
+													<fo:block>marketingkutatások céljából és egyéb marketingcélokból biztosítási titoknak minősülő adataimat (személyes adataimat, vagyoni helyzetemre 
 														és a biztosítási szerződésemre vonatkozó adatokat) továbbítsa a piackutatási, illetve marketingtevékenységet végző szervezeteknek, amelyek 
 														megbízási szerződésükben titoktartási kötelezettséget vállalnak, és amelyeket a piackutatásról szóló 1995. évi CXIX. 
 														Törvény értelmében titoktartás kötelez,</fo:block>
 												</fo:list-item-body>
 											</fo:list-item>
-											<fo:list-item padding-bottom="5pt">
+											<fo:list-item padding-bottom="3pt">
 												<fo:list-item-label end-indent="label-end()">
-													<fo:block><fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
-														<xslt:attribute name="xf:compat-id">id1837858
-															<xslt:value-of select="generate-id(.)"/>
-														</xslt:attribute>
-														<xsl:choose>
-															<xsl:when test="$declaration.privacy2c=1">
-																<xsl:attribute name="src">
-																	<xslt:value-of select="$filledCheckbox"/>
-																</xsl:attribute>
-															</xsl:when>
-														</xsl:choose>
-													</fo:external-graphic></fo:block>
+													<fo:block>&#9679;</fo:block>
 												</fo:list-item-label>
 												<fo:list-item-body start-indent="body-start()">
-													<fo:block text-indent="-9px">c) nevemet és címemet az MKB Bank Zrt., az 
+													<fo:block>nevemet és címemet az MKB Bank Zrt., az 
 														MKB Nyugdíjpénztár és az MKB Egészségpénztár részére átadja abból a célból, 
 														hogy szolgáltatásaikat részemre közvetlenül ajánlhassák fel,</fo:block>
 												</fo:list-item-body>
 											</fo:list-item>
-											<fo:list-item padding-bottom="5pt">
+											<fo:list-item padding-bottom="3pt">
 												<fo:list-item-label end-indent="label-end()" padding-left="10pt">
-													<fo:block><fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
-														<xslt:attribute name="xf:compat-id">id1837858
-															<xslt:value-of select="generate-id(.)"/>
-														</xslt:attribute>
-														<xsl:choose>
-															<xsl:when test="$declaration.privacy2d=1">
-																<xsl:attribute name="src">
-																	<xslt:value-of select="$filledCheckbox"/>
-																</xsl:attribute>
-															</xsl:when>
-														</xsl:choose>
-													</fo:external-graphic></fo:block>
+													<fo:block>&#9679;</fo:block>
 												</fo:list-item-label>
 												<fo:list-item-body start-indent="body-start()">
-													<fo:block text-indent="-9px">d) nevemet és címemet az MKB Életbiztosító Zrt. részére átadja abból a célból, 
-														hogy szolgáltatásaikat részemre közvetlenül ajánlhassák fel,</fo:block>
+													<fo:block>nevemet és címemet az MKB Életbiztosító Zrt. részére átadja abból a célból, 
+														hogy szolgáltatásaikat részemre közvetlenül ajánlhassák fel.</fo:block>
 												</fo:list-item-body>
-											</fo:list-item>
-											<fo:list-item padding-bottom="5pt">
-												<fo:list-item-label end-indent="label-end()">
-													<fo:block><fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
-														<xslt:attribute name="xf:compat-id">id1837858
-															<xslt:value-of select="generate-id(.)"/>
-														</xslt:attribute>
-														<xsl:choose>
-															<xsl:when test="$declaration.privacy2e=1">
-																<xsl:attribute name="src">
-																	<xslt:value-of select="$filledCheckbox"/>
-																</xsl:attribute>
-															</xsl:when>
-														</xsl:choose>
-													</fo:external-graphic></fo:block>
-												</fo:list-item-label>
-												<fo:list-item-body start-indent="body-start()">
-													<fo:block></fo:block>
-													<fo:block text-indent="-9px">e) adatfeldolgozás céljából továbbítsa biztosítási titoknak minősülő adataimat (személyes adataimat és 
-														a biztosítási szerzôdésre vonatkozó adatokat) a GaVI Gesellschaft für angewandte Versicherungs-Informatik mbH 
-														(Székhely: Seckenheimer Str. 150 D-68165 Mannheim, BRD) adatfeldolgozó részére.</fo:block>
-												</fo:list-item-body>
-											</fo:list-item>
+											</fo:list-item>								
 										</fo:list-block>										
 								</fo:block>							
 							</fo:table-cell>
 						</fo:table-row>
 						<fo:table-row display-align="center" padding-top="2pt">
 							<fo:table-cell border-width="thin" border-style="solid" border-bottom-style="none" border-top-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="5pt" padding-top="5pt" text-align="left" background-color="transparent">
-								<fo:block>
-									<fo:list-block  provisional-label-separation="5pt" provisional-distance-between-starts="12pt">		                                                
-										<fo:list-item padding-bottom="5pt">
-											<fo:list-item-label end-indent="label-end()">
-												<fo:block><fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
-													<xslt:attribute name="xf:compat-id">id1837858
-														<xslt:value-of select="generate-id(.)"/>
-													</xslt:attribute>
-													<xsl:choose>
-														<xsl:when test="$declaration.privacy3=1">
-															<xsl:attribute name="src">
-																<xslt:value-of select="$filledCheckbox"/>
-															</xsl:attribute>
-														</xsl:when>
-													</xsl:choose>
-												</fo:external-graphic></fo:block>
-											</fo:list-item-label>
-											<fo:list-item-body start-indent="body-start()">
-												<fo:block>Hozzájárulok, hogy a Biztosító a személyes adataimat valamint a biztosított jármű adatait a 
-													Közigazgatási és Elektronikus Közszolgáltatások Központi Hivatalának adatbázisában a jogszabályoknak 
-													megfelelően ellenőrizze.</fo:block>
-											</fo:list-item-body>
-										</fo:list-item>
-									</fo:list-block>									 
-								</fo:block>
 								<fo:block font-weight="normal" display-align="auto"> </fo:block>		
 								<fo:block>Kelt: ........................................, .................... év ................................. hó .................... nap</fo:block>								
 							</fo:table-cell>
 						</fo:table-row>
 						<fo:table-row display-align="center" padding-top="2pt">
-							<fo:table-cell border-width="thin" border-style="solid" border-bottom-style="none" border-top-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-right="40pt" padding-top="10pt" text-align="right" background-color="transparent">
+							<fo:table-cell border-width="thin" border-style="solid" border-bottom-style="none" border-top-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-right="40pt" padding-top="8pt" text-align="right" background-color="transparent">
 								<fo:block>
 									............................................................
 								</fo:block>											
 							</fo:table-cell>
 						</fo:table-row>
 						<fo:table-row display-align="center">
-							<fo:table-cell border-width="thin" border-style="solid" border-top-style="none" border-color="rgb(0,0,0)" padding="0pt" padding-right="55pt" padding-bottom="20pt" text-align="right" background-color="transparent">
+							<fo:table-cell border-width="thin" border-style="solid" border-top-style="none" border-color="rgb(0,0,0)" padding="0pt" padding-right="55pt" padding-bottom="15pt" text-align="right" background-color="transparent">
 								<fo:block>
 									Szerződő/Biztosított aláírása
 								</fo:block>											
