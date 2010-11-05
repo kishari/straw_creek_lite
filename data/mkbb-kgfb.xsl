@@ -818,8 +818,12 @@
 			                              <fo:block>
 			                                    <fo:inline>
 			                                          <xsl:value-of select="$partner.permanentAddress.addressLine1"/>
-			                                    </fo:inline>, <fo:inline>
-			                                          <xsl:value-of select="$partner.permanentAddress.addressLine2"/>
+			                                    </fo:inline> <fo:inline>
+			                                    	<xsl:choose>
+			                                    		<xsl:when test="$partner.permanentAddress.addressLine2!=''">
+			                                    			, <xsl:value-of select="$partner.permanentAddress.addressLine2"/>
+			                                    		</xsl:when>
+			                                    	</xsl:choose>			                                    				                                    	
 			                                    </fo:inline>		                                    
 			                              </fo:block>
 			                        </fo:table-cell> 
@@ -885,8 +889,12 @@
 			                              <fo:block>
 			                                    <fo:inline>
 			                                    	<xsl:value-of select="$partner.mailingAddress.addressLine1"/>
-			                                    </fo:inline>, <fo:inline>
-			                                    	<xsl:value-of select="$partner.mailingAddress.addressLine2"/>	
+			                                    </fo:inline> <fo:inline>
+			                                    	<xsl:choose>
+			                                    		<xsl:when test="$partner.mailingAddress.addressLine2!=''">
+			                                    			, <xsl:value-of select="$partner.mailingAddress.addressLine2"/>
+			                                    		</xsl:when>
+			                                    	</xsl:choose>	
 			                                    </fo:inline>			                                    	
 			                              </fo:block>
 			                        </fo:table-cell> 
