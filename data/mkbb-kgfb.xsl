@@ -2337,9 +2337,7 @@
 				<!-- 4. Díjszámítási adatok táblázat 8.sor (Alapdíj / gyártmány-teljesítmény szorzó) -->
 				<fo:table table-layout="fixed" border-collapse="collapse">
 					<fo:table-column column-width="proportional-column-width(20.000)" column-number="1"/>
-					<fo:table-column column-width="proportional-column-width(30.000)" column-number="2"/>
-					<fo:table-column column-width="proportional-column-width(32.000)" column-number="3"/>
-					<fo:table-column column-width="proportional-column-width(18.000)" column-number="4"/>
+					<fo:table-column column-width="proportional-column-width(80.000)" column-number="2"/>
 					<fo:table-body>
 						<fo:table-row display-align="center" height="{$secondPageTableRowHeight}">
 							<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding-left="2pt" padding="2pt" text-align="left" background-color="{$tableCellBackGround}">
@@ -2347,7 +2345,7 @@
 									Alapdíj:
 								</fo:block>
 							</fo:table-cell>
-							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
 								<fo:block>
 									<fo:inline>
 										<xsl:choose>
@@ -2358,18 +2356,6 @@
 									</fo:inline>						
 								</fo:block>
 							</fo:table-cell>
-							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" text-align="left" background-color="{$tableCellBackGround}">
-								<fo:block>
-									Gyártmány-teljesítmény szorzó:
-								</fo:block>
-							</fo:table-cell>
-							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
-								<fo:block>
-									<fo:inline>
-										<xsl:value-of select="$modfactor.vehicle.makePower"/>
-									</fo:inline>
-								</fo:block>
-							</fo:table-cell> 
 						</fo:table-row>	                        
 					</fo:table-body>
 				</fo:table>
