@@ -160,8 +160,8 @@ rule "alaptarifa modositas a gyartmany-teljesitmeny alapjan"
 	then
 		int baseTariff = $q.getResult().getBaseTariff();
 		baseTariff = (int)Math.round(baseTariff * $p.getValue() );
-		modify ( $pm ) { setValue( Integer.toString(baseTariff) ) }		
-		insert(new ModFactor("MAKE-POWER", $p.getValue(), $v, "MULTIPLIER"));
+		modify ( $pm ) { setValue( Integer.toString( baseTariff ) ); }		
+		insert(new ModFactor("MAKE-POWER", 1.0, $v, "MULTIPLIER"));
 end
 
 rule "hengerurtartalom szorzo"
@@ -556,6 +556,7 @@ rule "hatarozatlan ideju kgfb eves premium szamolasa"
 		
 		if (!"UNKNOWN".equals($bt.getValue() ) ) {
 			$q.getResult().setBaseTariff( Integer.parseInt( $bt.getValue() ) );
+			baseTariff = Integer.parseInt( $bt.getValue() );
 		}
 		
 		int precision = Integer.parseInt( $param.getValue() );
