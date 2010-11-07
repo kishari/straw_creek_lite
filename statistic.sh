@@ -67,6 +67,8 @@ if [ $havistat -eq 0 ]; then
 	echo Statisztika a kovetkezo naprol: $1
 	echo "("Lekerdezes idopontja: $(date)")"
 	echo "------------------------------"
+	
+	unzip -q "callerIds.log."$1."zip"
 	f="callerIds.log."$1
 	#echo $f
 	if [ -f $f ]; then
@@ -96,6 +98,7 @@ if [ $havistat -eq 0 ]; then
 
 		rm lastNum
 		rm uniqSorted
+		rm "callerIds.log."$1
 	else
 		echo "Nincs callerId logbejegyzés az adott napra!"
 	fi
@@ -112,16 +115,22 @@ else #összesített a teljes hónapra
 	echo "("Lekerdezes idopontja: $(date)")"
 	echo "--------------------------------"
 	
-	files="callerIds.log."$month"-*"
+	zipFiles="callerIds.log."$month"-*.zip"
 	#echo files: $files
 
-	set -- "$files" 
+	set -- "$zipFiles" 
 	IFS=" "; declare -a Array=($*) 
 	
 	
 	if [ ${#Array[@]} -ne 0 ]; then
-		for dailyLog in ${Array[@]}; do #Végigmegyünk az összes fájlon (pl bemenet 2010-11 akkor minden 2010-11-* végződésű callerIds.log fájlon)
-	    		#echo "processing $dailyLog ..."
+		for dailyLogZip in ${Array[@]}; do #Végigmegyünk az összes fájlon (pl bemenet 2010-11 akkor minden 2010-11-* végződésű callerIds.log fájlon)
+			unzip -q $dailyLogZip
+			
+			len=`expr length "$dailyLogZip"`;
+			name=`echo "$dailyLogZip"`
+			dailyLog=${name:0:len-4}
+			
+	    		echo "processing $dailyLog ..."
 				sed -e 's/.*callerId: //g' $dailyLog >> callerIds
 		
 				sort callerIds > sortedCallerIds
@@ -142,6 +151,7 @@ else #összesített a teljes hónapra
 				
 				rm lastNum
 				rm uniqSortedCallerIds
+				rm $dailyLog
 		done #Végigmentünk a logfájlokon
 
 			sort allstat > allstatSorted
