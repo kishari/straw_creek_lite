@@ -161,7 +161,8 @@ rule "alaptarifa modositas a gyartmany-teljesitmeny alapjan"
 		int baseTariff = $q.getResult().getBaseTariff();
 		baseTariff = (int)Math.round(baseTariff * $p.getValue() );
 		modify ( $pm ) { setValue( Integer.toString( baseTariff ) ); }		
-		insert(new ModFactor("MAKE-POWER", 1.0, $v, "MULTIPLIER"));
+		//insert(new ModFactor("MAKE-POWER", 1.0, $v, "MULTIPLIER"));
+		insert(new ModFactor("MAKE-POWER", $p.getValue(), $v, "MULTIPLIER"));
 end
 
 rule "hengerurtartalom szorzo"
@@ -528,7 +529,7 @@ rule "hatarozatlan ideju kgfb eves premium szamolasa"
 	                          result(m) 
 	                        )
         $vehiclemf : Double()
-	        			from accumulate ( $mf : ModFactor( vehicle == $v, $val : value, discount == false, surcharge == false ),
+	        			from accumulate ( $mf : ModFactor( code != "MAKE-POWER", vehicle == $v, $val : value, discount == false, surcharge == false ),
 	                          init(double m = 1.0;),
 	                          action(
 	                          	m *= $val;
