@@ -70,6 +70,25 @@ rule "modify cubicCapacity (cubicCapacityNotDefined == true)"
 		}
 end
 
+rule "modify makeCode (make is OtherMake)"
+    agenda-group "preprocess"
+    no-loop 
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value )
+		exists OtherMakeDef( make == $v.make )
+
+	then
+		ParamDef p = new ParamDef();
+		p.setKey("MAKE-TEMP");
+		p.setValue( $v.getMake() ); //Eltároljuk a bejövő gyártmányt, hogy a válaszban vissza tudjuk adni.	
+		insert( p );
+		modify( $v ) {
+			setMake("EGYEB") //Ha olyan gyártmánnyal jön, aminek egyébnek kell lennie, akkor állítsuk egyébre		
+		}
+end
+
 rule "modify maximumNettoPower to 71-85KW"
     agenda-group "preprocess"
     no-loop 

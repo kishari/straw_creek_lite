@@ -40,6 +40,17 @@ rule "Atmeneti ParamDef(POWER-TEMP) eltavolitas a sessionbol"
 		retract($p);
 end
 
+rule "Atmeneti ParamDef(MAKE-TEMP) eltavolitas a sessionbol"
+	agenda-group "cleanup"
+	
+	when
+		$p : ParamDef( key == "MAKE-TEMP" )
+		$v : Vehicle()
+	then
+		$v.setMake( $p.getValue() );
+		retract($p);
+end
+
 rule "Atmeneti ParamDef(BASETARIFF-TEMP) eltavolitas a sessionbol"
 	agenda-group "cleanup"
 	

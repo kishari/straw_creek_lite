@@ -34,6 +34,7 @@ public class KnowledgeSessionFactory extends BasePoolableObjectFactory {
 	
 	private void addFacts(StatefulKnowledgeSession sess) throws Exception {
 		addFacts(sess, MakeDef.class, new String[] {"make", "makeCode", "validFrom", "validTo"}, getReaderFor("MakeDef"));
+		addFacts(sess, OtherMakeDef.class, new String[] {"make", "makeCode", "validFrom", "validTo"}, getReaderFor("OtherMakeDef"));
 		addFacts(sess, ModFactorDef.class, new String[] {"modfactorType", "description", "value", "validFrom", "validTo"}, getReaderFor("ModFactorDef"));
 		addFacts(sess, PowerModFactorDef.class, new String[] {"makeCode", "powerMin", "powerMax", "value", "validFrom", "validTo"}, getReaderFor("PowerModFactorDef"));
 		addFacts(sess, CubicCapacityModFactorDef.class, new String[] {"capacityMin", "capacityMax", "value", "validFrom", "validTo"}, getReaderFor("CubicCapacityModFactorDef"));
