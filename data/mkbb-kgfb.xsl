@@ -1718,7 +1718,7 @@
 		                                    <fo:block>
 		                                          <fo:inline>
 		                                          	<xsl:choose>
-		                                          		<xsl:when test="$vehicle.maximumNettoPower">
+		                                          		<xsl:when test="$vehicle.maximumNettoPower!=''">
 		                                          			<xsl:value-of select="$vehicle.maximumNettoPower"/> kW
 		                                          		</xsl:when>
 		                                          	</xsl:choose>		                                          	
@@ -1792,7 +1792,7 @@
 		                                    <fo:block>
 		                                          <fo:inline>
 		                                          	<xsl:choose>
-		                                          		<xsl:when test="$vehicle.cubicCapacity">
+		                                          		<xsl:when test="$vehicle.cubicCapacity!=''">
 		                                          			<xsl:value-of select="$vehicle.cubicCapacity"/> ccm
 		                                          		</xsl:when>
 		                                          	</xsl:choose>		                                          			                                          
@@ -1834,7 +1834,7 @@
 		                                    <fo:block>
 		                                          <fo:inline>
 		                                          	<xsl:choose>
-		                                          		<xsl:when test="$vehicle.ownWeight">
+		                                          		<xsl:when test="$vehicle.ownWeight!=''">
 		                                          			<xsl:value-of select="$vehicle.ownWeight"/> kg
 		                                          		</xsl:when>
 		                                          	</xsl:choose>		                                          	
@@ -1850,7 +1850,7 @@
 		                                    <fo:block>
 		                                          <fo:inline>
 		                                          	<xsl:choose>
-		                                          		<xsl:when test="$vehicle.maximumAllowedWeight">
+		                                          		<xsl:when test="$vehicle.maximumAllowedWeight!=''">
 		                                          			<xsl:value-of select="$vehicle.maximumAllowedWeight"/> kg
 		                                          		</xsl:when>
 		                                          	</xsl:choose>		                                          	
@@ -2349,7 +2349,7 @@
 								<fo:block>
 									<fo:inline>
 										<xsl:choose>
-											<xsl:when test="$result.baseTariff">
+											<xsl:when test="$result.baseTariff!=''">
 												<xsl:value-of select="$result.baseTariff"/> Ft
 											</xsl:when>
 										</xsl:choose>										
@@ -2594,7 +2594,7 @@
 								<fo:block>
 									<fo:inline>
 										<xsl:choose>
-											<xsl:when test="$partner.child.name">
+											<xsl:when test="$partner.child.name!=''">
 												<xsl:value-of select="$partner.child.name"/> , 
 											</xsl:when>
 										</xsl:choose>									
@@ -2729,7 +2729,7 @@
 								<fo:block>
 									<fo:inline>
 										<xsl:choose>
-											<xsl:when test="$result.yearlyPremium">
+											<xsl:when test="$result.yearlyPremium!=''">
 												<xsl:value-of select="$result.yearlyPremium"/> Ft
 											</xsl:when>
 										</xsl:choose>
@@ -2931,7 +2931,7 @@
 								<fo:block>
 									<fo:inline>
 										<xsl:choose>
-											<xsl:when test="$result.mabiszPremium">
+											<xsl:when test="$result.mabiszPremium!=''">
 												<xsl:value-of select="$result.mabiszPremium"/> Ft
 											</xsl:when>
 										</xsl:choose>									
@@ -2947,7 +2947,7 @@
 								<fo:block>
 									<fo:inline>
 										<xsl:choose>
-											<xsl:when test="$result.installmentPremium">
+											<xsl:when test="$result.installmentPremium!=''">
 												<xsl:value-of select="$result.installmentPremium"/> Ft
 											</xsl:when> 
 										</xsl:choose>															

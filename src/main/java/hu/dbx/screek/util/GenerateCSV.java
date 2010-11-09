@@ -41,6 +41,47 @@ public class GenerateCSV {
 		return rowObjects;
 	}
 	
+	private void buildCleanPowerCSV(String path, String fileName) throws IOException {
+		File genCSVFile = new File(path, fileName);
+		Writer writer = null;
+		writer = new BufferedWriter(new FileWriter(genCSVFile));
+		
+		writer.write("\"MAKE_CODE\";\"MIN_KW\";\"MAX_KW\";\"VALUE\";\"VALID_FROM\";\"VALID_TO\"\n");
+		
+		List<String> otherCodes = getOtherMakeCodes();
+		for (int row = 1; row < l2.size(); row++) {
+			
+			List<RowObject> rowObjects = generateRows(l2.get(row), false);
+			for (RowObject h : rowObjects) {
+				boolean w = true;
+				for (String o : otherCodes) {
+					if (o.equals(h.getMakeCode())) {
+						w = false;
+						System.out.println(o + " " + h.getMakeCode());
+					}
+				}
+				if (w) {
+					writer.write("\"" + h.getMakeCode() + "\";\"" + h.getMinKW() + "\";\"" + h.getMaxKW() + "\";\"" + h.getValue() + 
+							  "\";\"" + h.getValidFrom() + "\";\"" + h.getValidTo() + "\"\n");
+				}
+			}
+		}
+			
+		writer.close();
+		
+	}
+	
+	private List<String> getOtherMakeCodes() {
+		List<String> codes = new ArrayList<String>();
+		
+		for (int row = 1; row < l1.size(); row++) {
+			String[] s = l1.get(row);
+			System.out.println(s[1]);
+			codes.add(s[1]);
+		}
+		return codes;
+	}
+	
 	private void buildNewCSV(String path, String fileName) throws IOException {
 		File genCSVFile = new File(path, fileName);
 		Writer writer = null;
@@ -83,11 +124,11 @@ public class GenerateCSV {
 	public static void main(String[] args) {
 		GenerateCSV gen = new GenerateCSV();
 		try {
-			gen.parse("/home/csaba/src/straw_creek/data/PowerModFactorTable2010.csv");
-			//gen.buildNewCSV("/home/csaba/src/straw_creek/data/", "PowerModFactorDef2010.csv");
+			gen.parse("/home/csaba/src/straw_creek/src/main/rules/csv/OtherMakeDef.csv");
 			gen.parse("/home/csaba/src/straw_creek/data/PowerModFactorTable2011.csv");
-			//gen.buildNewCSV("/home/csaba/src/straw_creek/data/", "PowerModFactorDef2011.csv");
-			gen.buildNewCSV("/home/csaba/src/straw_creek/data/", "PowerModFactorDef.csv");
+			
+			gen.buildCleanPowerCSV("/home/csaba/src/straw_creek/data/", "PowerModFactorDef.csv");
+			
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
