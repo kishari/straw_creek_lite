@@ -153,6 +153,7 @@
 	<xsl:variable name="warrantPageTableRowHeight">14pt</xsl:variable>
 	<xsl:variable name="paddingLeft">4pt</xsl:variable>
 	<xsl:variable name="lastPage_padding_top">17pt</xsl:variable>
+	<xsl:variable name="lastPage_margin">-0.25px</xsl:variable>
 	
 <!-- ============================ RAW XSL =============================== -->
 <!-- =========================== SCRIPTS ================================ -->
@@ -783,37 +784,37 @@
 					<fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
 					<fo:table-body>
 						<fo:table-row height="{$warrantPageTableRowHeight}">
-							<fo:table-cell display-align="center" border-width="thin" border-style="none" background-color="{$mkbbRed}" padding="2pt" color="rgb(255,255,255)" text-align="center">
+							<fo:table-cell display-align="center" border-width="thin" border-style="solid" border-bottom-style="none" background-color="{$mkbbRed}" padding="2pt" color="rgb(255,255,255)" text-align="center">
 								<fo:block>KITÖLTÉSI ÚTMUTATÓ</fo:block>
 							</fo:table-cell>
 						</fo:table-row>
 					</fo:table-body>
 				</fo:table>
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="-0.5px" padding-left="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="{$lastPage_margin}" padding-left="4pt">
 				A FELHATALMAZÁS CSOPORTOS BESZEDÉSI MEGBÍZÁS TELJESÍTÉSÉRE,	A FELHATALMAZÁS MÓDOSÍTÁSA, MEGSZÜNTETÉSE
 				című nyomtatvány kitöltésével a kötelezett felhatalmazza számlavezető hitelintézetét, hogy az általa megadott adatok
 				alapján, a megjelölt bankszámláról fizetéseket teljesítsen.	A nyomtatvány kitöltésével felhatalmazási megbízás kezdeményezhető,
 				valamint létező megbízás módosítható vagy megszüntethető.
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="-0.5px" padding-left="4pt">		
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="{$lastPage_margin}" padding-left="4pt">		
 				<fo:inline font-weight="bold">I. Felhatalmazási megbízás kezdeményezése:</fo:inline> a felhatalmazási megbízást adó kötelezettnek az 1-től 5-ig 
 				terjedő számozással jelölt adatcsoportokat kell kitölteni a rendelkezésére álló számlán vagy egyéb dokumentumon (pl. szerződésen) szereplő adatok 
 				felhasználásával írógéppel, vagy nyomtatott	betűkkel. Az adatokat az előre megrajzolt négyzetekbe kell beírni, figyelembe véve a négyzetek számát.	
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="-0.5px" padding-left="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="{$lastPage_margin}" padding-left="4pt">
 				<fo:inline font-weight="bold">1. Kötelezett adatai:</fo:inline> kitöltendő a „Kötelezett neve” maximum 32 jel hosszúságban és a
 				terhelendő „Bankszámla pénzforgalmi	jelzőszáma” 2-szer 8, vagy 3-szor 8 számjegy hosszan. Amennyiben a teljes név meghaladná
 				a 32 jelet, akkor rövidíteni szükséges a bankszámlaszerződéssel összhangban. 
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="-0.5px" padding-left="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="{$lastPage_margin}" padding-left="4pt">
 				<fo:inline font-weight="bold">2. Jogosult adatai:</fo:inline> a „Jogosult (közszolgáltató, díjbeszedő, biztosító, eladó, stb.) neve” mezőben annak a szervezetnek 
 				a nevét kell szerepeltetni maximum 32 jel hosszúságban, amely a felhatalmazással jogot szerez arra, hogy a vonatkozó szolgáltatásból eredő 
 				követelését érvényesítse, a	kötelezett számlájával szemben követeléssel éljen. A „Jogosult azonosítója” mezőbe azt a jelsorozatot kell beírni, 
 				amely a	kötelezettnek vagy fogyasztónak kiküldött számlán, értesítőn vagy szerződésen azonos felirattal szerepel. (Forduljon az ügyintézőhöz, 
 				ha ilyen adat nem található a számlán!) A megbízás elfogadásáról, az első terhelés esedékességéről a jogosult tájékoztatja a fogyasztót.
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="-0.5px" padding-left="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="{$lastPage_margin}" padding-left="4pt">
 				<fo:inline font-weight="bold">3. Fogyasztó adatai:</fo:inline> a „Fogyasztó (előfizető, biztosított, vásárló, stb.) neve” rovat akkor töltendő ki, ha a kötelezett és a fogyasztó 
 				nem ugyanaz a személy. Ebben az esetben maximum	32 jel hosszan kell megadni annak a személynek a nevét, akinek a tartozását a kötelezett 
 				kívánja kiegyenlíteni. A „Fogyasztó címe” mező pontos megadása a fogyasztó egyértelmű azonosítása érdekében szükséges. Amennyiben a teljes 
@@ -821,7 +822,7 @@
 				jogosultnál” mezőbe azt a jelsorozatot kell beírni, amely a kötelezettnek vagy fogyasztónak kiküldött számlán azonos felirattal szerepel. 
 				(Forduljon az ügyintézőhöz, ha ilyen adat nem található a számlán!)	
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" padding-bottom="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="-0.5px" padding-left="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" padding-bottom="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="{$lastPage_margin}" padding-left="4pt">
 				<fo:inline font-weight="bold">4. Teljesítés adatai:</fo:inline> az „Érvényesség kezdete:” szöveget követő négyzetekbe számmal (év, hó, nap 
 				formában) kell jelezni, hogy mikortól, illetve az „Érvényesség vége:” szöveget követő négyzetekben azt, hogy meddig 
 				érvényes a felhatalmazási megbízás. Amennyiben a felhatalmazási megbízás visszavonásig érvényes, akkor az „Érvényesség vége:” mezőt követő 
@@ -831,20 +832,20 @@
 				írni. Amennyiben a beszedni kívánt összeg ezt a limitet meghaladja, úgy a számlavezető banknak kötelessége a teljesítést megtagadni. 
 				A négyzetek áthúzásával kell jelölni, ha nem kívánnak felső értékhatárt megadni. 
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="-0.5px" padding-right="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
 				<fo:inline font-weight="bold">5. A felhatalmazás jellege:</fo:inline> új felhatalmazási megbízás megadásakor
 				az "Eredeti megbízás" szöveget követő négyzetbe „X”	jelet kell írni.
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="-0.5px" padding-right="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
 				<fo:inline font-weight="bold">6. Nyilatkozat:</fo:inline> a felhatalmazás csak akkor érvényes, ha a felhatalmazó
 				a Nyilatkozatot kitölti, aláírásával hitelesíti és a kitöltött bizonylaton szerepel az átvétel dátuma, valamint az átvevő aláírása.
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="-0.5px" padding-right="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
 				<fo:inline font-weight="bold">II. Meglévő felhatalmazási megbízás módosítása:</fo:inline> felhatalmazás módosítása a jogosultnál vagy a 
 				számlavezető banknál is benyújtható érvényes felhatalmazási megbízás birtokában. A nyomtatvány adatait módosítás esetén is az új megbízásnál 
 				leírtak szerint, azzal megegyező módon kell kitölteni.
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="-0.5px" padding-right="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
 				<fo:inline font-weight="bold">4. Teljesítés adatai:</fo:inline> a felhatalmazás érvényességének változtatása esetén az „Érvényesség kezdete:” után
 				található négyzetekbe a módosítás érvénybe lépésének dátumát, az „Érvényesség vége:” után található négyzetekbe pedig vagy egy konkrét (az érvénybe 
 				lépésnél nagyobb) dátumot kell beírni, ha azt akarja a kötelezett, hogy a felhatalmazás egy megadott dátumig maradjon érvényben, vagy át kell 
@@ -855,27 +856,27 @@
 				akkor ez azt jelenti, hogy a limit a felhatalmazási megbízás visszavonásáig, illetve egy újabb módosításig érvényes. A módosítás érvénybe lépésének dátuma 
 				nem lehet korábbi az eredeti új megbízás érvényességi dátumánál. 
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="-0.5px" padding-right="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
 				<fo:inline font-weight="bold">5. A felhatalmazás jellege:</fo:inline> a meglévő megbízás módosítását a számlavezető bank csak 
 				akkor fogadja be, ha a kötelezett a „Módosítás” után található négyzetbe „X” jelet ír. 
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="-0.5px" padding-right="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
 				<fo:inline font-weight="bold">6. Lásd I./6. pont.</fo:inline>
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="-0.5px" padding-right="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
 				<fo:inline font-weight="bold">III. Meglévő felhatalmazási megbízás megszüntetése:</fo:inline> felhatalmazás megszüntetése a kitöltött bizonylat 
 				számlavezető hitelintézethez történő eljuttatásával kezdeményezhető. Megszüntetés esetén az első három adatcsoportban az új megbízásnál megadott 
 				értékeket kell szerepeltetni. Ezt követően a 4. és 5. adatcsoport mezői az alábbiak szerint töltendők ki: 
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="-0.5px" padding-right="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
 				<fo:inline font-weight="bold">4. Teljesítés adatai:</fo:inline> az „Érvényesség kezdete:” szöveg után található négyzetekbe azt a dátumot kell beírni 
 				(év, hó, nap formában), amikortól kezdve a kötelezett már nem kívánja a jogosulttól érkező számlákat a bankszámlájáról történő beszedés	alapján 
 				kiegyenlíteni.
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="-0.5px" padding-right="4pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
 				<fo:inline font-weight="bold">5. A felhatalmazás jellege:</fo:inline> a „Megszüntetés” szöveget követő négyzetbe „X” jelet kell írni.					
 			</fo:block>
-			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="-0.5px" padding-right="4pt" padding-bottom="45pt">
+			<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt" padding-bottom="45pt">
 				<fo:inline font-weight="bold">6. Lásd I./6. pont.</fo:inline>
 			</fo:block>
 			<fo:block span="all" border-width="thin" border-style="solid" border-top-style="none"> </fo:block>			
