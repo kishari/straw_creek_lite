@@ -292,9 +292,7 @@
 		                        </fo:table-cell>
 		                        <fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
 		                              <fo:block>
-		                                    <fo:inline>
-		                                          <xsl:value-of select="$partner.name"/>
-		                                    </fo:inline>
+
 		                              </fo:block>
 		                        </fo:table-cell> 
 		                  </fo:table-row>
@@ -306,9 +304,7 @@
 		                        </fo:table-cell>
 		                        <fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
 		                              <fo:block>
-		                              	<fo:inline>
-		                              		<xsl:value-of select="$partner.accountNumber"/>
-		                              	</fo:inline>
+
 		                              </fo:block>
 		                        </fo:table-cell> 
 		                  </fo:table-row>
@@ -684,10 +680,10 @@
 							</fo:table-cell>
 						</fo:table-row>
 						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
-							<fo:table-cell border-width="thin" border-style="solid" border-bottom-style="none" border-color="rgb(0,0,0)" text-align="left" padding="2pt" padding-top="4pt" padding-left="{$paddingLeft}" padding-right="{$paddingLeft}" background-color="transparent">
+							<fo:table-cell border-width="thin" border-style="solid" border-bottom-style="none" border-color="rgb(0,0,0)" text-align="left" padding="2pt" padding-top="8pt" padding-left="{$paddingLeft}" padding-right="{$paddingLeft}" background-color="transparent">
 								<fo:block text-align="justify">
 									Jelen nyomtatvány kitöltésével és aláírásával felhatalmazom a 
-									<fo:inline font-weight="bold"><xsl:value-of select="$partner.bankName"/></fo:inline> 
+									<fo:inline display-align="after">.....................................................................................</fo:inline> 
 									hitelintézetet arra, hogy a fentebb megjelölt jogosultat az általam benyújtott felhatalmazásról értesítse, 
 									és a bankszámlámat a jogosult által benyújtott beszedési megbízás alapján – megbízásom keretei között – megterhelje. 
 									Felhatalmazásomat a hátlapon található útmutató ismeretében adtam meg. Tudomásul veszem, hogy a beszedési megbízás 
@@ -745,12 +741,12 @@
 							</fo:table-cell>
 						</fo:table-row>
 						<fo:table-row display-align="center" height="10pt">
-							<fo:table-cell border-width="thin" border-left-style="solid" border-color="rgb(0,0,0)" border-bottom-style="solid" padding-bottom="10pt" text-align="center" background-color="transparent">
+							<fo:table-cell border-width="thin" border-left-style="solid" border-color="rgb(0,0,0)" border-bottom-style="solid" padding-bottom="7pt" text-align="center" background-color="transparent">
 								<fo:block>
 									Szerződő aláírása
 								</fo:block>								
 							</fo:table-cell>
-							<fo:table-cell border-width="thin" border-right-style="solid" border-bottom-style="solid" padding-bottom="10pt" border-color="rgb(0,0,0)" text-align="center" background-color="transparent">
+							<fo:table-cell border-width="thin" border-right-style="solid" border-bottom-style="solid" padding-bottom="7pt" border-color="rgb(0,0,0)" text-align="center" background-color="transparent">
 								<fo:block>	</fo:block>								
 							</fo:table-cell>
 						</fo:table-row>

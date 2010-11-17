@@ -6,6 +6,9 @@
 <!-- =========================== Variables ============================== -->
 	<!-- Quote szintű adatok -->
 	<!-- =================== -->
+	<xsl:variable name="bankAccountNumber" select="/quote/bankAccountNumber"/>
+	<xsl:variable name="bankName" select="/quote/bankName"/>
+	<xsl:variable name="nameOfBankAccountHolder" select="/quote/nameOfBankAccountHolder"/>
 	<xsl:variable name="quoteNumber" select="/quote/quoteNumber"/>
 	<xsl:variable name="policyNumber" select="/quote/policyNumber"/>
 	<xsl:variable name="producerCode" select="/quote/producerCode"/>
@@ -150,8 +153,10 @@
 	<xsl:variable name="firstPageTableRowHeight">14pt</xsl:variable>
 	<xsl:variable name="secondPageTableRowHeight">12.8pt</xsl:variable>
 	<xsl:variable name="thirdPageTableRowHeight">13pt</xsl:variable>
-	<xsl:template name="Newline"><xsl:text>
-</xsl:text></xsl:template>
+	<xsl:variable name="warrantPageTableRowHeight">14pt</xsl:variable>
+	<xsl:variable name="paddingLeft">4pt</xsl:variable>
+	<xsl:variable name="lastPage_padding_top">17pt</xsl:variable>
+	<xsl:variable name="lastPage_margin">-0.25px</xsl:variable>
 	
 <!-- ============================ RAW XSL =============================== -->
 <!-- =========================== SCRIPTS ================================ -->
@@ -172,6 +177,13 @@
       	<fo:region-after region-name="xsl-region-after" display-align="before" extent="50.400pt"/>
       	<fo:region-start region-name="xsl-region-start" extent="0pt"/>
       	<fo:region-end region-name="xsl-region-end" extent="0pt"/>
+      	</fo:simple-page-master>
+      	<fo:simple-page-master master-name="LastPage" page-width="595.000pt" page-height="842.000pt">
+      		<fo:region-body column-count="2" region-name="xsl-region-body" margin="50.400pt"/>
+      		<fo:region-before region-name="xsl-region-before" display-align="after" extent="0pt"/>
+      		<fo:region-after region-name="xsl-region-after" display-align="before" extent="50.400pt"/>
+      		<fo:region-start region-name="xsl-region-start" extent="0pt"/>
+      		<fo:region-end region-name="xsl-region-end" extent="0pt"/>
       	</fo:simple-page-master>
       </fo:layout-master-set>
       <fo:page-sequence master-reference="FirstPage">
@@ -3415,7 +3427,1309 @@
 				</fo:table>				
 			</fo:block>
             </fo:flow>
-	</fo:page-sequence>
+	  </fo:page-sequence>
+	<xsl:choose>
+		<xsl:when test="$paymentMethod='1'">
+			      <fo:page-sequence master-reference="FirstPage">
+		<fo:static-content flow-name="xsl-region-before" font-size="12pt" font-family="Arial">
+			<fo:block>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(50.000)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(50.000)" column-number="2"/>
+					<fo:table-body>
+						<fo:table-row>
+							<fo:table-cell border-bottom-style="solid" background-color="{$mkbbRed}" padding-top="20pt" border-color="rgb(255,255,255)">
+								<fo:block-container z-index="1" position="absolute" left="46.000pt" top="24.000px" width="60.000px" height="40.000px" overflow="hidden">
+									<fo:block>
+										<fo:external-graphic src="{$mkbLogo}" content-width="53.000px">																		
+										</fo:external-graphic>
+									</fo:block>
+								</fo:block-container>
+							</fo:table-cell>
+							<fo:table-cell border-bottom-style="solid" font-size="7pt" background-color="{$mkbbRed}" padding-top="10pt" padding-bottom="3pt" padding-left="160pt" color="rgb(255,255,255)" text-align="left" border-color="rgb(255,255,255)">
+								<fo:block font-size="6pt">
+									<fo:block font-weight="bold">MKB Általános Biztosító Zrt.</fo:block>
+									<fo:block>1133 Budapest, Váci út 76.</fo:block>
+									<fo:block>Telefon: (1) 886 6900</fo:block>
+									<fo:block>Fax: (1) 886 6909</fo:block>
+									<fo:block>E-mail: info@mkbb.hu</fo:block>
+									<fo:block>www.mkbb.hu</fo:block>
+									<fo:block> </fo:block>
+								</fo:block>
+							</fo:table-cell>
+						</fo:table-row>  
+						<fo:table-row>
+							<fo:table-cell font-weight="bold" display-align="center" border-style="none" background-color="rgb(38,38,38)" padding-bottom="2pt" padding-top="4pt" padding-left="50.400pt" text-align="left" font-size="6pt">
+								<fo:block color="rgb(255,255,255)">B I Z T O S Í T Ó</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-style="none" background-color="rgb(38,38,38)">
+								<fo:block> </fo:block>
+							</fo:table-cell>
+						</fo:table-row> 
+					</fo:table-body>
+				</fo:table> 
+			</fo:block>
+		</fo:static-content>
+		<fo:static-content flow-name="xsl-region-after" font-size="12pt" font-family="Arial">
+			<fo:block text-align="center">
+			<!--	<fo:page-number/> -->
+			</fo:block>
+		</fo:static-content>
+		<fo:static-content flow-name="xsl-region-start" font-size="12pt" font-family="Arial">
+			<fo:block>
+			</fo:block>
+		</fo:static-content>
+		<fo:static-content flow-name="xsl-region-end" font-size="12pt" font-family="Arial">
+			<fo:block> </fo:block>
+		</fo:static-content>
+		<fo:flow flow-name="xsl-region-body" font-family="Arial" font-size="8pt">
+		      <fo:block font-weight="bold" display-align="auto" text-align="center" font-size="13pt" padding-top="40pt" color="{$mkbbRed}">FELHATALMAZÁS CSOPORTOS BESZEDÉSI MEGBÍZÁS TELJESÍTÉSÉRE,</fo:block>		   
+			<fo:block font-weight="bold" display-align="auto" text-align="center" font-size="13pt" padding-top="2pt" color="{$mkbbRed}">A FELHATALMAZÁS MÓDOSÍTÁSA, MEGSZÜNTETÉSE</fo:block>
+			<fo:block font-weight="normal" display-align="auto"> </fo:block>
+			<fo:block font-weight="normal" display-align="auto"> </fo:block>
+		      	<fo:block font-weight="normal" display-align="auto">
+		            <!-- ================================== -->
+		            <!-- Ajánlatszám táblázat --> 
+		            <fo:table table-layout="fixed" border-collapse="collapse">
+		                  <fo:table-column column-width="proportional-column-width(50.000)" column-number="1"/>
+		                  <fo:table-column column-width="proportional-column-width(16.000)" column-number="2"/>
+		                  <fo:table-column column-width="proportional-column-width(34.000)" column-number="3"/>
+		                  <fo:table-body>
+		                        <fo:table-row height="{$quoteNumberTableHeight}">
+		                              <fo:table-cell border-style="none">
+		                                    <fo:block> </fo:block>
+		                              </fo:table-cell>
+		                              <fo:table-cell display-align="center" border-width="thin" border-right-style="none" border-style="solid" background-color="{$tableCellBackGround}" padding="2pt" padding-left="{$paddingLeft}" color="rgb(0,0,0)" text-align="left">
+		                                    <fo:block>Ajánlatszám:</fo:block>
+		                              </fo:table-cell>
+		                              <fo:table-cell font-weight="bold" display-align="center" border-width="thin" border-left-style="none" border-style="solid" padding="2pt" padding-left="10pt" text-align="left">
+		                                    <fo:block>
+		                                          <fo:inline>
+		                                                <xsl:value-of select="$quoteNumber"/>
+		                                          </fo:inline>
+		                                    </fo:block>
+		                              </fo:table-cell>
+		                        </fo:table-row>                                
+		                  </fo:table-body>
+		            </fo:table>
+		      </fo:block>
+		      <fo:block font-weight="normal" display-align="auto"> </fo:block>
+			  <fo:block font-weight="normal" display-align="auto"> </fo:block>
+		      <!-- ======================= -->
+		      <!-- 1. Kötelezett (számlatulajdonos) adatai táblázat -->
+			<fo:table table-layout="fixed" border-collapse="collapse">
+				<fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
+				<fo:table-body>
+					<fo:table-row height="{$warrantPageTableRowHeight}">
+						<fo:table-cell display-align="center" border-width="thin" border-style="none" background-color="{$mkbbRed}" padding="2pt" padding-left="5pt" color="rgb(255,255,255)" text-align="center">
+							<fo:block>1. KÖTELEZETT (BANKSZÁMLATULAJDONOS) ADATAI</fo:block>
+						</fo:table-cell>
+					</fo:table-row>                                
+				</fo:table-body>
+			</fo:table>			
+		      <fo:table table-layout="fixed" border-collapse="collapse">
+		            <fo:table-column column-width="proportional-column-width(37.500)" column-number="1"/>
+		            <fo:table-column column-width="proportional-column-width(62.500)" column-number="2"/>
+		            <fo:table-body>
+		            	<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+		            		<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+		                              <fo:block>
+		                                    Kötelezett (bankszámlatulajdonos) neve:
+		                              </fo:block>
+		                        </fo:table-cell>
+		                        <fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+		                              <fo:block>
+		                              	<fo:inline>
+		                              		<xsl:value-of select="$nameOfBankAccountHolder"/>
+		                              	</fo:inline>
+		                              	
+		                              </fo:block>
+		                        </fo:table-cell> 
+		                  </fo:table-row>
+		            	<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+		            	  	<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+		                              <fo:block>
+		                                    Bankszámla száma:
+		                              </fo:block>
+		                        </fo:table-cell>
+		                        <fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+		                              <fo:block>
+		                              	<fo:inline>
+		                              		<xsl:value-of select="$bankAccountNumber"/>
+		                              	</fo:inline>
+		                              </fo:block>
+		                        </fo:table-cell> 
+		                  </fo:table-row>
+		            </fo:table-body>
+		      </fo:table>
+			<fo:block font-weight="normal" display-align="auto"> </fo:block>
+		      <fo:block font-weight="normal">
+			<!-- ================================== -->
+			<!-- 2. jogosult adatai táblázat -->			      
+                 <fo:table table-layout="fixed" border-collapse="collapse">
+                     <fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
+                     <fo:table-body>
+                     	<fo:table-row height="{$warrantPageTableRowHeight}">
+                            <fo:table-cell display-align="center" border-width="thin" border-style="none" background-color="{$mkbbRed}" padding="2pt" color="rgb(255,255,255)" text-align="center">
+                                     <fo:block>2. JOGOSULT ADATAI</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>                                
+                    </fo:table-body>
+                 </fo:table>
+			     <fo:table table-layout="fixed" border-collapse="collapse">
+			         <fo:table-column column-width="proportional-column-width(37.500)" column-number="1"/>
+			         <fo:table-column column-width="proportional-column-width(62.500)" column-number="2"/>
+			     	<fo:table-body>
+			     		<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+			     			<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+			     				<fo:block>
+			     					Jogosult neve:
+			     				</fo:block>
+			     			</fo:table-cell>
+			     			<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+			     				<fo:block font-weight="bold">
+									MKB Általános Biztosító Zrt.
+			     				</fo:block>
+			     			</fo:table-cell> 
+			     		</fo:table-row>
+			     		<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+			     			<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+			     				<fo:block>
+			     					Jogosult azonosítója:
+			     				</fo:block>
+			     			</fo:table-cell>
+			     			<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+			     				<fo:block font-weight="bold">
+									A13941031
+			     				</fo:block>
+			     			</fo:table-cell> 
+			     		</fo:table-row>
+			     	</fo:table-body>
+			      </fo:table>
+		      </fo:block>
+		      <fo:block font-weight="normal" display-align="auto"> </fo:block>
+			<fo:block font-weight="normal">
+				<!-- ================================== -->
+				<!-- 3. Fogyasztó (szerződő) adatai táblázat  -->			      
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
+					<fo:table-body>
+						<fo:table-row height="{$warrantPageTableRowHeight}">
+							<fo:table-cell display-align="center" border-width="thin" border-style="none" background-color="{$mkbbRed}" padding="2pt" color="rgb(255,255,255)" text-align="center">
+								<fo:block>3. FOGYASZTÓ (SZERZŐDŐ) ADATAI</fo:block>
+							</fo:table-cell>
+						</fo:table-row>                                
+					</fo:table-body>
+				</fo:table>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(37.500)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(62.500)" column-number="2"/>
+					<fo:table-body>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Fogyasztó (szerződő) neve:
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+								<fo:block>
+									<fo:inline>
+										<xsl:value-of select="$partner.name"/>
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell> 
+						</fo:table-row>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Fogyasztó (szerződő) címe:
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+								<fo:block>
+									<fo:inline>
+										<xsl:value-of select="$partner.permanentAddress.postCode"/>&#160;<xsl:value-of select="$partner.permanentAddress.city"/>,
+										<xsl:value-of select="$partner.permanentAddress.addressLine1"/>
+										<xsl:if test="$partner.permanentAddress.addressLine2!=''">,&#160;
+											<xsl:value-of select="$partner.permanentAddress.addressLine2"/>
+										</xsl:if>																	
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell> 
+						</fo:table-row>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Fogyasztó (szerződés) azonosítója a jogosultnál:
+									<!-- Footnote nem működik tábla cellában (nem tudom miért), nem teszi a lap végére a szöveget -->
+									<!-- Ezért a táblázat után a block-ban csináltam egy footnote-ot, ami kiteszi a lap végére a szöveget -->
+									<fo:footnote>
+										<fo:inline alignment-baseline="hanging">*</fo:inline> 
+										<fo:footnote-body font-size="8pt">
+											<fo:block></fo:block>
+										</fo:footnote-body>
+									</fo:footnote>									
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+								<fo:block> </fo:block>
+							</fo:table-cell> 
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+				<fo:footnote>
+					<fo:inline alignment-baseline="hanging"></fo:inline>
+					<fo:footnote-body font-size="6pt">
+						<fo:block>* Kérjük, ebbe a mezőbe ne írjon, mert ezt a biztosító tölti ki!</fo:block>
+					</fo:footnote-body>
+				</fo:footnote>
+			</fo:block>
+			<fo:block font-weight="normal" display-align="auto"> </fo:block>
+			<fo:block font-weight="normal">
+				<!-- ================================== -->
+				<!-- 4. Teljesítés adatai táblázat  -->			      
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
+					<fo:table-body>
+						<fo:table-row height="{$warrantPageTableRowHeight}">
+							<fo:table-cell display-align="center" border-width="thin" border-style="none" background-color="{$mkbbRed}" padding="2pt" color="rgb(255,255,255)" text-align="center">
+								<fo:block>4. TELJESÍTÉS ADATAI</fo:block>
+							</fo:table-cell>
+						</fo:table-row>                                
+					</fo:table-body>
+				</fo:table>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(25.000)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(25.000)" column-number="2"/>
+					<fo:table-column column-width="proportional-column-width(25.000)" column-number="3"/>
+					<fo:table-column column-width="proportional-column-width(25.000)" column-number="4"/>
+					<fo:table-body>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Érvényesség kezdete:
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+								<fo:block>
+									<fo:inline>
+										<xsl:value-of select="$startDate"/>
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell> 
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Érvényesség vége:
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+								<fo:block> </fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(25.000)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(35.000)" column-number="2"/>
+					<fo:table-column column-width="proportional-column-width(40.000)" column-number="3"/>
+					<fo:table-body>
+					<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+						<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" text-align="left" padding-left="{$paddingLeft}" padding="2pt" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Teljesítés felső határa:
+									<!-- Footnote nem működik tábla cellában (nem tudom miért), nem teszi a lap végére a szöveget -->
+									<!-- Ezért a táblázat után a block-ban csináltam egy footnote-ot, ami kiteszi a lap végére a szöveget -->
+									<fo:footnote>
+										<fo:inline alignment-baseline="hanging">**</fo:inline> 
+										<fo:footnote-body font-size="8pt">
+											<fo:block></fo:block>
+										</fo:footnote-body>
+									</fo:footnote>
+								</fo:block>								
+							</fo:table-cell>
+						<fo:table-cell display-align="after" border-width="thin" border-style="solid" border-left-style="none" border-right-style="none" border-color="rgb(0,0,0)" padding-right="5pt"  padding-left="2pt" text-align="left" background-color="transparent">
+								<fo:block text-align-last="justify"><fo:leader leader-pattern="dots"/> Ft</fo:block>
+							</fo:table-cell>  
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" background-color="transparent">
+								<fo:block> </fo:block>
+							</fo:table-cell> 
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+				<fo:footnote>
+					<fo:inline alignment-baseline="hanging"></fo:inline>
+					<fo:footnote-body font-size="6pt">
+						<fo:block>** A megadásnál kérjük, vegye figyelembe a biztosítás szabályzat díjemelésre vonatkozó pontjait!</fo:block>
+					</fo:footnote-body>
+				</fo:footnote>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(25.000)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(75.000)" column-number="2"/>
+					<fo:table-body>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" text-align="left" padding="2pt" padding-left="{$paddingLeft}" background-color="{$tableCellBackGround}">
+									<fo:block>
+										Azaz: 
+									</fo:block>								
+								</fo:table-cell>
+							<fo:table-cell display-align="after" border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding-right="5pt"  padding-left="2pt" text-align="left" background-color="transparent">
+									<fo:block text-align-last="justify"><fo:leader leader-pattern="dots"/> forint</fo:block>
+							</fo:table-cell>  
+						</fo:table-row>
+						</fo:table-body>
+				</fo:table>				
+			</fo:block>
+			<fo:block font-weight="normal" display-align="auto"> </fo:block>
+			<fo:block font-weight="normal">
+				<!-- ================================== -->
+				<!-- 5. megbízás jellege táblázat  -->			      
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
+					<fo:table-body>
+						<fo:table-row height="{$warrantPageTableRowHeight}">
+							<fo:table-cell display-align="center" border-width="thin" border-style="none" background-color="{$mkbbRed}" padding="2pt" color="rgb(255,255,255)" text-align="center">
+								<fo:block>5. MEGBÍZÁS JELLEGE</fo:block>
+							</fo:table-cell>
+						</fo:table-row>                                
+					</fo:table-body>
+				</fo:table>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(30.000)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(15.000)" column-number="2"/>
+					<fo:table-column column-width="proportional-column-width(36.000)" column-number="3"/>
+					<fo:table-column column-width="proportional-column-width(19.000)" column-number="4"/>
+					<fo:table-body>
+						<fo:table-row display-align="before" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-bottom="5pt" padding-top="10pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Eredeti&#160;&#160;&#160;&#160;&#160;
+									<fo:external-graphic src="{$filledCheckbox}" id="6E5C1WLK" content-width="7px">
+										<xslt:attribute name="xf:compat-id">id1837858
+											<xslt:value-of select="generate-id(.)"/>
+										</xslt:attribute>
+									</fo:external-graphic>
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-right-style="none" border-color="rgb(0,0,0)" padding-bottom="5pt" padding-top="10pt" padding="2pt" padding-left="10pt" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Módosítás:
+								</fo:block>
+							</fo:table-cell> 
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-bottom="5pt" padding-top="10pt" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									<fo:list-block  provisional-label-separation="5pt" provisional-distance-between-starts="15pt">		                                                
+										<fo:list-item padding-bottom="2pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block>a)</fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>Érvényesség vége módosítás</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="2pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block>b)</fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>Teljesítés felső értékhatárának módosítása</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="2pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block>c)</fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>Az a) és b) együttes módosítása</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="2pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block>d)</fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>Megszüntetés</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+									</fo:list-block>
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-bottom="5pt" padding-top="10pt" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block> 
+									<fo:list-block  provisional-label-separation="2pt" provisional-distance-between-starts="0pt">		                                                
+										<fo:list-item padding-bottom="1pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block></fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>
+													<fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
+													<xslt:attribute name="xf:compat-id">id1837858
+														<xslt:value-of select="generate-id(.)"/>
+													</xslt:attribute>
+													</fo:external-graphic>
+												</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="1pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block></fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>
+													<fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
+														<xslt:attribute name="xf:compat-id">id1837858
+															<xslt:value-of select="generate-id(.)"/>
+														</xslt:attribute>
+													</fo:external-graphic>
+												</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="1pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block></fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>
+													<fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
+														<xslt:attribute name="xf:compat-id">id1837858
+															<xslt:value-of select="generate-id(.)"/>
+														</xslt:attribute>
+													</fo:external-graphic>
+												</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="1pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block></fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>
+													<fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
+														<xslt:attribute name="xf:compat-id">id1837858
+															<xslt:value-of select="generate-id(.)"/>
+														</xslt:attribute>
+													</fo:external-graphic>
+												</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+									</fo:list-block>
+								</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+			</fo:block>
+			<fo:block font-weight="normal" display-align="auto"> </fo:block>
+			<fo:block font-weight="normal">
+				<!-- ================================== -->
+				<!-- 6. Nyilatkozatok 1. sor -->			      
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
+					<fo:table-body>
+						<fo:table-row height="{$warrantPageTableRowHeight}">
+							<fo:table-cell display-align="center" border-width="thin" border-style="none" background-color="{$mkbbRed}" padding="2pt" color="rgb(255,255,255)" text-align="center">
+								<fo:block>6. NYILATKOZAT</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-bottom-style="none" border-color="rgb(0,0,0)" text-align="left" padding="2pt" padding-top="8pt" padding-left="{$paddingLeft}" padding-right="{$paddingLeft}" background-color="transparent">
+								<fo:block text-align="justify">
+									Jelen nyomtatvány kitöltésével és aláírásával felhatalmazom a 
+									<xsl:choose>
+										<xsl:when test="$bankName!=''">
+											<fo:inline font-weight="bold"> <xsl:value-of select="$bankName"/> </fo:inline>		
+										</xsl:when>
+										<xsl:otherwise>
+											<fo:inline display-align="after">.....................................................................................</fo:inline>
+										</xsl:otherwise>
+									</xsl:choose>																		   
+									hitelintézetet arra, hogy a fentebb megjelölt jogosultat az általam benyújtott felhatalmazásról értesítse, 
+									és a bankszámlámat a jogosult által benyújtott beszedési megbízás alapján – megbízásom keretei között – megterhelje. 
+									Felhatalmazásomat a hátlapon található útmutató ismeretében adtam meg. Tudomásul veszem, hogy a beszedési megbízás 
+									teljesítésére szóló felhatalmazás elfogadásáról, a beszedés megkezdésének tényleges időpontjáról, illetve elutasításáról és
+									annak okáról a jogosulttól a számlavezetőm és a fogyasztó kap értesítést.
+								</fo:block>								
+							</fo:table-cell>
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(50.000)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(50.000)" column-number="2"/>
+					<fo:table-body>
+						<fo:table-row height="{$warrantPageTableRowHeight}" display-align="center">
+							<fo:table-cell border-width="thin" border-left-style="solid" padding="2pt" padding-top="10pt" color="rgb(0,0,0)" text-align="left">
+								<fo:block>Kelt: ........................... év .................... hó .................... nap</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-right-style="solid" padding="2pt" padding-top="10pt" color="rgb(0,0,0)" text-align="left">
+								<fo:block>Kelt: ........................... év .................... hó .................... nap</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-left-style="solid" border-color="rgb(0,0,0)" text-align="center" padding="0pt" padding-top="20pt" background-color="transparent">
+								<fo:block>
+									....................................................................
+								</fo:block>								
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-right-style="solid" border-color="rgb(0,0,0)" text-align="center" padding="0pt" padding-top="20pt" background-color="transparent">
+								<fo:block>
+									....................................................................
+								</fo:block>								
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row display-align="center" height="10pt">
+							<fo:table-cell border-width="thin" border-left-style="solid" border-color="rgb(0,0,0)" text-align="center" padding-top="0pt" background-color="transparent">
+								<fo:block>
+									Bankszámlatulajdonos aláírása
+								</fo:block>								
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-right-style="solid" border-color="rgb(0,0,0)" text-align="center" padding-top="0pt" background-color="transparent">
+								<fo:block>
+									Átvevő hivatalos aláírása
+								</fo:block>								
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-left-style="solid" border-color="rgb(0,0,0)" text-align="center" padding-top="20pt" background-color="transparent">
+								<fo:block>
+									....................................................................
+								</fo:block>								
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-right-style="solid" border-color="rgb(0,0,0)" text-align="center" padding-top="20pt" background-color="transparent">
+								<fo:block>	</fo:block>								
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row display-align="center" height="10pt">
+							<fo:table-cell border-width="thin" border-left-style="solid" border-color="rgb(0,0,0)" border-bottom-style="solid" padding-bottom="7pt" text-align="center" background-color="transparent">
+								<fo:block>
+									Szerződő aláírása
+								</fo:block>								
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-right-style="solid" border-bottom-style="solid" padding-bottom="7pt" border-color="rgb(0,0,0)" text-align="center" background-color="transparent">
+								<fo:block>	</fo:block>								
+							</fo:table-cell>
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+			</fo:block>
+			<fo:block break-after="page"> </fo:block>
+            </fo:flow>
+	      </fo:page-sequence>
+		<!-- *********************************************** -->
+		<!--  2. példány az inkasszó felhatalmazásból -->		
+		<!-- *********************************************** -->			
+	     <fo:page-sequence master-reference="FirstPage">
+		<fo:static-content flow-name="xsl-region-before" font-size="12pt" font-family="Arial">
+			<fo:block>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(50.000)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(50.000)" column-number="2"/>
+					<fo:table-body>
+						<fo:table-row>
+							<fo:table-cell border-bottom-style="solid" background-color="{$mkbbRed}" padding-top="20pt" border-color="rgb(255,255,255)">
+								<fo:block-container z-index="1" position="absolute" left="46.000pt" top="24.000px" width="60.000px" height="40.000px" overflow="hidden">
+									<fo:block>
+										<fo:external-graphic src="{$mkbLogo}" content-width="53.000px">																		
+										</fo:external-graphic>
+									</fo:block>
+								</fo:block-container>
+							</fo:table-cell>
+							<fo:table-cell border-bottom-style="solid" font-size="7pt" background-color="{$mkbbRed}" padding-top="10pt" padding-bottom="3pt" padding-left="160pt" color="rgb(255,255,255)" text-align="left" border-color="rgb(255,255,255)">
+								<fo:block font-size="6pt">
+									<fo:block font-weight="bold">MKB Általános Biztosító Zrt.</fo:block>
+									<fo:block>1133 Budapest, Váci út 76.</fo:block>
+									<fo:block>Telefon: (1) 886 6900</fo:block>
+									<fo:block>Fax: (1) 886 6909</fo:block>
+									<fo:block>E-mail: info@mkbb.hu</fo:block>
+									<fo:block>www.mkbb.hu</fo:block>
+									<fo:block> </fo:block>
+								</fo:block>
+							</fo:table-cell>
+						</fo:table-row>  
+						<fo:table-row>
+							<fo:table-cell font-weight="bold" display-align="center" border-style="none" background-color="rgb(38,38,38)" padding-bottom="2pt" padding-top="4pt" padding-left="50.400pt" text-align="left" font-size="6pt">
+								<fo:block color="rgb(255,255,255)">B I Z T O S Í T Ó</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-style="none" background-color="rgb(38,38,38)">
+								<fo:block> </fo:block>
+							</fo:table-cell>
+						</fo:table-row> 
+					</fo:table-body>
+				</fo:table> 
+			</fo:block>
+		</fo:static-content>
+		<fo:static-content flow-name="xsl-region-after" font-size="12pt" font-family="Arial">
+			<fo:block text-align="center">
+			<!--	<fo:page-number/> -->
+			</fo:block>
+		</fo:static-content>
+		<fo:static-content flow-name="xsl-region-start" font-size="12pt" font-family="Arial">
+			<fo:block>
+			</fo:block>
+		</fo:static-content>
+		<fo:static-content flow-name="xsl-region-end" font-size="12pt" font-family="Arial">
+			<fo:block> </fo:block>
+		</fo:static-content>
+		<fo:flow flow-name="xsl-region-body" font-family="Arial" font-size="8pt">
+		      <fo:block font-weight="bold" display-align="auto" text-align="center" font-size="13pt" padding-top="40pt" color="{$mkbbRed}">FELHATALMAZÁS CSOPORTOS BESZEDÉSI MEGBÍZÁS TELJESÍTÉSÉRE,</fo:block>		   
+			<fo:block font-weight="bold" display-align="auto" text-align="center" font-size="13pt" padding-top="2pt" color="{$mkbbRed}">A FELHATALMAZÁS MÓDOSÍTÁSA, MEGSZÜNTETÉSE</fo:block>
+			<fo:block font-weight="normal" display-align="auto"> </fo:block>
+			<fo:block font-weight="normal" display-align="auto"> </fo:block>
+		      	<fo:block font-weight="normal" display-align="auto">
+		            <!-- ================================== -->
+		            <!-- Ajánlatszám táblázat --> 
+		            <fo:table table-layout="fixed" border-collapse="collapse">
+		                  <fo:table-column column-width="proportional-column-width(50.000)" column-number="1"/>
+		                  <fo:table-column column-width="proportional-column-width(16.000)" column-number="2"/>
+		                  <fo:table-column column-width="proportional-column-width(34.000)" column-number="3"/>
+		                  <fo:table-body>
+		                        <fo:table-row height="{$quoteNumberTableHeight}">
+		                              <fo:table-cell border-style="none">
+		                                    <fo:block> </fo:block>
+		                              </fo:table-cell>
+		                              <fo:table-cell display-align="center" border-width="thin" border-right-style="none" border-style="solid" background-color="{$tableCellBackGround}" padding="2pt" padding-left="{$paddingLeft}" color="rgb(0,0,0)" text-align="left">
+		                                    <fo:block>Ajánlatszám:</fo:block>
+		                              </fo:table-cell>
+		                              <fo:table-cell font-weight="bold" display-align="center" border-width="thin" border-left-style="none" border-style="solid" padding="2pt" padding-left="10pt" text-align="left">
+		                                    <fo:block>
+		                                          <fo:inline>
+		                                                <xsl:value-of select="$quoteNumber"/>
+		                                          </fo:inline>
+		                                    </fo:block>
+		                              </fo:table-cell>
+		                        </fo:table-row>                                
+		                  </fo:table-body>
+		            </fo:table>
+		      </fo:block>
+		      <fo:block font-weight="normal" display-align="auto"> </fo:block>
+			  <fo:block font-weight="normal" display-align="auto"> </fo:block>
+		      <!-- ======================= -->
+		      <!-- 1. Kötelezett (számlatulajdonos) adatai táblázat -->
+			<fo:table table-layout="fixed" border-collapse="collapse">
+				<fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
+				<fo:table-body>
+					<fo:table-row height="{$warrantPageTableRowHeight}">
+						<fo:table-cell display-align="center" border-width="thin" border-style="none" background-color="{$mkbbRed}" padding="2pt" padding-left="5pt" color="rgb(255,255,255)" text-align="center">
+							<fo:block>1. KÖTELEZETT (BANKSZÁMLATULAJDONOS) ADATAI</fo:block>
+						</fo:table-cell>
+					</fo:table-row>                                
+				</fo:table-body>
+			</fo:table>			
+		      <fo:table table-layout="fixed" border-collapse="collapse">
+		            <fo:table-column column-width="proportional-column-width(37.500)" column-number="1"/>
+		            <fo:table-column column-width="proportional-column-width(62.500)" column-number="2"/>
+		            <fo:table-body>
+		            	<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+		            		<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+		                              <fo:block>
+		                                    Kötelezett (bankszámlatulajdonos) neve:
+		                              </fo:block>
+		                        </fo:table-cell>
+		                        <fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+		                              <fo:block>
+		                              	<fo:inline>
+		                              		<xsl:value-of select="$nameOfBankAccountHolder"/>
+		                              	</fo:inline>
+		                              </fo:block>
+		                        </fo:table-cell> 
+		                  </fo:table-row>
+		            	<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+		            	  	<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+		                              <fo:block>
+		                                    Bankszámla száma:
+		                              </fo:block>
+		                        </fo:table-cell>
+		                        <fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+		                              <fo:block>
+		                              	<fo:inline>
+		                              		<xsl:value-of select="$bankAccountNumber"/>
+		                              	</fo:inline>
+		                              </fo:block>
+		                        </fo:table-cell> 
+		                  </fo:table-row>
+		            </fo:table-body>
+		      </fo:table>
+			<fo:block font-weight="normal" display-align="auto"> </fo:block>
+		      <fo:block font-weight="normal">
+			<!-- ================================== -->
+			<!-- 2. jogosult adatai táblázat -->			      
+                 <fo:table table-layout="fixed" border-collapse="collapse">
+                     <fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
+                     <fo:table-body>
+                     	<fo:table-row height="{$warrantPageTableRowHeight}">
+                            <fo:table-cell display-align="center" border-width="thin" border-style="none" background-color="{$mkbbRed}" padding="2pt" color="rgb(255,255,255)" text-align="center">
+                                     <fo:block>2. JOGOSULT ADATAI</fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>                                
+                    </fo:table-body>
+                 </fo:table>
+			     <fo:table table-layout="fixed" border-collapse="collapse">
+			         <fo:table-column column-width="proportional-column-width(37.500)" column-number="1"/>
+			         <fo:table-column column-width="proportional-column-width(62.500)" column-number="2"/>
+			     	<fo:table-body>
+			     		<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+			     			<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+			     				<fo:block>
+			     					Jogosult neve:
+			     				</fo:block>
+			     			</fo:table-cell>
+			     			<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+			     				<fo:block font-weight="bold">
+									MKB Általános Biztosító Zrt.
+			     				</fo:block>
+			     			</fo:table-cell> 
+			     		</fo:table-row>
+			     		<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+			     			<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+			     				<fo:block>
+			     					Jogosult azonosítója:
+			     				</fo:block>
+			     			</fo:table-cell>
+			     			<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+			     				<fo:block font-weight="bold">
+									A13941031
+			     				</fo:block>
+			     			</fo:table-cell> 
+			     		</fo:table-row>
+			     	</fo:table-body>
+			      </fo:table>
+		      </fo:block>
+		      <fo:block font-weight="normal" display-align="auto"> </fo:block>
+			<fo:block font-weight="normal">
+				<!-- ================================== -->
+				<!-- 3. Fogyasztó (szerződő) adatai táblázat  -->			      
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
+					<fo:table-body>
+						<fo:table-row height="{$warrantPageTableRowHeight}">
+							<fo:table-cell display-align="center" border-width="thin" border-style="none" background-color="{$mkbbRed}" padding="2pt" color="rgb(255,255,255)" text-align="center">
+								<fo:block>3. FOGYASZTÓ (SZERZŐDŐ) ADATAI</fo:block>
+							</fo:table-cell>
+						</fo:table-row>                                
+					</fo:table-body>
+				</fo:table>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(37.500)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(62.500)" column-number="2"/>
+					<fo:table-body>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Fogyasztó (szerződő) neve:
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+								<fo:block>
+									<fo:inline>
+										<xsl:value-of select="$partner.name"/>
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell> 
+						</fo:table-row>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Fogyasztó (szerződő) címe:
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+								<fo:block>
+									<fo:inline>
+										<xsl:value-of select="$partner.permanentAddress.postCode"/>&#160;<xsl:value-of select="$partner.permanentAddress.city"/>,
+										<xsl:value-of select="$partner.permanentAddress.addressLine1"/>
+										<xsl:if test="$partner.permanentAddress.addressLine2!=''">,&#160;
+											<xsl:value-of select="$partner.permanentAddress.addressLine2"/>
+										</xsl:if>																	
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell> 
+						</fo:table-row>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Fogyasztó (szerződés) azonosítója a jogosultnál:
+									<!-- Footnote nem működik tábla cellában (nem tudom miért), nem teszi a lap végére a szöveget -->
+									<!-- Ezért a táblázat után a block-ban csináltam egy footnote-ot, ami kiteszi a lap végére a szöveget -->
+									<fo:footnote>
+										<fo:inline alignment-baseline="hanging">*</fo:inline> 
+										<fo:footnote-body font-size="8pt">
+											<fo:block></fo:block>
+										</fo:footnote-body>
+									</fo:footnote>									
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+								<fo:block> </fo:block>
+							</fo:table-cell> 
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+				<fo:footnote>
+					<fo:inline alignment-baseline="hanging"></fo:inline>
+					<fo:footnote-body font-size="6pt">
+						<fo:block>* Kérjük, ebbe a mezőbe ne írjon, mert ezt a biztosító tölti ki!</fo:block>
+					</fo:footnote-body>
+				</fo:footnote>
+			</fo:block>
+			<fo:block font-weight="normal" display-align="auto"> </fo:block>
+			<fo:block font-weight="normal">
+				<!-- ================================== -->
+				<!-- 4. Teljesítés adatai táblázat  -->			      
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
+					<fo:table-body>
+						<fo:table-row height="{$warrantPageTableRowHeight}">
+							<fo:table-cell display-align="center" border-width="thin" border-style="none" background-color="{$mkbbRed}" padding="2pt" color="rgb(255,255,255)" text-align="center">
+								<fo:block>4. TELJESÍTÉS ADATAI</fo:block>
+							</fo:table-cell>
+						</fo:table-row>                                
+					</fo:table-body>
+				</fo:table>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(25.000)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(25.000)" column-number="2"/>
+					<fo:table-column column-width="proportional-column-width(25.000)" column-number="3"/>
+					<fo:table-column column-width="proportional-column-width(25.000)" column-number="4"/>
+					<fo:table-body>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Érvényesség kezdete:
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+								<fo:block>
+									<fo:inline>
+										<xsl:value-of select="$startDate"/>
+									</fo:inline>
+								</fo:block>
+							</fo:table-cell> 
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Érvényesség vége:
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-left="10pt" text-align="left" background-color="transparent">
+								<fo:block> </fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(25.000)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(35.000)" column-number="2"/>
+					<fo:table-column column-width="proportional-column-width(40.000)" column-number="3"/>
+					<fo:table-body>
+					<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+						<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" text-align="left" padding-left="{$paddingLeft}" padding="2pt" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Teljesítés felső határa:
+									<!-- Footnote nem működik tábla cellában (nem tudom miért), nem teszi a lap végére a szöveget -->
+									<!-- Ezért a táblázat után a block-ban csináltam egy footnote-ot, ami kiteszi a lap végére a szöveget -->
+									<fo:footnote>
+										<fo:inline alignment-baseline="hanging">**</fo:inline> 
+										<fo:footnote-body font-size="8pt">
+											<fo:block></fo:block>
+										</fo:footnote-body>
+									</fo:footnote>
+								</fo:block>								
+							</fo:table-cell>
+						<fo:table-cell display-align="after" border-width="thin" border-style="solid" border-left-style="none" border-right-style="none" border-color="rgb(0,0,0)" padding-right="5pt"  padding-left="2pt" text-align="left" background-color="transparent">
+								<fo:block text-align-last="justify"><fo:leader leader-pattern="dots"/> Ft</fo:block>
+							</fo:table-cell>  
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" background-color="transparent">
+								<fo:block> </fo:block>
+							</fo:table-cell> 
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+				<fo:footnote>
+					<fo:inline alignment-baseline="hanging"></fo:inline>
+					<fo:footnote-body font-size="6pt">
+						<fo:block>** A megadásnál kérjük, vegye figyelembe a biztosítás szabályzat díjemelésre vonatkozó pontjait!</fo:block>
+					</fo:footnote-body>
+				</fo:footnote>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(25.000)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(75.000)" column-number="2"/>
+					<fo:table-body>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" text-align="left" padding="2pt" padding-left="{$paddingLeft}" background-color="{$tableCellBackGround}">
+									<fo:block>
+										Azaz: 
+									</fo:block>								
+								</fo:table-cell>
+							<fo:table-cell display-align="after" border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding-right="5pt"  padding-left="2pt" text-align="left" background-color="transparent">
+									<fo:block text-align-last="justify"><fo:leader leader-pattern="dots"/> forint</fo:block>
+							</fo:table-cell>  
+						</fo:table-row>
+						</fo:table-body>
+				</fo:table>				
+			</fo:block>
+			<fo:block font-weight="normal" display-align="auto"> </fo:block>
+			<fo:block font-weight="normal">
+				<!-- ================================== -->
+				<!-- 5. megbízás jellege táblázat  -->			      
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
+					<fo:table-body>
+						<fo:table-row height="{$warrantPageTableRowHeight}">
+							<fo:table-cell display-align="center" border-width="thin" border-style="none" background-color="{$mkbbRed}" padding="2pt" color="rgb(255,255,255)" text-align="center">
+								<fo:block>5. MEGBÍZÁS JELLEGE</fo:block>
+							</fo:table-cell>
+						</fo:table-row>                                
+					</fo:table-body>
+				</fo:table>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(30.000)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(15.000)" column-number="2"/>
+					<fo:table-column column-width="proportional-column-width(36.000)" column-number="3"/>
+					<fo:table-column column-width="proportional-column-width(19.000)" column-number="4"/>
+					<fo:table-body>
+						<fo:table-row display-align="before" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-bottom="5pt" padding-top="10pt" padding-left="{$paddingLeft}" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Eredeti&#160;&#160;&#160;&#160;&#160;
+									<fo:external-graphic src="{$filledCheckbox}" id="6E5C1WLK" content-width="7px">
+										<xslt:attribute name="xf:compat-id">id1837858
+											<xslt:value-of select="generate-id(.)"/>
+										</xslt:attribute>
+									</fo:external-graphic>
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-right-style="none" border-color="rgb(0,0,0)" padding-bottom="5pt" padding-top="10pt" padding="2pt" padding-left="10pt" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									Módosítás:
+								</fo:block>
+							</fo:table-cell> 
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-right-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-bottom="5pt" padding-top="10pt" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block>
+									<fo:list-block  provisional-label-separation="5pt" provisional-distance-between-starts="15pt">		                                                
+										<fo:list-item padding-bottom="2pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block>a)</fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>Érvényesség vége módosítás</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="2pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block>b)</fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>Teljesítés felső értékhatárának módosítása</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="2pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block>c)</fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>Az a) és b) együttes módosítása</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="2pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block>d)</fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>Megszüntetés</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+									</fo:list-block>
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-style="solid" border-left-style="none" border-color="rgb(0,0,0)" padding="2pt" padding-bottom="5pt" padding-top="10pt" text-align="left" background-color="{$tableCellBackGround}">
+								<fo:block> 
+									<fo:list-block  provisional-label-separation="2pt" provisional-distance-between-starts="0pt">		                                                
+										<fo:list-item padding-bottom="1pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block></fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>
+													<fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
+													<xslt:attribute name="xf:compat-id">id1837858
+														<xslt:value-of select="generate-id(.)"/>
+													</xslt:attribute>
+													</fo:external-graphic>
+												</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="1pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block></fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>
+													<fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
+														<xslt:attribute name="xf:compat-id">id1837858
+															<xslt:value-of select="generate-id(.)"/>
+														</xslt:attribute>
+													</fo:external-graphic>
+												</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="1pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block></fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>
+													<fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
+														<xslt:attribute name="xf:compat-id">id1837858
+															<xslt:value-of select="generate-id(.)"/>
+														</xslt:attribute>
+													</fo:external-graphic>
+												</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+										<fo:list-item padding-bottom="1pt">
+											<fo:list-item-label end-indent="label-end()">
+												<fo:block></fo:block>
+											</fo:list-item-label>
+											<fo:list-item-body start-indent="body-start()">
+												<fo:block>
+													<fo:external-graphic src="{$blankCheckbox}" id="6E5C1WLK" content-width="7px">
+														<xslt:attribute name="xf:compat-id">id1837858
+															<xslt:value-of select="generate-id(.)"/>
+														</xslt:attribute>
+													</fo:external-graphic>
+												</fo:block>
+											</fo:list-item-body>
+										</fo:list-item>
+									</fo:list-block>
+								</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+			</fo:block>
+			<fo:block font-weight="normal" display-align="auto"> </fo:block>
+			<fo:block font-weight="normal">
+				<!-- ================================== -->
+				<!-- 6. Nyilatkozatok 1. sor -->			      
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
+					<fo:table-body>
+						<fo:table-row height="{$warrantPageTableRowHeight}">
+							<fo:table-cell display-align="center" border-width="thin" border-style="none" background-color="{$mkbbRed}" padding="2pt" color="rgb(255,255,255)" text-align="center">
+								<fo:block>6. NYILATKOZAT</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-style="solid" border-bottom-style="none" border-color="rgb(0,0,0)" text-align="left" padding="2pt" padding-top="8pt" padding-left="{$paddingLeft}" padding-right="{$paddingLeft}" background-color="transparent">
+								<fo:block text-align="justify">
+									Jelen nyomtatvány kitöltésével és aláírásával felhatalmazom a 
+									<xsl:choose>
+										<xsl:when test="$bankName!=''">
+											<fo:inline font-weight="bold"> <xsl:value-of select="$bankName"/> </fo:inline>		
+										</xsl:when>
+										<xsl:otherwise>
+											<fo:inline display-align="after">.....................................................................................</fo:inline>
+										</xsl:otherwise>
+									</xsl:choose>	
+									hitelintézetet arra, hogy a fentebb megjelölt jogosultat az általam benyújtott felhatalmazásról értesítse, 
+									és a bankszámlámat a jogosult által benyújtott beszedési megbízás alapján – megbízásom keretei között – megterhelje. 
+									Felhatalmazásomat a hátlapon található útmutató ismeretében adtam meg. Tudomásul veszem, hogy a beszedési megbízás 
+									teljesítésére szóló felhatalmazás elfogadásáról, a beszedés megkezdésének tényleges időpontjáról, illetve elutasításáról és
+									annak okáról a jogosulttól a számlavezetőm és a fogyasztó kap értesítést.
+								</fo:block>								
+							</fo:table-cell>
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+				<fo:table table-layout="fixed" border-collapse="collapse">
+					<fo:table-column column-width="proportional-column-width(50.000)" column-number="1"/>
+					<fo:table-column column-width="proportional-column-width(50.000)" column-number="2"/>
+					<fo:table-body>
+						<fo:table-row height="{$warrantPageTableRowHeight}" display-align="center">
+							<fo:table-cell border-width="thin" border-left-style="solid" padding="2pt" padding-top="10pt" color="rgb(0,0,0)" text-align="left">
+								<fo:block>Kelt: ........................... év .................... hó .................... nap</fo:block>
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-right-style="solid" padding="2pt" padding-top="10pt" color="rgb(0,0,0)" text-align="left">
+								<fo:block>Kelt: ........................... év .................... hó .................... nap</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-left-style="solid" border-color="rgb(0,0,0)" text-align="center" padding="0pt" padding-top="20pt" background-color="transparent">
+								<fo:block>
+									....................................................................
+								</fo:block>								
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-right-style="solid" border-color="rgb(0,0,0)" text-align="center" padding="0pt" padding-top="20pt" background-color="transparent">
+								<fo:block>
+									....................................................................
+								</fo:block>								
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row display-align="center" height="10pt">
+							<fo:table-cell border-width="thin" border-left-style="solid" border-color="rgb(0,0,0)" text-align="center" padding-top="0pt" background-color="transparent">
+								<fo:block>
+									Bankszámlatulajdonos aláírása
+								</fo:block>								
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-right-style="solid" border-color="rgb(0,0,0)" text-align="center" padding-top="0pt" background-color="transparent">
+								<fo:block>
+									Átvevő hivatalos aláírása
+								</fo:block>								
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row display-align="center" height="{$warrantPageTableRowHeight}">
+							<fo:table-cell border-width="thin" border-left-style="solid" border-color="rgb(0,0,0)" text-align="center" padding-top="20pt" background-color="transparent">
+								<fo:block>
+									....................................................................
+								</fo:block>								
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-right-style="solid" border-color="rgb(0,0,0)" text-align="center" padding-top="20pt" background-color="transparent">
+								<fo:block>	</fo:block>								
+							</fo:table-cell>
+						</fo:table-row>
+						<fo:table-row display-align="center" height="10pt">
+							<fo:table-cell border-width="thin" border-left-style="solid" border-color="rgb(0,0,0)" border-bottom-style="solid" padding-bottom="7pt" text-align="center" background-color="transparent">
+								<fo:block>
+									Szerződő aláírása
+								</fo:block>								
+							</fo:table-cell>
+							<fo:table-cell border-width="thin" border-right-style="solid" border-bottom-style="solid" padding-bottom="7pt" border-color="rgb(0,0,0)" text-align="center" background-color="transparent">
+								<fo:block>	</fo:block>								
+							</fo:table-cell>
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
+			</fo:block>
+			<fo:block break-after="page"> </fo:block>
+            </fo:flow>
+	     </fo:page-sequence>
+			<!-- *********************************************** -->
+			<!--  Kitöltési útmutató -->		
+			<!-- *********************************************** -->	
+			<fo:page-sequence master-reference="LastPage">
+				<fo:static-content flow-name="xsl-region-before" font-size="12pt" font-family="Arial">
+					<fo:block> </fo:block>
+				</fo:static-content>
+				<fo:static-content flow-name="xsl-region-after" font-size="12pt" font-family="Arial">
+					<fo:block text-align="center">
+						<!--<fo:page-number/> -->
+					</fo:block>
+				</fo:static-content>
+				<fo:static-content flow-name="xsl-region-start" font-size="12pt" font-family="Arial">
+					<fo:block>
+					</fo:block>
+				</fo:static-content>
+				<fo:static-content flow-name="xsl-region-end" font-size="12pt" font-family="Arial">
+					<fo:block> </fo:block>
+				</fo:static-content>
+				<fo:flow flow-name="xsl-region-body" font-family="Arial" font-size="8pt">
+					<fo:block font-weight="normal" span="all">
+						<!-- ================================== -->
+						<!-- 6. Nyilatkozatok 1. sor -->			      
+						<fo:table table-layout="fixed" border-collapse="collapse">
+							<fo:table-column column-width="proportional-column-width(100.000)" column-number="1"/>
+							<fo:table-body>
+								<fo:table-row height="{$warrantPageTableRowHeight}">
+									<fo:table-cell display-align="center" border-width="thin" border-style="solid" border-bottom-style="none" background-color="{$mkbbRed}" padding="2pt" color="rgb(255,255,255)" text-align="center">
+										<fo:block>KITÖLTÉSI ÚTMUTATÓ</fo:block>
+									</fo:table-cell>
+								</fo:table-row>
+							</fo:table-body>
+						</fo:table>
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="{$lastPage_margin}" padding-left="4pt">
+						A FELHATALMAZÁS CSOPORTOS BESZEDÉSI MEGBÍZÁS TELJESÍTÉSÉRE,	A FELHATALMAZÁS MÓDOSÍTÁSA, MEGSZÜNTETÉSE
+						című nyomtatvány kitöltésével a kötelezett felhatalmazza számlavezető hitelintézetét, hogy az általa megadott adatok
+						alapján, a megjelölt bankszámláról fizetéseket teljesítsen.	A nyomtatvány kitöltésével felhatalmazási megbízás kezdeményezhető,
+						valamint létező megbízás módosítható vagy megszüntethető.
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="{$lastPage_margin}" padding-left="4pt">		
+						<fo:inline font-weight="bold">I. Felhatalmazási megbízás kezdeményezése:</fo:inline> a felhatalmazási megbízást adó kötelezettnek az 1-től 5-ig 
+						terjedő számozással jelölt adatcsoportokat kell kitölteni a rendelkezésére álló számlán vagy egyéb dokumentumon (pl. szerződésen) szereplő adatok 
+						felhasználásával írógéppel, vagy nyomtatott	betűkkel. Az adatokat az előre megrajzolt négyzetekbe kell beírni, figyelembe véve a négyzetek számát.	
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="{$lastPage_margin}" padding-left="4pt">
+						<fo:inline font-weight="bold">1. Kötelezett adatai:</fo:inline> kitöltendő a „Kötelezett neve” maximum 32 jel hosszúságban és a
+						terhelendő „Bankszámla pénzforgalmi	jelzőszáma” 2-szer 8, vagy 3-szor 8 számjegy hosszan. Amennyiben a teljes név meghaladná
+						a 32 jelet, akkor rövidíteni szükséges a bankszámlaszerződéssel összhangban. 
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="{$lastPage_margin}" padding-left="4pt">
+						<fo:inline font-weight="bold">2. Jogosult adatai:</fo:inline> a „Jogosult (közszolgáltató, díjbeszedő, biztosító, eladó, stb.) neve” mezőben annak a szervezetnek 
+						a nevét kell szerepeltetni maximum 32 jel hosszúságban, amely a felhatalmazással jogot szerez arra, hogy a vonatkozó szolgáltatásból eredő 
+						követelését érvényesítse, a	kötelezett számlájával szemben követeléssel éljen. A „Jogosult azonosítója” mezőbe azt a jelsorozatot kell beírni, 
+						amely a	kötelezettnek vagy fogyasztónak kiküldött számlán, értesítőn vagy szerződésen azonos felirattal szerepel. (Forduljon az ügyintézőhöz, 
+						ha ilyen adat nem található a számlán!) A megbízás elfogadásáról, az első terhelés esedékességéről a jogosult tájékoztatja a fogyasztót.
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="{$lastPage_margin}" padding-left="4pt">
+						<fo:inline font-weight="bold">3. Fogyasztó adatai:</fo:inline> a „Fogyasztó (előfizető, biztosított, vásárló, stb.) neve” rovat akkor töltendő ki, ha a kötelezett és a fogyasztó 
+						nem ugyanaz a személy. Ebben az esetben maximum	32 jel hosszan kell megadni annak a személynek a nevét, akinek a tartozását a kötelezett 
+						kívánja kiegyenlíteni. A „Fogyasztó címe” mező pontos megadása a fogyasztó egyértelmű azonosítása érdekében szükséges. Amennyiben a teljes 
+						cím megadásához	nem áll rendelkezésre elegendő hely, úgy ésszerű rövidítések alkalmazandók. A „Fogyasztó (vagy szerződés) azonosítója a 
+						jogosultnál” mezőbe azt a jelsorozatot kell beírni, amely a kötelezettnek vagy fogyasztónak kiküldött számlán azonos felirattal szerepel. 
+						(Forduljon az ügyintézőhöz, ha ilyen adat nem található a számlán!)	
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" padding-bottom="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-left-style="solid" margin-left="{$lastPage_margin}" padding-left="4pt">
+						<fo:inline font-weight="bold">4. Teljesítés adatai:</fo:inline> az „Érvényesség kezdete:” szöveget követő négyzetekbe számmal (év, hó, nap 
+						formában) kell jelezni, hogy mikortól, illetve az „Érvényesség vége:” szöveget követő négyzetekben azt, hogy meddig 
+						érvényes a felhatalmazási megbízás. Amennyiben a felhatalmazási megbízás visszavonásig érvényes, akkor az „Érvényesség vége:” mezőt követő 
+						négyzetek áthúzásával kell ezt jelezni. Az „Érvényesség kezdete” azt jelenti, hogy a kötelezett ettől a dátumtól biztosítja a jogosult számára 
+						azt a lehetőséget, hogy a számláját beszedéssel megterhelje. A „Teljesítés felső értékhatára:” szöveget követő négyzetek kitöltésével adható meg
+						(forintban) az a maximális összeghatár, amelyet a bank a kötelezett számlájáról átutalhat a jogosultnak. Ezt az értéket szövegesen is ki kell 
+						írni. Amennyiben a beszedni kívánt összeg ezt a limitet meghaladja, úgy a számlavezető banknak kötelessége a teljesítést megtagadni. 
+						A négyzetek áthúzásával kell jelölni, ha nem kívánnak felső értékhatárt megadni. 
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
+						<fo:inline font-weight="bold">5. A felhatalmazás jellege:</fo:inline> új felhatalmazási megbízás megadásakor
+						az "Eredeti megbízás" szöveget követő négyzetbe „X”	jelet kell írni.
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
+						<fo:inline font-weight="bold">6. Nyilatkozat:</fo:inline> a felhatalmazás csak akkor érvényes, ha a felhatalmazó
+						a Nyilatkozatot kitölti, aláírásával hitelesíti és a kitöltött bizonylaton szerepel az átvétel dátuma, valamint az átvevő aláírása.
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
+						<fo:inline font-weight="bold">II. Meglévő felhatalmazási megbízás módosítása:</fo:inline> felhatalmazás módosítása a jogosultnál vagy a 
+						számlavezető banknál is benyújtható érvényes felhatalmazási megbízás birtokában. A nyomtatvány adatait módosítás esetén is az új megbízásnál 
+						leírtak szerint, azzal megegyező módon kell kitölteni.
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
+						<fo:inline font-weight="bold">4. Teljesítés adatai:</fo:inline> a felhatalmazás érvényességének változtatása esetén az „Érvényesség kezdete:” után
+						található négyzetekbe a módosítás érvénybe lépésének dátumát, az „Érvényesség vége:” után található négyzetekbe pedig vagy egy konkrét (az érvénybe 
+						lépésnél nagyobb) dátumot kell beírni, ha azt akarja a kötelezett, hogy a felhatalmazás egy megadott dátumig maradjon érvényben, vagy át kell 
+						húzni, ha azt szeretné, hogy visszavonásig érvényes legyen. A „Teljesítés felső értékhatára:” mező módosítása esetén az értéket	számmal is 
+						és betűvel is meg kell adni. A négyzetek áthúzásával kell jelölni azt, ha valaki nem kíván felső értékhatárt megadni. A módosítás az „Érvényesség 
+						kezdete:” után megadott dátumtól lép életbe és az „Érvényesség vége:” mezőben szereplő dátumot követően a felhatalmazási megbízás megszűnik, 
+						ha újabb módosítás nem érkezik. Amennyiben az „Érvényesség vége:” utáni négyzetekben nem egy konkrét dátumot adnak meg, hanem áthúzzák a mezőt, 
+						akkor ez azt jelenti, hogy a limit a felhatalmazási megbízás visszavonásáig, illetve egy újabb módosításig érvényes. A módosítás érvénybe lépésének dátuma 
+						nem lehet korábbi az eredeti új megbízás érvényességi dátumánál. 
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
+						<fo:inline font-weight="bold">5. A felhatalmazás jellege:</fo:inline> a meglévő megbízás módosítását a számlavezető bank csak 
+						akkor fogadja be, ha a kötelezett a „Módosítás” után található négyzetbe „X” jelet ír. 
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
+						<fo:inline font-weight="bold">6. Lásd I./6. pont.</fo:inline>
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
+						<fo:inline font-weight="bold">III. Meglévő felhatalmazási megbízás megszüntetése:</fo:inline> felhatalmazás megszüntetése a kitöltött bizonylat 
+						számlavezető hitelintézethez történő eljuttatásával kezdeményezhető. Megszüntetés esetén az első három adatcsoportban az új megbízásnál megadott 
+						értékeket kell szerepeltetni. Ezt követően a 4. és 5. adatcsoport mezői az alábbiak szerint töltendők ki: 
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
+						<fo:inline font-weight="bold">4. Teljesítés adatai:</fo:inline> az „Érvényesség kezdete:” szöveg után található négyzetekbe azt a dátumot kell beírni 
+						(év, hó, nap formában), amikortól kezdve a kötelezett már nem kívánja a jogosulttól érkező számlákat a bankszámlájáról történő beszedés	alapján 
+						kiegyenlíteni.
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt">
+						<fo:inline font-weight="bold">5. A felhatalmazás jellege:</fo:inline> a „Megszüntetés” szöveget követő négyzetbe „X” jelet kell írni.					
+					</fo:block>
+					<fo:block padding-top="{$lastPage_padding_top}" text-align="justify" border-width="thin" border-right-style="solid" margin-right="{$lastPage_margin}" padding-right="4pt" padding-bottom="45pt">
+						<fo:inline font-weight="bold">6. Lásd I./6. pont.</fo:inline>
+					</fo:block>
+					<fo:block span="all" border-width="thin" border-style="solid" border-top-style="none"> </fo:block>			
+				</fo:flow>
+			</fo:page-sequence>
+		</xsl:when>
+	</xsl:choose>
+	
 </fo:root>
 </xsl:template>
 <!-- ========================= NUMBER FORMATS ========================= -->
