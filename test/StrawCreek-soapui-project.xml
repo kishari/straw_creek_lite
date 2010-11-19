@@ -139,7 +139,7 @@
       <xs:element name="return" type="tns:tariffQuoteV1" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:endpoint>http://localhost:8088/screek/MTPLService</con:endpoint><con:endpoint>http://aws-3.dbx.hu:8080/screek/MTPLService</con:endpoint><con:endpoint>http://screek.dbx.hu:8080/screek/MTPLService</con:endpoint><con:endpoint>http://screek.dbx.hu:8080/screek2/MTPLService</con:endpoint><con:endpoint>http://mkbb.dbx.hu/services/MTPLService</con:endpoint><con:endpoint>http://mkbb.dbx.hu:80/services/MTPLService</con:endpoint><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="tariff" bindingOperationName="tariff" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Test"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/services/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8888/MTPLService</con:endpoint><con:endpoint>http://localhost:8088/screek/MTPLService</con:endpoint><con:endpoint>http://aws-3.dbx.hu:8080/screek/MTPLService</con:endpoint><con:endpoint>http://screek.dbx.hu:8080/screek/MTPLService</con:endpoint><con:endpoint>http://screek.dbx.hu:8080/screek2/MTPLService</con:endpoint><con:endpoint>http://mkbb.dbx.hu/services/MTPLService</con:endpoint><con:endpoint>http://mkbb.dbx.hu:80/services/MTPLService</con:endpoint><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:endpoint>http://localhost:9876/tariff/MTPLService</con:endpoint><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="tariff" bindingOperationName="tariff" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Test"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/services/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -299,9 +299,9 @@
             <takeOutWithMKBBCasco>false</takeOutWithMKBBCasco>
             <partner>
 		<postCode>1111</postCode> 
-           	<dateOfBirth>1987-02-05</dateOfBirth>
-	        <genderCode>1</genderCode>
-	        <yearOfDrivingLicense>2008</yearOfDrivingLicense>
+           	<dateOfBirth>1986-02-05</dateOfBirth>
+	        <genderCode>2</genderCode>
+	        <yearOfDrivingLicense>2006</yearOfDrivingLicense>
                <entrepreneur>false</entrepreneur>
                <gerHunCCMember>false</gerHunCCMember>
                <governmentEmployee>false</governmentEmployee>
@@ -315,6 +315,7 @@
                <cubicCapacity>1111</cubicCapacity>
                <yearOfProduction>2000</yearOfProduction>
                <make>OPEL</make>
+		<maximumAllowedWeight>10000</maximumAllowedWeight>
                <maximumNettoPower>44</maximumNettoPower>
                <typeCode>10</typeCode>
                <operationalModality>001</operationalModality>
@@ -676,7 +677,127 @@
          </quote>
       </wsdl:tariff>
    </env:Body>
-</env:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Validáció" searchProperties="true" id="59cfd874-f62c-477f-a33b-ed4bab77e513"><con:settings/><con:testStep type="request" name="Területi besorolás 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Területi besorolás 1" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+</env:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="bug"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:tariff>
+         <quote>
+            <bonusMalus>A0</bonusMalus>
+            <callerId>3A</callerId>
+            <child>0</child>
+            <durationType>1</durationType>
+            <emailGranted>0</emailGranted>
+            <extraClaimFree>0</extraClaimFree>
+            <marketingPartner>0</marketingPartner>
+            <takeOutWithMKBBCasco>0</takeOutWithMKBBCasco>
+            <nonMKBBCasco>0</nonMKBBCasco>
+            <mkbPartner>0</mkbPartner>
+            <paymentFrequency>51</paymentFrequency>
+            <paymentMethod>0</paymentMethod>
+            <startDate>2011-01-01</startDate>
+            <partner>
+               <postCode>2151</postCode>
+               <dateOfBirth>1959-09-16</dateOfBirth>
+               <genderCode>1</genderCode>
+               <yearOfDrivingLicense>2000</yearOfDrivingLicense>
+               <teacher>0</teacher>
+               <publicEmployee>0</publicEmployee>
+               <govermentEmployee>0</govermentEmployee>
+               <entrepreneur>0</entrepreneur>
+               <gerHunCCMember>0</gerHunCCMember>
+            </partner>
+            <vehicle>
+               <cubicCapacity>1000</cubicCapacity>
+               <yearOfProduction>2000</yearOfProduction>
+               <male>10</male>
+               <maximumNettoPower>100</maximumNettoPower>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
+               <seatingCapacity>4</seatingCapacity>
+            </vehicle>
+         </quote>
+      </ser:tariff>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Maruti"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:tariff>
+         <quote>
+            <durationType>1</durationType>
+	    <bonusMalus>B10</bonusMalus> 
+            <emailGranted>false</emailGranted>
+            <extraClaimFree>true</extraClaimFree>
+            <marketingPartner>true</marketingPartner>
+	<callerId>csabi</callerId>
+	    <mkbPartner>false</mkbPartner>
+	    <nonMKBBCasco>false</nonMKBBCasco>
+            <takeOutWithMKBBCasco>false</takeOutWithMKBBCasco>
+            <partner>
+		<postCode>2626</postCode> 
+           	<dateOfBirth>1958-08-02</dateOfBirth>
+	        <genderCode>1</genderCode>
+	        <yearOfDrivingLicense>1977</yearOfDrivingLicense>
+               <entrepreneur>false</entrepreneur>
+               <gerHunCCMember>false</gerHunCCMember>
+               <governmentEmployee>false</governmentEmployee>
+               <publicEmployee>false</publicEmployee>
+               <teacher>false</teacher>
+            </partner>
+            <paymentFrequency>51</paymentFrequency>
+            <paymentMethod>0</paymentMethod>
+            <startDate>2011-01-01</startDate> 
+            <vehicle>
+               <cubicCapacity>796</cubicCapacity>
+               <yearOfProduction>1991</yearOfProduction>
+               <make>MARUTI</make>
+               <maximumNettoPower>29</maximumNettoPower>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
+            </vehicle>
+         </quote>
+      </ser:tariff>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="tgk"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:tariff>
+         <quote>
+            <durationType>1</durationType>
+	    <bonusMalus>B1</bonusMalus> 
+            <emailGranted>true</emailGranted>
+            <extraClaimFree>false</extraClaimFree>
+            <marketingPartner>false</marketingPartner>
+	<callerId>csabi</callerId>
+	    <mkbPartner>false</mkbPartner>
+	    <nonMKBBCasco>true</nonMKBBCasco>
+            <takeOutWithMKBBCasco>false</takeOutWithMKBBCasco>
+            <partner>
+		<postCode>1111</postCode> 
+           	<dateOfBirth>1986-02-05</dateOfBirth>
+	        <genderCode>1</genderCode>
+	        <yearOfDrivingLicense>2008</yearOfDrivingLicense>
+               <entrepreneur>false</entrepreneur>
+               <gerHunCCMember>true</gerHunCCMember>
+               <governmentEmployee>false</governmentEmployee>
+               <publicEmployee>false</publicEmployee>
+               <teacher>false</teacher>
+            </partner>
+            <paymentFrequency>50</paymentFrequency>
+            <paymentMethod>1</paymentMethod>
+            <startDate>2011-01-01</startDate> 
+            <vehicle>
+               <cubicCapacity>1111</cubicCapacity>
+               <yearOfProduction>2000</yearOfProduction>
+               <make>OPEL</make>
+		<maximumAllowedWeight>10000</maximumAllowedWeight>
+               <maximumNettoPower>44</maximumNettoPower>
+               <typeCode>14</typeCode>
+               <operationalModality>000</operationalModality>
+            </vehicle>
+         </quote>
+      </ser:tariff>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Validáció" searchProperties="true" id="59cfd874-f62c-477f-a33b-ed4bab77e513"><con:settings/><con:testStep type="request" name="Területi besorolás 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Területi besorolás 1" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -708,7 +829,7 @@
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match" name="Irányítószám hibaüzenet"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Területi besorolás 2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Területi besorolás 2" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Területi besorolás 2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Területi besorolás 2" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -740,7 +861,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match" name="Irányítószám hibaüzenet"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Területi besorolás 3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Területi besorolás 3" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Területi besorolás 3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Területi besorolás 3" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -772,7 +893,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match" name="Irányítószám hibaüzenet"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Nem és születési dátum (tehergk)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Nem és születési dátum (tehergk)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Nem és születési dátum (tehergk)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Nem és születési dátum (tehergk)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -806,7 +927,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 /S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>23</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>14</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Születési dátum 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Születési dátum 1" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>14</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Születési dátum 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Születési dátum 1" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -837,7 +958,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>23</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Születési dátum 2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Születési dátum 2" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>23</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Születési dátum 2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Születési dátum 2" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -868,7 +989,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>23</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Határozott bizt. tgk"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Határozott bizt. tgk" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>23</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Határozott bizt. tgk"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Határozott bizt. tgk" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -899,7 +1020,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>35</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Gépjármű életkor 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Gépjármű életkor 1" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>35</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Gépjármű életkor 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Gépjármű életkor 1" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -930,7 +1051,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>36</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Vezetői engedély kora"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Vezetői engedély kora" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>36</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Vezetői engedély kora"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Vezetői engedély kora" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -961,7 +1082,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>22</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Díjfizetés gyakorisága 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Díjfizetés gyakorisága 1" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>22</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Díjfizetés gyakorisága 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Díjfizetés gyakorisága 1" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -995,7 +1116,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Díjfizetés gyakorisága 2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Díjfizetés gyakorisága 2" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Díjfizetés gyakorisága 2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Díjfizetés gyakorisága 2" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1029,7 +1150,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>27</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Díjfizetés gyakorisága 3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Díjfizetés gyakorisága 3" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>27</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Díjfizetés gyakorisága 3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Díjfizetés gyakorisága 3" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1063,7 +1184,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>28</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="BonusMalus 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="BonusMalus 1" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>28</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="BonusMalus 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="BonusMalus 1" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1097,7 +1218,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>29</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Gyártmány"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Gyártmány" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>29</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Gyártmány"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Gyártmány" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1131,7 +1252,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>10</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Teljesítmény"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Teljesítmény" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>10</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Teljesítmény"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Teljesítmény" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1165,7 +1286,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>18</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Hengerűrtartalom"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Hengerűrtartalom" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>18</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Hengerűrtartalom"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Hengerűrtartalom" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1199,7 +1320,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>19</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Kezdődátum"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Kezdődátum" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>19</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Kezdődátum"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Kezdődátum" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1233,7 +1354,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>24</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szállítható személyek száma"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Szállítható személyek száma" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>24</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szállítható személyek száma"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Szállítható személyek száma" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1267,7 +1388,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>20</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Teherbírás"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Teherbírás" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>20</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Teherbírás"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Teherbírás" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1294,7 +1415,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>21</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Partner neme"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Partner neme" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>21</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Partner neme"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Partner neme" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1328,7 +1449,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>14</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Határozott endDate &lt; startDate" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Határozott endDate &lt; startDate" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>14</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Határozott endDate &lt; startDate" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Határozott endDate &lt; startDate" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1363,7 +1484,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>34</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Megadott startDate-re nincs érvényes alaptarifa"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Megadott startDate-re nincs érvényes alaptarifa" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>34</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Megadott startDate-re nincs érvényes alaptarifa"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Megadott startDate-re nincs érvényes alaptarifa" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1397,7 +1518,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>33</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Üzemeltetés jellege"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Üzemeltetés jellege" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/messages/message/code</path><content>33</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Üzemeltetés jellege"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="Üzemeltetés jellege" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://services.mkbb.hu:8080/tariff/MTPLService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.screek.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:tariff>
@@ -1859,7 +1980,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
             <bonusMalus>B1</bonusMalus>
             <durationType>1</durationType>
-            <callerId>User1</callerId>
+            <callerId>csabi</callerId>
             <partner>
                <postCode/>
                <dateOfBirth>1986-02-05</dateOfBirth>
@@ -1890,7 +2011,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
             <durationType>1</durationType>
             <bonusMalus>B1</bonusMalus>
-            <callerId>User2</callerId>
+            <callerId>csabi</callerId>
             <emailGranted>false</emailGranted>
             <takeOutWithMKBBCasco>true</takeOutWithMKBBCasco>
 	    <nonMKBBCasco>true</nonMKBBCasco>
@@ -1937,7 +2058,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
 	    <bonusMalus>B1</bonusMalus> 
 	    <durationType>1</durationType>
-            <callerId>User3</callerId>
+            <callerId>csabi</callerId>
             <partner>
 	<!--	<postCode></postCode> -->
            	<dateOfBirth>1986-02-05</dateOfBirth>
@@ -1968,6 +2089,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
 	    <bonusMalus>B1</bonusMalus> 
 	    <durationType>1</durationType>
+	    <callerId>csabi</callerId>
             <partner>
 		<postCode>9876</postCode>
            	<dateOfBirth>1986-02-05</dateOfBirth>
@@ -1998,7 +2120,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
 	    <bonusMalus>B1</bonusMalus> 
 	    <durationType>1</durationType>
-            <callerId>Bela11</callerId>
+            <callerId>csabi</callerId>
 <!--            <partner>
 		<postCode></postCode> 
            	<dateOfBirth>1986-02-05</dateOfBirth>
@@ -2033,7 +2155,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
 	    <bonusMalus>B1</bonusMalus> 
 	    <durationType>1</durationType>
-            <callerId>Hahaha</callerId>
+            <callerId>csabi</callerId>
             <partner>
 		<postCode></postCode> 
            	<dateOfBirth>1986-02-05</dateOfBirth>
@@ -2065,7 +2187,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
 	    <bonusMalus>B1</bonusMalus> 
 	    <durationType>1</durationType>
-            <callerId/>
+            <callerId>csabi</callerId>
              <partner>
 		<postCode>1111</postCode> 
  <!--         	<dateOfBirth>1986-02-05</dateOfBirth> -->
@@ -2097,6 +2219,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
 	    <bonusMalus>B1</bonusMalus>
 	    <durationType>1</durationType>
+	    <callerId>csabi</callerId>
             <partner>
 		<postCode>1111</postCode> 
 <!--           	<dateOfBirth>1986-02-05</dateOfBirth>
@@ -2127,6 +2250,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
 	    <bonusMalus>B1</bonusMalus>
 	    <durationType>1</durationType>
+	    <callerId>csabi</callerId>
             <partner>
 		<postCode>1111</postCode>
            	<dateOfBirth>1986-02-05</dateOfBirth>
@@ -2161,6 +2285,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
 	    <bonusMalus>B1</bonusMalus>
 	    <durationType>1</durationType>
+	    <callerId>csabi</callerId>
             <partner>
 		<postCode>1111</postCode>
            	<dateOfBirth>1986-02-05</dateOfBirth>
@@ -2192,6 +2317,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
 	    <bonusMalus>B1</bonusMalus>
 	    <durationType>1</durationType>
+   	    <callerId>csabi</callerId>
             <partner>
 		<postCode>1111</postCode>
            	<dateOfBirth>1986-02-05</dateOfBirth>
@@ -2226,6 +2352,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
 	    <bonusMalus>B1</bonusMalus>
 	    <durationType>1</durationType>
+	    <callerId>csabi</callerId>
             <partner>
 		<postCode>1111</postCode>
            	<dateOfBirth>1986-02-05</dateOfBirth>
@@ -2257,6 +2384,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
 	    <bonusMalus>B1</bonusMalus>
 	    <durationType>1</durationType>
+	    <callerId>csabi</callerId>
             <partner>
 		<postCode>1111</postCode>
            	<dateOfBirth>1986-02-05</dateOfBirth>
@@ -2288,6 +2416,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
 	    <bonusMalus>B1</bonusMalus>
 	    <durationType>1</durationType>
+	    <callerId>csabi</callerId>
             <partner>
 		<postCode>1111</postCode>
            	<dateOfBirth>1986-02-05</dateOfBirth>
@@ -2319,6 +2448,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
          <quote>
 	    <bonusMalus>B10</bonusMalus>
 	    <durationType>1</durationType>
+	   <callerId>csabi</callerId>
             <partner>
 		<postCode>1111</postCode>
            	<dateOfBirth>1986-02-05</dateOfBirth>
@@ -2346,7 +2476,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 /S:Envelope/S:Body/ns2:tariffResponse/return/vehicle/maximumNettoPower</path><content>0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match 2"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/result/yearlyPremium</path><content>71807</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Tarifálás-2011" searchProperties="true"><con:settings/><con:testStep type="request" name="tariff - Pajesz"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="tariff - Pajesz" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://service.screek.dbx.hu/">
+/S:Envelope/S:Body/ns2:tariffResponse/return/result/yearlyPremium</path><content>71807</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/AssistanceService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Tarifálás-2011" searchProperties="true" id="3497ca9c-7a0c-4f5f-9fe1-e786512705ef"><con:settings/><con:testStep type="request" name="tariff - Pajesz"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="tariff - Pajesz" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://service.screek.dbx.hu/">
    <env:Body>
       <wsdl:tariff>
          <quote>
@@ -2389,4 +2519,179 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </env:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:tariffResponse/return/result/yearlyPremium</path><content>36467</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>
+/S:Envelope/S:Body/ns2:tariffResponse/return/result/yearlyPremium</path><content>36467</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="term.személy. nincs jogsi"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="term.személy. nincs jogsi" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://service.screek.dbx.hu/">
+   <env:Body>
+      <wsdl:tariff>
+         <quote>
+            <durationType>1</durationType>
+            <bonusMalus>B10</bonusMalus>
+            <callerId>csabi</callerId>
+            <emailGranted>false</emailGranted>
+            <takeOutWithMKBBCasco>false</takeOutWithMKBBCasco>
+            <nonMKBBCasco>false</nonMKBBCasco>
+            <child>false</child>
+            <mkbPartner>false</mkbPartner>
+            <extraClaimFree>false</extraClaimFree>
+            <paymentFrequency>51</paymentFrequency>
+            <paymentMethod>0</paymentMethod>
+            <startDate>2011-01-01T00:00:00+01:00</startDate>
+            <partner>
+               <postCode>6000</postCode>
+               <dateOfBirth>1986-02-05</dateOfBirth>
+               <genderCode>1</genderCode>
+               <teacher>false</teacher>
+               <publicEmployee>false</publicEmployee>
+               <governmentEmployee>false</governmentEmployee>
+               <entrepreneur>false</entrepreneur>
+               <gerHunCCMember>false</gerHunCCMember>
+		<marketingPartner>false</marketingPartner>
+            </partner>
+            <vehicle>
+               <cubicCapacity>1598</cubicCapacity>
+               <yearOfProduction>2005</yearOfProduction>
+               <dateOfPurchase/>
+               <make>NISSAN</make>
+               <maximumNettoPower>80</maximumNettoPower>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
+               <seatingCapacity>5</seatingCapacity>
+            </vehicle>
+         </quote>
+      </wsdl:tariff>
+   </env:Body>
+</env:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:tariffResponse/return/result/yearlyPremium</path><content>60849</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="term.szemely.van jogsi 1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="term.szemely.van jogsi 1" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://service.screek.dbx.hu/">
+   <env:Body>
+      <wsdl:tariff>
+         <quote>
+            <durationType>1</durationType>
+            <bonusMalus>B10</bonusMalus>
+            <callerId>csabi</callerId>
+            <emailGranted>false</emailGranted>
+            <takeOutWithMKBBCasco>false</takeOutWithMKBBCasco>
+            <nonMKBBCasco>false</nonMKBBCasco>
+            <child>false</child>
+            <mkbPartner>false</mkbPartner>
+            <extraClaimFree>false</extraClaimFree>
+            <paymentFrequency>51</paymentFrequency>
+            <paymentMethod>0</paymentMethod>
+            <startDate>2011-01-01T00:00:00+01:00</startDate>
+            <partner>
+               <postCode>6000</postCode>
+               <dateOfBirth>1986-02-05</dateOfBirth>
+	       <yearOfDrivingLicense>2006</yearOfDrivingLicense>
+               <genderCode>1</genderCode>
+               <teacher>false</teacher>
+               <publicEmployee>false</publicEmployee>
+               <governmentEmployee>false</governmentEmployee>
+               <entrepreneur>false</entrepreneur>
+               <gerHunCCMember>false</gerHunCCMember>
+		<marketingPartner>false</marketingPartner>
+            </partner>
+            <vehicle>
+               <cubicCapacity>1598</cubicCapacity>
+               <yearOfProduction>2005</yearOfProduction>
+               <dateOfPurchase/>
+               <make>NISSAN</make>
+               <maximumNettoPower>80</maximumNettoPower>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
+               <seatingCapacity>5</seatingCapacity>
+            </vehicle>
+         </quote>
+      </wsdl:tariff>
+   </env:Body>
+</env:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:tariffResponse/return/result/yearlyPremium</path><content>59077</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="term.szemely.van jogsi 2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="term.szemely.van jogsi 2" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://service.screek.dbx.hu/">
+   <env:Body>
+      <wsdl:tariff>
+         <quote>
+            <durationType>1</durationType>
+            <bonusMalus>B10</bonusMalus>
+            <callerId>csabi</callerId>
+            <emailGranted>false</emailGranted>
+            <takeOutWithMKBBCasco>false</takeOutWithMKBBCasco>
+            <nonMKBBCasco>false</nonMKBBCasco>
+            <child>false</child>
+            <mkbPartner>false</mkbPartner>
+            <extraClaimFree>false</extraClaimFree>
+            <paymentFrequency>51</paymentFrequency>
+            <paymentMethod>0</paymentMethod>
+            <startDate>2011-01-01T00:00:00+01:00</startDate>
+            <partner>
+               <postCode>6000</postCode>
+               <dateOfBirth>1986-02-05</dateOfBirth>
+	       <yearOfDrivingLicense>2007</yearOfDrivingLicense>
+               <genderCode>1</genderCode>
+               <teacher>false</teacher>
+               <publicEmployee>false</publicEmployee>
+               <governmentEmployee>false</governmentEmployee>
+               <entrepreneur>false</entrepreneur>
+               <gerHunCCMember>false</gerHunCCMember>
+		<marketingPartner>false</marketingPartner>
+            </partner>
+            <vehicle>
+               <cubicCapacity>1598</cubicCapacity>
+               <yearOfProduction>2005</yearOfProduction>
+               <dateOfPurchase/>
+               <make>NISSAN</make>
+               <maximumNettoPower>80</maximumNettoPower>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
+               <seatingCapacity>5</seatingCapacity>
+            </vehicle>
+         </quote>
+      </wsdl:tariff>
+   </env:Body>
+</env:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:tariffResponse/return/result/yearlyPremium</path><content>60849</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="term.személy. nincs jogsi 2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>MTPLServicePortBinding</con:interface><con:operation>tariff</con:operation><con:request name="term.személy. nincs jogsi 2" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/tariff/MTPLService</con:endpoint><con:request><![CDATA[<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://service.screek.dbx.hu/">
+   <env:Body>
+      <wsdl:tariff>
+         <quote>
+            <durationType>1</durationType>
+            <bonusMalus>B10</bonusMalus>
+            <callerId>csabi</callerId>
+            <emailGranted>false</emailGranted>
+            <takeOutWithMKBBCasco>false</takeOutWithMKBBCasco>
+            <nonMKBBCasco>false</nonMKBBCasco>
+            <child>false</child>
+            <mkbPartner>false</mkbPartner>
+            <extraClaimFree>false</extraClaimFree>
+            <paymentFrequency>51</paymentFrequency>
+            <paymentMethod>0</paymentMethod>
+            <startDate>2011-01-01T00:00:00+01:00</startDate>
+            <partner>
+               <postCode>6000</postCode>
+               <dateOfBirth>1986-02-05</dateOfBirth>
+	       <yearOfDrivingLicense></yearOfDrivingLicense>
+               <genderCode>1</genderCode>
+               <teacher>false</teacher>
+               <publicEmployee>false</publicEmployee>
+               <governmentEmployee>false</governmentEmployee>
+               <entrepreneur>false</entrepreneur>
+               <gerHunCCMember>false</gerHunCCMember>
+		<marketingPartner>false</marketingPartner>
+            </partner>
+            <vehicle>
+               <cubicCapacity>1598</cubicCapacity>
+               <yearOfProduction>2005</yearOfProduction>
+               <dateOfPurchase/>
+               <make>NISSAN</make>
+               <maximumNettoPower>80</maximumNettoPower>
+               <typeCode>10</typeCode>
+               <operationalModality>000</operationalModality>
+               <seatingCapacity>5</seatingCapacity>
+            </vehicle>
+         </quote>
+      </wsdl:tariff>
+   </env:Body>
+</env:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.screek.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:tariffResponse/return/result/yearlyPremium</path><content>60849</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.screek.dbx.hu/MTPLService/tariffRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>
