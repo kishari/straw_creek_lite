@@ -251,6 +251,22 @@ rule "vezetoi engedely szorzo"
 		insert(new ModFactor("DRIVING-LICENSE", $mf.getValue(), $p, "MULTIPLIER"));
 end
 
+rule "vezetoi engedely szorzo (termeszetes szemelynel ha nincs megadva, akkor 1.03)"
+	agenda-group "calculate"
+	when
+	    $c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value )
+		$p : Partner( genderCode != 3 && eval( isNullInt( yearOfDrivingLicense ) ) )
+		$mf: DrivingLicenseModFactorDef()
+		eval ( isBetween( $mf.getSinceMin(), $mf.getSinceMax(), 0 ) )
+		eval ( $mf.isValid( $q.getStartDate() ) )
+				
+	then
+		$p.setYearOfDrivingLicense(null);
+		insert(new ModFactor("DRIVING-LICENSE", $mf.getValue(), $p, "MULTIPLIER"));
+end
+
 rule "dijfizetes gyakorisaga szorzo"
 	agenda-group "calculate"
 	when

@@ -628,21 +628,6 @@ rule "validate genderCode (not valid)"
 		insert( Message.create("13", $p.getGenderCode().toString() ) );
 end
 
-rule "validate yearOfDrivingLicense (isNull)"
-    agenda-group "validate"
-    
-	when
-		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
-		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
-		$v : Vehicle( typeCode == $c1.value )
-		$p : Partner( genderCode != 3 && eval( isNullInt(yearOfDrivingLicense) ) )
-			
-	then
-		$p.setYearOfDrivingLicense(null);
-		insert( Message.create("22") );
-end
-
-
 
 /*****************************************************************************
 				        		Egyéb
