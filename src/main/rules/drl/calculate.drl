@@ -579,7 +579,7 @@ rule "hatarozatlan ideju kgfb eves premium szamolasa"
 		int precision = Integer.parseInt( $param.getValue() );
 		
 		if ( $discounts < 0.5 ) {			
-			insert( Message.create("26", String.valueOf( round( (1 - $discounts) * 100, precision ) ) ) );
+			//insert( Message.create("26", String.valueOf( round( (1 - $discounts) * 100, precision ) ) ) );
 			$discounts = 0.5;
 		}
 
