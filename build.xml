@@ -12,10 +12,13 @@
 	<property name="src.rules" value="${screek.basedir}/src/main/rules"/>
 	<property name="target" value="${screek.basedir}/target"/>
 	<property name="target.dist" value="${target}/dist"/>
-	<property name="screek-autodeploy-dir" value="${glassfish.home}/glassfish/domains/${screek.domain}/autodeploy" />
+    <property name="bin" value="${screek.basedir}/bin" />
+
+    <property name="screek-autodeploy-dir" value="${glassfish.home}/glassfish/domains/${screek.domain}/autodeploy" />
 	<property name="services-autodeploy-dir" value="${glassfish.home}/glassfish/domains/${services.domain}/autodeploy" />
 	<property name="screek.domain.lib.classes" value="${glassfish.home}/glassfish/domains/${screek.domain}/lib/classes" />
 	<property name="services.domain.lib.classes" value="${glassfish.home}/glassfish/domains/${services.domain}/lib/classes" />
+
 	
 	<property name="screek.warname" value="screek.war"/>
 	<property name="screek.earname" value="screek.ear"/>
@@ -49,6 +52,12 @@
 		<mkdir dir="${target}" />
 		<mkdir dir="${target.dist}" />
 	</target>
+
+    <target name="copy_rules_to_bin">
+        <copy todir="${bin}">
+            <fileset dir="${src.rules}"/>
+        </copy>
+    </target>
 
 	<target name="compile" depends="init" description="compile the source ">
 		<javac destdir="${web.web-inf.classes}" debug="true" verbose="${verbose}" classpathref="classpath">
