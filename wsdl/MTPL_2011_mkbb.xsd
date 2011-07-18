@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2.1-hudson-28-. -->
+
+<xs:schema xmlns:tns="http://service.screek.dbx.hu/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://service.screek.dbx.hu/">
+    
+    <xs:element name="tariff" type="tns:tariff" />
+    
+    <xs:element name="tariffResponse" type="tns:tariffResponse" />
+    
+    <xs:complexType name="tariff">
+        <xs:sequence>
+            <xs:element name="quote" type="tns:tariffQuoteV1" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="tariffQuoteV1">
+        <xs:sequence>
+            <xs:element name="bonusMalus" type="xs:string" minOccurs="0" />
+            <xs:element name="callerId" type="xs:string" minOccurs="0" />
+            <xs:element name="child" type="xs:boolean" />
+            
+            <xs:element name="durationType" type="xs:int" minOccurs="0" />
+            <xs:element name="emailGranted" type="xs:boolean" />
+            <xs:element name="extraClaimFree" type="xs:boolean" />
+            <xs:element name="marketingPartner" type="xs:boolean" />
+            <xs:element name="messages" type="tns:messageListV1" minOccurs="0" />
+            <xs:element name="mkbPartner" type="xs:boolean" />
+            <xs:element name="modfactors" type="tns:modFactorListV1" minOccurs="0" />
+            <xs:element name="nonMKBBCasco" type="xs:boolean" />
+            <xs:element name="partner" type="tns:partnerV1" minOccurs="0" />
+            <xs:element name="paymentFrequency" type="xs:string" minOccurs="0" />
+            <xs:element name="paymentMethod" type="xs:string" minOccurs="0" />
+            <xs:element name="result" type="tns:resultV1" minOccurs="0" />
+            <xs:element name="startDate" type="xs:dateTime" minOccurs="0" />
+            <xs:element name="takeOutWithMKBBCasco" type="xs:boolean" />
+            <xs:element name="vehicle" type="tns:vehicleV1" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="messageListV1">
+        <xs:sequence>
+            <xs:element name="message" type="tns:messageV1" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="messageV1">
+        <xs:sequence>
+            <xs:element name="code" type="xs:string" minOccurs="0" />
+            <xs:element name="context" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="description" type="xs:string" minOccurs="0" />
+            <xs:element name="severity" type="xs:int" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="modFactorListV1">
+        
+        <xs:sequence>
+            <xs:element name="modfactor" type="tns:modFactorV1" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="modFactorV1">
+        <xs:sequence>
+            <xs:element name="code" type="xs:string" minOccurs="0" />
+            <xs:element name="type" type="xs:string" minOccurs="0" />
+            <xs:element name="value" type="xs:double" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="partnerV1">
+        <xs:sequence>
+            <xs:element name="dateOfBirth" type="xs:dateTime" minOccurs="0" />
+            <xs:element name="entrepreneur" type="xs:boolean" />
+            
+            <xs:element name="genderCode" type="xs:int" minOccurs="0" />
+            <xs:element name="gerHunCCMember" type="xs:boolean" />
+            <xs:element name="governmentEmployee" type="xs:boolean" />
+            <xs:element name="modfactors" type="tns:modFactorListV1" minOccurs="0" />
+            <xs:element name="postCode" type="xs:string" minOccurs="0" />
+            <xs:element name="publicEmployee" type="xs:boolean" />
+            <xs:element name="teacher" type="xs:boolean" />
+            <xs:element name="yearOfDrivingLicense" type="xs:int" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="resultV1">
+        <xs:sequence>
+            <xs:element name="baseTariff" type="xs:int" minOccurs="0" />
+            <xs:element name="discountMultiplier" type="xs:double" minOccurs="0" />
+            <xs:element name="installmentPremium" type="xs:int" minOccurs="0" />
+            <xs:element name="otherMultiplier" type="xs:double" minOccurs="0" />
+            
+            <xs:element name="surchargeMultiplier" type="xs:double" minOccurs="0" />
+            <xs:element name="totalMultiplier" type="xs:double" minOccurs="0" />
+            <xs:element name="totalPremium" type="xs:int" minOccurs="0" />
+            <xs:element name="yearlyPremium" type="xs:int" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="vehicleV1">
+        <xs:sequence>
+            <xs:element name="cubicCapacity" type="xs:int" minOccurs="0" />
+            <xs:element name="cubicCapacityNotDefined" type="xs:boolean" />
+            <xs:element name="dateOfPurchase" type="xs:dateTime" minOccurs="0" />
+            <xs:element name="make" type="xs:string" minOccurs="0" />
+            <xs:element name="maximumAllowedWeight" type="xs:int" minOccurs="0" />
+            <xs:element name="maximumNettoPower" type="xs:int" minOccurs="0" />
+            <xs:element name="modfactors" type="tns:modFactorListV1" minOccurs="0" />
+            <xs:element name="operationalModality" type="xs:string" minOccurs="0" />
+            
+            <xs:element name="ownWeight" type="xs:int" minOccurs="0" />
+            <xs:element name="seatingCapacity" type="xs:int" minOccurs="0" />
+            <xs:element name="typeCode" type="xs:string" minOccurs="0" />
+            <xs:element name="yearOfProduction" type="xs:int" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="tariffResponse">
+        <xs:sequence>
+            <xs:element name="return" type="tns:tariffQuoteV1" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
