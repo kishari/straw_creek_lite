@@ -6,10 +6,10 @@ public class ResultV1 {
 	private Integer yearlyPremium;
 	private Integer totalPremium;
 	private Integer baseTariff;
-	private double discountMultiplier;
-	private double surchargeMultiplier;
-	private double otherMultiplier;
-	private double totalMultiplier;
+	private Double discountMultiplier;
+	private Double surchargeMultiplier;
+	private Double otherMultiplier;
+	private Double totalMultiplier;
 	
 	
 
@@ -19,16 +19,16 @@ public class ResultV1 {
 	public void setBaseTariff(Integer baseTariff) {
 		this.baseTariff = baseTariff;
 	}
-	public void setDiscountMultiplier(double discountMultiplier) {
+	public void setDiscountMultiplier(Double discountMultiplier) {
 		this.discountMultiplier = discountMultiplier;
 	}
-	public double getDiscountMultiplier() {
+	public Double getDiscountMultiplier() {
 		return discountMultiplier;
 	}
-	public void setSurchargeMultiplier(double surchargeMultiplier) {
+	public void setSurchargeMultiplier(Double surchargeMultiplier) {
 		this.surchargeMultiplier = surchargeMultiplier;
 	}
-	public double getSurchargeMultiplier() {
+	public Double getSurchargeMultiplier() {
 		return surchargeMultiplier;
 	}
 
@@ -38,16 +38,16 @@ public class ResultV1 {
 	public Integer getYearlyPremium() {
 		return yearlyPremium;
 	}
-	public void setOtherMultiplier(double otherMultiplier) {
+	public void setOtherMultiplier(Double otherMultiplier) {
 		this.otherMultiplier = otherMultiplier;
 	}
-	public double getOtherMultiplier() {
+	public Double getOtherMultiplier() {
 		return otherMultiplier;
 	}
-	public void setTotalMultiplier(double totalMultiplier) {
+	public void setTotalMultiplier(Double totalMultiplier) {
 		this.totalMultiplier = totalMultiplier;
 	}
-	public double getTotalMultiplier() {
+	public Double getTotalMultiplier() {
 		return totalMultiplier;
 	}
 	public void setTotalPremium(Integer totalPremium) {

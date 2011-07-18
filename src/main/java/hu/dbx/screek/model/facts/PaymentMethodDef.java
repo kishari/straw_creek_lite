@@ -2,15 +2,15 @@ package hu.dbx.screek.model.facts;
 
 public class PaymentMethodDef extends BaseDef {
 	
-	private Integer paymentMethod;
+	private String paymentMethod;
 	private String description;
 	
 
-	public void setPaymentMethod(Integer paymentMethod) {
+	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 
-	public Integer getPaymentMethod() {
+	public String getPaymentMethod() {
 		return paymentMethod;
 	}
 

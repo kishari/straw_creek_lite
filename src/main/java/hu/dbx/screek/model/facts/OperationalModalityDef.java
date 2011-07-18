@@ -1,14 +1,14 @@
 package hu.dbx.screek.model.facts;
 
 public class OperationalModalityDef extends BaseDef {
-	private Integer operationalModality;
+	private String operationalModality;
 	private String description;
 
-	public void setOperationalModality(Integer operationalModality) {
+	public void setOperationalModality(String operationalModality) {
 		this.operationalModality = operationalModality;
 	}
 
-	public Integer getOperationalModality() {
+	public String getOperationalModality() {
 		return operationalModality;
 	}
 

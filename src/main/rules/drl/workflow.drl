@@ -16,66 +16,37 @@ rule "workflow insert AGENDA_PREPROCESS_START state"
 end
 
 //preprocess lefutott. Validálás indul
-rule "preprocess ended. modify workflow state to WF_VALID_TARIFF"
+rule "preprocess ended. modify workflow state to WF_VALIDATE"
 	agenda-group "workflow"
 	
 	when
 		$s : State( state == States.WF_START )
-		//$a : Context( action == "tariff" )
+		$a : Context( action == "tariff" )
 		exists ( State( state == States.AGENDA_PREPROCESS_END ) )
 		
 	then
-		modify( $s ) { setState( States.WF_VALID_TARIFF ) };		
+		modify( $s ) { setState( States.WF_VALIDATE ) };		
 		
 end
 
-rule "workflow insert AGENDA_VALID_TARIFF_START state"
+rule "workflow insert AGENDA_VALIDATE_START state"
 	agenda-group "workflow"
 	when
-		exists ( State( state == States.WF_VALID_TARIFF ) )
+		exists ( State( state == States.WF_VALIDATE ) )
 		
 	then
-		insert ( new State( States.AGENDA_VALID_TARIFF_START ) );
+		insert ( new State( States.AGENDA_VALIDATE_START ) );
 		
 end
 
 //tariff validálás lefutott. Hibák keresése indul.
-rule "valid tariff ended. action is 'tariff', modify workflow state to WF_CHECK_VALID"
+rule "validate ended. modify workflow state to WF_CHECK_VALID"
 	agenda-group "workflow"
 	
 	when
-		$s : State( state == States.WF_VALID_TARIFF )
+		$s : State( state == States.WF_VALIDATE )
 		$a : Context( action == "tariff" )
-		exists ( State( state == States.AGENDA_VALID_TARIFF_END ) )
-		
-	then
-		modify( $s ) { setState( States.WF_CHECK_VALID ) };
-		
-end
-
-//tariff validálás lefutott. Approve van, ezért azt is ellenőrízzük.
-rule "valid tariff ended. action is 'approve', modify workflow state to WF_VALID_APPROVE"
-	agenda-group "workflow"
-	
-	when
-		$s : State( state == States.WF_VALID_TARIFF )
-		$a : Context( action == "approve" )
-		exists ( State( state == States.AGENDA_VALID_TARIFF_END ) )
-		
-	then
-		modify( $s ) { setState( States.WF_VALID_APPROVE ) };
-		insert ( new State( States.AGENDA_VALID_APPROVE_START ) );
-		
-end
-
-//approve validálás lefutott. Hibák keresése indul.
-rule "valid approve ended. modify workflow state to WF_CHECK_VALID"
-	agenda-group "workflow"
-	
-	when
-		$s : State( state == States.WF_VALID_APPROVE )
-		$a : Context( action == "approve" )
-		exists ( State( state == States.AGENDA_VALID_APPROVE_END ) )
+		exists ( State( state == States.AGENDA_VALIDATE_END ) )
 		
 	then
 		modify( $s ) { setState( States.WF_CHECK_VALID ) };
@@ -187,47 +158,25 @@ rule "preprocess csoport utolso szabalya"
 	
 end
 
-rule "valid tariff csoport aktivalasa"
-	agenda-group "valid-tariff"
+rule "validate csoport aktivalasa"
+	agenda-group "validate"
 	auto-focus true
 	
 	when
-		exists( State( state == States.AGENDA_VALID_TARIFF_START ) and
-			    State( state == States.WF_VALID_TARIFF ) )	 
+		exists( State( state == States.AGENDA_VALIDATE_START ) and
+			    State( state == States.WF_VALIDATE ) )	 
 	then
 	
 end
 
-rule "valid tariff csoport utolso szabalya"
-	agenda-group "valid-tariff"
+rule "validate csoport utolso szabalya"
+	agenda-group "validate"
 	salience -100
 	when
-		$s : State( state == States.AGENDA_VALID_TARIFF_START )
+		$s : State( state == States.AGENDA_VALIDATE_START )
 		
 	then
-		insert( new State( States.AGENDA_VALID_TARIFF_END ) );
-		
-end
-
-rule "valid approve csoport aktivalasa"
-	agenda-group "valid-approve"
-	auto-focus true
-	
-	when
-		exists( State( state == States.AGENDA_VALID_APPROVE_START ) and
-			    State( state == States.WF_VALID_APPROVE ) )	 
-	then
-	
-end
-
-rule "valid approve csoport utolso szabalya"
-	agenda-group "valid-approve"
-	salience -100
-	when
-		$s : State( state == States.AGENDA_VALID_APPROVE_START )
-		
-	then
-		insert( new State( States.AGENDA_VALID_APPROVE_END ) );
+		insert( new State( States.AGENDA_VALIDATE_END ) );
 		
 end
 

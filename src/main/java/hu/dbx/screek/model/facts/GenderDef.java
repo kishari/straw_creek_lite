@@ -2,14 +2,14 @@ package hu.dbx.screek.model.facts;
 
 public class GenderDef extends BaseDef {
 
-	private String genderCode;
+	private Integer genderCode;
 	private String description;
 
-	public void setGenderCode(String genderCode) {
+	public void setGenderCode(Integer genderCode) {
 		this.genderCode = genderCode;
 	}
 
-	public String getGenderCode() {
+	public Integer getGenderCode() {
 		return genderCode;
 	}
 

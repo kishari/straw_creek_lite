@@ -9,9 +9,14 @@ public class Partner {
 
 	private Quote quote;
 	private Date dateOfBirth;
-	private String genderCode;
+	private Integer genderCode;
 	private String postCode;
 	private Integer yearOfDrivingLicense;
+	private boolean teacher;
+	private boolean publicEmployee; //Közalkalmazott
+	private boolean governmentEmployee; //köztisztviselő
+	private boolean entrepreneur; //kisvállalkozó
+	private boolean gerHunCCMember;
 	
 	private ModFactorList modfactors = new ModFactorList();
 
@@ -33,11 +38,11 @@ public class Partner {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String getGenderCode() {
+	public Integer getGenderCode() {
 		return genderCode;
 	}
 
-	public void setGenderCode(String genderCode) {
+	public void setGenderCode(Integer genderCode) {
 		this.genderCode = genderCode;
 	}
 
@@ -68,6 +73,46 @@ public class Partner {
 
 	public Integer getYearOfDrivingLicense() {
 		return yearOfDrivingLicense;
+	}
+
+	public void setTeacher(boolean teacher) {
+		this.teacher = teacher;
+	}
+
+	public boolean isTeacher() {
+		return teacher;
+	}
+
+	public void setPublicEmployee(boolean publicEmployee) {
+		this.publicEmployee = publicEmployee;
+	}
+
+	public boolean isPublicEmployee() {
+		return publicEmployee;
+	}
+
+	public void setGovernmentEmployee(boolean governmentEmployee) {
+		this.governmentEmployee = governmentEmployee;
+	}
+
+	public boolean isGovernmentEmployee() {
+		return governmentEmployee;
+	}
+
+	public void setEntrepreneur(boolean entrepreneur) {
+		this.entrepreneur = entrepreneur;
+	}
+
+	public boolean isEntrepreneur() {
+		return entrepreneur;
+	}
+
+	public void setGerHunCCMember(boolean gerHunCCMember) {
+		this.gerHunCCMember = gerHunCCMember;
+	}
+
+	public boolean isGerHunCCMember() {
+		return gerHunCCMember;
 	}
 	
 }

@@ -5,37 +5,116 @@ import hu.dbx.screek.model.*;
 import org.joda.time.DateTime;
 import java.util.Date;
 
-rule "setting groupedCollection flag"
+function boolean isEqualsDate(DateTime s0, DateTime e0) {
+	if (s0 == null || e0 == null) {
+		return false;
+	}
+	boolean equal = false;
+	
+	if (s0.getYear() == e0.getYear() && 
+		s0.getMonthOfYear() == e0.getMonthOfYear() && 
+		s0.getDayOfMonth() == e0.getDayOfMonth()) {
+		equal = true;
+	}	
+	return equal;    
+}
+
+function boolean isNullInt(Integer i) {
+		return (i == null || i == 0);
+}
+
+function boolean isBetween(Integer lowerBound, Integer upperBound, Integer value) {
+	if ( value == null ) {
+		return false;
+	}
+		if ( value == -1 ) {
+		value = 0;
+	}
+ 		return (lowerBound <= value && upperBound >= value);
+}
+
+rule "setting groupedCollection flag (2011)"
     agenda-group "preprocess"
     lock-on-active
 	when
-		$p : PaymentMethodDef( paymentMethod == Constants.PM_BANKI_CSOPORTOS_BESZEDES )
+		$p : PaymentMethodDef( paymentMethod == Constants.PM_BANKI_CSOPORTOS_BESZEDES || 
+							   paymentMethod == Constants.PM_ATUTALAS )
 		$q : Quote( paymentMethod == $p.paymentMethod )
 		
 	then
-		modify( $q ) { setGroupedCollection( true ) };		
+		modify( $q ) { setPaymentMethodSurcharge( true ) };		
 end
 
-/*
-rule "setting durationType (hatarozatlan)"
+rule "setting campaign flag (if start = 2011.01.01)"
     agenda-group "preprocess"
-    no-loop
+    lock-on-active
 	when
-		$q : Quote( endDate == null )
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		eval ( isEqualsDate( new DateTime($q.getStartDate()), new DateTime(2011, 1, 1, 0, 0, 0, 0) ) )
 	then
-		modify ( $q ) {
-			setDurationType( Constants.DT_HATAROZATLAN )
+		modify( $q ) { setCampaign( true ) };		
+end
+
+rule "modify cubicCapacity (cubicCapacityNotDefined == true)"
+    agenda-group "preprocess"
+    no-loop 
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && 
+					  cubicCapacityNotDefined == true )				  
+			
+	then
+		modify( $v ) {
+			setCubicCapacity(100) //850 ccm alatti értéket kell kapnia. 100 < 850 :)		
 		}
 end
 
-rule "setting durationType (hatarozott)"
+rule "modify makeCode (make is OtherMake)"
     agenda-group "preprocess"
-    no-loop
+    no-loop 
 	when
-		$q : Quote( endDate != null )
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value )
+		exists OtherMakeDef( make == $v.make )
+
 	then
-		modify ( $q ) {
-			setDurationType( Constants.DT_HATAROZOTT )
+		ParamDef p = new ParamDef();
+		p.setKey("MAKE-TEMP");
+		p.setValue( $v.getMake() ); //Eltároljuk a bejövő gyártmányt, hogy a válaszban vissza tudjuk adni.	
+		insert( p );
+		modify( $v ) {
+			setMake("EGYEB") //Ha olyan gyártmánnyal jön, aminek egyébnek kell lennie, akkor állítsuk egyébre		
 		}
 end
-*/
+
+rule "modify maximumNettoPower to 71-85KW"
+    agenda-group "preprocess"
+    no-loop 
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && maximumNettoPower != null &&
+													eval(!isNullInt(cubicCapacity) && 
+														 isBetween(0, 20, maximumNettoPower) &&
+														 cubicCapacity >= 850 ) )			
+	then
+		int powerTemp = $v.getMaximumNettoPower();
+		modify( $v ) {
+			setMaximumNettoPower(80) //80 az 71 és 85 közé esik		
+		}
+		ParamDef p = new ParamDef();
+		p.setKey("POWER-TEMP");
+		p.setValue( Integer.toString(powerTemp) ); //Eltároljuk a bejövő teljesítményt, hogy a válaszban vissza tudjuk adni.	
+		insert( p );
+end
+
+rule "insert vehicle-type-def constants"
+    agenda-group "preprocess"
+	when
+		$vt : VehicleTypeDef()
+		not ( exists( Constant( name == $vt.constantName ) ) )
+	then
+		insert( new Constant($vt.getConstantName(), $vt.getTypeCode() ) );		
+end

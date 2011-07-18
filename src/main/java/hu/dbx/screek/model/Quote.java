@@ -12,16 +12,18 @@ public class Quote {
 	private Integer durationType;
 	private Partner partner;
 	private Vehicle vehicle;
-	private Integer paymentFrequency;
-	private Integer paymentMethod;
+	private String paymentFrequency;
+	private String paymentMethod;
 	
-	private boolean takeOutWithCasco;
+	private boolean takeOutWithMKBBCasco;
+	private boolean nonMKBBCasco;
 	private boolean childPreference;
 	private boolean mkbPartner;
-	private boolean online;
 	private boolean emailGranted;
-	private boolean extraDamageExemption;
-	private boolean groupedCollection;
+	private boolean extraClaimFree;
+	private boolean paymentMethodSurcharge;
+	private boolean marketingPartner;
+	private boolean campaign; //kampány kedvezmény
 	private String bonusMalus;
 	
 	private Result result = new Result();
@@ -60,20 +62,20 @@ public class Quote {
 		this.durationType = durationType;
 	}
 	
-	public void setPaymentMethod(Integer paymentMethod) {
+	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 
-	public Integer getPaymentMethod() {
+	public String getPaymentMethod() {
 		return paymentMethod;
 	}
 
-	public boolean isTakeOutWithCasco() {
-		return takeOutWithCasco;
+	public boolean isTakeOutWithMKBBCasco() {
+		return takeOutWithMKBBCasco;
 	}
 
-	public void setTakeOutWithCasco(boolean takeOutWithCasco) {
-		this.takeOutWithCasco = takeOutWithCasco;
+	public void setTakeOutWithMKBBCasco(boolean takeOutWithMKBBCasco) {
+		this.takeOutWithMKBBCasco = takeOutWithMKBBCasco;
 	}
 
 	public boolean isChildPreference() {
@@ -92,14 +94,6 @@ public class Quote {
 		this.mkbPartner = mkbPartner;
 	}
 
-	public boolean isOnline() {
-		return online;
-	}
-
-	public void setOnline(boolean online) {
-		this.online = online;
-	}
-
 	public boolean isEmailGranted() {
 		return emailGranted;
 	}
@@ -108,30 +102,14 @@ public class Quote {
 		this.emailGranted = emailGranted;
 	}
 
-	public Integer getPaymentFrequency() {
+	public String getPaymentFrequency() {
 		return paymentFrequency;
 	}
 
-	public void setPaymentFrequency(Integer paymentFrequency) {
+	public void setPaymentFrequency(String paymentFrequency) {
 		this.paymentFrequency = paymentFrequency;
 	}
 
-	public boolean isExtraDamageExemption() {
-		return extraDamageExemption;
-	}
-
-	public void setExtraDamageExemption(boolean extraDamageExemption) {
-		this.extraDamageExemption = extraDamageExemption;
-	}
-
-	public void setGroupedCollection(boolean groupedCollection) {
-		this.groupedCollection = groupedCollection;
-	}
-
-	public boolean isGroupedCollection() {
-		return groupedCollection;
-	}
-	
 	@XmlElement(name = "messages")
 	public MessageList getMessages() {
 		return messages;
@@ -180,6 +158,46 @@ public class Quote {
 
 	public String getCallerId() {
 		return callerId;
+	}
+
+	public void setNonMKBBCasco(boolean nonMKBBCasco) {
+		this.nonMKBBCasco = nonMKBBCasco;
+	}
+
+	public boolean isNonMKBBCasco() {
+		return nonMKBBCasco;
+	}
+
+	public void setMarketingPartner(boolean marketingPartner) {
+		this.marketingPartner = marketingPartner;
+	}
+
+	public boolean isMarketingPartner() {
+		return marketingPartner;
+	}
+
+	public void setExtraClaimFree(boolean extraClaimFree) {
+		this.extraClaimFree = extraClaimFree;
+	}
+
+	public boolean isExtraClaimFree() {
+		return extraClaimFree;
+	}
+
+	public void setCampaign(boolean campaign) {
+		this.campaign = campaign;
+	}
+
+	public boolean isCampaign() {
+		return campaign;
+	}
+
+	public void setPaymentMethodSurcharge(boolean paymentMethodSurcharge) {
+		this.paymentMethodSurcharge = paymentMethodSurcharge;
+	}
+
+	public boolean isPaymentMethodSurcharge() {
+		return paymentMethodSurcharge;
 	}
 
 	

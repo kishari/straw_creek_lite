@@ -2,14 +2,15 @@ package hu.dbx.screek.model.facts;
 
 public class PaymentFreqDef extends BaseDef{
 
-	private Integer frequencyCode;
+	private String frequencyCode;
+	private Integer	installmentDivisor;
 	private String description;
 
-	public void setFrequencyCode(Integer frequencyCode) {
+	public void setFrequencyCode(String frequencyCode) {
 		this.frequencyCode = frequencyCode;
 	}
 
-	public Integer getFrequencyCode() {
+	public String getFrequencyCode() {
 		return frequencyCode;
 	}
 
@@ -19,6 +20,14 @@ public class PaymentFreqDef extends BaseDef{
 
 	public String getDescription() {
 		return description;
+	}
+
+	public void setInstallmentDivisor(Integer installmentDivisor) {
+		this.installmentDivisor = installmentDivisor;
+	}
+
+	public Integer getInstallmentDivisor() {
+		return installmentDivisor;
 	}
 	
 }

@@ -1,5 +1,5 @@
-(defproject screek "0.1.0-SNAPSHOT"
-  :description "StrawCreek"
+(defproject mabisz "0.1.0-SNAPSHOT"
+  :description "MabiszCalculator"
   :library-path "lib"
   :dependencies [[org.springframework/spring-context "3.0.1.RELEASE-A"]
 		 		 [org.springframework/spring-web "3.0.1.RELEASE-A"]

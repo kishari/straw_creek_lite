@@ -1,0 +1,802 @@
+package MTPLTariffRules
+
+import hu.dbx.screek.model.facts.*;
+import hu.dbx.screek.model.*;
+import org.joda.time.DateTime;
+import java.util.Date;
+
+function boolean isNullString(String s) {
+		return ("".equals(s) || s == null);
+}
+
+function boolean isEq(String str1, String str2) {
+		if (str1 != null && str2 != null) {
+			return str1.equals(str2);
+		}
+		return false;		
+}
+
+function int getActualYear() {
+	DateTime now = new DateTime(new Date());
+	return now.getYear();
+}
+
+function int getYear(Date d) {
+	DateTime date = new DateTime(d);
+	return date.getYear();
+}
+
+function String getFormattedDate(Date d) {
+		DateTime d1 = new DateTime(d);
+		String date = String.valueOf(d1.getYear());
+		if (d1.getMonthOfYear() < 10) {
+			date = date + "-0" + String.valueOf(d1.getMonthOfYear() );
+		}
+		else {
+			date = date + "-" + String.valueOf(d1.getMonthOfYear() );
+		}
+		if (d1.getDayOfMonth() < 10) {
+			date = date + "-0" + String.valueOf(d1.getDayOfMonth() );
+		}
+		else {
+			date = date + "-" + String.valueOf(d1.getDayOfMonth() );
+		}
+				
+		return date;
+}
+
+function boolean isNullInt(Integer i) {
+		return (i == null || i == 0);
+}
+
+function boolean firstDateIsAfterOrEqualsThanSecondDate(DateTime q, DateTime v) {
+	return ( q.isAfter(v) || q.isEqual(v) );
+}
+
+function boolean firstDateIsAfter(Date s0, Date e0) {
+	if (s0 == null || e0 == null) {
+		return false;
+	}
+	
+	DateTime s = new DateTime(s0);
+	DateTime e = new DateTime(e0);	
+	
+	DateTime temp = s.withDate(s.getYear(), s.getMonthOfYear(), s.getDayOfMonth());
+	
+	return temp.isAfter(e);    
+}
+
+function boolean isEqualsDate(DateTime s0, DateTime e0) {
+	if (s0 == null || e0 == null) {
+		return false;
+	}
+	boolean equal = false;
+	
+	if (s0.getYear() == e0.getYear() && 
+		s0.getMonthOfYear() == e0.getMonthOfYear() && 
+		s0.getDayOfMonth() == e0.getDayOfMonth()) {
+		equal = true;
+	}	
+	return equal;    
+}
+
+function boolean isBetween(Integer lowerBound, Integer upperBound, Integer value) {
+	if ( value == null ) {
+		return false;
+	} 
+	else {
+		return (lowerBound <= value && upperBound >= value);
+	}
+}
+
+function int yearsBetween(Date s, Date e) {
+	return Math.abs(new DateTime(s).getYear() - new DateTime(e).getYear());  
+}
+
+/*****************************************************************************
+				 Biztosítás szintű validációk 
+*****************************************************************************/
+
+rule "validate bonusMalus (isNull)"
+    agenda-group "validate"
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN,
+					eval( isNullString(bonusMalus) ) )
+		$v : Vehicle()
+		$vt: VehicleTypeDef( typeCode == $v.typeCode, bonusMalus == true )
+	then
+		$q.setBonusMalus(null);
+		insert( Message.create("29") );
+end
+
+rule "validate bonusMalus (not valid)"
+    agenda-group "validate"
+
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN,
+					eval( !isNullString(bonusMalus) ) )
+		not(exists BonusMalusModFactorDef( bonusMalus == $q.bonusMalus ) )	
+	then
+		insert( Message.create("30", $q.getBonusMalus() ) );
+end
+
+rule "validate startDate (isNull)"
+    agenda-group "validate"
+      
+	when
+		$q : Quote( startDate == null )
+				
+	then
+		insert( Message.create("24") );		
+end
+
+rule "validate startDate (< 2011.01.01)"
+    agenda-group "validate"
+      
+	when
+		$q : Quote( startDate != null && eval (getYear( startDate ) < 2011 ) )
+				
+	then
+		insert( Message.create("42") );		
+end
+
+rule "validate insurance duration (isNull)"
+    agenda-group "validate"
+      
+	when
+		$q : Quote( eval( isNullInt(durationType) ) )
+		
+	then
+		$q.setDurationType(null);
+		insert( Message.create("12") );		
+end
+
+rule "validate insurance duration (not valid)"
+    agenda-group "validate"
+      
+	when
+		$q : Quote( eval( !isNullInt(durationType) ) )
+		not(exists DurationTypeDef( durationType == $q.durationType ) )
+		
+	then
+		insert( Message.create("11", $q.getDurationType().toString() ) );		
+end
+
+rule "validate payment method (isNull)"
+    agenda-group "validate"
+      
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN &&  
+					eval( isNullString(paymentMethod) ) )
+	then
+		$q.setPaymentMethod(null);
+		insert( Message.create("6") );		
+end
+
+rule "validate payment method (not valid)"
+    agenda-group "validate"
+   
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN &&  
+					eval( !isNullString(paymentMethod) ) )
+		not(exists PaymentMethodDef( paymentMethod == $q.paymentMethod ) )
+			
+	then
+		insert( Message.create("5", $q.getPaymentMethod() ) );		
+end
+
+rule "validate payment frequency (isNull)"
+    agenda-group "validate"
+      
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN && 
+					eval( isNullString(paymentFrequency) ) )
+	then
+		$q.setPaymentFrequency(null);
+		insert( Message.create("8") );		
+end
+
+rule "validate payment frequency (not valid)"
+    agenda-group "validate"
+      
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN &&
+					eval( !isNullString(paymentFrequency) ) )
+		not(exists PaymentFreqDef( frequencyCode == $q.paymentFrequency ) )
+	then
+		insert( Message.create("7", $q.getPaymentFrequency().toString() ) );
+end
+
+rule "validate payment frequency (not valid - bizonyos jármuveknel egy osszegben kell fizetni)"
+    agenda-group "validate"
+       
+	when
+		$c1: Constant( name == "TC_POTKOCSI_075IG")
+		$c2: Constant( name == "TC_POTKOCSI_075_10")
+		$c3: Constant( name == "TC_POTKOCSI_10PLUS")
+		$c4: Constant( name == "TC_SEGEDMOTOROS_KEREKPAR")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN, 
+					paymentFrequency != Constants.PF_EVES )
+		$v : Vehicle( typeCode == $c1.value ||
+					  typeCode == $c2.value ||
+					  typeCode == $c3.value ||
+					  typeCode == $c4.value )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )
+	then
+		insert( Message.create("28", $v.getTypeCode(), $vt.getDescription() ) );
+end
+
+rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (egyeb jarmu)"
+	agenda-group "validate"
+	
+	salience -5 
+	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$c3: Constant( name == "TC_AUTOBUSZ")
+		$q : Quote()
+		$v : Vehicle()
+		$b : BaseTariffDef( durationType == $q.durationType,
+		    		        vehicleType == $v.typeCode )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )		    		   
+		eval ( !$b.isValid( $q.getStartDate() ) )
+		eval ( ($q.getDurationType() == Constants.DT_HATAROZATLAN && 
+			   	!$v.getTypeCode().equals( $c1.getValue() ) && 
+		   	   	!$v.getTypeCode().equals( $c2.getValue() ) && 
+		   	   	!$v.getTypeCode().equals( $c3.getValue() ) ) ||
+		   	   	($q.getDurationType() == Constants.DT_HATAROZOTT) ) 
+	    not (exists (Message( code == "24") ) )	
+	then	
+		insert( Message.create("33", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
+		
+end
+
+rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (motorkerekpar)"
+	agenda-group "validate"
+	
+	salience -5 
+	when
+		$c1: Constant( name == "TC_MOTORKEREKPAR")
+		$q : Quote()
+		$v : Vehicle( typeCode == $c1.value )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )	
+		$b : MotorBikeBaseTariffDef( durationType == $q.durationType ) 
+		eval ( isBetween($b.getPowerMin(), $b.getPowerMax(), $v.getMaximumNettoPower() ) )
+		eval ( !$b.isValid( $q.getStartDate() ) )
+		not (exists (Message( code == "24") ) )
+						
+	then
+		insert( Message.create("33", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
+end
+
+rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (autobusz)"
+	agenda-group "validate"
+	
+	salience -5 
+	when
+		$c1: Constant( name == "TC_AUTOBUSZ")
+		$q : Quote()
+		$v : Vehicle( typeCode == $c1.value )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )		
+		$b : AutoBusBaseTariffDef( durationType == $q.durationType )
+		eval ( isBetween($b.getSeatingCapacityMin(), $b.getSeatingCapacityMax(), $v.getSeatingCapacity() ) )
+		eval ( !$b.isValid( $q.getStartDate() ) )
+		not (exists (Message( code == "24") ) )
+						
+	then
+		insert( Message.create("33", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
+end
+
+rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (tehergepjarmu)"
+	agenda-group "validate"
+	
+	salience -5 
+	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$p : Partner()
+		$v : Vehicle( typeCode == $c1.value )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )
+		$b : TruckBaseTariffDef( genderCode == $p.genderCode )
+		eval ( isBetween( $b.getAllowedWeightMin(), 
+						  $b.getAllowedWeightMax(), 
+						  $v.getMaximumAllowedWeight() ) )
+		eval ( ( $p.getGenderCode() != Constants.JOGI_SZEMELY &&
+				 isBetween( $b.getPartnerAgeMin(), 
+				 			$b.getPartnerAgeMax(), 
+				 			yearsBetween( $p.getDateOfBirth(), $q.getStartDate() ) ) ) || 
+			   ( $p.getGenderCode() == Constants.JOGI_SZEMELY ) )
+		eval ( !$b.isValid( $q.getStartDate() ) )
+		not (exists (Message( code == "24") ) )				
+	then
+		insert( Message.create("33", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
+end
+
+/*****************************************************************************
+				        Jármű szintű validációk 
+*****************************************************************************/
+rule "validate yearOfProduction (isNull)"
+    agenda-group "validate"      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value &&
+					  eval( isNullInt( yearOfProduction ) ) )
+				
+	then
+		insert( Message.create("36") );		
+end
+
+rule "validate yearOfProduction (not valid)"
+    agenda-group "validate"      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && eval ( !isNullInt( yearOfProduction ) ) )					  
+		eval( $v.getYearOfProduction() < 1850 || $v.getYearOfProduction() > getActualYear() + 1)
+				
+	then
+		insert( Message.create("37", $v.getYearOfProduction().toString() ) );		
+end
+
+rule "validate vehicle typecode (isNull)"
+    agenda-group "validate"
+      
+	when
+		$v : Vehicle( eval( isNullString(typeCode) ) )
+		
+	then
+		$v.setTypeCode(null);
+		insert( Message.create("4") );		
+end
+
+rule "validate vehicle typecode (not valid)"
+    agenda-group "validate"
+      
+	when
+		$v : Vehicle( eval( !isNullString(typeCode) ) )
+		not(exists VehicleTypeDef( typeCode == $v.typeCode ) )
+		
+	then
+		insert( Message.create("3", $v.getTypeCode() ) );		
+end
+
+rule "validate vehicle typecode (not valid - trolibusz nincs hatarozott esetben)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_TROLIBUSZ")
+		$q : Quote( durationType == Constants.DT_HATAROZOTT )
+		$v : Vehicle( typeCode == $c1.value )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )
+	then
+		insert( Message.create("32", $v.getTypeCode(), $vt.getDescription() ) );		
+end
+
+rule "validate vehicle make (not valid)"
+    agenda-group "validate"
+       
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && 
+					  eval ( !isNullString(make) ) )
+		not(exists MakeDef( make == $v.make ) )
+		
+	then
+		insert( Message.create("9", $v.getMake() ) );		
+end
+
+rule "validate vehicle make (isNull)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && 
+					  eval( isNullString(make) ))
+		
+	then
+		insert( Message.create("10") );		
+end
+
+rule "validate operationalModality (not valid)"
+    agenda-group "validate"
+     
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( eval( !isNullString(operationalModality) ) )
+		not(exists OperationalModalityDef( operationalModality == $v.operationalModality ) )
+			
+	then
+		insert( Message.create("16", $v.getOperationalModality() ) );
+end
+
+rule "validate operationalModality (isNull)"
+    agenda-group "validate"
+      
+	when
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( eval( isNullString(operationalModality) ) )
+			
+	then
+		$v.setOperationalModality(null);
+		insert( Message.create("17") );
+end
+
+rule "validate power (isNull - 2011)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( (typeCode == $c1.value ||
+					   typeCode == $c2.value) && 
+					  eval( isNullInt(maximumNettoPower) ) )				  
+			
+	then
+		$v.setMaximumNettoPower(null);
+		insert( Message.create("18") );
+end
+
+rule "validate power (not valid - 2011)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) && 
+					  eval( !isNullInt(maximumNettoPower) ) )
+		eval( $v.getMaximumNettoPower() < 0 || $v.getMaximumNettoPower() > 999999)
+	then
+		$v.setMaximumNettoPower(null);
+		insert( Message.create("38") );
+end
+
+rule "validate cubicCapacity (isNull - 2011)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && 
+					  cubicCapacityNotDefined == false &&  
+					  eval( isNullInt(cubicCapacity) ) )				  
+			
+	then
+		$v.setCubicCapacity(null);
+		insert( Message.create("19") );
+end
+
+rule "validate cubicCapacity (not valid - 2011)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( (typeCode == $c1.value ) &&  
+					  eval( !isNullInt(cubicCapacity) ) )
+		eval( $v.getCubicCapacity() < 0 || $v.getCubicCapacity() > 999999)
+	then
+		$v.setCubicCapacity(null);
+		insert( Message.create("39") );
+end
+
+rule "validate seatingCapacity (isNull)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_AUTOBUSZ")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && 
+					  eval( isNullInt(seatingCapacity) ) )
+			
+	then
+		$v.setSeatingCapacity(null);
+		insert( Message.create("20") );
+end
+
+rule "validate seatingCapacity (not valid)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_AUTOBUSZ")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && eval( !isNullInt(seatingCapacity) ) )
+		eval( $v.getSeatingCapacity() > 999999 || $v.getSeatingCapacity() < 10 )
+
+	then
+		$v.setSeatingCapacity(null);
+		insert( Message.create("40") );
+end
+
+rule "validate maximumAllowedWeight (isNull)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && eval( isNullInt(maximumAllowedWeight) ) )
+
+	then
+		$v.setMaximumAllowedWeight(null);
+		insert( Message.create("43") );
+end
+
+rule "validate maximumAllowedWeight (not valid)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value && eval( !isNullInt(maximumAllowedWeight) ) )
+		eval( $v.getMaximumAllowedWeight() > 999999 || $v.getMaximumAllowedWeight() <= 0 )
+
+	then
+		$v.setMaximumAllowedWeight(null);
+		insert( Message.create("44") );
+end
+
+rule "validate szgk casco kedvezmeny (not valid - 2 casco same time)"
+    agenda-group "validate"
+    
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN, nonMKBBCasco == true, takeOutWithMKBBCasco == true)
+		$v : Vehicle( typeCode == $c1.value )
+			
+	then
+		insert( Message.create("45") );
+end
+
+/*****************************************************************************
+				        Partner szintű validációk 
+*****************************************************************************/
+rule "validate dateOfBirth (isNull)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$c2: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value || 
+					  typeCode == $c2.value )
+		$p : Partner( dateOfBirth == null &&
+					  genderCode != 3 )
+				
+	then
+		insert( Message.create("23") );		
+end
+
+rule "validate postcode (isNull)"
+    agenda-group "validate"    
+    
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value )
+		$p : Partner( eval( isNullString(postCode) ) )
+				
+	then
+		$p.setPostCode(null);
+		insert( Message.create("2") );		
+end
+
+rule "validate postcode (not valid)"
+    agenda-group "validate"  
+        
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value )
+		$p : Partner( eval( !isNullString(postCode) ) )
+		not(exists AreaDef( postCode == $p.postCode ) )
+		
+	then
+		insert( Message.create("1", $p.getPostCode() ) );		
+end
+
+rule "validate genderCode (isNull)"
+    agenda-group "validate"
+     
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$c2: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value || 
+					  typeCode == $c2.value )
+		$p : Partner( eval( isNullInt( genderCode ) ) )
+	then
+		insert( Message.create("14") );		
+end
+
+rule "validate genderCode (not valid)"
+    agenda-group "validate"
+          
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$c2: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$v : Vehicle( typeCode == $c1.value || 
+					   typeCode == $c2.value )
+		$p : Partner( eval( !isNullInt( genderCode ) ) )
+		not(exists GenderDef( genderCode == $p.genderCode ) )
+			
+	then
+		insert( Message.create("13", $p.getGenderCode().toString() ) );
+end
+
+
+/*****************************************************************************
+				        		Egyéb
+*****************************************************************************/
+rule "validate partner kozalkalmazott vs koztisztviselo kedvezmenyek (not valid)"
+    agenda-group "validate"
+    
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$p : Partner( publicEmployee == true && governmentEmployee == true && genderCode != 3 )
+		$v : Vehicle( typeCode == $c1.value )
+			
+	then
+		insert( Message.create("46") );
+end
+
+rule "validate partner kozalkalmazott vs tanar kedvezmenyek (not valid)"
+    agenda-group "validate"
+    
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$p : Partner( publicEmployee == true && teacher == true && genderCode != 3 ) 
+		$v : Vehicle( typeCode == $c1.value )
+			
+	then
+		insert( Message.create("47") );
+end
+
+rule "validate partner tanar vs koztisztviselo kedvezmenyek (not valid)"
+    agenda-group "validate"
+    
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$p : Partner( governmentEmployee == true && teacher == true && genderCode != 3 )
+		$v : Vehicle( typeCode == $c1.value )
+			
+	then
+		insert( Message.create("48") );
+end
+
+rule "validate partner kisvallalkozo vs kamaratag kedvezmenyek (not valid)"
+    agenda-group "validate"
+    
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$c2: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$p : Partner( entrepreneur == true && gerHunCCMember == true )
+		$v : Vehicle( typeCode == $c1.value || typeCode == $c2.value )
+			
+	then
+		insert( Message.create("50") );
+end
+
+rule "validate partner kisvallalkozo vs kamaratag kedvezmenyek (nem szgk vagy tgk)"
+    agenda-group "validate"
+    salience -50
+    no-loop
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$c2: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Quote( durationType == Constants.DT_HATAROZATLAN )
+		$p : Partner( entrepreneur == true || gerHunCCMember == true )
+		$v : Vehicle( typeCode != $c1.value && typeCode != $c2.value )
+	then		  
+		//insert( Message.create("49", "2010-12-31") );
+		modify ( $p ) {	
+			setEntrepreneur(false),
+			setGerHunCCMember(false)
+		}
+end
+
+rule "validate partner discounts (startDate >= 2011 jan 1 and insuranceDuration = HATAROZATLAN)"
+    agenda-group "validate"
+    salience -50
+    no-loop
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( )
+		$p : Partner( (governmentEmployee == true ||
+					  teacher == true ||
+					  publicEmployee == true) && genderCode != 3 )		
+		$v : Vehicle()
+		$d : DurationTypeDef( durationType == Constants.DT_HATAROZATLAN )
+		$vt: VehicleTypeDef( typeCode == $c1.value )
+		not (exists ( Message() ) )  
+		eval ( !firstDateIsAfterOrEqualsThanSecondDate(new DateTime($q.getStartDate()), new DateTime(2011, 1, 1, 0, 0, 0, 0) ) 
+			  || ($d.getDurationType() != $q.getDurationType() ) 
+			  || ( !$vt.getTypeCode().equals($v.getTypeCode() ) ) )
+		
+	then
+		//insert( Message.create("15", "2010-12-31" ) );
+		modify ( $p ) {	
+			setPublicEmployee(false),
+			setTeacher(false),
+			setGovernmentEmployee(false)
+		}
+end
+
+rule "validate partner discounts (jogi szemelyre nincs tanar, kozalk, koztisztv)"
+    agenda-group "validate"
+    salience -50
+    no-loop
+	when
+		$q : Quote( )
+		$p : Partner( (governmentEmployee == true ||
+					  teacher == true ||
+					  publicEmployee == true) && genderCode == 3 )		
+	then
+		//insert( Message.create("15", "2010-12-31" ) );
+		modify ( $p ) {	
+			setPublicEmployee(false),
+			setTeacher(false),
+			setGovernmentEmployee(false)
+		}
+end
+
+rule "validate partner discounts (jogi szemelyre nincs gyerek)"
+    agenda-group "validate"
+    salience -50
+    no-loop
+	when
+		$q : Quote( childPreference == true )
+		$p : Partner( genderCode == 3 )		
+	then
+		//insert( Message.create("15", "2010-12-31" ) );
+		modify ( $q ) {	
+			setChildPreference(false)
+		}
+end
+
+rule "validate szemelygepjarmu discounts (startDate >= 2011 jan 1 and insuranceDuration = HATAROZATLAN)"
+    agenda-group "validate"
+    salience -50
+    no-loop
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Quote( takeOutWithMKBBCasco == true ||
+					nonMKBBCasco == true ||
+					childPreference == true ||
+					mkbPartner == true ||
+					emailGranted == true ||
+					extraClaimFree == true ||
+					paymentMethodSurcharge == true ||
+					marketingPartner == true ||
+					campaign == true
+					)		
+		$v : Vehicle()
+		$d : DurationTypeDef( durationType == Constants.DT_HATAROZATLAN )
+		$vt: VehicleTypeDef( typeCode == $c1.value )
+		not (exists ( Message() ) )  
+		eval ( !firstDateIsAfterOrEqualsThanSecondDate(new DateTime($q.getStartDate()), new DateTime(2011, 1, 1, 0, 0, 0, 0) ) 
+			  || ($d.getDurationType() != $q.getDurationType() ) 
+			  || ( !$vt.getTypeCode().equals($v.getTypeCode() ) ) )
+		
+	then
+		//insert( Message.create("15", "2010-12-31" ) );
+		modify ( $q ) {	
+			setTakeOutWithMKBBCasco(false),
+			setNonMKBBCasco(false),
+			setChildPreference(false),
+			setMkbPartner(false),
+			setEmailGranted(false),
+			setExtraClaimFree(false),
+			setPaymentMethodSurcharge(false),
+			setMarketingPartner(false),
+			setCampaign(false)
+		}
+end

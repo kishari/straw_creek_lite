@@ -1,5 +1,5 @@
-"PAYMENT_FREQUENCY";"DESCRIPTION";"VALID_FROM";"VALID_TO";"VERSION"
-1;"Éves díjfizetési gyakoriság";"2010-01-01";"2010-12-31";1
-2;"Féléves díjfizetési gyakoriság";"2010-01-01";"2010-12-31";1
-4;"Negyedéves díjfizetési gyakoriság";"2010-01-01";"2010-12-31";1
-12;"Havi díjfizetési gyakoriság";"2010-01-01";"2010-12-31";1
+"PAYMENT_FREQUENCY";"INSTALLMENT_DIVISOR";"DESCRIPTION";"VALID_FROM";"VALID_TO"
+47;1;"Egyszeri díjfizetés";"1900-01-01";"9999-12-31"
+49;4;"Negyedéves díjfizetési gyakoriság";"1900-01-01";"9999-12-31"
+50;2;"Féléves díjfizetési gyakoriság";"1900-01-01";"9999-12-31"
+51;1;"Éves díjfizetési gyakoriság";"1900-01-01";"9999-12-31"

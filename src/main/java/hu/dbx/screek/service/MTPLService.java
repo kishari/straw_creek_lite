@@ -1,10 +1,10 @@
 package hu.dbx.screek.service;
 
-import hu.dbx.screek.iface.assist.*;
-import hu.dbx.screek.model.*;
-import hu.dbx.screek.util.*;
-
-import java.util.NoSuchElementException;
+import hu.dbx.screek.iface.assist.TariffQuoteV1;
+import hu.dbx.screek.model.Context;
+import hu.dbx.screek.model.Quote;
+import hu.dbx.screek.util.DroolsHelper;
+import hu.dbx.screek.util.Mapper;
 
 import javax.annotation.Resource;
 import javax.jws.HandlerChain;
@@ -12,8 +12,10 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.servlet.ServletContext;
+import javax.xml.soap.SOAPException;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
+import javax.xml.ws.soap.SOAPFaultException;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
@@ -33,69 +35,29 @@ public class MTPLService implements ApplicationContextAware {
 	private ApplicationContext applicationContext = null;
 
 	@WebMethod
-	public TariffQuoteV1 tariff(@WebParam(name="quote")TariffQuoteV1 insurance) {
+	public TariffQuoteV1 tariff(@WebParam(name="quote")TariffQuoteV1 insurance) {		
 		logger.debug("tariff started.");
 		try {
 			//Context(action, version)
-			Context context = new Context("tariff", 1);
+			Context context = new Context("tariff", "1");
 			Quote q = Mapper.mapIn(insurance);
 			q = getDroolsHelper().compute(q, context);
-			TariffQuoteV1 resp = Mapper.mapOutV1(q);
+			TariffQuoteV1 resp = Mapper.mapOut(q);
 			logger.debug("tariff finished.");
 			
 			return resp;
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	@WebMethod
-	public TariffQuoteV2 tariffV2(@WebParam(name="quote")TariffQuoteV2 insurance) {
-		logger.debug("tariffV2 started.");
-		try {
-			//Context(action, version)
-			Context context = new Context("tariff", 2);
-			Quote q = Mapper.mapIn(insurance);
-			q = getDroolsHelper().compute(q, context);
-			TariffQuoteV2 resp = Mapper.mapOutV2(q);
-			logger.debug("tariffV2 finished.");
-			
-			return resp;
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
-	@WebMethod
-	public QuoteV1 approve(@WebParam(name="quote")QuoteV1 insurance) {
-		logger.debug("approve started.");
-		try {
-			//Context(action, version)
-			Context context = new Context("approve", 1);
-			Quote q = Mapper.mapIn(insurance);
-			q = getDroolsHelper().compute(q, context);
-			QuoteV1 resp = Mapper.mapOutApproveV1(q);
-			logger.debug("approve finished.");
-			
-			return resp;
-		} catch (NoSuchElementException e) {
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
+			WSFault f = new WSFault();
+			try {
+				f.setFaultString(e.getMessage());
+			} catch (SOAPException e2) {
+				e2.printStackTrace();
+			}
+			throw new SOAPFaultException(f);
 		}
-		return null;
 	}
 
 	@WebMethod(exclude = true)
@@ -120,7 +82,7 @@ public class MTPLService implements ApplicationContextAware {
         return applicationContext;
     }
 
-	@Override
+	//@Override
 	@WebMethod(exclude = true)
 	public void setApplicationContext(ApplicationContext appCtx)
 			throws BeansException {

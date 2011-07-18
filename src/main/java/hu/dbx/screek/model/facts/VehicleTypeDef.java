@@ -2,8 +2,9 @@ package hu.dbx.screek.model.facts;
 
 public class VehicleTypeDef extends BaseDef {
 
-	private Integer typeCode;
+	private String typeCode;
 	private String description;
+	private String constantName;
 	private Integer bonusMalusValid;
 	private boolean bonusMalus;
 	
@@ -16,11 +17,11 @@ public class VehicleTypeDef extends BaseDef {
 		this.bonusMalus = bonusMalus;
 	}
 
-	public void setTypeCode(Integer typeCode) {
+	public void setTypeCode(String typeCode) {
 		this.typeCode = typeCode;
 	}
 
-	public Integer getTypeCode() {
+	public String getTypeCode() {
 		return typeCode;
 	}
 
@@ -44,5 +45,13 @@ public class VehicleTypeDef extends BaseDef {
 
 	public Integer getBonusMalusValid() {
 		return bonusMalusValid;
+	}
+
+	public void setConstantName(String constantName) {
+		this.constantName = constantName;
+	}
+
+	public String getConstantName() {
+		return constantName;
 	}
 }

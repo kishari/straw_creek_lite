@@ -20,7 +20,8 @@ public class KnowledgeBaseFact {
 		String path;
 		while(i.hasNext()) {
 			path = (String) i.next();
-			kbuilder.add(ResourceFactory.newFileResource(path), ResourceType.DRL);
+			//kbuilder.add(ResourceFactory.newFileResource(path), ResourceType.DRL);
+			kbuilder.add(ResourceFactory.newClassPathResource(path), ResourceType.DRL);
 		}
 		KnowledgeBuilderErrors errors = kbuilder.getErrors();
 		if (errors.size() > 0) {

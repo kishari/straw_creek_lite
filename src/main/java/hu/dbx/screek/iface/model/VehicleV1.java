@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class VehicleV1 {
 	//Típus
-	private Integer typeCode;
+	private String typeCode;
 	
 	//Gyártmány
 	private String make;
@@ -17,14 +17,11 @@ public class VehicleV1 {
 	//Hengerűrtartalom
 	private Integer cubicCapacity;
 	
-	//teherbírás
-	private Integer carryingCapacity;
-	
 	//Saját tömeg
-	private Double ownWeight;
+	private Integer ownWeight;
 	
 	//Maximálisan megengedett össztömeg
-	private Double maximumAllowedWeight;
+	private Integer maximumAllowedWeight;
 	
 	//Teljesítmény
 	private Integer maximumNettoPower;
@@ -36,16 +33,18 @@ public class VehicleV1 {
 	private Date dateOfPurchase;
 	
 	//Üzemeltetés jellege
-	private Integer operationalModality;
+	private String operationalModality;
+	
+	private boolean cubicCapacityNotDefined; //A járműre nem értelmezett a hengerűrtartalom érték
 	
 	private ModFactorListV1 modfactors = new ModFactorListV1();
 	
 
-	public Integer getTypeCode() {
+	public String getTypeCode() {
 		return typeCode;
 	}
 
-	public void setTypeCode(Integer typeCode) {
+	public void setTypeCode(String typeCode) {
 		this.typeCode = typeCode;
 	}
 
@@ -73,19 +72,19 @@ public class VehicleV1 {
 		this.cubicCapacity = cubicCapacity;
 	}
 
-	public Double getOwnWeight() {
+	public Integer getOwnWeight() {
 		return ownWeight;
 	}
 
-	public void setOwnWeight(Double ownWeight) {
+	public void setOwnWeight(Integer ownWeight) {
 		this.ownWeight = ownWeight;
 	}
 
-	public Double getMaximumAllowedWeight() {
+	public Integer getMaximumAllowedWeight() {
 		return maximumAllowedWeight;
 	}
 
-	public void setMaximumAllowedWeight(Double maximumAllowedWeight) {
+	public void setMaximumAllowedWeight(Integer maximumAllowedWeight) {
 		this.maximumAllowedWeight = maximumAllowedWeight;
 	}
 
@@ -114,19 +113,11 @@ public class VehicleV1 {
 		this.modfactors = modfactors;
 	}
 
-	public void setCarryingCapacity(Integer carryingCapacity) {
-		this.carryingCapacity = carryingCapacity;
-	}
-
-	public Integer getCarryingCapacity() {
-		return carryingCapacity;
-	}
-
-	public void setOperationalModality(Integer operationalModality) {
+	public void setOperationalModality(String operationalModality) {
 		this.operationalModality = operationalModality;
 	}
 
-	public Integer getOperationalModality() {
+	public String getOperationalModality() {
 		return operationalModality;
 	}
 
@@ -136,6 +127,14 @@ public class VehicleV1 {
 
 	public Integer getYearOfProduction() {
 		return yearOfProduction;
+	}
+
+	public void setCubicCapacityNotDefined(boolean cubicCapacityNotDefined) {
+		this.cubicCapacityNotDefined = cubicCapacityNotDefined;
+	}
+
+	public boolean isCubicCapacityNotDefined() {
+		return cubicCapacityNotDefined;
 	}
 	
 }

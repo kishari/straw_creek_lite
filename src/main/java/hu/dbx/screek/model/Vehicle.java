@@ -8,27 +8,26 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Vehicle {
 	
 	private Quote quote;
-	private Integer typeCode;
+	private String typeCode;
 	private String make;
 	private Integer seatingCapacity;
 	private Integer cubicCapacity;
-	private Integer carryingCapacity;
-	private Double ownWeight;
-	private Double maximumAllowedWeight;
+	private Integer ownWeight;
+	private Integer maximumAllowedWeight;
 	private Integer maximumNettoPower;
 	private Integer yearOfProduction;
 	private Date dateOfPurchase;
-	private Integer operationalModality;
-	private Integer age;
+	private String operationalModality;
+	private boolean cubicCapacityNotDefined;
 	
 	private ModFactorList modfactors = new ModFactorList();
 	
 
-	public Integer getTypeCode() {
+	public String getTypeCode() {
 		return typeCode;
 	}
 
-	public void setTypeCode(Integer typeCode) {
+	public void setTypeCode(String typeCode) {
 		this.typeCode = typeCode;
 	}
 
@@ -56,19 +55,19 @@ public class Vehicle {
 		this.cubicCapacity = cubicCapacity;
 	}
 
-	public Double getOwnWeight() {
+	public Integer getOwnWeight() {
 		return ownWeight;
 	}
 
-	public void setOwnWeight(Double ownWeight) {
+	public void setOwnWeight(Integer ownWeight) {
 		this.ownWeight = ownWeight;
 	}
 
-	public Double getMaximumAllowedWeight() {
+	public Integer getMaximumAllowedWeight() {
 		return maximumAllowedWeight;
 	}
 
-	public void setMaximumAllowedWeight(Double maximumAllowedWeight) {
+	public void setMaximumAllowedWeight(Integer maximumAllowedWeight) {
 		this.maximumAllowedWeight = maximumAllowedWeight;
 	}
 
@@ -86,14 +85,6 @@ public class Vehicle {
 
 	public void setDateOfPurchase(Date dateOfPurchase) {
 		this.dateOfPurchase = dateOfPurchase;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public Integer getAge() {
-		return age;
 	}
 
 	@XmlTransient
@@ -118,19 +109,11 @@ public class Vehicle {
 		this.modfactors.getModfactors().add(mf);
 	}
 
-	public void setCarryingCapacity(Integer carryingCapacity) {
-		this.carryingCapacity = carryingCapacity;
-	}
-
-	public Integer getCarryingCapacity() {
-		return carryingCapacity;
-	}
-
-	public void setOperationalModality(Integer operationalModality) {
+	public void setOperationalModality(String operationalModality) {
 		this.operationalModality = operationalModality;
 	}
 
-	public Integer getOperationalModality() {
+	public String getOperationalModality() {
 		return operationalModality;
 	}
 
@@ -140,6 +123,14 @@ public class Vehicle {
 
 	public Integer getYearOfProduction() {
 		return yearOfProduction;
+	}
+
+	public void setCubicCapacityNotDefined(boolean cubicCapacityNotDefined) {
+		this.cubicCapacityNotDefined = cubicCapacityNotDefined;
+	}
+
+	public boolean isCubicCapacityNotDefined() {
+		return cubicCapacityNotDefined;
 	}
 	
 }

@@ -13,19 +13,20 @@ public class TariffQuoteV1 {
 	private Date startDate;
 	//private Date endDate;
 	private Integer durationType;
-	private PartnerThinV1 partner;
+	private PartnerV1 partner;
 	private VehicleV1 vehicle;
-	private Integer paymentFrequency;
-	private Integer paymentMethod;
+	private String paymentFrequency;
+	private String paymentMethod;
 	private String bonusMalus;
 	
 	//módosító paraméterek
-	private boolean takeOutWithCasco;
+	private boolean takeOutWithMKBBCasco;
+	private boolean nonMKBBCasco;
 	private boolean child;
 	private boolean mkbPartner;
-	private boolean online;
 	private boolean emailGranted;
-	private boolean extraDamageExemption;
+	private boolean extraClaimFree;
+	private boolean marketingPartner;
 	
 	private ResultV1 result;
 	private MessageListV1 messages = new MessageListV1();
@@ -40,11 +41,11 @@ public class TariffQuoteV1 {
 		this.startDate = startDate;
 	}
 	
-	public PartnerThinV1 getPartner() {
+	public PartnerV1 getPartner() {
 		return partner;
 	}
 	
-	public void setPartner(PartnerThinV1 partner) {
+	public void setPartner(PartnerV1 partner) {
 		this.partner = partner;
 	}
 	
@@ -56,12 +57,12 @@ public class TariffQuoteV1 {
 		this.vehicle = vehicle;
 	}
 
-	public boolean isTakeOutWithCasco() {
-		return takeOutWithCasco;
+	public boolean isTakeOutWithMKBBCasco() {
+		return takeOutWithMKBBCasco;
 	}
 
-	public void setTakeOutWithCasco(boolean takeOutWithCasco) {
-		this.takeOutWithCasco = takeOutWithCasco;
+	public void setTakeOutWithMKBBCasco(boolean takeOutWithMKBBCasco) {
+		this.takeOutWithMKBBCasco = takeOutWithMKBBCasco;
 	}
 
 	public boolean isChild() {
@@ -80,14 +81,6 @@ public class TariffQuoteV1 {
 		this.mkbPartner = mkbPartner;
 	}
 
-	public boolean isOnline() {
-		return online;
-	}
-
-	public void setOnline(boolean online) {
-		this.online = online;
-	}
-
 	public boolean isEmailGranted() {
 		return emailGranted;
 	}
@@ -96,27 +89,19 @@ public class TariffQuoteV1 {
 		this.emailGranted = emailGranted;
 	}
 
-	public Integer getPaymentFrequency() {
+	public String getPaymentFrequency() {
 		return paymentFrequency;
 	}
 
-	public void setPaymentFrequency(Integer paymentFrequency) {
+	public void setPaymentFrequency(String paymentFrequency) {
 		this.paymentFrequency = paymentFrequency;
 	}
-
-	public boolean isExtraDamageExemption() {
-		return extraDamageExemption;
-	}
-
-	public void setExtraDamageExemption(boolean extraDamageExemption) {
-		this.extraDamageExemption = extraDamageExemption;
-	}
 	
-	public Integer getPaymentMethod() {
+	public String getPaymentMethod() {
 		return paymentMethod;
 	}
 
-	public void setPaymentMethod(Integer paymentMethod) {
+	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 
@@ -171,6 +156,30 @@ public class TariffQuoteV1 {
 
 	public Integer getDurationType() {
 		return durationType;
+	}
+
+	public void setNonMKBBCasco(boolean nonMKBBCasco) {
+		this.nonMKBBCasco = nonMKBBCasco;
+	}
+
+	public boolean isNonMKBBCasco() {
+		return nonMKBBCasco;
+	}
+
+	public void setMarketingPartner(boolean marketingPartner) {
+		this.marketingPartner = marketingPartner;
+	}
+
+	public boolean isMarketingPartner() {
+		return marketingPartner;
+	}
+
+	public void setExtraClaimFree(boolean extraClaimFree) {
+		this.extraClaimFree = extraClaimFree;
+	}
+
+	public boolean isExtraClaimFree() {
+		return extraClaimFree;
 	}
 
 	
