@@ -9,3 +9,6 @@ web/WEB-INF/lib
 target
 lib
 local.properties
+*.ipr
+*.iml
+*.iws

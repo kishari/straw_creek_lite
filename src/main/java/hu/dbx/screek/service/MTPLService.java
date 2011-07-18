@@ -82,7 +82,7 @@ public class MTPLService implements ApplicationContextAware {
         return applicationContext;
     }
 
-	@Override
+	//@Override
 	@WebMethod(exclude = true)
 	public void setApplicationContext(ApplicationContext appCtx)
 			throws BeansException {
