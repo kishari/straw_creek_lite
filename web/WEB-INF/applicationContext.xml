@@ -26,20 +26,11 @@
           
 	    <constructor-arg>
 	    	<list>
-<<<<<<< HEAD
-	    		<value>${knowledgeBasePath}/drl/workflow.drl</value>
-	    		<value>${knowledgeBasePath}/drl/valid-tariff.drl</value>
-	    		<value>${knowledgeBasePath}/drl/valid-approve.drl</value>
-	    		<value>${knowledgeBasePath}/drl/calculate.drl</value>
-	    		<value>${knowledgeBasePath}/drl/cleanup.drl</value>
-	    		<value>${knowledgeBasePath}/drl/preprocess.drl</value>
-=======
 	    		<value>drl/workflow.drl</value>
 	    		<value>drl/validate.drl</value>
 	    		<value>drl/calculate.drl</value>
 	    		<value>drl/cleanup.drl</value>
 	    		<value>drl/preprocess.drl</value>
->>>>>>> mkbbcodes
 	    	</list>
 	    </constructor-arg>
     </bean>
